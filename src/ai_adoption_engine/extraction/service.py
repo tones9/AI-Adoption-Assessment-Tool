@@ -49,6 +49,27 @@ class ProcessExtractionService:
             lambda: f"extraction-{uuid.uuid4()}"
         )
 
+    def _provider_issue(
+        self,
+        exc: ExtractionProviderError,
+        *,
+        message: str,
+        chunk_id: str,
+    ) -> ExtractionIssue:
+        return ExtractionIssue(
+            severity=ExtractionIssueSeverity.ERROR,
+            code=exc.code,
+            message=message,
+            chunk_id=chunk_id,
+            provider_name=exc.provider_name or self.provider.provider_name,
+            requested_model=exc.requested_model or self.provider.model_name,
+            error_category=exc.category,
+            http_status_code=exc.http_status_code,
+            request_id=exc.request_id,
+            sdk_retries_exhausted=exc.sdk_retries_exhausted,
+            failure_stage=exc.failure_stage,
+        )
+
     def extract(self, document: IngestedDocument) -> CandidateExtractionResult:
         chunks = plan_chunks(document, self.chunking)
         if not chunks:
@@ -80,9 +101,8 @@ class ProcessExtractionService:
             except ExtractionProviderInvalidOutput as exc:
                 if not self.repair_attempts:
                     issues.append(
-                        ExtractionIssue(
-                            severity=ExtractionIssueSeverity.ERROR,
-                            code=exc.code,
+                        self._provider_issue(
+                            exc,
                             message="The provider returned invalid structured output.",
                             chunk_id=chunk.chunk_id,
                         )
@@ -102,9 +122,8 @@ class ProcessExtractionService:
                     invocations.append(response.invocation)
                 except ExtractionProviderError as repair_exc:
                     issues.append(
-                        ExtractionIssue(
-                            severity=ExtractionIssueSeverity.ERROR,
-                            code=repair_exc.code,
+                        self._provider_issue(
+                            repair_exc,
                             message="The provider could not repair invalid structured output.",
                             chunk_id=chunk.chunk_id,
                         )
@@ -112,9 +131,8 @@ class ProcessExtractionService:
                     continue
             except ExtractionProviderError as exc:
                 issues.append(
-                    ExtractionIssue(
-                        severity=ExtractionIssueSeverity.ERROR,
-                        code=exc.code,
+                    self._provider_issue(
+                        exc,
                         message="The extraction provider could not process this chunk.",
                         chunk_id=chunk.chunk_id,
                     )
@@ -146,9 +164,8 @@ class ProcessExtractionService:
                         resolution_issues = repaired_issues
                 except ExtractionProviderError as exc:
                     resolution_issues.append(
-                        ExtractionIssue(
-                            severity=ExtractionIssueSeverity.ERROR,
-                            code=exc.code,
+                        self._provider_issue(
+                            exc,
                             message="The provider could not complete evidence repair.",
                             chunk_id=chunk.chunk_id,
                         )

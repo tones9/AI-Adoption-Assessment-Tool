@@ -29,6 +29,27 @@ class ExtractionIssueSeverity(StrEnum):
     ERROR = "error"
 
 
+class ProviderErrorCategory(StrEnum):
+    BAD_REQUEST = "bad-request"
+    AUTHENTICATION = "authentication"
+    PERMISSION_DENIED = "permission-denied"
+    MODEL_OR_RESOURCE_NOT_FOUND = "model-or-resource-not-found"
+    RATE_LIMIT_OR_QUOTA = "rate-limit-or-quota"
+    CONNECTION = "connection"
+    TIMEOUT = "timeout"
+    SERVER_ERROR = "server-error"
+    INVALID_STRUCTURED_OUTPUT = "invalid-structured-output"
+    REFUSAL = "refusal"
+    CONFIGURATION = "configuration"
+    PROVIDER_ERROR = "provider-error"
+
+
+class ProviderFailureStage(StrEnum):
+    PROVIDER_REQUEST = "provider-request"
+    PROVIDER_RESPONSE = "provider-response"
+    SCHEMA_PARSING = "schema-parsing"
+
+
 class RawEvidencePointer(BaseModel):
     """Untrusted provider citation; it never carries trusted offsets."""
 
@@ -218,6 +239,13 @@ class ExtractionIssue(BaseModel):
     chunk_id: str | None = None
     block_id: str | None = None
     field_path: str | None = None
+    provider_name: str | None = Field(default=None, min_length=1)
+    requested_model: str | None = Field(default=None, min_length=1)
+    error_category: ProviderErrorCategory | None = None
+    http_status_code: int | None = Field(default=None, ge=100, le=599)
+    request_id: str | None = Field(default=None, min_length=1, max_length=200)
+    sdk_retries_exhausted: bool | None = None
+    failure_stage: ProviderFailureStage | None = None
 
 
 class CandidateExtractionResult(BaseModel):

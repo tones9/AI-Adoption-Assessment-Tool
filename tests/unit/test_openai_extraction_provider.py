@@ -6,8 +6,15 @@ import pytest
 from ai_adoption_engine.extraction.chunking import plan_chunks
 from ai_adoption_engine.extraction.configuration import load_extraction_configuration
 from ai_adoption_engine.extraction.errors import (
-    ExtractionProviderConfigurationError,
+    ExtractionProviderAuthenticationError,
+    ExtractionProviderBadRequest,
+    ExtractionProviderConnectionError,
+    ExtractionProviderError,
+    ExtractionProviderNotFound,
+    ExtractionProviderPermissionDenied,
+    ExtractionProviderRateLimit,
     ExtractionProviderRefusal,
+    ExtractionProviderServerError,
     ExtractionProviderTimeout,
 )
 from ai_adoption_engine.extraction.providers.base import ExtractionRequest
@@ -94,22 +101,165 @@ def test_openai_adapter_maps_refusal_without_leaking_refusal_text() -> None:
     assert "sensitive detail" not in str(exc_info.value)
 
 
-def test_openai_adapter_sanitises_timeout_and_authentication_errors() -> None:
-    Timeout = type("APITimeoutError", (Exception,), {})
-    timeout_provider = OpenAIExtractionProvider(
-        load_extraction_configuration(CONFIG_PATH), client=FakeClient(Timeout("secret"))
+def _sdk_error(
+    name: str,
+    *,
+    status_code: int | None,
+    request_id: str | None,
+    retry_count: int,
+) -> Exception:
+    error_type = type(name, (Exception,), {})
+    error = error_type("secret response body and credential material")
+    error.status_code = status_code
+    error.request_id = request_id
+    error.request = SimpleNamespace(
+        headers={"x-stainless-retry-count": str(retry_count)}
     )
-    with pytest.raises(ExtractionProviderTimeout) as exc_info:
-        timeout_provider.extract_chunk(_request())
-    assert "secret" not in str(exc_info.value)
+    return error
 
-    Auth = type("AuthenticationError", (Exception,), {})
-    auth_provider = OpenAIExtractionProvider(
-        load_extraction_configuration(CONFIG_PATH), client=FakeClient(Auth("key-value"))
+
+@pytest.mark.parametrize(
+    (
+        "sdk_name",
+        "status_code",
+        "request_id",
+        "retry_count",
+        "expected_type",
+        "expected_category",
+        "expected_exhausted",
+    ),
+    [
+        (
+            "BadRequestError",
+            400,
+            "req_bad_request",
+            0,
+            ExtractionProviderBadRequest,
+            "bad-request",
+            False,
+        ),
+        (
+            "AuthenticationError",
+            401,
+            "req_authentication",
+            0,
+            ExtractionProviderAuthenticationError,
+            "authentication",
+            False,
+        ),
+        (
+            "PermissionDeniedError",
+            403,
+            "req_permission",
+            0,
+            ExtractionProviderPermissionDenied,
+            "permission-denied",
+            False,
+        ),
+        (
+            "NotFoundError",
+            404,
+            "req_not_found",
+            0,
+            ExtractionProviderNotFound,
+            "model-or-resource-not-found",
+            False,
+        ),
+        (
+            "RateLimitError",
+            429,
+            "req_rate_limit",
+            2,
+            ExtractionProviderRateLimit,
+            "rate-limit-or-quota",
+            True,
+        ),
+        (
+            "APIConnectionError",
+            None,
+            None,
+            2,
+            ExtractionProviderConnectionError,
+            "connection",
+            True,
+        ),
+        (
+            "APITimeoutError",
+            None,
+            None,
+            2,
+            ExtractionProviderTimeout,
+            "timeout",
+            True,
+        ),
+        (
+            "InternalServerError",
+            500,
+            "req_server_error",
+            2,
+            ExtractionProviderServerError,
+            "server-error",
+            True,
+        ),
+        (
+            "APIStatusError",
+            422,
+            "req_status_error",
+            0,
+            ExtractionProviderError,
+            "provider-error",
+            False,
+        ),
+    ],
+)
+def test_openai_adapter_classifies_sdk_errors_without_leaking_details(
+    sdk_name: str,
+    status_code: int | None,
+    request_id: str | None,
+    retry_count: int,
+    expected_type: type[ExtractionProviderError],
+    expected_category: str,
+    expected_exhausted: bool,
+) -> None:
+    provider = OpenAIExtractionProvider(
+        load_extraction_configuration(CONFIG_PATH),
+        client=FakeClient(
+            _sdk_error(
+                sdk_name,
+                status_code=status_code,
+                request_id=request_id,
+                retry_count=retry_count,
+            )
+        ),
     )
-    with pytest.raises(ExtractionProviderConfigurationError) as exc_info:
-        auth_provider.extract_chunk(_request())
-    assert "key-value" not in str(exc_info.value)
+    with pytest.raises(expected_type) as exc_info:
+        provider.extract_chunk(_request())
+
+    error = exc_info.value
+    assert "secret" not in str(error)
+    assert error.category.value == expected_category
+    assert error.http_status_code == status_code
+    assert error.request_id == request_id
+    assert error.provider_name == "openai"
+    assert error.requested_model == "gpt-5.6-terra"
+    assert error.sdk_retries_exhausted is expected_exhausted
+
+
+def test_openai_adapter_discards_unsafe_request_id() -> None:
+    provider = OpenAIExtractionProvider(
+        load_extraction_configuration(CONFIG_PATH),
+        client=FakeClient(
+            _sdk_error(
+                "BadRequestError",
+                status_code=400,
+                request_id="unsafe request id\nsecret-header: value",
+                retry_count=0,
+            )
+        ),
+    )
+    with pytest.raises(ExtractionProviderBadRequest) as exc_info:
+        provider.extract_chunk(_request())
+    assert exc_info.value.request_id is None
 
 
 def test_provider_output_schema_contains_no_trusted_offsets() -> None:

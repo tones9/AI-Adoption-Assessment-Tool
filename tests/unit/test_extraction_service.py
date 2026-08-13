@@ -1,5 +1,6 @@
 from ai_adoption_engine.extraction.errors import (
     ExtractionProviderInvalidOutput,
+    ExtractionProviderRateLimit,
     ExtractionProviderTimeout,
 )
 from ai_adoption_engine.extraction.service import ProcessExtractionService
@@ -116,6 +117,34 @@ def test_provider_timeout_is_sanitised() -> None:
     assert result.status is ExtractionStatus.FAILED
     assert result.issues[0].code == "provider-timeout"
     assert "secret" not in result.issues[0].message
+
+
+def test_provider_diagnostic_metadata_is_sanitised_and_structured() -> None:
+    ingestion = ingest_raw_text("Agent records the complaint.")
+    assert ingestion.document is not None
+    provider = ScriptedExtractionProvider(
+        [
+            ExtractionProviderRateLimit(
+                "safe internal message only",
+                provider_name="openai",
+                requested_model="gpt-5.6-terra",
+                http_status_code=429,
+                request_id="req_rate_limit",
+                sdk_retries_exhausted=True,
+            )
+        ]
+    )
+    result = ProcessExtractionService(provider).extract(ingestion.document)
+    issue = result.issues[0]
+    assert issue.code == "provider-rate-limit-or-quota"
+    assert issue.error_category.value == "rate-limit-or-quota"
+    assert issue.http_status_code == 429
+    assert issue.request_id == "req_rate_limit"
+    assert issue.provider_name == "openai"
+    assert issue.requested_model == "gpt-5.6-terra"
+    assert issue.sdk_retries_exhausted is True
+    assert issue.failure_stage.value == "provider-request"
+    assert "safe internal message" not in issue.message
 
 
 def test_invalid_structured_output_uses_single_repair_attempt() -> None:

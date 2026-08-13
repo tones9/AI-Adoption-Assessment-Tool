@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 from typing import Any, Callable
 
 from ai_adoption_engine.extraction.configuration import (
@@ -10,10 +11,17 @@ from ai_adoption_engine.extraction.configuration import (
     load_extraction_configuration,
 )
 from ai_adoption_engine.extraction.errors import (
+    ExtractionProviderAuthenticationError,
+    ExtractionProviderBadRequest,
+    ExtractionProviderConnectionError,
     ExtractionProviderConfigurationError,
     ExtractionProviderError,
     ExtractionProviderInvalidOutput,
+    ExtractionProviderNotFound,
+    ExtractionProviderPermissionDenied,
+    ExtractionProviderRateLimit,
     ExtractionProviderRefusal,
+    ExtractionProviderServerError,
     ExtractionProviderTimeout,
 )
 from ai_adoption_engine.extraction.prompting import (
@@ -83,18 +91,73 @@ class OpenAIExtractionProvider:
         return None
 
     @staticmethod
-    def _sanitised_error(exc: Exception) -> ExtractionProviderError:
+    def _safe_status_code(exc: Exception) -> int | None:
+        value = getattr(exc, "status_code", None)
+        return value if isinstance(value, int) and 100 <= value <= 599 else None
+
+    @staticmethod
+    def _safe_request_id(exc: Exception) -> str | None:
+        value = getattr(exc, "request_id", None)
+        if not isinstance(value, str):
+            return None
+        if not re.fullmatch(r"[A-Za-z0-9._:-]{1,200}", value):
+            return None
+        return value
+
+    def _sdk_retries_exhausted(self, exc: Exception) -> bool | None:
+        request = getattr(exc, "request", None)
+        headers = getattr(request, "headers", None)
+        if headers is None:
+            return None
+        try:
+            retries_taken = int(headers.get("x-stainless-retry-count"))
+        except (TypeError, ValueError):
+            return None
+        return retries_taken >= self.configuration.sdk_max_retries
+
+    def _sanitised_error(self, exc: Exception) -> ExtractionProviderError:
         name = type(exc).__name__
-        status_code = getattr(exc, "status_code", None)
+        status_code = self._safe_status_code(exc)
+        details = {
+            "provider_name": self.provider_name,
+            "requested_model": self.model_name,
+            "http_status_code": status_code,
+            "request_id": self._safe_request_id(exc),
+            "sdk_retries_exhausted": self._sdk_retries_exhausted(exc),
+        }
         if name in {"APITimeoutError", "TimeoutError"}:
-            return ExtractionProviderTimeout("The OpenAI request timed out.")
-        if name in {
-            "AuthenticationError",
-            "PermissionDeniedError",
-            "NotFoundError",
-        } or status_code in {401, 403, 404}:
-            return ExtractionProviderConfigurationError(
-                "OpenAI credentials, project access, or model access are invalid."
+            return ExtractionProviderTimeout(
+                "The OpenAI request timed out.", **details
+            )
+        if name == "BadRequestError" or status_code == 400:
+            return ExtractionProviderBadRequest(
+                "OpenAI rejected the configured request.", **details
+            )
+        if name == "AuthenticationError" or status_code == 401:
+            return ExtractionProviderAuthenticationError(
+                "OpenAI authentication failed.", **details
+            )
+        if name == "PermissionDeniedError" or status_code == 403:
+            return ExtractionProviderPermissionDenied(
+                "OpenAI denied access to the requested operation.", **details
+            )
+        if name == "NotFoundError" or status_code == 404:
+            return ExtractionProviderNotFound(
+                "The requested OpenAI model or resource was not found.", **details
+            )
+        if name == "RateLimitError" or status_code == 429:
+            return ExtractionProviderRateLimit(
+                "OpenAI rate or quota limits prevented the request.", **details
+            )
+        if name == "APIConnectionError":
+            return ExtractionProviderConnectionError(
+                "The OpenAI service could not be reached.", **details
+            )
+        if name == "InternalServerError" or (
+            status_code is not None and status_code >= 500
+        ):
+            return ExtractionProviderServerError(
+                "OpenAI returned a server error.", **details
             )
         if name in {
             "ValidationError",
@@ -102,9 +165,12 @@ class OpenAIExtractionProvider:
             "LengthFinishReasonError",
         }:
             return ExtractionProviderInvalidOutput(
-                "OpenAI returned invalid or incomplete structured output."
+                "OpenAI returned invalid or incomplete structured output.",
+                **details,
             )
-        return ExtractionProviderError("The OpenAI extraction request failed.")
+        return ExtractionProviderError(
+            "The OpenAI extraction request failed.", **details
+        )
 
     def extract_chunk(self, request: ExtractionRequest) -> ProviderExtractionResponse:
         try:
