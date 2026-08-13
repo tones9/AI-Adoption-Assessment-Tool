@@ -1,0 +1,248 @@
+{
+  "process_id": "sample-customer-complaints-v1",
+  "name": "Synthetic Customer Complaint Handling",
+  "description": "A hand-authored Phase 1 process used only to exercise the deterministic assessment contract. It is not an evaluation or benchmark case.",
+  "business_objective": "Resolve complaints consistently and promptly while maintaining human accountability for consequential customer outcomes.",
+  "organisation": "Synthetic Retail Services Ltd",
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "synthetic-process-note-v1",
+      "source_locator": "Section 1 — Intake volumes",
+      "supporting_snippet": "The service team receives approximately 1,200 complaints per month; about 85% arrive by email and agents manually re-key complaint details into the case system.",
+      "provenance": "hand-authored synthetic process description",
+      "knowledge_state": "known",
+      "uncertainty_status": "certain"
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "synthetic-process-note-v1",
+      "source_locator": "Section 2 — Intake fields",
+      "supporting_snippet": "Most messages contain an order number, customer name, product, complaint category, and free-text description; agents verify extracted fields before a case is opened.",
+      "provenance": "hand-authored synthetic process description",
+      "knowledge_state": "known",
+      "uncertainty_status": "certain"
+    },
+    {
+      "evidence_id": "E3",
+      "source_id": "synthetic-process-note-v1",
+      "source_locator": "Section 3 — Available records",
+      "supporting_snippet": "Two years of complaint emails and the corrected case fields are retained in an access-controlled case archive.",
+      "provenance": "hand-authored synthetic process description",
+      "knowledge_state": "known",
+      "uncertainty_status": "certain"
+    },
+    {
+      "evidence_id": "E4",
+      "source_id": "synthetic-process-note-v1",
+      "source_locator": "Section 4 — Routing",
+      "supporting_snippet": "Cases are routed using a maintained table of product, region, and complaint-category rules; no contextual judgement is required when all three fields are present.",
+      "provenance": "hand-authored synthetic process description",
+      "knowledge_state": "known",
+      "uncertainty_status": "certain"
+    },
+    {
+      "evidence_id": "E5",
+      "source_id": "synthetic-process-note-v1",
+      "source_locator": "Section 5 — Response preparation",
+      "supporting_snippet": "Agents consult the approved knowledge base, review the customer's history, and draft a response; an agent remains accountable for accuracy, tone, and any commitment made to the customer.",
+      "provenance": "hand-authored synthetic process description",
+      "knowledge_state": "known",
+      "uncertainty_status": "certain"
+    },
+    {
+      "evidence_id": "E6",
+      "source_id": "synthetic-process-note-v1",
+      "source_locator": "Section 6 — Response controls",
+      "supporting_snippet": "Incorrect advice can create customer detriment or regulatory complaints, but mandatory agent review before sending materially reduces the residual risk.",
+      "provenance": "hand-authored synthetic process description",
+      "knowledge_state": "known",
+      "uncertainty_status": "certain"
+    },
+    {
+      "evidence_id": "E7",
+      "source_id": "synthetic-process-note-v1",
+      "source_locator": "Section 7 — Churn proposal",
+      "supporting_snippet": "Management has proposed predicting customer churn, but the process description does not identify a historical churn outcome dataset, agreed labels, or a validated intervention pathway.",
+      "provenance": "hand-authored synthetic statement of missing information",
+      "knowledge_state": "known",
+      "uncertainty_status": "unknown"
+    },
+    {
+      "evidence_id": "E8",
+      "source_id": "synthetic-process-note-v1",
+      "source_locator": "Section 8 — Compensation decisions",
+      "supporting_snippet": "Regulated redress and compensation decisions depend on customer circumstances, legal obligations, precedent, and accountable manager sign-off; an incorrect decision can cause serious customer and regulatory harm.",
+      "provenance": "hand-authored synthetic process description",
+      "knowledge_state": "known",
+      "uncertainty_status": "certain"
+    },
+    {
+      "evidence_id": "E9",
+      "source_id": "synthetic-process-note-v1",
+      "source_locator": "Section 9 — Implementation assumptions",
+      "supporting_snippet": "The case system exposes controlled import and lookup interfaces, but any production integration would still require security, testing, and governance review.",
+      "provenance": "hand-authored synthetic technical assumption",
+      "knowledge_state": "inferred",
+      "uncertainty_status": "uncertain",
+      "confidence": 0.75
+    }
+  ],
+  "steps": [
+    {
+      "step_id": "S1",
+      "sequence": 1,
+      "activity": "Capture and categorise complaint details",
+      "description": "Read the incoming complaint, extract the core case fields, and assign an initial category before an agent verifies the result.",
+      "actor": "Customer service agent",
+      "responsible_role": "Customer service team lead",
+      "systems": ["Email inbox", "Case management system"],
+      "inputs": ["Complaint email", "Attachments"],
+      "outputs": ["Verified complaint case"],
+      "dependencies": [],
+      "exceptions": ["Missing order number", "Unreadable attachment"],
+      "evidence_ids": ["E1", "E2", "E3", "E9"],
+      "characteristics": {
+        "repetition": {"value": 5, "knowledge_state": "known", "rationale": "High monthly volume.", "evidence_ids": ["E1"]},
+        "predictability": {"value": 4, "knowledge_state": "known", "rationale": "A stable set of fields and categories is used.", "evidence_ids": ["E2"]},
+        "data_readiness": {"value": 4, "knowledge_state": "known", "rationale": "Historical messages and corrected fields are retained.", "evidence_ids": ["E3"]},
+        "ai_capability_fit": {"value": 5, "knowledge_state": "known", "rationale": "Document extraction and classification directly match the activity.", "evidence_ids": ["E1", "E2"]},
+        "human_judgement_requirement": {"value": 1, "knowledge_state": "known", "rationale": "Verification is required, but core extraction is structured.", "evidence_ids": ["E2"]},
+        "business_value": {"value": 4, "knowledge_state": "known", "rationale": "The activity is frequent and currently requires manual re-keying.", "evidence_ids": ["E1"]},
+        "risk_consequence": {"value": 2, "knowledge_state": "known", "rationale": "Incorrect fields can misroute a case but are checked before use.", "evidence_ids": ["E2"]},
+        "residual_risk_with_human_oversight": {"value": 1, "knowledge_state": "known", "rationale": "Agent verification provides a strong control.", "evidence_ids": ["E2"]},
+        "implementation_complexity": {"value": 2, "knowledge_state": "inferred", "rationale": "Controlled interfaces appear available, subject to later technical review.", "evidence_ids": ["E9"], "confidence": 0.75},
+        "conventional_solution_fit": {"value": 1, "knowledge_state": "known", "rationale": "Free-text interpretation is central, so fixed field rules alone fit poorly.", "evidence_ids": ["E1", "E2"]},
+        "human_accountability_required": false,
+        "capability_signals": {
+          "reads_unstructured_documents": true,
+          "categorises_items": true
+        }
+      }
+    },
+    {
+      "step_id": "S2",
+      "sequence": 2,
+      "activity": "Route the case to the responsible queue",
+      "description": "Use product, region, and category to route the verified case according to a maintained routing table.",
+      "actor": "Case management system",
+      "responsible_role": "Customer operations manager",
+      "systems": ["Case management system"],
+      "inputs": ["Verified complaint case", "Routing table"],
+      "outputs": ["Routed complaint case"],
+      "dependencies": ["S1"],
+      "exceptions": ["No matching routing rule"],
+      "evidence_ids": ["E4", "E9"],
+      "characteristics": {
+        "repetition": {"value": 5, "knowledge_state": "known", "rationale": "Every verified case is routed.", "evidence_ids": ["E1", "E4"]},
+        "predictability": {"value": 5, "knowledge_state": "known", "rationale": "Routing follows an explicit table.", "evidence_ids": ["E4"]},
+        "data_readiness": {"value": 5, "knowledge_state": "known", "rationale": "The required verified fields and routing table already exist.", "evidence_ids": ["E4"]},
+        "ai_capability_fit": {"value": 3, "knowledge_state": "known", "rationale": "Classification and workflow tools could perform routing, but AI is not required.", "evidence_ids": ["E4"]},
+        "human_judgement_requirement": {"value": 0, "knowledge_state": "known", "rationale": "Complete cases require no contextual judgement.", "evidence_ids": ["E4"]},
+        "business_value": {"value": 3, "knowledge_state": "known", "rationale": "Automated routing would remove a routine handling step.", "evidence_ids": ["E1", "E4"]},
+        "risk_consequence": {"value": 1, "knowledge_state": "known", "rationale": "A routing error is recoverable through queue monitoring.", "evidence_ids": ["E4"]},
+        "residual_risk_with_human_oversight": {"value": 0, "knowledge_state": "known", "rationale": "Existing exception queues can handle unmatched cases.", "evidence_ids": ["E4"]},
+        "implementation_complexity": {"value": 1, "knowledge_state": "inferred", "rationale": "A maintained routing table and controlled interface already exist.", "evidence_ids": ["E4", "E9"], "confidence": 0.8},
+        "conventional_solution_fit": {"value": 5, "knowledge_state": "known", "rationale": "Deterministic rules directly encode the routing requirement.", "evidence_ids": ["E4"]},
+        "human_accountability_required": false,
+        "capability_signals": {
+          "categorises_items": true,
+          "routes_or_orchestrates_work": true
+        }
+      }
+    },
+    {
+      "step_id": "S3",
+      "sequence": 3,
+      "activity": "Prepare the customer response",
+      "description": "Retrieve approved guidance and draft a response for review and sending by an accountable agent.",
+      "actor": "Customer service agent",
+      "responsible_role": "Customer service team lead",
+      "systems": ["Knowledge base", "Case management system"],
+      "inputs": ["Routed complaint case", "Customer history", "Approved guidance"],
+      "outputs": ["Reviewed customer response"],
+      "dependencies": ["S2"],
+      "exceptions": ["Novel complaint", "Potential regulatory issue"],
+      "evidence_ids": ["E5", "E6", "E9"],
+      "characteristics": {
+        "repetition": {"value": 5, "knowledge_state": "known", "rationale": "A response is prepared for each complaint.", "evidence_ids": ["E1", "E5"]},
+        "predictability": {"value": 3, "knowledge_state": "known", "rationale": "Approved guidance exists, but customer context varies.", "evidence_ids": ["E5"]},
+        "data_readiness": {"value": 4, "knowledge_state": "known", "rationale": "The case, history, and approved knowledge are available.", "evidence_ids": ["E5"]},
+        "ai_capability_fit": {"value": 4, "knowledge_state": "known", "rationale": "Knowledge retrieval and controlled drafting fit the task.", "evidence_ids": ["E5"]},
+        "human_judgement_requirement": {"value": 4, "knowledge_state": "known", "rationale": "Context, tone, accuracy, and commitments require agent judgement.", "evidence_ids": ["E5"]},
+        "business_value": {"value": 4, "knowledge_state": "known", "rationale": "Assistance applies across a high-volume activity.", "evidence_ids": ["E1", "E5"]},
+        "risk_consequence": {"value": 3, "knowledge_state": "known", "rationale": "Incorrect advice can cause customer or regulatory detriment.", "evidence_ids": ["E6"]},
+        "residual_risk_with_human_oversight": {"value": 2, "knowledge_state": "known", "rationale": "Mandatory review reduces but does not eliminate risk.", "evidence_ids": ["E6"]},
+        "implementation_complexity": {"value": 2, "knowledge_state": "inferred", "rationale": "Knowledge and case interfaces appear available, subject to review.", "evidence_ids": ["E5", "E9"], "confidence": 0.75},
+        "conventional_solution_fit": {"value": 1, "knowledge_state": "known", "rationale": "Fixed templates cannot adequately handle the contextual drafting requirement.", "evidence_ids": ["E5"]},
+        "human_accountability_required": true,
+        "capability_signals": {
+          "creates_new_content": true,
+          "searches_reference_knowledge": true
+        }
+      }
+    },
+    {
+      "step_id": "S4",
+      "sequence": 4,
+      "activity": "Identify customers at risk of churn",
+      "description": "Estimate churn risk so that the service team can consider an appropriate retention intervention.",
+      "actor": "Customer service analyst",
+      "responsible_role": "Customer operations manager",
+      "systems": ["Case management system"],
+      "inputs": ["Complaint history", "Customer history"],
+      "outputs": ["Proposed churn-risk indicator"],
+      "dependencies": ["S2"],
+      "exceptions": ["No agreed churn label", "No validated intervention"],
+      "evidence_ids": ["E7"],
+      "characteristics": {
+        "repetition": {"value": 4, "knowledge_state": "inferred", "rationale": "The proposal would apply to most complaint cases.", "evidence_ids": ["E7"], "confidence": 0.7},
+        "predictability": {"value": 3, "knowledge_state": "inferred", "rationale": "Prediction is plausible but outcome behaviour is not yet established.", "evidence_ids": ["E7"], "confidence": 0.7},
+        "data_readiness": {"value": null, "knowledge_state": "unknown", "rationale": "No labelled historical churn outcome dataset is identified.", "evidence_ids": ["E7"]},
+        "ai_capability_fit": {"value": 4, "knowledge_state": "inferred", "rationale": "Prediction could fit if a valid outcome and dataset are established.", "evidence_ids": ["E7"], "confidence": 0.7},
+        "human_judgement_requirement": {"value": 2, "knowledge_state": "inferred", "rationale": "A human would decide whether and how to intervene.", "evidence_ids": ["E7"], "confidence": 0.7},
+        "business_value": {"value": 4, "knowledge_state": "inferred", "rationale": "Retention may be valuable, but no measured opportunity is supplied.", "evidence_ids": ["E7"], "confidence": 0.65},
+        "risk_consequence": {"value": 3, "knowledge_state": "inferred", "rationale": "Poor predictions could produce unfair or inappropriate treatment.", "evidence_ids": ["E7"], "confidence": 0.7},
+        "residual_risk_with_human_oversight": {"value": 2, "knowledge_state": "inferred", "rationale": "Human intervention review may mitigate some risk.", "evidence_ids": ["E7"], "confidence": 0.65},
+        "implementation_complexity": {"value": 3, "knowledge_state": "inferred", "rationale": "Dataset, labels, model, intervention, and monitoring would need validation.", "evidence_ids": ["E7"], "confidence": 0.75},
+        "conventional_solution_fit": {"value": 1, "knowledge_state": "inferred", "rationale": "Simple rules may not capture future churn behaviour, but evidence is incomplete.", "evidence_ids": ["E7"], "confidence": 0.65},
+        "human_accountability_required": true,
+        "capability_signals": {
+          "predicts_future_outcomes": true
+        }
+      }
+    },
+    {
+      "step_id": "S5",
+      "sequence": 5,
+      "activity": "Approve regulated compensation or redress",
+      "description": "Determine and authorise consequential compensation or redress using customer circumstances, obligations, and precedent.",
+      "actor": "Authorised complaints manager",
+      "responsible_role": "Head of complaints",
+      "systems": ["Case management system", "Policy repository"],
+      "inputs": ["Investigated complaint", "Customer circumstances", "Legal obligations", "Precedent"],
+      "outputs": ["Accountable redress decision"],
+      "dependencies": ["S3"],
+      "exceptions": ["Novel legal issue", "Vulnerable customer", "Material financial impact"],
+      "evidence_ids": ["E8", "E9"],
+      "characteristics": {
+        "repetition": {"value": 2, "knowledge_state": "known", "rationale": "Only a subset of complaints requires regulated redress.", "evidence_ids": ["E8"]},
+        "predictability": {"value": 2, "knowledge_state": "known", "rationale": "Policy and precedent exist, but circumstances and obligations vary materially.", "evidence_ids": ["E8"]},
+        "data_readiness": {"value": 3, "knowledge_state": "known", "rationale": "Case facts and policies exist, but relevant context may not be fully structured.", "evidence_ids": ["E8"]},
+        "ai_capability_fit": {"value": 3, "knowledge_state": "known", "rationale": "Decision support is possible, but autonomous decision-making is inappropriate.", "evidence_ids": ["E8"]},
+        "human_judgement_requirement": {"value": 5, "knowledge_state": "known", "rationale": "Expert contextual judgement and accountable sign-off are essential.", "evidence_ids": ["E8"]},
+        "business_value": {"value": 3, "knowledge_state": "known", "rationale": "Consistent access to relevant information could help managers.", "evidence_ids": ["E8"]},
+        "risk_consequence": {"value": 5, "knowledge_state": "known", "rationale": "Errors can cause serious customer, financial, legal, and regulatory harm.", "evidence_ids": ["E8"]},
+        "residual_risk_with_human_oversight": {"value": 5, "knowledge_state": "known", "rationale": "The synthetic process states that the consequential decision itself must remain accountable and human-led.", "evidence_ids": ["E8"]},
+        "implementation_complexity": {"value": 3, "knowledge_state": "inferred", "rationale": "Relevant information spans case, policy, and precedent sources.", "evidence_ids": ["E8", "E9"], "confidence": 0.75},
+        "conventional_solution_fit": {"value": 2, "knowledge_state": "known", "rationale": "Rules and workflow help but do not replace contextual judgement.", "evidence_ids": ["E8"]},
+        "human_accountability_required": true,
+        "capability_signals": {
+          "ranks_or_suggests_options": true,
+          "supports_complex_decisions": true
+        }
+      }
+    }
+  ]
+}
+
