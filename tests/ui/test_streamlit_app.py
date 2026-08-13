@@ -150,6 +150,8 @@ def test_decision_package_ui_renders_proposed_state_gates_and_report(tmp_path, m
     assert "PROPOSED / NOT DEPLOYED" in rendered
     assert "GO / REVISE / STOP" in rendered
     assert "ROI / quantified benefit unavailable with current evidence." in rendered
+    assert "AI deployment roadmap not applicable." in rendered
+    assert "does not claim legal compliance" in rendered
     assert app.download_button
 
 
@@ -310,3 +312,274 @@ def test_start_human_review_button_persists_once_and_opens_same_review(
             assessment.assessment_id, ArtifactType.REVIEW_SESSION
         )
     ) == 1
+
+
+def test_approval_blockers_are_explicit_and_final_resolution_enables_approval(
+    tmp_path, monkeypatch
+) -> None:
+    from ai_adoption_engine.decision.engine import AssessmentEngine
+    from ai_adoption_engine.extraction.providers.openai import OpenAIExtractionProvider
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Approval review must not invoke OpenAI or assessment")
+
+    monkeypatch.setattr(OpenAIExtractionProvider, "extract_chunk", forbidden)
+    monkeypatch.setattr(AssessmentEngine, "assess", forbidden)
+
+    path = tmp_path / "approval-eligibility.db"
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
+    repository = SQLiteAssessmentRepository(path)
+    assessment = repository.create_assessment(
+        "Approval eligibility UAT", ExecutionMode.OFFLINE_DEMO
+    )
+    service = build_workspace_service(path)
+    service.ingest_upload(assessment.assessment_id, raw_text=demo_text())
+    service.extract(assessment.assessment_id)
+    session = service.start_review(assessment.assessment_id)
+    service.review_service.accept_assertion(
+        session,
+        session.steps[1].activity,
+        f"steps.{session.steps[1].candidate_step_id}.activity",
+    )
+    service.review_service.accept_step_order(session)
+    service.save_review(assessment.assessment_id, session)
+
+    app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=30)
+    app.session_state["selected_assessment_id"] = assessment.assessment_id
+    app._page_hash = calc_hash("review")
+    app.run()
+    assert not app.exception
+
+    blocker = next(
+        item.value for item in app.warning if "Approval blocked because" in item.value
+    )
+    assert "process name must be accepted or corrected" in blocker
+    assert "Step 1 “Record the complaint”" in blocker
+    assert "Step 3 “Review the categorised complaint”" in blocker
+    assert "Step 7 “Send the response and close the case”" in blocker
+    assert "Step 2 “Categorise complaint" not in blocker
+    requirements = "\n".join(item.value for item in app.markdown)
+    assert ":orange-badge[Incomplete] Process identity confirmed" in requirements
+    assert ":orange-badge[Incomplete] Every retained step activity confirmed" in requirements
+    assert ":green-badge[Complete] Step ordering accepted" in requirements
+    confirmation = next(
+        item
+        for item in app.checkbox
+        if item.label == "APPROVE CURRENT-STATE PROCESS"
+    )
+    approval_button = next(
+        item
+        for item in app.button
+        if item.label == "Approve current-state process"
+    )
+    assert confirmation.disabled
+    assert approval_button.disabled
+
+    app.button(
+        key="FormSubmitter:review-process.name-Apply review action"
+    ).click().run()
+    unreviewed_activity_buttons = [
+        item.key
+        for item in app.button
+        if item.key
+        and ".activity-Apply review action" in item.key
+        and item.key
+        != (
+            "FormSubmitter:review-steps."
+            f"{session.steps[1].candidate_step_id}.activity-Apply review action"
+        )
+    ]
+    for key in unreviewed_activity_buttons:
+        app.button(key=key).click().run()
+
+    assert not app.exception
+    assert any(
+        "All structural approval requirements are complete" in item.value
+        for item in app.success
+    )
+    confirmation = next(
+        item
+        for item in app.checkbox
+        if item.label == "APPROVE CURRENT-STATE PROCESS"
+    )
+    assert not confirmation.disabled
+    confirmation.check().run()
+    approval_button = next(
+        item
+        for item in app.button
+        if item.label == "Approve current-state process"
+    )
+    assert not approval_button.disabled
+    next(
+        item for item in app.text_input if item.label == "Optional approval rationale"
+    ).input("The current-state process was reviewed during UAT.")
+    approval_button.click().run()
+
+    assert not app.exception
+    assert any(
+        "Current-state process explicitly approved" in item.value
+        for item in app.success
+    )
+    approved = SQLiteAssessmentRepository(path).load_workspace(
+        assessment.assessment_id
+    )
+    assert approved.assessment.current_stage is WorkflowStage.APPROVED
+    assert ArtifactType.APPROVED_REVIEW in approved.active_artifacts
+    assert ArtifactType.INTEGRATED_ASSESSMENT_RESULT not in approved.active_artifacts
+    assert ArtifactType.DECISION_PACKAGE_RESULT not in approved.active_artifacts
+
+
+def test_complete_offline_demo_ui_journey_persists_and_reopens_exact_chain(
+    tmp_path, monkeypatch
+) -> None:
+    from ai_adoption_engine.extraction.providers.openai import OpenAIExtractionProvider
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Offline Demo must never invoke OpenAI")
+
+    monkeypatch.setattr(OpenAIExtractionProvider, "extract_chunk", forbidden)
+    path = tmp_path / "complete-offline-uat.db"
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
+
+    app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=30).run()
+    app.text_input[0].input("Complete Offline Demo UAT")
+    app.checkbox[0].check()
+    app.button(key="FormSubmitter:new-assessment-Create assessment").click().run()
+    assessment_id = app.session_state["selected_assessment_id"]
+
+    app._page_hash = calc_hash("source")
+    app.run()
+    next(item for item in app.button if item.label == "Ingest document").click().run()
+    next(
+        item for item in app.button if item.label == "Extract candidate process"
+    ).click().run()
+    next(
+        item for item in app.button if item.label == "Start human review"
+    ).click().run()
+
+    repository = SQLiteAssessmentRepository(path)
+    started = repository.load_workspace(assessment_id)
+    assert started.assessment.current_stage is WorkflowStage.IN_REVIEW
+    session = started.active_artifacts[ArtifactType.REVIEW_SESSION].payload
+    service = build_workspace_service(path)
+    service.review_service.accept_assertion(
+        session, session.process_name, "process.name"
+    )
+    for step in session.steps:
+        service.review_service.accept_assertion(
+            session, step.activity, f"steps.{step.candidate_step_id}.activity"
+        )
+    service.review_service.retain_unknown(
+        session,
+        session.steps[0].criteria[0].assertion,
+        f"steps.{session.steps[0].candidate_step_id}.criteria[0]",
+        rationale="The source does not establish this assessment value.",
+    )
+    dependency_step = next(step for step in session.steps if step.dependencies)
+    service.review_service.correct_dependency(
+        session,
+        dependency_step.candidate_step_id,
+        0,
+        dependency_step.dependencies[0].target_candidate_step_id,
+        rationale="The reviewer confirmed the candidate dependency.",
+    )
+    service.review_service.accept_step_order(session)
+    service.save_review(assessment_id, session)
+
+    app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=30)
+    app.session_state["selected_assessment_id"] = assessment_id
+    app._page_hash = calc_hash("review")
+    app.run()
+    confirmation = next(
+        item
+        for item in app.checkbox
+        if item.label == "APPROVE CURRENT-STATE PROCESS"
+    )
+    confirmation.check().run()
+    next(
+        item for item in app.text_input if item.label == "Optional approval rationale"
+    ).input("Complete Offline Demo UAT approval.")
+    next(
+        item
+        for item in app.button
+        if item.label == "Approve current-state process"
+    ).click().run()
+    assert not app.exception
+
+    app._page_hash = calc_hash("results")
+    app.run()
+    next(
+        item for item in app.button if item.label == "Run AI-adoption assessment"
+    ).click().run()
+    assert not app.exception
+    assert next(item for item in app.metric if item.label == "Activities assessed").value == "7"
+    assert next(item for item in app.metric if item.label == "Investigate").value == "7"
+    assert not app.error
+
+    app._page_hash = calc_hash("decision-package")
+    app.run()
+    next(
+        item for item in app.button if item.label == "Generate decision package"
+    ).click().run()
+    assert not app.exception
+    rendered = "\n".join(
+        str(item.value)
+        for kind in ("markdown", "caption", "warning", "info", "subheader")
+        for item in app.get(kind)
+    )
+    for marker in (
+        "PROPOSED / NOT DEPLOYED",
+        "GO / REVISE / STOP",
+        "ROI / quantified benefit unavailable with current evidence.",
+        "does not claim legal compliance",
+    ):
+        assert marker in rendered
+    assert any(
+        item.label == "Download print-friendly HTML report"
+        for item in app.download_button
+    )
+
+    completed = repository.load_workspace(assessment_id)
+    immutable_ids = {
+        artifact_type: completed.active_artifacts[artifact_type].artifact_id
+        for artifact_type in (
+            ArtifactType.CANDIDATE_EXTRACTION_RESULT,
+            ArtifactType.APPROVED_REVIEW,
+            ArtifactType.INTEGRATED_ASSESSMENT_RESULT,
+            ArtifactType.DECISION_PACKAGE_RESULT,
+        )
+    }
+    app.run()
+    reopened_app = AppTest.from_file(
+        ROOT / "streamlit_app.py", default_timeout=30
+    ).run()
+    next(item for item in reopened_app.button if item.label == "Open").click().run()
+    reopened_app._page_hash = calc_hash("decision-package")
+    reopened_app.run()
+    assert not reopened_app.exception
+    assert reopened_app.download_button
+
+    reopened = SQLiteAssessmentRepository(path).load_workspace(assessment_id)
+    assert reopened.assessment.current_stage is WorkflowStage.PACKAGE_READY
+    assert all(
+        reopened.active_artifacts[artifact_type].artifact_id == artifact_id
+        for artifact_type, artifact_id in immutable_ids.items()
+    )
+    assert (
+        reopened.active_artifacts[
+            ArtifactType.INTEGRATED_ASSESSMENT_RESULT
+        ].parent_artifact_id
+        == reopened.active_artifacts[ArtifactType.APPROVED_REVIEW].artifact_id
+    )
+    assert (
+        reopened.active_artifacts[
+            ArtifactType.DECISION_PACKAGE_RESULT
+        ].parent_artifact_id
+        == reopened.active_artifacts[
+            ArtifactType.INTEGRATED_ASSESSMENT_RESULT
+        ].artifact_id
+    )
+    assert all(
+        len(repository.list_artifact_revisions(assessment_id, artifact_type)) == 1
+        for artifact_type in immutable_ids
+    )

@@ -9,7 +9,9 @@ import streamlit as st
 
 from ai_adoption_engine.models.enums import KnowledgeState
 from ai_adoption_engine.models.review import (
+    ApprovalError,
     ConflictStatus,
+    ExplicitApproval,
     ProcessReviewSession,
     ReviewedAssertion,
     ReviewedCollection,
@@ -22,14 +24,78 @@ from ai_adoption_engine.presentation.context import (
     refresh_workspace,
     workspace_service,
 )
+from ai_adoption_engine.review.approval import approve_review
 
 
 AssertionResolver = Callable[[ProcessReviewSession], ReviewedAssertion]
 CollectionResolver = Callable[[ProcessReviewSession], ReviewedCollection]
 
 
+_APPROVAL_REQUIREMENTS = (
+    (
+        "Process identity confirmed",
+        {"process-identity-unconfirmed"},
+    ),
+    (
+        "At least one process step retained",
+        {"no-retained-steps"},
+    ),
+    (
+        "Every retained step activity confirmed",
+        {"step-activity-unconfirmed"},
+    ),
+    (
+        "Step ordering accepted",
+        {"step-order-unconfirmed"},
+    ),
+    (
+        "Retained dependencies are valid",
+        {"invalid-retained-dependency"},
+    ),
+    (
+        "Blocking structural conflicts resolved",
+        {"unresolved-structural-conflict"},
+    ),
+    (
+        "Validated process projection is structurally valid",
+        {"invalid-phase1-projection"},
+    ),
+)
+
+
 def _step(session: ProcessReviewSession, step_id: str):
     return next(item for item in session.steps if item.candidate_step_id == step_id)
+
+
+def _approval_errors(session: ProcessReviewSession) -> list[ApprovalError]:
+    """Run the Phase 4 approval boundary as a side-effect-free preflight."""
+    result = approve_review(
+        session,
+        ExplicitApproval(
+            approval_statement="APPROVE CURRENT-STATE PROCESS",
+            approved_at=session.updated_at,
+        ),
+    )
+    return result.errors
+
+
+def _approval_error_message(
+    session: ProcessReviewSession, error: ApprovalError
+) -> str:
+    if error.code == "step-activity-unconfirmed" and error.field_path:
+        step_id = error.field_path.removeprefix("steps.").removesuffix(".activity")
+        try:
+            step = _step(session, step_id)
+        except StopIteration:
+            pass
+        else:
+            return (
+                f"Step {step.sequence} “{step.activity.value or 'Unknown activity'}”: "
+                "accept or correct the activity."
+            )
+    if error.field_path:
+        return f"{error.message} ({error.field_path})"
+    return error.message
 
 
 def _apply(session: ProcessReviewSession, operation: Callable[[ProcessReviewSession], None]) -> None:
@@ -457,12 +523,60 @@ def render() -> None:
             "Approval confirms that this is an acceptable human-reviewed representation of the current-state process. "
             "Unknown AI-assessment information may remain unknown."
         )
-        with st.form("approve-current-state"):
-            confirmed = st.checkbox("APPROVE CURRENT-STATE PROCESS")
-            rationale = st.text_input("Optional approval rationale")
-            submitted = st.form_submit_button(
-                "Approve current-state process", type="primary", disabled=not confirmed
+        approval_errors = _approval_errors(session)
+        error_codes = {item.code for item in approval_errors}
+        st.markdown("**Approval requirements**")
+        for label, blocking_codes in _APPROVAL_REQUIREMENTS:
+            if error_codes.isdisjoint(blocking_codes):
+                st.markdown(f":green-badge[Complete] {label}")
+            else:
+                st.markdown(f":orange-badge[Incomplete] {label}")
+
+        if approval_errors:
+            st.warning(
+                "**Approval blocked because:**\n\n"
+                + "\n".join(
+                    f"- {_approval_error_message(session, error)}"
+                    for error in approval_errors
+                )
             )
+        else:
+            st.success(
+                "All structural approval requirements are complete. "
+                "Confirm the statement below to enable approval."
+            )
+
+        confirmation_key = (
+            f"approve-current-state-{session.review_id}-{session.updated_at.isoformat()}"
+        )
+        confirmed = st.checkbox(
+            "APPROVE CURRENT-STATE PROCESS",
+            key=confirmation_key,
+            disabled=bool(approval_errors),
+            help=(
+                "Resolve the incomplete approval requirements above first."
+                if approval_errors
+                else "This explicit confirmation is required before approval."
+            ),
+        )
+        rationale = st.text_input(
+            "Optional approval rationale",
+            key=f"approval-rationale-{session.review_id}",
+        )
+        submitted = st.button(
+            "Approve current-state process",
+            type="primary",
+            disabled=bool(approval_errors) or not confirmed,
+            help=(
+                "Resolve the listed approval requirements first."
+                if approval_errors
+                else (
+                    None
+                    if confirmed
+                    else "Select APPROVE CURRENT-STATE PROCESS to enable approval."
+                )
+            ),
+        )
         if submitted:
             result = workspace_service().approve(
                 snapshot.assessment.assessment_id, rationale=rationale or None
@@ -475,4 +589,3 @@ def render() -> None:
             else:
                 refresh_workspace()
                 st.rerun()
-

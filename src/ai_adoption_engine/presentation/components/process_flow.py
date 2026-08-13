@@ -14,8 +14,8 @@ def render_current_state(process) -> None:
     for index, step in enumerate(process.steps):
         with st.container(border=True):
             st.markdown(f"**{step.sequence}. {step.activity}**")
-            if step.primary_actor:
-                st.caption(f"Primary actor: {step.primary_actor}")
+            if step.actor:
+                st.caption(f"Primary actor: {step.actor}")
             if step.systems:
                 st.caption("Systems: " + ", ".join(step.systems))
         if index < len(process.steps) - 1:
@@ -45,4 +45,3 @@ def render_future_state(workflow) -> None:
                 st.write(step.controls_and_constraints)
         if index < len(workflow.steps) - 1:
             st.caption("↓")
-
