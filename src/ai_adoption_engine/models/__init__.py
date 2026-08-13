@@ -18,6 +18,11 @@ from ai_adoption_engine.models.process import (
     CapabilitySignals,
     ProcessStep,
 )
+from ai_adoption_engine.models.review import (
+    ApprovedProcessReview,
+    ExplicitApproval,
+    ProcessReviewSession,
+)
 
 __all__ = [
     "BusinessProcess",
@@ -29,11 +34,14 @@ __all__ = [
     "CandidateProcessStep",
     "CriterionInput",
     "EvidenceReference",
+    "ExplicitApproval",
     "IngestedDocument",
     "IngestionResult",
     "ProcessAssessment",
+    "ProcessReviewSession",
     "ProcessStep",
     "RecommendationMode",
     "StepAssessment",
     "TextBlock",
+    "ApprovedProcessReview",
 ]

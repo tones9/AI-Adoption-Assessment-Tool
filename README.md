@@ -1,6 +1,6 @@
 # AI Business Process Opportunity Assessment Engine
 
-This repository contains the Phase 1 deterministic backend foundation, Phase 2 document-ingestion layer, and Phase 3 candidate process-extraction layer for an explainable decision-support system that identifies and prioritises potential AI adoption opportunities within **one documented business process at a time**.
+This repository contains the Phase 1 deterministic backend foundation, Phase 2 document-ingestion layer, Phase 3 candidate process-extraction layer, and Phase 4 human-review boundary for an explainable decision-support system that identifies and prioritises potential AI adoption opportunities within **one documented business process at a time**.
 
 The [Master Bible](AI_Adoption_Engine_MASTER_BIBLE_v1.0.docx) is the highest-authority project document. The implementation must not broaden the project scope or replace deterministic recommendation logic with unconstrained LLM judgement.
 
@@ -19,6 +19,8 @@ Implemented in this phase:
 - One hand-authored synthetic process.
 - A diagnostic JSON CLI.
 - Unit and integration tests.
+
+The `phase1-v0.3` contract preserves known, inferred, and unknown capability-signal states. Legacy explicit booleans remain accepted as known values. Descriptive process metadata and the step actor are optional when unavailable; structural identity, steps, activities, ordering, and assessment structures remain mandatory. The `decision_policy.v0.2` methodology is unchanged.
 
 Not implemented in Phase 1:
 
@@ -90,6 +92,23 @@ The trusted evidence chain is:
 document_id → block_id → exact snippet resolved by Python
             → computed block/document offsets → candidate assertion
 ```
+
+## Phase 4 status
+
+Phase 4 creates the explicit human-validation boundary:
+
+```text
+CandidateBusinessProcess → ProcessReviewSession → explicit approval
+                         → ApprovedProcessReview + BusinessProcess projection
+```
+
+Reviewers can accept, correct, reject, or explicitly retain unknown assertions; add human-supplied collection items; reorder or remove steps; correct dependencies; select an optional primary actor; and resolve structural conflicts. Every operation appends an immutable audit event containing before/after snapshots and optional rationale.
+
+The canonical `ApprovedProcessReview` retains the original candidate, multiple actors, decisions, branches, exceptions, operational facts, extraction issues, source evidence, human corrections, unresolved non-blocking unknowns, and audit trail. Human-supplied values never receive fabricated Phase 2 evidence. The contained `BusinessProcess` is only the narrower validated projection required by Phase 1.
+
+Approval requires confirmed process identity, explicitly accepted step order, a confirmed activity for every retained step, valid retained dependencies, no unresolved blocking structural conflicts, and an explicit human approval action. Unknown assessment criteria and capability signals do not block process validation.
+
+Phase 4 is provider-independent and has no Streamlit, SQLite, OpenAI, or decision-engine runtime dependency.
 
 ## Important methodology warning
 
@@ -292,9 +311,10 @@ src/ai_adoption_engine/
   decision/                 Mapper, gates, scoring, and engine
   ingestion/                PDF/text/raw-text document ingestion
   extraction/               Candidate extraction, evidence, merge, and providers
+  review/                   Human review operations and explicit approval boundary
   cli.py                    Diagnostic interface
 tests/unit/                 Isolated rules and validation tests
 tests/integration/          Complete sample/CLI assessment test
 ```
 
-Phase 3 and later packages will be added only when those phases are approved.
+Phase 5 and later packages will be added only when those phases are approved.
