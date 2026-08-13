@@ -32,7 +32,10 @@ def render() -> None:
         )
         if st.button("Generate decision package", type="primary"):
             try:
-                workspace_service().generate_package(snapshot.assessment.assessment_id)
+                with st.spinner("Generating the decision-support package…"):
+                    workspace_service().generate_package(
+                        snapshot.assessment.assessment_id
+                    )
                 refresh_workspace()
                 st.rerun()
             except Exception as exc:
@@ -44,6 +47,7 @@ def render() -> None:
             st.error(f"{error.code.value}: {error.message}")
         return
     package = generated.package
+    st.success("Decision package generated from the saved assessment result.")
     st.caption(
         f"Package {package.package_id} · {package.completeness.value} · "
         f"Policy {package.source.policy.policy_id} {package.source.policy.policy_version}"
@@ -118,4 +122,3 @@ def render() -> None:
                 ),
                 language=None,
             )
-

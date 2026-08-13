@@ -14,6 +14,22 @@ _ORIGIN_LABELS = {
     "UNKNOWN": "Unknown",
 }
 
+_DISPOSITION_LABELS = {
+    "unreviewed": "Unreviewed",
+    "accepted": "Accepted",
+    "corrected": "Corrected",
+    "rejected": "Rejected",
+    "unknown-retained": "Unknown retained",
+}
+
+_DISPOSITION_COLOURS = {
+    "unreviewed": "orange",
+    "accepted": "green",
+    "corrected": "blue",
+    "rejected": "red",
+    "unknown-retained": "gray",
+}
+
 
 def origin_label(origin) -> str:
     return _ORIGIN_LABELS.get(getattr(origin, "value", str(origin)), str(origin))
@@ -25,11 +41,14 @@ def render_reviewed_assertion(assertion: ReviewedAssertion, *, label: str) -> No
         st.caption("Value: Unknown")
     else:
         st.write(assertion.value)
-    details = [
-        origin_label(assertion.origin),
-        f"Knowledge: {assertion.knowledge_state.value}",
-        f"Review: {assertion.disposition.value}",
-    ]
+    disposition = assertion.disposition.value
+    disposition_label = _DISPOSITION_LABELS.get(disposition, disposition)
+    disposition_colour = _DISPOSITION_COLOURS.get(disposition, "gray")
+    st.markdown(
+        f":blue-badge[{origin_label(assertion.origin)}] "
+        f":{disposition_colour}-badge[{disposition_label}]"
+    )
+    details = [f"Knowledge: {assertion.knowledge_state.value}"]
     if assertion.confidence is not None:
         details.append(f"Extraction confidence: {assertion.confidence:.2f}")
     st.caption(" · ".join(details))
@@ -45,4 +64,3 @@ def render_reviewed_assertion(assertion: ReviewedAssertion, *, label: str) -> No
                 )
     elif assertion.origin.value == "HUMAN_SUPPLIED":
         st.caption("Human-supplied information — no document evidence claimed.")
-

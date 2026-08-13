@@ -81,30 +81,31 @@ def render() -> None:
             )
         if st.button("Ingest document", type="primary"):
             try:
-                if input_kind == "Bundled synthetic demo":
-                    result = workspace_service().ingest_upload(
-                        snapshot.assessment.assessment_id,
-                        raw_text=demo_text(),
-                        replace_existing=replace_confirmed,
-                        source_label="synthetic_complaint_process.txt",
-                    )
-                elif uploaded is not None:
-                    result = workspace_service().ingest_upload(
-                        snapshot.assessment.assessment_id,
-                        payload=uploaded.getvalue(),
-                        filename=_safe_name(uploaded.name),
-                        replace_existing=replace_confirmed,
-                    )
-                elif pasted and pasted.strip():
-                    result = workspace_service().ingest_upload(
-                        snapshot.assessment.assessment_id,
-                        raw_text=pasted,
-                        replace_existing=replace_confirmed,
-                        source_label="Pasted text",
-                    )
-                else:
-                    st.error("Provide one document or pasted text.")
-                    return
+                with st.spinner("Ingesting and validating the document…"):
+                    if input_kind == "Bundled synthetic demo":
+                        result = workspace_service().ingest_upload(
+                            snapshot.assessment.assessment_id,
+                            raw_text=demo_text(),
+                            replace_existing=replace_confirmed,
+                            source_label="synthetic_complaint_process.txt",
+                        )
+                    elif uploaded is not None:
+                        result = workspace_service().ingest_upload(
+                            snapshot.assessment.assessment_id,
+                            payload=uploaded.getvalue(),
+                            filename=_safe_name(uploaded.name),
+                            replace_existing=replace_confirmed,
+                        )
+                    elif pasted and pasted.strip():
+                        result = workspace_service().ingest_upload(
+                            snapshot.assessment.assessment_id,
+                            raw_text=pasted,
+                            replace_existing=replace_confirmed,
+                            source_label="Pasted text",
+                        )
+                    else:
+                        st.error("Provide one document or pasted text.")
+                        return
                 refresh_workspace()
                 if result.status is IngestionStatus.FAILED:
                     st.error("Document ingestion failed.")
@@ -158,9 +159,17 @@ def render() -> None:
                 "Extract candidate process",
                 type="primary",
                 disabled=not extraction_enabled,
+                help=(
+                    None
+                    if extraction_enabled
+                    else "Offline scripted extraction works only with the bundled synthetic demo document."
+                ),
             ):
                 try:
-                    result = workspace_service().extract(snapshot.assessment.assessment_id)
+                    with st.spinner("Extracting a candidate process…"):
+                        result = workspace_service().extract(
+                            snapshot.assessment.assessment_id
+                        )
                     refresh_workspace()
                     if result.status is ExtractionStatus.FAILED:
                         st.error("Candidate extraction failed.")

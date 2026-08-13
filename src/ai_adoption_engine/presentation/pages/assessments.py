@@ -67,7 +67,7 @@ def render() -> None:
                 st.write(item.current_stage.value.replace("-", " ").title())
                 st.caption(item.execution_mode.value.replace("-", " ").title())
             with right:
-                if st.button("Open", key=f"open-{item.assessment_id}", use_container_width=True):
+                if st.button("Open", key=f"open-{item.assessment_id}", width="stretch"):
                     select_assessment(item.assessment_id)
                     st.rerun()
             with st.expander("Delete assessment"):

@@ -88,7 +88,8 @@ def render() -> None:
         )
         if st.button("Run AI-adoption assessment", type="primary"):
             try:
-                workspace_service().assess(snapshot.assessment.assessment_id)
+                with st.spinner("Running the deterministic AI-adoption assessment…"):
+                    workspace_service().assess(snapshot.assessment.assessment_id)
                 refresh_workspace()
                 st.rerun()
             except Exception as exc:
@@ -100,6 +101,9 @@ def render() -> None:
             st.error(f"{error.code.value}: {error.message}")
         return
 
+    st.success(
+        "Deterministic assessment completed. Investigate further and incomplete priority are valid decision-support outcomes, not system failures."
+    )
     assessment = integrated.process_assessment
     steps = assessment.step_assessments
     counts = Counter(item.recommendation_mode for item in steps)
@@ -141,4 +145,3 @@ def render() -> None:
     labels = {f"{index + 1}. {item.activity}": item for index, item in enumerate(steps)}
     selected = st.selectbox("Opportunity detail", list(labels))
     _render_detail(integrated, labels[selected])
-

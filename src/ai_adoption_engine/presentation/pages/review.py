@@ -13,6 +13,7 @@ from ai_adoption_engine.models.review import (
     ConflictStatus,
     ExplicitApproval,
     ProcessReviewSession,
+    ReviewDisposition,
     ReviewedAssertion,
     ReviewedCollection,
 )
@@ -91,14 +92,25 @@ def _approval_error_message(
         else:
             return (
                 f"Step {step.sequence} “{step.activity.value or 'Unknown activity'}”: "
-                "accept or correct the activity."
+                "accept or correct its Activity field in the selected-step editor."
             )
-    if error.field_path:
-        return f"{error.message} ({error.field_path})"
+    if error.code == "process-identity-unconfirmed":
+        return "Accept or correct Process name in Process identity."
+    if error.code == "step-order-unconfirmed":
+        return "Accept the displayed order in Step order."
+    if error.code == "invalid-retained-dependency":
+        return "Resolve or reject the invalid dependency in the affected step's Dependencies section."
+    if error.code == "unresolved-structural-conflict":
+        return "Resolve the open item in Blocking conflicts."
     return error.message
 
 
-def _apply(session: ProcessReviewSession, operation: Callable[[ProcessReviewSession], None]) -> None:
+def _apply(
+    session: ProcessReviewSession,
+    operation: Callable[[ProcessReviewSession], None],
+    *,
+    success_message: str,
+) -> None:
     working = session.model_copy(deep=True)
     try:
         operation(working)
@@ -107,8 +119,9 @@ def _apply(session: ProcessReviewSession, operation: Callable[[ProcessReviewSess
         )
     except Exception as exc:
         refresh_workspace()
-        st.error(str(exc))
+        st.error(f"Review action could not be saved: {exc}")
         return
+    st.session_state.review_feedback = success_message
     refresh_workspace()
     st.rerun()
 
@@ -151,22 +164,55 @@ def _assertion_editor(
     assertion = resolver(session)
     with st.container(border=True):
         render_reviewed_assertion(assertion, label=label)
-        actions = (
-            ["Resolve Unknown", "Retain Unknown"]
-            if assertion.knowledge_state is KnowledgeState.UNKNOWN
-            else ["Accept", "Correct", "Reject"]
+        if assertion.knowledge_state is KnowledgeState.UNKNOWN:
+            if assertion.disposition is ReviewDisposition.UNKNOWN_RETAINED:
+                actions = ["No change — unknown retained", "Resolve unknown"]
+            else:
+                actions = ["Choose an action", "Resolve unknown", "Retain unknown"]
+        elif assertion.disposition is ReviewDisposition.UNREVIEWED:
+            actions = ["Choose an action", "Accept", "Correct", "Reject"]
+        elif assertion.disposition is ReviewDisposition.REJECTED:
+            actions = ["No change — rejected", "Correct"]
+        elif assertion.disposition is ReviewDisposition.CORRECTED:
+            actions = ["No change — corrected", "Correct", "Reject"]
+        else:
+            actions = ["No change — accepted", "Correct", "Reject"]
+
+        state_key = f"{field_path}-{session.updated_at.isoformat()}"
+        action = st.selectbox(
+            f"Review decision for {label}",
+            actions,
+            key=f"action-{state_key}",
         )
-        with st.form(f"review-{field_path}"):
-            action = st.selectbox("Review action", actions, key=f"action-{field_path}")
-            corrected = _value_input(assertion, field_path, value_kind)
+        corrected = None
+        rationale = ""
+        if action in {"Correct", "Resolve unknown"}:
+            corrected = _value_input(assertion, state_key, value_kind)
+        if action in {"Correct", "Reject", "Resolve unknown"}:
             rationale = st.text_input(
-                "Reviewer rationale",
-                placeholder="Required for corrections, rejections and resolved unknowns",
-                key=f"rationale-{field_path}",
+                "Reviewer rationale (required)",
+                placeholder="Explain the correction, rejection or supplied value",
+                key=f"rationale-{state_key}",
             )
-            submitted = st.form_submit_button("Apply review action")
+        actionable = action in {
+            "Accept",
+            "Correct",
+            "Reject",
+            "Resolve unknown",
+            "Retain unknown",
+        }
+        submitted = st.button(
+            "Apply review action",
+            key=f"apply-{state_key}",
+            disabled=not actionable,
+            help=(
+                None
+                if actionable
+                else "Choose a review action to enable this button."
+            ),
+        )
         if submitted:
-            if action in {"Correct", "Reject", "Resolve Unknown"} and not rationale.strip():
+            if action in {"Correct", "Reject", "Resolve unknown"} and not rationale.strip():
                 st.error("Provide a rationale for this action.")
                 return
 
@@ -174,7 +220,7 @@ def _assertion_editor(
                 target = resolver(working)
                 service = workspace_service().review_service
                 if action == "Accept":
-                    service.accept_assertion(working, target, field_path, rationale=rationale or None)
+                    service.accept_assertion(working, target, field_path)
                 elif action == "Correct":
                     service.correct_assertion(
                         working, target, field_path, corrected, rationale=rationale
@@ -183,16 +229,79 @@ def _assertion_editor(
                     service.reject_assertion(
                         working, target, field_path, rationale=rationale
                     )
-                elif action == "Resolve Unknown":
+                elif action == "Resolve unknown":
                     service.resolve_unknown(
                         working, target, field_path, corrected, rationale=rationale
                     )
                 else:
-                    service.retain_unknown(
-                        working, target, field_path, rationale=rationale or None
-                    )
+                    service.retain_unknown(working, target, field_path)
 
-            _apply(session, mutate)
+            saved_action = (
+                "unknown retained"
+                if action == "Retain unknown"
+                else action.lower()
+            )
+            _apply(
+                session,
+                mutate,
+                success_message=f"{label}: {saved_action} saved.",
+            )
+
+
+def _collection_progress(collection: ReviewedCollection) -> str:
+    if not collection.items:
+        return "no extracted values · optional"
+    reviewed = sum(
+        item.disposition is not ReviewDisposition.UNREVIEWED
+        for item in collection.items
+    )
+    return f"{reviewed}/{len(collection.items)} reviewed"
+
+
+def _step_assertions(step) -> list[ReviewedAssertion]:
+    assertions = [
+        step.document_order,
+        step.activity,
+        step.description,
+        step.human_accountability_required,
+    ]
+    for collection in (
+        step.actors,
+        step.responsible_roles,
+        step.systems,
+        step.inputs,
+        step.outputs,
+        step.exceptions,
+        step.operational_characteristics,
+    ):
+        assertions.extend(collection.items)
+    for decision in step.decisions:
+        assertions.append(decision.condition)
+        assertions.extend(decision.branches.items)
+    for dependency in step.dependencies:
+        assertions.extend([dependency.target_label, dependency.relationship])
+    assertions.extend(item.assertion for item in step.criteria)
+    assertions.extend(item.assertion for item in step.capability_signals)
+    return assertions
+
+
+def _step_progress(step) -> str:
+    if not step.retained:
+        return "Removed"
+    activity_status = (
+        "Activity confirmed"
+        if step.activity.disposition
+        in {ReviewDisposition.ACCEPTED, ReviewDisposition.CORRECTED}
+        else "Activity needs review"
+    )
+    assertions = _step_assertions(step)
+    reviewed = sum(
+        item.disposition is not ReviewDisposition.UNREVIEWED for item in assertions
+    )
+    unknown = sum(
+        item.disposition is ReviewDisposition.UNKNOWN_RETAINED for item in assertions
+    )
+    return f"{activity_status} · {reviewed}/{len(assertions)} fields reviewed · {unknown} unknown retained"
 
 
 def _collection_editor(
@@ -208,7 +317,9 @@ def _collection_editor(
         f"Extraction completeness: {collection.completeness.value}. {collection.rationale}"
     )
     if not collection.items:
-        st.caption("No reviewed values currently retained.")
+        st.caption(
+            "No values were extracted. This collection is optional; add a human-supplied value only when you have legitimate information."
+        )
     for index, _ in enumerate(collection.items):
         _assertion_editor(
             session,
@@ -233,6 +344,7 @@ def _collection_editor(
                     value,
                     rationale=rationale,
                 ),
+                success_message=f"Human-supplied {label.lower()} value added.",
             )
 
 
@@ -241,11 +353,11 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
     if not step.retained:
         st.caption("Rejected step retained in the audit record.")
         return
-    top = st.columns([6, 1, 1])
+    top = st.columns([5, 2, 2])
     top[0].markdown(f"### {step.sequence}. {step.activity.value or 'Unknown activity'}")
     retained_ids = [item.candidate_step_id for item in session.steps if item.retained]
     position = retained_ids.index(step_id)
-    if top[1].button("↑", key=f"up-{step_id}", disabled=position == 0):
+    if top[1].button("Move earlier", key=f"up-{step_id}", disabled=position == 0):
         reordered = list(retained_ids)
         reordered[position - 1], reordered[position] = reordered[position], reordered[position - 1]
         _apply(
@@ -253,8 +365,9 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
             lambda working: workspace_service().review_service.reorder_steps(
                 working, reordered, rationale="Reviewer moved the step earlier."
             ),
+            success_message=f"Step {step.sequence} moved earlier. Review and re-accept the updated order.",
         )
-    if top[2].button("↓", key=f"down-{step_id}", disabled=position == len(retained_ids) - 1):
+    if top[2].button("Move later", key=f"down-{step_id}", disabled=position == len(retained_ids) - 1):
         reordered = list(retained_ids)
         reordered[position + 1], reordered[position] = reordered[position], reordered[position + 1]
         _apply(
@@ -262,6 +375,7 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
             lambda working: workspace_service().review_service.reorder_steps(
                 working, reordered, rationale="Reviewer moved the step later."
             ),
+            success_message=f"Step {step.sequence} moved later. Review and re-accept the updated order.",
         )
 
     _assertion_editor(
@@ -272,7 +386,7 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
     )
     _assertion_editor(
         session,
-        label="Description",
+        label="Description (optional)",
         field_path=f"steps.{step_id}.description",
         resolver=lambda working: _step(working, step_id).description,
     )
@@ -286,7 +400,8 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
         ("exceptions", "Exceptions"),
         ("operational_characteristics", "Operational facts"),
     ):
-        with st.expander(label):
+        collection = getattr(step, attribute)
+        with st.expander(f"{label} — {_collection_progress(collection)}"):
             _collection_editor(
                 session,
                 label=label,
@@ -319,18 +434,51 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
                 f"{dependency.relationship.value or 'Relationship unknown'}: "
                 f"{dependency.target_label.value or 'Target unknown'}"
             )
-            targets = [item.candidate_step_id for item in session.steps if item.retained and item.candidate_step_id != step_id]
+            target_steps = [
+                item
+                for item in session.steps
+                if item.retained and item.candidate_step_id != step_id
+            ]
+            targets = [item.candidate_step_id for item in target_steps]
+            labels = {
+                item.candidate_step_id: f"Step {item.sequence}: {item.activity.value or 'Unknown activity'}"
+                for item in target_steps
+            }
+            if dependency.retained and dependency.target_candidate_step_id in targets:
+                st.success(
+                    "Current target: " + labels[dependency.target_candidate_step_id]
+                )
+            elif dependency.retained:
+                st.warning("This retained dependency needs a valid target or must be rejected.")
+            else:
+                st.caption("Dependency rejected and retained only in the audit record.")
             selected = st.selectbox(
                 "Resolved target step",
                 [None, *targets],
                 index=([None, *targets].index(dependency.target_candidate_step_id) if dependency.target_candidate_step_id in targets else 0),
                 key=f"dependency-target-{step_id}-{index}",
+                format_func=lambda value: "Choose a step" if value is None else labels[value],
             )
             rationale = st.text_input(
                 "Dependency rationale", key=f"dependency-rationale-{step_id}-{index}"
             )
             left, right = st.columns(2)
-            if left.button("Resolve dependency", key=f"resolve-dependency-{step_id}-{index}"):
+            if left.button(
+                "Save dependency target",
+                key=f"resolve-dependency-{step_id}-{index}",
+                disabled=(
+                    selected is None
+                    or (
+                        dependency.retained
+                        and selected == dependency.target_candidate_step_id
+                    )
+                ),
+                help=(
+                    "Choose a different valid target to save a correction."
+                    if selected is None or selected == dependency.target_candidate_step_id
+                    else None
+                ),
+            ):
                 if not rationale.strip():
                     st.error("Provide a dependency rationale.")
                 else:
@@ -339,6 +487,7 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
                         lambda working, i=index: workspace_service().review_service.correct_dependency(
                             working, step_id, i, selected, rationale=rationale
                         ),
+                        success_message="Dependency target saved.",
                     )
             if right.button("Reject dependency", key=f"reject-dependency-{step_id}-{index}"):
                 if not rationale.strip():
@@ -349,6 +498,7 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
                         lambda working, i=index: workspace_service().review_service.reject_dependency(
                             working, step_id, i, rationale=rationale
                         ),
+                        success_message="Dependency rejected.",
                     )
 
     with st.expander("Assessment characteristics"):
@@ -386,12 +536,22 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
             index=([None, *retained_actors].index(step.primary_actor) if step.primary_actor in retained_actors else 0),
             key=f"primary-actor-{step_id}",
         )
-        if st.button("Save primary actor", key=f"save-primary-actor-{step_id}"):
+        if st.button(
+            "Save primary actor",
+            key=f"save-primary-actor-{step_id}",
+            disabled=selected_actor == step.primary_actor,
+            help=(
+                "Choose a different actor to save."
+                if selected_actor == step.primary_actor
+                else None
+            ),
+        ):
             _apply(
                 session,
                 lambda working: workspace_service().review_service.select_primary_actor(
                     working, step_id, selected_actor
                 ),
+                success_message="Optional primary actor saved.",
             )
     with st.expander("Reject this process step"):
         reason = st.text_input("Removal rationale", key=f"remove-rationale-{step_id}")
@@ -404,6 +564,7 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
                     lambda working: workspace_service().review_service.remove_step(
                         working, step_id, rationale=reason
                     ),
+                    success_message="Process step removed. Review and re-accept the updated order.",
                 )
 
 
@@ -427,6 +588,30 @@ def _render_approved(approved) -> None:
             st.rerun()
 
 
+def _render_approval_preflight(
+    session: ProcessReviewSession, *, heading: str = "Approval readiness"
+) -> list[ApprovalError]:
+    approval_errors = _approval_errors(session)
+    error_codes = {item.code for item in approval_errors}
+    st.subheader(heading)
+    for label, blocking_codes in _APPROVAL_REQUIREMENTS:
+        if error_codes.isdisjoint(blocking_codes):
+            st.markdown(f":green-badge[Complete] {label}")
+        else:
+            st.markdown(f":orange-badge[Incomplete] {label}")
+    if approval_errors:
+        st.warning(
+            "**Approval blocked because:**\n\n"
+            + "\n".join(
+                f"- {_approval_error_message(session, error)}"
+                for error in approval_errors
+            )
+        )
+    else:
+        st.success("All structural approval requirements are complete.")
+    return approval_errors
+
+
 def render() -> None:
     snapshot = hydrate_workspace()
     if snapshot is None:
@@ -448,9 +633,16 @@ def render() -> None:
             st.rerun()
         return
 
+    feedback = st.session_state.pop("review_feedback", None)
+    if feedback:
+        st.success(feedback)
     st.write(
         "Confirm what the document says, distinguish inference and human input, retain legitimate unknowns, and resolve structural blockers."
     )
+    with st.container(border=True):
+        _render_approval_preflight(session)
+
+    st.header("Process identity")
     _assertion_editor(
         session,
         label="Process name",
@@ -459,24 +651,37 @@ def render() -> None:
     )
     _assertion_editor(
         session,
-        label="Process description",
+        label="Process description (optional)",
         field_path="process.description",
         resolver=lambda working: working.process_description,
     )
     _assertion_editor(
         session,
-        label="Process objective",
+        label="Process objective (optional)",
         field_path="process.objective",
         resolver=lambda working: working.process_objective,
     )
 
     st.header("Ordered activities")
-    for item in sorted(session.steps, key=lambda value: value.sequence):
-        with st.expander(
-            f"{item.sequence}. {item.activity.value or 'Unknown activity'}",
-            expanded=item.sequence == 1,
-        ):
-            _render_step(session, item.candidate_step_id)
+    ordered_steps = sorted(session.steps, key=lambda value: value.sequence)
+    for item in ordered_steps:
+        st.markdown(
+            f"**{item.sequence}. {item.activity.value or 'Unknown activity'}**  \n"
+            f"{_step_progress(item)}"
+        )
+    retained_steps = [item for item in ordered_steps if item.retained]
+    step_labels = {
+        item.candidate_step_id: f"Step {item.sequence}: {item.activity.value or 'Unknown activity'}"
+        for item in retained_steps
+    }
+    selected_step_id = st.selectbox(
+        "Select an activity to review",
+        list(step_labels),
+        format_func=lambda value: step_labels[value],
+        key="selected-review-step",
+    )
+    with st.container(border=True):
+        _render_step(session, selected_step_id)
 
     with st.container(border=True):
         st.subheader("Step order")
@@ -491,6 +696,7 @@ def render() -> None:
                 lambda working: workspace_service().review_service.accept_step_order(
                     working, rationale="Reviewer confirmed the displayed current-state order."
                 ),
+                success_message="Step order accepted.",
             )
 
     with st.container(border=True):
@@ -515,6 +721,7 @@ def render() -> None:
                             lambda working, conflict_id=conflict.conflict_id: workspace_service().review_service.resolve_conflict(
                                 working, conflict_id, resolution=resolution
                             ),
+                            success_message="Blocking conflict resolved.",
                         )
 
     with st.container(border=True):
@@ -523,28 +730,11 @@ def render() -> None:
             "Approval confirms that this is an acceptable human-reviewed representation of the current-state process. "
             "Unknown AI-assessment information may remain unknown."
         )
-        approval_errors = _approval_errors(session)
-        error_codes = {item.code for item in approval_errors}
-        st.markdown("**Approval requirements**")
-        for label, blocking_codes in _APPROVAL_REQUIREMENTS:
-            if error_codes.isdisjoint(blocking_codes):
-                st.markdown(f":green-badge[Complete] {label}")
-            else:
-                st.markdown(f":orange-badge[Incomplete] {label}")
-
-        if approval_errors:
-            st.warning(
-                "**Approval blocked because:**\n\n"
-                + "\n".join(
-                    f"- {_approval_error_message(session, error)}"
-                    for error in approval_errors
-                )
-            )
-        else:
-            st.success(
-                "All structural approval requirements are complete. "
-                "Confirm the statement below to enable approval."
-            )
+        approval_errors = _render_approval_preflight(
+            session, heading="Final approval check"
+        )
+        if not approval_errors:
+            st.caption("Confirm the statement below to enable approval.")
 
         confirmation_key = (
             f"approve-current-state-{session.review_id}-{session.updated_at.isoformat()}"
