@@ -1,0 +1,17 @@
+Customer Complaint Handling
+
+The process handles a customer complaint from receipt through closure. Its objective is to record the issue, assess it, resolve it fairly, and communicate the outcome.
+
+1. A customer service agent records the complaint and the customer's supporting information in the Case Management System.
+
+2. The agent categorises the complaint and checks that required information is present. If information is missing, the agent asks the customer for clarification.
+
+3. A complaints manager reviews the categorised complaint after the intake check is complete.
+
+4. The manager decides whether specialist review is required. If specialist review is required, the case is assigned to a subject-matter specialist; otherwise it proceeds to resolution drafting.
+
+5. The assigned reviewer drafts a proposed response in the Case Management System using the complaint record and applicable guidance.
+
+6. The complaints manager approves or returns the proposed response. An exception occurs when the complaint indicates immediate customer harm, in which case the case is escalated before normal approval.
+
+7. The agent sends the approved response to the customer and closes the case. The outputs are the customer response and the closed complaint record.
