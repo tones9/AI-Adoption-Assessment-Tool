@@ -7,12 +7,24 @@ from ai_adoption_engine.models.candidate_process import (
 )
 from ai_adoption_engine.models.document import IngestedDocument, IngestionResult, TextBlock
 from ai_adoption_engine.models.enums import Capability, RecommendationMode
-from ai_adoption_engine.models.evidence import CriterionInput, EvidenceReference
-from ai_adoption_engine.models.process import BusinessProcess, ProcessStep
+from ai_adoption_engine.models.evidence import (
+    BooleanCriterionInput,
+    CriterionInput,
+    EvidenceReference,
+)
+from ai_adoption_engine.models.process import (
+    BusinessProcess,
+    CapabilitySignalInput,
+    CapabilitySignals,
+    ProcessStep,
+)
 
 __all__ = [
     "BusinessProcess",
+    "BooleanCriterionInput",
     "Capability",
+    "CapabilitySignalInput",
+    "CapabilitySignals",
     "CandidateBusinessProcess",
     "CandidateProcessStep",
     "CriterionInput",

@@ -4,7 +4,7 @@ from ai_adoption_engine.models.enums import (
     PriorityStatus,
     RecommendationMode,
 )
-from ai_adoption_engine.models.process import BusinessProcess
+from ai_adoption_engine.models.process import BusinessProcess, CapabilitySignalInput
 
 
 def test_sample_exercises_all_recommendation_modes(
@@ -91,3 +91,19 @@ def test_nonmaterial_unknown_allows_recommendation_but_makes_priority_incomplete
     assert repetition.value is None
     assert repetition.material_to_recommendation is False
     assert repetition.material_to_priority is True
+
+
+def test_capability_signal_evidence_is_exposed(
+    process: BusinessProcess, engine: AssessmentEngine
+) -> None:
+    process.steps[0].characteristics.capability_signals.reads_unstructured_documents = (
+        CapabilitySignalInput(
+            value=True,
+            knowledge_state="known",
+            rationale="Complaint emails are unstructured documents.",
+            evidence_ids=["E1"],
+        )
+    )
+    process = BusinessProcess.model_validate(process.model_dump(mode="json"))
+    assessed = engine.assess(process).step_assessments[0]
+    assert "E1" in {item.evidence_id for item in assessed.evidence}

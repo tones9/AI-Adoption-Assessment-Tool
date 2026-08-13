@@ -56,6 +56,8 @@ class AssessmentEngine:
         referenced_ids.update(
             step.characteristics.human_accountability_required.evidence_ids
         )
+        for signal in step.characteristics.capability_signals.inputs():
+            referenced_ids.update(signal.evidence_ids)
         evidence = [
             reference for reference in process.evidence if reference.evidence_id in referenced_ids
         ]

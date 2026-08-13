@@ -1,8 +1,10 @@
 """Current-state business-process input models."""
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from collections.abc import Iterator
 
-from ai_adoption_engine.models.enums import CriterionName
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+
+from ai_adoption_engine.models.enums import CriterionName, KnowledgeState
 from ai_adoption_engine.models.evidence import (
     BooleanCriterionInput,
     CriterionInput,
@@ -10,21 +12,71 @@ from ai_adoption_engine.models.evidence import (
 )
 
 
+class CapabilitySignalInput(BooleanCriterionInput):
+    """A provenance-aware boolean input for one capability signal."""
+
+
+def _unknown_capability_signal() -> CapabilitySignalInput:
+    return CapabilitySignalInput(
+        value=None,
+        knowledge_state=KnowledgeState.UNKNOWN,
+        rationale="No capability signal was supplied.",
+    )
+
+
 class CapabilitySignals(BaseModel):
     """Explicit Phase 1 task signals consumed by the deterministic mapper."""
 
     model_config = ConfigDict(extra="forbid")
 
-    reads_unstructured_documents: bool = False
-    categorises_items: bool = False
-    predicts_future_outcomes: bool = False
-    detects_anomalies_or_patterns: bool = False
-    creates_new_content: bool = False
-    searches_reference_knowledge: bool = False
-    ranks_or_suggests_options: bool = False
-    supports_complex_decisions: bool = False
-    interprets_images_or_video: bool = False
-    routes_or_orchestrates_work: bool = False
+    reads_unstructured_documents: CapabilitySignalInput = Field(
+        default_factory=_unknown_capability_signal
+    )
+    categorises_items: CapabilitySignalInput = Field(
+        default_factory=_unknown_capability_signal
+    )
+    predicts_future_outcomes: CapabilitySignalInput = Field(
+        default_factory=_unknown_capability_signal
+    )
+    detects_anomalies_or_patterns: CapabilitySignalInput = Field(
+        default_factory=_unknown_capability_signal
+    )
+    creates_new_content: CapabilitySignalInput = Field(
+        default_factory=_unknown_capability_signal
+    )
+    searches_reference_knowledge: CapabilitySignalInput = Field(
+        default_factory=_unknown_capability_signal
+    )
+    ranks_or_suggests_options: CapabilitySignalInput = Field(
+        default_factory=_unknown_capability_signal
+    )
+    supports_complex_decisions: CapabilitySignalInput = Field(
+        default_factory=_unknown_capability_signal
+    )
+    interprets_images_or_video: CapabilitySignalInput = Field(
+        default_factory=_unknown_capability_signal
+    )
+    routes_or_orchestrates_work: CapabilitySignalInput = Field(
+        default_factory=_unknown_capability_signal
+    )
+
+    @field_validator("*", mode="before")
+    @classmethod
+    def migrate_legacy_boolean(cls, value: object) -> object:
+        if isinstance(value, bool):
+            return {
+                "value": value,
+                "knowledge_state": KnowledgeState.KNOWN,
+                "rationale": (
+                    "Migrated from a legacy explicit boolean capability signal."
+                ),
+                "evidence_ids": [],
+            }
+        return value
+
+    def inputs(self) -> Iterator[CapabilitySignalInput]:
+        for field_name in type(self).model_fields:
+            yield getattr(self, field_name)
 
 
 class TaskCharacteristics(BaseModel):
@@ -56,8 +108,8 @@ class ProcessStep(BaseModel):
     step_id: str = Field(min_length=1)
     sequence: int = Field(ge=1)
     activity: str = Field(min_length=1)
-    description: str = Field(min_length=1)
-    actor: str = Field(min_length=1)
+    description: str | None = Field(default=None, min_length=1)
+    actor: str | None = Field(default=None, min_length=1)
     responsible_role: str | None = None
     systems: list[str] = Field(default_factory=list)
     inputs: list[str] = Field(default_factory=list)
@@ -67,17 +119,33 @@ class ProcessStep(BaseModel):
     evidence_ids: list[str] = Field(default_factory=list)
     characteristics: TaskCharacteristics
 
+    @field_validator("step_id", "activity", "description", "actor", "responsible_role")
+    @classmethod
+    def reject_blank_text(cls, value: str | None) -> str | None:
+        if value is not None and not value.strip():
+            raise ValueError("Text values cannot be empty or whitespace-only")
+        return value
+
 
 class BusinessProcess(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     process_id: str = Field(min_length=1)
     name: str = Field(min_length=1)
-    description: str = Field(min_length=1)
-    business_objective: str = Field(min_length=1)
+    description: str | None = Field(default=None, min_length=1)
+    business_objective: str | None = Field(default=None, min_length=1)
     organisation: str | None = None
     evidence: list[EvidenceReference]
     steps: list[ProcessStep] = Field(min_length=1)
+
+    @field_validator(
+        "process_id", "name", "description", "business_objective", "organisation"
+    )
+    @classmethod
+    def reject_blank_text(cls, value: str | None) -> str | None:
+        if value is not None and not value.strip():
+            raise ValueError("Text values cannot be empty or whitespace-only")
+        return value
 
     @model_validator(mode="after")
     def validate_references_and_order(self) -> "BusinessProcess":
@@ -103,6 +171,8 @@ class BusinessProcess(BaseModel):
             referenced_evidence.update(
                 step.characteristics.human_accountability_required.evidence_ids
             )
+            for signal in step.characteristics.capability_signals.inputs():
+                referenced_evidence.update(signal.evidence_ids)
             missing_evidence = referenced_evidence - known_evidence
             if missing_evidence:
                 raise ValueError(

@@ -50,3 +50,53 @@ def test_process_rejects_duplicate_step_ids(process: BusinessProcess) -> None:
     raw["steps"][1]["step_id"] = raw["steps"][0]["step_id"]
     with pytest.raises(ValidationError, match="Step IDs must be unique"):
         BusinessProcess.model_validate(raw)
+
+
+def test_capability_signal_rejects_unknown_evidence_reference(
+    process: BusinessProcess,
+) -> None:
+    raw = process.model_dump(mode="json")
+    raw["steps"][0]["characteristics"]["capability_signals"][
+        "reads_unstructured_documents"
+    ] = {
+        "value": True,
+        "knowledge_state": "known",
+        "rationale": "The activity reads an uploaded document.",
+        "evidence_ids": ["MISSING"],
+    }
+    with pytest.raises(ValidationError, match="unknown evidence IDs"):
+        BusinessProcess.model_validate(raw)
+
+
+def test_descriptive_metadata_and_actor_may_be_unavailable(
+    process: BusinessProcess,
+) -> None:
+    raw = process.model_dump(mode="json")
+    raw.pop("description")
+    raw.pop("business_objective")
+    raw["steps"][0].pop("description")
+    raw["steps"][0].pop("actor")
+    validated = BusinessProcess.model_validate(raw)
+    assert validated.description is None
+    assert validated.business_objective is None
+    assert validated.steps[0].description is None
+    assert validated.steps[0].actor is None
+
+
+@pytest.mark.parametrize(
+    ("field", "scope"),
+    [
+        ("description", "process"),
+        ("business_objective", "process"),
+        ("description", "step"),
+        ("actor", "step"),
+    ],
+)
+def test_optional_text_rejects_whitespace_when_supplied(
+    process: BusinessProcess, field: str, scope: str
+) -> None:
+    raw = process.model_dump(mode="json")
+    target = raw if scope == "process" else raw["steps"][0]
+    target[field] = "   "
+    with pytest.raises(ValidationError, match="whitespace-only"):
+        BusinessProcess.model_validate(raw)

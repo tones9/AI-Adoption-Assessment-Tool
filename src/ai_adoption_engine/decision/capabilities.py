@@ -20,5 +20,8 @@ _SIGNAL_MAP: tuple[tuple[str, Capability], ...] = (
 def map_capabilities(signals: CapabilitySignals) -> list[Capability]:
     """Return capabilities in stable taxonomy order for enabled work signals."""
 
-    return [capability for field, capability in _SIGNAL_MAP if getattr(signals, field)]
-
+    return [
+        capability
+        for field, capability in _SIGNAL_MAP
+        if getattr(signals, field).value is True
+    ]
