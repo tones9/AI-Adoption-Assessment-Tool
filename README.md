@@ -1,6 +1,6 @@
 # AI Business Process Opportunity Assessment Engine
 
-This repository contains the Phase 1 deterministic backend foundation, Phase 2 document-ingestion layer, Phase 3 candidate process-extraction layer, Phase 4 human-review boundary, and Phase 5 integrated assessment orchestration for an explainable decision-support system that identifies and prioritises potential AI adoption opportunities within **one documented business process at a time**.
+This repository contains the Phase 1 deterministic backend foundation, Phase 2 document-ingestion layer, Phase 3 candidate process-extraction layer, Phase 4 human-review boundary, Phase 5 integrated assessment orchestration, and Phase 6 deterministic decision-package generation for an explainable decision-support system that identifies and prioritises potential AI adoption opportunities within **one documented business process at a time**.
 
 The [Master Bible](AI_Adoption_Engine_MASTER_BIBLE_v1.0.docx) is the highest-authority project document. The implementation must not broaden the project scope or replace deterministic recommendation logic with unconstrained LLM judgement.
 
@@ -127,6 +127,27 @@ Successful results retain the unchanged `ProcessAssessment`, cross-phase lineage
 SHA-256 fingerprints are calculated from canonical JSON for the exact validated process content and validated decision-policy content. The run-derived process ID is recorded separately and excluded from the process fingerprint, so assessment timestamps and run identifiers do not change either input fingerprint.
 
 `INVESTIGATE_FURTHER`, unknown characteristics, and incomplete priority remain successful assessment outcomes. Pipeline failure is reserved for approval, projection, policy, engine-output, or traceability contract failures. Phase 5 introduces no OpenAI, Streamlit, SQLite, reporting, roadmap, ROI, or future-workflow functionality.
+
+## Phase 6 status
+
+Phase 6 converts a successful integrated assessment into a structured business-facing decision-support package:
+
+```text
+IntegratedAssessmentSuccess → DecisionSupportPackageService
+                            → opportunity portfolio
+                            → PROPOSED / NOT DEPLOYED future state
+                            → roadmap with decision gates
+                            → governance and information-gap summaries
+                            → rendering-independent report content
+```
+
+Every assessed step remains visible in process order, including `INVESTIGATE_FURTHER` and `DO_NOT_RECOMMEND`. Recommendations, capabilities, gates, priority results, reasoning, and traceability are copied from Phase 5 without recalculation.
+
+Future-state intervention patterns are deterministic: `AUTOMATE` becomes `AI_ENABLED_EXECUTION`, `AUGMENT` becomes `AI_ASSISTED_HUMAN_EXECUTION`, investigation retains the current step with an investigation marker, and negative recommendations retain current or conventional execution without an AI intervention. Capabilities remain separate from intervention patterns and never become vendor or solution architecture.
+
+Roadmaps include explicit `GO / REVISE / STOP` and deployment decision points. Investigation roadmaps stop before proof-of-concept planning; negative recommendations receive no AI-deployment roadmap. Governance statements require validation and organisational review and make no legal, compliance, security-approval, ethical-acceptability, or deployment-readiness claim.
+
+Phase 6 always states `ROI / quantified benefit unavailable with current evidence.` Package content is deterministic for equivalent Phase 5 semantic input, retains process/policy fingerprints, labels planning interpretations as `DERIVED_PLANNING_GUIDANCE`, and contains 13 rendering-independent report sections. No OpenAI, UI, HTML/PDF renderer, SQLite, or assessment-engine runtime dependency is introduced.
 
 ## Important methodology warning
 
@@ -331,9 +352,10 @@ src/ai_adoption_engine/
   extraction/               Candidate extraction, evidence, merge, and providers
   review/                   Human review operations and explicit approval boundary
   application/              Approval-gated integrated assessment orchestration
+  decision_support/         Deterministic portfolio, workflow, roadmap, and report content
   cli.py                    Diagnostic interface
 tests/unit/                 Isolated rules and validation tests
 tests/integration/          Complete sample/CLI assessment test
 ```
 
-Phase 6 and later packages will be added only when those phases are approved.
+Phase 7 and later packages will be added only when those phases are approved.

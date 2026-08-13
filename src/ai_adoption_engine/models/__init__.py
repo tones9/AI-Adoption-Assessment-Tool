@@ -6,6 +6,12 @@ from ai_adoption_engine.models.candidate_process import (
     CandidateProcessStep,
 )
 from ai_adoption_engine.models.document import IngestedDocument, IngestionResult, TextBlock
+from ai_adoption_engine.models.decision_support import (
+    DecisionPackageFailure,
+    DecisionPackageGenerationResult,
+    DecisionPackageSuccess,
+    DecisionSupportPackage,
+)
 from ai_adoption_engine.models.enums import Capability, RecommendationMode
 from ai_adoption_engine.models.evidence import (
     BooleanCriterionInput,
@@ -38,6 +44,10 @@ __all__ = [
     "CandidateBusinessProcess",
     "CandidateProcessStep",
     "CriterionInput",
+    "DecisionPackageFailure",
+    "DecisionPackageGenerationResult",
+    "DecisionPackageSuccess",
+    "DecisionSupportPackage",
     "EvidenceReference",
     "ExplicitApproval",
     "IngestedDocument",
