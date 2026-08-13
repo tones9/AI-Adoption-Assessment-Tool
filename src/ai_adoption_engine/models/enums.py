@@ -67,3 +67,8 @@ class PriorityBand(StrEnum):
     MEDIUM = "MEDIUM"
     LOW = "LOW"
 
+
+class PriorityStatus(StrEnum):
+    COMPLETE = "complete"
+    INCOMPLETE = "incomplete"
+    NOT_APPLICABLE = "not_applicable"

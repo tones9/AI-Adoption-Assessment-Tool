@@ -52,3 +52,28 @@ class CriterionInput(BaseModel):
             raise ValueError("Inferred criteria require a confidence value")
         return self
 
+
+class BooleanCriterionInput(BaseModel):
+    """A boolean fact that must never silently default when its state is unknown."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    value: bool | None = None
+    knowledge_state: KnowledgeState
+    rationale: str = Field(min_length=1)
+    evidence_ids: list[str] = Field(default_factory=list)
+    confidence: float | None = Field(default=None, ge=0, le=1)
+
+    @model_validator(mode="after")
+    def validate_knowledge_state(self) -> "BooleanCriterionInput":
+        if self.knowledge_state is KnowledgeState.UNKNOWN:
+            if self.value is not None:
+                raise ValueError("Unknown boolean criteria must use a null value")
+            if self.confidence is not None:
+                raise ValueError("Unknown boolean criteria cannot carry confidence")
+            return self
+        if self.value is None:
+            raise ValueError("Known or inferred boolean criteria require a value")
+        if self.knowledge_state is KnowledgeState.INFERRED and self.confidence is None:
+            raise ValueError("Inferred boolean criteria require a confidence value")
+        return self

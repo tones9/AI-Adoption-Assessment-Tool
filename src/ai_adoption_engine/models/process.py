@@ -3,7 +3,11 @@
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from ai_adoption_engine.models.enums import CriterionName
-from ai_adoption_engine.models.evidence import CriterionInput, EvidenceReference
+from ai_adoption_engine.models.evidence import (
+    BooleanCriterionInput,
+    CriterionInput,
+    EvidenceReference,
+)
 
 
 class CapabilitySignals(BaseModel):
@@ -38,7 +42,7 @@ class TaskCharacteristics(BaseModel):
     residual_risk_with_human_oversight: CriterionInput
     implementation_complexity: CriterionInput
     conventional_solution_fit: CriterionInput
-    human_accountability_required: bool = False
+    human_accountability_required: BooleanCriterionInput
     capability_signals: CapabilitySignals = Field(default_factory=CapabilitySignals)
 
     def criterion(self, name: CriterionName | str) -> CriterionInput:
@@ -96,6 +100,9 @@ class BusinessProcess(BaseModel):
                 referenced_evidence.update(
                     step.characteristics.criterion(criterion_name).evidence_ids
                 )
+            referenced_evidence.update(
+                step.characteristics.human_accountability_required.evidence_ids
+            )
             missing_evidence = referenced_evidence - known_evidence
             if missing_evidence:
                 raise ValueError(
@@ -113,4 +120,3 @@ class BusinessProcess(BaseModel):
 
         self.steps.sort(key=lambda step: step.sequence)
         return self
-

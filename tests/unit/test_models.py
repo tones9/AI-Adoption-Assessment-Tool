@@ -2,7 +2,7 @@ import pytest
 from pydantic import ValidationError
 
 from ai_adoption_engine.models.enums import KnowledgeState
-from ai_adoption_engine.models.evidence import CriterionInput
+from ai_adoption_engine.models.evidence import BooleanCriterionInput, CriterionInput
 from ai_adoption_engine.models.process import BusinessProcess
 
 
@@ -26,6 +26,18 @@ def test_inferred_criterion_requires_confidence() -> None:
         )
 
 
+def test_unknown_accountability_cannot_default_to_false() -> None:
+    with pytest.raises(
+        ValidationError,
+        match="Unknown boolean criteria must use a null value",
+    ):
+        BooleanCriterionInput(
+            value=False,
+            knowledge_state=KnowledgeState.UNKNOWN,
+            rationale="No accountability evidence was supplied.",
+        )
+
+
 def test_process_rejects_unknown_evidence_reference(process: BusinessProcess) -> None:
     raw = process.model_dump(mode="json")
     raw["steps"][0]["characteristics"]["business_value"]["evidence_ids"] = ["MISSING"]
@@ -38,4 +50,3 @@ def test_process_rejects_duplicate_step_ids(process: BusinessProcess) -> None:
     raw["steps"][1]["step_id"] = raw["steps"][0]["step_id"]
     with pytest.raises(ValidationError, match="Step IDs must be unique"):
         BusinessProcess.model_validate(raw)
-

@@ -9,7 +9,7 @@ from ai_adoption_engine.decision.engine import AssessmentEngine
 from ai_adoption_engine.decision.policy import load_policy
 from ai_adoption_engine.models.process import BusinessProcess
 
-DEFAULT_POLICY = Path("config/decision_policy.v0.1.json")
+DEFAULT_POLICY = Path("config/decision_policy.v0.2.json")
 DEFAULT_PROCESS = Path("data/sample_processes/synthetic_customer_complaint_process.json")
 
 
@@ -49,4 +49,3 @@ def main(argv: Sequence[str] | None = None) -> int:
     indent = None if args.compact else 2
     print(assessment.model_dump_json(indent=indent))
     return 0
-

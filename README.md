@@ -34,9 +34,9 @@ Phases 1–7 produce the working product MVP. Phase 8 is the mandatory MSc resea
 
 The active policy is:
 
-> **decision_policy.v0.1 — PROVISIONAL — NOT YET ACADEMICALLY VALIDATED**
+> **decision_policy.v0.2 — PROVISIONAL — NOT YET ACADEMICALLY VALIDATED**
 
-Its thresholds, weights, and decision rules exist to make the architecture implementable and testable. They are not presented as scientific findings. The policy is externalised in [`config/decision_policy.v0.1.json`](config/decision_policy.v0.1.json) so later literature review, benchmark findings, and expert validation can replace it without redesigning the engine.
+Its thresholds, weights, and decision rules exist to make the architecture implementable and testable. They are not presented as scientific findings. The active policy is externalised in [`config/decision_policy.v0.2.json`](config/decision_policy.v0.2.json) so later literature review, benchmark findings, and expert validation can replace it without redesigning the engine. The tagged `phase1-v0.1` baseline retains the original globally complete evidence policy for historical reproducibility.
 
 ## Architecture
 
@@ -56,7 +56,8 @@ Evidence → technical fit → business value → risk/autonomy gates
         └── qualifying opportunity → transparent priority score
         │
         ▼
-StepAssessment with evidence, gates, score, reasoning, and final mode
+StepAssessment with criterion provenance, evidence, gates, score status,
+reasoning, and final mode
 ```
 
 The engine performs no network calls and contains no LLM dependency.
@@ -81,26 +82,30 @@ Higher values are unfavourable for:
 - implementation complexity;
 - conventional-solution fit.
 
-Each known or inferred criterion includes a rationale and supporting evidence IDs. Inferred values require a `0–1` confidence value. The provisional evidence gate treats inferred confidence below `0.60` as materially insufficient.
+Each known or inferred criterion includes a rationale and supporting evidence IDs. Inferred values require a `0–1` confidence value. Human-accountability requirements use the same explicit known/inferred/unknown semantics and never default silently to `false`.
+
+The v0.2 policy applies evidence requirements only when a criterion is material to the current gate. An unknown non-material criterion remains visible in `StepAssessment.criteria` but does not automatically force `INVESTIGATE_FURTHER`. Inferred confidence below `0.60`, or missing evidence, blocks a decision only when the affected input is material.
 
 Exact scale meanings are documented in the policy file.
 
 ## Provisional decision order
 
-1. Materially unknown, unsupported, or low-confidence evidence produces `INVESTIGATE_FURTHER`.
-2. No mapped capability, AI fit below `3`, or conventional-solution fit of at least `4` produces `DO_NOT_RECOMMEND`.
-3. Known data readiness below `2`, where AI remains plausible, produces `INVESTIGATE_FURTHER`.
-4. Business value below `2` produces `DO_NOT_RECOMMEND` and identifies conventional process improvement as preferable.
-5. Residual risk of at least `4`, even with human oversight, produces `DO_NOT_RECOMMEND`.
-6. Required human accountability, human judgement of at least `3`, consequence/risk of at least `3`, or residual risk of at least `2` produces `AUGMENT`.
-7. `AUTOMATE` requires predictability and data readiness of at least `4`, human judgement no more than `1`, consequence/risk no more than `2`, residual risk no more than `1`, and no mandatory human accountability.
-8. Other viable cases conservatively produce `AUGMENT`.
+1. The activity itself must have a source evidence reference.
+2. AI capability fit is evaluated first; a decisive failure can stop the analysis without demanding unrelated later-gate evidence.
+3. Conventional-solution fit is conditionally material when deterministic or workflow-automation signals make a non-AI alternative credible, or when it would cause `DO_NOT_RECOMMEND`. Its absence alone does not otherwise block the gate.
+4. Data readiness is material when AI fit remains plausible; known readiness below `2` or materially insufficient evidence produces `INVESTIGATE_FURTHER`.
+5. Business value is material at the value gate; a value below `2` produces `DO_NOT_RECOMMEND`.
+6. Human judgement, consequence/risk, residual risk with oversight, and accountability are material at the risk/autonomy gate.
+7. Residual risk of at least `4`, even with human oversight, produces `DO_NOT_RECOMMEND`.
+8. Required human accountability, human judgement of at least `3`, consequence/risk of at least `3`, or residual risk of at least `2` produces `AUGMENT` without requiring predictability to be known.
+9. Predictability becomes material only when the remaining evidence permits an `AUTOMATE` decision.
+10. `AUTOMATE` requires predictability and data readiness of at least `4`, human judgement no more than `1`, consequence/risk no more than `2`, residual risk no more than `1`, and no mandatory human accountability.
 
 Unknown information is never replaced by a confident invented value.
 
 ## Priority score
 
-Only `AUTOMATE` and `AUGMENT` opportunities receive a score.
+Only `AUTOMATE` and `AUGMENT` opportunities are eligible for a score. A recommendation can remain valid when a non-gate scoring input is unknown; in that case the priority is explicitly `incomplete`, no value is imputed, and the missing criteria are listed.
 
 | Criterion | Weight | Direction |
 |---|---:|---|
@@ -165,7 +170,7 @@ Or after installation:
 ai-adoption-engine
 ```
 
-The command emits the complete assessment as JSON, including the policy warning, capabilities, gate trace, score components, recommendation reasoning, and resolved evidence.
+The command emits the complete assessment as JSON, including the policy warning, complete criterion and accountability provenance, gate materiality, score status/components, recommendation reasoning, and resolved evidence.
 
 Custom structured inputs can be supplied with:
 
@@ -195,4 +200,3 @@ tests/integration/          Complete sample/CLI assessment test
 ```
 
 Future-phase packages will be added only when those phases are approved.
-

@@ -113,7 +113,7 @@
         "residual_risk_with_human_oversight": {"value": 1, "knowledge_state": "known", "rationale": "Agent verification provides a strong control.", "evidence_ids": ["E2"]},
         "implementation_complexity": {"value": 2, "knowledge_state": "inferred", "rationale": "Controlled interfaces appear available, subject to later technical review.", "evidence_ids": ["E9"], "confidence": 0.75},
         "conventional_solution_fit": {"value": 1, "knowledge_state": "known", "rationale": "Free-text interpretation is central, so fixed field rules alone fit poorly.", "evidence_ids": ["E1", "E2"]},
-        "human_accountability_required": false,
+        "human_accountability_required": {"value": false, "knowledge_state": "known", "rationale": "The agent verifies the extracted fields, but accountability for performing the extraction itself need not remain human.", "evidence_ids": ["E2"]},
         "capability_signals": {
           "reads_unstructured_documents": true,
           "categorises_items": true
@@ -144,7 +144,7 @@
         "residual_risk_with_human_oversight": {"value": 0, "knowledge_state": "known", "rationale": "Existing exception queues can handle unmatched cases.", "evidence_ids": ["E4"]},
         "implementation_complexity": {"value": 1, "knowledge_state": "inferred", "rationale": "A maintained routing table and controlled interface already exist.", "evidence_ids": ["E4", "E9"], "confidence": 0.8},
         "conventional_solution_fit": {"value": 5, "knowledge_state": "known", "rationale": "Deterministic rules directly encode the routing requirement.", "evidence_ids": ["E4"]},
-        "human_accountability_required": false,
+        "human_accountability_required": {"value": false, "knowledge_state": "known", "rationale": "Routing follows an approved deterministic table and exceptions remain visible.", "evidence_ids": ["E4"]},
         "capability_signals": {
           "categorises_items": true,
           "routes_or_orchestrates_work": true
@@ -175,7 +175,7 @@
         "residual_risk_with_human_oversight": {"value": 2, "knowledge_state": "known", "rationale": "Mandatory review reduces but does not eliminate risk.", "evidence_ids": ["E6"]},
         "implementation_complexity": {"value": 2, "knowledge_state": "inferred", "rationale": "Knowledge and case interfaces appear available, subject to review.", "evidence_ids": ["E5", "E9"], "confidence": 0.75},
         "conventional_solution_fit": {"value": 1, "knowledge_state": "known", "rationale": "Fixed templates cannot adequately handle the contextual drafting requirement.", "evidence_ids": ["E5"]},
-        "human_accountability_required": true,
+        "human_accountability_required": {"value": true, "knowledge_state": "known", "rationale": "An agent remains accountable for the response and commitments made.", "evidence_ids": ["E5"]},
         "capability_signals": {
           "creates_new_content": true,
           "searches_reference_knowledge": true
@@ -206,7 +206,7 @@
         "residual_risk_with_human_oversight": {"value": 2, "knowledge_state": "inferred", "rationale": "Human intervention review may mitigate some risk.", "evidence_ids": ["E7"], "confidence": 0.65},
         "implementation_complexity": {"value": 3, "knowledge_state": "inferred", "rationale": "Dataset, labels, model, intervention, and monitoring would need validation.", "evidence_ids": ["E7"], "confidence": 0.75},
         "conventional_solution_fit": {"value": 1, "knowledge_state": "inferred", "rationale": "Simple rules may not capture future churn behaviour, but evidence is incomplete.", "evidence_ids": ["E7"], "confidence": 0.65},
-        "human_accountability_required": true,
+        "human_accountability_required": {"value": true, "knowledge_state": "inferred", "rationale": "A human would remain accountable for deciding whether and how to intervene.", "evidence_ids": ["E7"], "confidence": 0.7},
         "capability_signals": {
           "predicts_future_outcomes": true
         }
@@ -236,7 +236,7 @@
         "residual_risk_with_human_oversight": {"value": 5, "knowledge_state": "known", "rationale": "The synthetic process states that the consequential decision itself must remain accountable and human-led.", "evidence_ids": ["E8"]},
         "implementation_complexity": {"value": 3, "knowledge_state": "inferred", "rationale": "Relevant information spans case, policy, and precedent sources.", "evidence_ids": ["E8", "E9"], "confidence": 0.75},
         "conventional_solution_fit": {"value": 2, "knowledge_state": "known", "rationale": "Rules and workflow help but do not replace contextual judgement.", "evidence_ids": ["E8"]},
-        "human_accountability_required": true,
+        "human_accountability_required": {"value": true, "knowledge_state": "known", "rationale": "Authorised manager sign-off is explicitly required.", "evidence_ids": ["E8"]},
         "capability_signals": {
           "ranks_or_suggests_options": true,
           "supports_complex_decisions": true
@@ -245,4 +245,3 @@
     }
   ]
 }
-

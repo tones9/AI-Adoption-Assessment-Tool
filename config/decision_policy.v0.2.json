@@ -1,0 +1,66 @@
+{
+  "policy_id": "decision_policy.v0.2",
+  "version": "0.2.0",
+  "status": "PROVISIONAL — NOT YET ACADEMICALLY VALIDATED",
+  "description": "A transparent Phase 1 policy with gate-material evidence requirements. Thresholds and weights are provisional and must be revisited through literature review, benchmark evaluation, and expert validation.",
+  "scale": {
+    "minimum": 0,
+    "maximum": 5,
+    "unknown_representation": "A null value with knowledge_state set to unknown. Missing values are never imputed.",
+    "criteria": {
+      "repetition": {"direction": "favourable", "meaning": "0 means one-off or rare; 5 means very frequent and repetitive."},
+      "predictability": {"direction": "favourable", "meaning": "0 means novel and unstructured; 5 means highly predictable and rule-structured."},
+      "data_readiness": {"direction": "favourable", "meaning": "0 means required data is absent; 5 means accessible, representative, governed, and ready."},
+      "ai_capability_fit": {"direction": "favourable", "meaning": "0 means no meaningful AI capability fit; 5 means a strong and direct capability fit."},
+      "human_judgement_requirement": {"direction": "unfavourable", "meaning": "0 means no material judgement; 5 means expert contextual judgement is essential."},
+      "business_value": {"direction": "favourable", "meaning": "0 means negligible value; 5 means very high operational or strategic value."},
+      "risk_consequence": {"direction": "unfavourable", "meaning": "0 means negligible consequence of error; 5 means severe legal, safety, financial, or customer harm."},
+      "residual_risk_with_human_oversight": {"direction": "unfavourable", "meaning": "0 means oversight reduces residual risk to negligible; 5 means risk remains unacceptable even with oversight."},
+      "implementation_complexity": {"direction": "unfavourable", "meaning": "0 means trivial to implement; 5 means exceptionally complex or currently infeasible."},
+      "conventional_solution_fit": {"direction": "unfavourable", "meaning": "0 means conventional approaches fit poorly; 5 means conventional software, rules, or redesign is clearly preferable."}
+    }
+  },
+  "evidence": {
+    "minimum_inferred_confidence": 0.6,
+    "require_step_evidence_reference": true,
+    "require_material_criterion_evidence_reference": true,
+    "material_by_gate": {
+      "technical_fit": ["ai_capability_fit", "data_readiness"],
+      "business_value": ["business_value"],
+      "risk_and_autonomy": ["human_judgement_requirement", "risk_consequence", "residual_risk_with_human_oversight"]
+    },
+    "conditional_by_gate": {
+      "technical_fit": ["conventional_solution_fit"],
+      "business_value": [],
+      "risk_and_autonomy": ["predictability"]
+    }
+  },
+  "gates": {
+    "minimum_ai_capability_fit": 3,
+    "minimum_business_value": 2,
+    "minimum_data_readiness": 2,
+    "conventional_solution_fit_cutoff": 4,
+    "unacceptable_residual_risk": 4,
+    "augment_human_judgement": 3,
+    "augment_risk_consequence": 3,
+    "augment_residual_risk": 2,
+    "automate_minimum_predictability": 4,
+    "automate_minimum_data_readiness": 4,
+    "automate_maximum_human_judgement": 1,
+    "automate_maximum_risk_consequence": 2,
+    "automate_maximum_residual_risk": 1
+  },
+  "scoring": {
+    "eligible_recommendations": ["AUTOMATE", "AUGMENT"],
+    "criteria": {
+      "business_value": {"weight": 0.25, "direction": "favourable"},
+      "ai_capability_fit": {"weight": 0.20, "direction": "favourable"},
+      "data_readiness": {"weight": 0.15, "direction": "favourable"},
+      "predictability": {"weight": 0.10, "direction": "favourable"},
+      "repetition": {"weight": 0.10, "direction": "favourable"},
+      "risk_consequence": {"weight": 0.10, "direction": "unfavourable"},
+      "implementation_complexity": {"weight": 0.10, "direction": "unfavourable"}
+    },
+    "bands": {"high_minimum": 70, "medium_minimum": 50}
+  }
+}

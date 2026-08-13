@@ -1,5 +1,9 @@
 from ai_adoption_engine.decision.engine import AssessmentEngine
-from ai_adoption_engine.models.enums import RecommendationMode
+from ai_adoption_engine.models.enums import (
+    CriterionName,
+    PriorityStatus,
+    RecommendationMode,
+)
 from ai_adoption_engine.models.process import BusinessProcess
 
 
@@ -47,3 +51,43 @@ def test_engine_is_deterministic(
     second = engine.assess(process).model_dump(mode="json")
     assert first == second
 
+
+def test_complete_criterion_and_accountability_provenance_is_exposed(
+    process: BusinessProcess, engine: AssessmentEngine
+) -> None:
+    step = engine.assess(process).step_assessments[2]
+    assert {item.criterion for item in step.criteria} == set(CriterionName)
+    judgement = next(
+        item
+        for item in step.criteria
+        if item.criterion is CriterionName.HUMAN_JUDGEMENT_REQUIREMENT
+    )
+    predictability = next(
+        item
+        for item in step.criteria
+        if item.criterion is CriterionName.PREDICTABILITY
+    )
+    assert judgement.evidence_ids == ["E5"]
+    assert judgement.material_to_recommendation is True
+    assert predictability.material_to_recommendation is False
+    assert step.human_accountability.value is True
+    assert step.human_accountability.material_to_recommendation is True
+
+
+def test_nonmaterial_unknown_allows_recommendation_but_makes_priority_incomplete(
+    process: BusinessProcess, engine: AssessmentEngine
+) -> None:
+    step = process.steps[2]
+    step.characteristics.repetition.value = None
+    step.characteristics.repetition.knowledge_state = "unknown"
+    assessed = engine.assess(process).step_assessments[2]
+    assert assessed.recommendation_mode is RecommendationMode.AUGMENT
+    assert assessed.priority is None
+    assert assessed.priority_status is PriorityStatus.INCOMPLETE
+    assert assessed.priority_missing_criteria == [CriterionName.REPETITION]
+    repetition = next(
+        item for item in assessed.criteria if item.criterion is CriterionName.REPETITION
+    )
+    assert repetition.value is None
+    assert repetition.material_to_recommendation is False
+    assert repetition.material_to_priority is True

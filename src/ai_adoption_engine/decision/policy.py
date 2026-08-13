@@ -6,7 +6,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from ai_adoption_engine.models.enums import CriterionName, RecommendationMode
+from ai_adoption_engine.models.enums import CriterionName, GateName, RecommendationMode
 
 PROVISIONAL_STATUS = "PROVISIONAL — NOT YET ACADEMICALLY VALIDATED"
 
@@ -31,8 +31,10 @@ class EvidencePolicy(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     minimum_inferred_confidence: float = Field(ge=0, le=1)
-    require_evidence_reference: bool
-    required_criteria: list[CriterionName]
+    require_step_evidence_reference: bool
+    require_material_criterion_evidence_reference: bool
+    material_by_gate: dict[GateName, list[CriterionName]]
+    conditional_by_gate: dict[GateName, list[CriterionName]]
 
 
 class GateThresholds(BaseModel):
@@ -109,8 +111,26 @@ class DecisionPolicy(BaseModel):
         missing_scales = set(CriterionName) - set(self.scale.criteria)
         if missing_scales:
             raise ValueError(f"Missing scale definitions: {sorted(missing_scales)}")
-        if set(self.evidence.required_criteria) != set(CriterionName):
-            raise ValueError("Evidence policy must cover every Phase 1 criterion")
+        expected_material = {
+            GateName.TECHNICAL_FIT,
+            GateName.BUSINESS_VALUE,
+            GateName.RISK_AND_AUTONOMY,
+        }
+        if set(self.evidence.material_by_gate) != expected_material:
+            raise ValueError("Evidence policy must define each decision gate")
+        if set(self.evidence.conditional_by_gate) != expected_material:
+            raise ValueError("Evidence policy must define conditional criteria per gate")
+        configured = {
+            criterion
+            for criteria in self.evidence.material_by_gate.values()
+            for criterion in criteria
+        } | {
+            criterion
+            for criteria in self.evidence.conditional_by_gate.values()
+            for criterion in criteria
+        } | set(self.scoring.criteria)
+        if configured != set(CriterionName):
+            raise ValueError("Every criterion must be material to a gate or prioritisation")
         expected_eligible = {
             RecommendationMode.AUTOMATE,
             RecommendationMode.AUGMENT,
@@ -124,4 +144,3 @@ def load_policy(path: str | Path) -> DecisionPolicy:
     policy_path = Path(path)
     with policy_path.open(encoding="utf-8") as handle:
         return DecisionPolicy.model_validate(json.load(handle))
-
