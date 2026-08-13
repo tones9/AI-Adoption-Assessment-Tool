@@ -2,7 +2,10 @@
 
 import streamlit as st
 
-from ai_adoption_engine.models.decision_support import DecisionPackageSuccess
+from ai_adoption_engine.models.decision_support import (
+    DecisionPackageSuccess,
+    ReportSectionId,
+)
 from ai_adoption_engine.presentation.components.process_flow import render_future_state
 from ai_adoption_engine.presentation.components.status import guard
 from ai_adoption_engine.presentation.context import (
@@ -11,6 +14,7 @@ from ai_adoption_engine.presentation.context import (
     workspace_service,
 )
 from ai_adoption_engine.presentation.report_html import render_report_html
+from ai_adoption_engine.presentation.report_view import build_report_view
 
 
 def _human(value: str) -> str:
@@ -60,9 +64,13 @@ def render() -> None:
             "This is planning guidance, not evidence of deployment."
         )
     with tabs[1]:
+        activity_by_id = {
+            item.step_id: item.current_activity for item in package.portfolio.items
+        }
         for opportunity in package.roadmap.opportunities:
             with st.expander(
-                f"{opportunity.step_id} — {_human(opportunity.recommendation_mode.value)}",
+                f"{activity_by_id[opportunity.step_id]} — "
+                f"{_human(opportunity.recommendation_mode.value)}",
                 expanded=bool(opportunity.stages),
             ):
                 st.write(_human(opportunity.status.value))
@@ -93,17 +101,31 @@ def render() -> None:
     with tabs[3]:
         st.warning(package.future_state.status.value)
         st.info(package.roi_statement)
-        for section in package.report_content.sections:
+        for section in build_report_view(package):
             st.subheader(section.title)
-            for statement in section.statements:
-                st.write(statement.text)
-                st.caption(
-                    f"Origin: {statement.origin.value}"
-                    + (f" · Steps: {', '.join(statement.step_ids)}" if statement.step_ids else "")
-                )
-        st.subheader("Methodology disclosure")
-        for disclosure in package.methodology.disclosure_statements:
-            st.write(f"- {disclosure}")
+            for block in section.blocks:
+                with st.container(
+                    border=section.section_id
+                    in {
+                        ReportSectionId.OPPORTUNITY_PORTFOLIO,
+                        ReportSectionId.RISKS_GOVERNANCE,
+                        ReportSectionId.ADOPTION_ROADMAP,
+                        ReportSectionId.MISSING_INFORMATION,
+                        ReportSectionId.EVIDENCE_APPENDIX,
+                    }
+                ):
+                    if block.heading:
+                        st.markdown(f"**{block.heading}**")
+                    for paragraph in block.paragraphs:
+                        st.write(paragraph)
+                    for bullet in block.bullets:
+                        st.write(f"- {bullet}")
+                    if block.origin:
+                        st.caption(f"Origin: {block.origin.value}")
+                    if block.technical_details:
+                        with st.expander("Technical traceability"):
+                            for detail in block.technical_details:
+                                st.code(detail, language=None)
         html_report = render_report_html(package)
         st.download_button(
             "Download print-friendly HTML report",

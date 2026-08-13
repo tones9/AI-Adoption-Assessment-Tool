@@ -177,6 +177,20 @@ def test_decision_package_ui_renders_proposed_state_gates_and_report(tmp_path, m
     assert "AI deployment roadmap not applicable." in rendered
     assert "does not claim legal compliance" in rendered
     assert app.download_button
+    expander_labels = [item.label for item in app.expander]
+    for opportunity in generated.package.portfolio.items:
+        assert any(
+            label.startswith(opportunity.current_activity)
+            for label in expander_labels
+        )
+    subheaders = [item.value for item in app.subheader]
+    assert subheaders.count("Methodology and policy disclosure") == 1
+    assert "Methodology disclosure" not in subheaders
+    assert rendered.count("Reason / basis:") == len(generated.package.portfolio.items)
+    assert rendered.count("Material missing information:") == len(
+        generated.package.portfolio.items
+    )
+    assert rendered.count("Next action:") == len(generated.package.portfolio.items)
 
 
 def test_scanned_page_warning_states_ocr_is_out_of_scope(tmp_path, monkeypatch) -> None:

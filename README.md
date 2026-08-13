@@ -339,7 +339,7 @@ python -m streamlit run streamlit_app.py
 
 The default local database is `var/ai_adoption_engine.db`. Set `AI_ADOPTION_ENGINE_DB_PATH` to use a different local path. `OPENAI_API_KEY` is required only for an explicitly initiated live-provider extraction; the offline demo never needs it.
 
-The report screen provides deterministic, print-friendly HTML export based on Phase 6 `DecisionReportContent`. It does not claim a dedicated PDF-generation feature.
+The report screen provides deterministic, print-friendly HTML export from the immutable Phase 6 decision package. Its Phase 7 presentation projection consolidates process-wide information gaps and governance considerations, leads roadmap and evidence entries with business activity names, and keeps IDs and fingerprints as secondary technical traceability. The underlying per-step Phase 6 records remain unchanged. It does not claim a dedicated PDF-generation feature.
 
 ## Use Phase 2 ingestion
 
