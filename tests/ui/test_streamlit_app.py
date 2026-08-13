@@ -17,6 +17,12 @@ from ai_adoption_engine.models.document import (
     IssueSeverity,
 )
 from ai_adoption_engine.persistence.sqlite import SQLiteAssessmentRepository
+from ai_adoption_engine.presentation.review_progress import (
+    document_supported_unreviewed,
+    inferred_unreviewed,
+    iter_process_assertions,
+    iter_step_assertions,
+)
 from ai_adoption_engine.workspace.composition import build_workspace_service
 from ai_adoption_engine.workspace.demo_extraction import demo_text
 from tests.fakes.decision_support import sample_integrated_assessment
@@ -68,6 +74,12 @@ def _apply_review_action(app: AppTest, field_path: str, action: str) -> AppTest:
     selector = _widget_with_key_prefix(app.selectbox, f"action-{field_path}-")
     app = selector.select(action).run()
     button = _widget_with_key_prefix(app.button, f"apply-{field_path}-")
+    assert not button.disabled
+    return button.click().run()
+
+
+def _confirm_document_group(app: AppTest, key: str) -> AppTest:
+    button = app.button(key=f"confirm-documented-{key}")
     assert not button.disabled
     return button.click().run()
 
@@ -348,11 +360,16 @@ def test_approval_blockers_are_explicit_and_final_resolution_enables_approval(
     service.ingest_upload(assessment.assessment_id, raw_text=demo_text())
     service.extract(assessment.assessment_id)
     session = service.start_review(assessment.assessment_id)
-    service.review_service.accept_assertion(
-        session,
-        session.steps[1].activity,
-        f"steps.{session.steps[1].candidate_step_id}.activity",
-    )
+    service.review_service.accept_assertion(session, session.process_name, "process.name")
+    unresolved_step = session.steps[5]
+    for step in session.steps:
+        if step.candidate_step_id == unresolved_step.candidate_step_id:
+            continue
+        service.review_service.accept_assertion(
+            session,
+            step.activity,
+            f"steps.{step.candidate_step_id}.activity",
+        )
     service.review_service.accept_step_order(session)
     service.save_review(assessment.assessment_id, session)
 
@@ -362,45 +379,54 @@ def test_approval_blockers_are_explicit_and_final_resolution_enables_approval(
     app.run()
     assert not app.exception
 
-    blocker = next(
-        item.value for item in app.warning if "Approval blocked because" in item.value
+    metrics = {item.label: item.value for item in app.metric}
+    assert metrics["Required items"] == "9"
+    assert metrics["Complete"] == "8"
+    assert metrics["Remaining"] == "1"
+    assert any(
+        "1 required item needs attention before approval" in item.value
+        for item in app.warning
     )
-    assert "Accept or correct Process name in Process identity" in blocker
-    assert "Step 1 “Record the complaint”" in blocker
-    assert "Step 3 “Review the categorised complaint”" in blocker
-    assert "Step 7 “Send the response and close the case”" in blocker
-    assert "Step 2 “Categorise complaint" not in blocker
+    assert any(
+        "Not ready for approval — 1 required item remains" in item.value
+        for item in app.error
+    )
     requirements = "\n".join(item.value for item in app.markdown)
-    assert ":orange-badge[Incomplete] Process identity confirmed" in requirements
-    assert ":orange-badge[Incomplete] Every retained step activity confirmed" in requirements
-    assert ":green-badge[Complete] Step ordering accepted" in requirements
-    confirmation = next(
-        item
-        for item in app.checkbox
-        if item.label == "APPROVE CURRENT-STATE PROCESS"
+    assert "Step 6 — Approve or return the proposed response → Activity" in requirements
+    assert "Accept or correct this retained activity" in requirements
+    assert "Step 5" not in "\n".join(
+        item.value for item in app.markdown if "Accept or correct this retained activity" in item.value
+    )
+    assert not any(
+        item.label == "APPROVE CURRENT-STATE PROCESS" for item in app.checkbox
     )
     approval_button = next(
         item
         for item in app.button
         if item.label == "Approve current-state process"
     )
-    assert confirmation.disabled
     assert approval_button.disabled
+    assert "Resolve the 1 required item listed immediately above" in approval_button.help
 
-    app = _apply_review_action(app, "process.name", "Accept")
-    for step in session.steps:
-        if step.candidate_step_id == session.steps[1].candidate_step_id:
-            continue
-        app.selectbox(key="selected-review-step").select(
-            step.candidate_step_id
-        ).run()
-        app = _apply_review_action(
-            app, f"steps.{step.candidate_step_id}.activity", "Accept"
-        )
+    # Refresh and reopen from durable SQLite state: the same exact blocker remains.
+    app.run()
+    reopened = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=30)
+    reopened.session_state["selected_assessment_id"] = assessment.assessment_id
+    reopened._page_hash = calc_hash("review")
+    app = reopened.run()
+    assert not app.exception
+    assert next(item for item in app.metric if item.label == "Remaining").value == "1"
+
+    app = next(item for item in app.button if item.label == "Open step").click().run()
+    assert app.selectbox(key="selected-review-step").value == unresolved_step.candidate_step_id
+    assert any("Review attention requested here: Activity" in item.value for item in app.warning)
+    app = _confirm_document_group(
+        app, f"step-{unresolved_step.candidate_step_id}"
+    )
 
     assert not app.exception
     assert any(
-        "All structural approval requirements are complete" in item.value
+        "Ready for explicit approval" in item.value
         for item in app.success
     )
     confirmation = next(
@@ -435,6 +461,69 @@ def test_approval_blockers_are_explicit_and_final_resolution_enables_approval(
     assert ArtifactType.DECISION_PACKAGE_RESULT not in approved.active_artifacts
 
 
+def test_scoped_document_confirmation_reduces_demo_review_work_without_flattening_audit(
+    tmp_path, monkeypatch
+) -> None:
+    path = tmp_path / "scoped-confirmation.db"
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
+    repository = SQLiteAssessmentRepository(path)
+    assessment = repository.create_assessment(
+        "Scoped confirmation UAT", ExecutionMode.OFFLINE_DEMO
+    )
+    service = build_workspace_service(path)
+    service.ingest_upload(assessment.assessment_id, raw_text=demo_text())
+    service.extract(assessment.assessment_id)
+    session = service.start_review(assessment.assessment_id)
+
+    all_targets = iter_process_assertions(session)
+    for step in session.steps:
+        all_targets.extend(iter_step_assertions(session, step.candidate_step_id))
+    documented_count = len(document_supported_unreviewed(all_targets))
+    assert len(all_targets) == 200
+    assert documented_count == 52
+
+    app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=30)
+    app.session_state["selected_assessment_id"] = assessment.assessment_id
+    app._page_hash = calc_hash("review")
+    app.run()
+    assert not app.exception
+    metrics = {item.label: item.value for item in app.metric}
+    assert metrics == {"Required items": "9", "Complete": "0", "Remaining": "9"}
+
+    app = _confirm_document_group(app, "process")
+    for step in session.steps:
+        app = app.selectbox(key="selected-review-step").select(
+            step.candidate_step_id
+        ).run()
+        app = _confirm_document_group(app, f"step-{step.candidate_step_id}")
+    app = next(
+        item for item in app.button if item.label == "Accept current step order"
+    ).click().run()
+
+    assert next(item for item in app.metric if item.label == "Remaining").value == "0"
+    persisted = repository.load_active_artifact(
+        assessment.assessment_id, ArtifactType.REVIEW_SESSION
+    ).payload
+    persisted_targets = iter_process_assertions(persisted)
+    for step in persisted.steps:
+        persisted_targets.extend(
+            iter_step_assertions(persisted, step.candidate_step_id)
+        )
+    assert not document_supported_unreviewed(persisted_targets)
+    assert len(persisted.events) == documented_count + 1
+    assert inferred_unreviewed(persisted)
+    assert sum(
+        item.assertion.knowledge_state.value == "unknown"
+        and item.assertion.disposition.value == "unreviewed"
+        for item in persisted_targets
+    ) == 147
+    # Eight scoped confirmations + order + checkbox + approval replace the
+    # misleading ~194-action UI path while preserving individual audit events.
+    assert any(
+        item.label == "APPROVE CURRENT-STATE PROCESS" for item in app.checkbox
+    )
+
+
 def test_review_action_controls_are_conditional_and_saved_state_is_visible(
     tmp_path, monkeypatch
 ) -> None:
@@ -459,8 +548,13 @@ def test_review_action_controls_are_conditional_and_saved_state_is_visible(
     # requiring the user to expand every activity card.
     assert len([item for item in app.selectbox if item.key == "selected-review-step"]) == 1
     progress = "\n".join(item.value for item in app.markdown)
-    assert "Activity needs review" in progress
-    assert "fields reviewed" in progress
+    assert ":gray-badge[Not reviewed]" in progress
+    assert "Optional descriptive fields" in "\n".join(
+        item.value for item in app.caption
+    )
+    metrics = {item.label: item.value for item in app.metric}
+    assert metrics["Required items"] == "9"
+    assert metrics["Remaining"] == "9"
     assert len([item for item in app.button if item.label == "Apply review action"]) < 45
 
     process_action = _widget_with_key_prefix(app.selectbox, "action-process.name-")
@@ -577,14 +671,12 @@ def test_complete_offline_demo_ui_journey_persists_and_reopens_exact_chain(
     session = started.active_artifacts[ArtifactType.REVIEW_SESSION].payload
     app._page_hash = calc_hash("review")
     app.run()
-    app = _apply_review_action(app, "process.name", "Accept")
+    app = _confirm_document_group(app, "process")
     for step in session.steps:
-        app.selectbox(key="selected-review-step").select(
+        app = app.selectbox(key="selected-review-step").select(
             step.candidate_step_id
         ).run()
-        app = _apply_review_action(
-            app, f"steps.{step.candidate_step_id}.activity", "Accept"
-        )
+        app = _confirm_document_group(app, f"step-{step.candidate_step_id}")
 
     first_step = session.steps[0]
     app.selectbox(key="selected-review-step").select(

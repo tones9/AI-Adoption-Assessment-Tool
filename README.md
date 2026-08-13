@@ -158,7 +158,7 @@ Assessments → Source & Extraction → Process Review
             → Assessment Results → Decision Package
 ```
 
-The five-page workspace enforces the backend boundaries: extraction is explicit, candidate output remains unconfirmed until Phase 4 approval, assessment requires the immutable approval artifact, and Phase 6 content is rendered without recreating assessment or planning rules. The process-review screen exposes document-supported, model-inferred, human-supplied and unknown information with literal source snippets and controlled Phase 4 service operations.
+The five-page workspace enforces the backend boundaries: extraction is explicit, candidate output remains unconfirmed until Phase 4 approval, assessment requires the immutable approval artifact, and Phase 6 content is rendered without recreating assessment or planning rules. The process-review screen exposes document-supported, model-inferred, human-supplied and unknown information with literal source snippets and controlled Phase 4 service operations. Its persisted review-progress summary follows the actual Phase 4 approval rules, links each blocker to its affected step, and supports scoped confirmation of directly documented facts while retaining an individual assertion disposition and audit event for every confirmed fact.
 
 Offline demo mode is permanently labelled `OFFLINE DEMO — SCRIPTED SYNTHETIC EXTRACTION` and operates only on [`data/demo/synthetic_complaint_process.txt`](data/demo/synthetic_complaint_process.txt). Arbitrary documents may be ingested in demo mode but cannot receive the scripted extraction. Live-provider mode never silently falls back to the demo adapter and requires an explicit extraction action plus local credentials.
 

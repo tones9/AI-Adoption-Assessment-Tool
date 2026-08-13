@@ -9,9 +9,7 @@ import streamlit as st
 
 from ai_adoption_engine.models.enums import KnowledgeState
 from ai_adoption_engine.models.review import (
-    ApprovalError,
     ConflictStatus,
-    ExplicitApproval,
     ProcessReviewSession,
     ReviewDisposition,
     ReviewedAssertion,
@@ -25,84 +23,24 @@ from ai_adoption_engine.presentation.context import (
     refresh_workspace,
     workspace_service,
 )
-from ai_adoption_engine.review.approval import approve_review
+from ai_adoption_engine.presentation.review_progress import (
+    AssertionTarget,
+    ReviewProgress,
+    build_review_progress,
+    document_supported_unreviewed,
+    inferred_unreviewed,
+    iter_process_assertions,
+    iter_step_assertions,
+    unknown_unreviewed_by_step,
+)
 
 
 AssertionResolver = Callable[[ProcessReviewSession], ReviewedAssertion]
 CollectionResolver = Callable[[ProcessReviewSession], ReviewedCollection]
 
 
-_APPROVAL_REQUIREMENTS = (
-    (
-        "Process identity confirmed",
-        {"process-identity-unconfirmed"},
-    ),
-    (
-        "At least one process step retained",
-        {"no-retained-steps"},
-    ),
-    (
-        "Every retained step activity confirmed",
-        {"step-activity-unconfirmed"},
-    ),
-    (
-        "Step ordering accepted",
-        {"step-order-unconfirmed"},
-    ),
-    (
-        "Retained dependencies are valid",
-        {"invalid-retained-dependency"},
-    ),
-    (
-        "Blocking structural conflicts resolved",
-        {"unresolved-structural-conflict"},
-    ),
-    (
-        "Validated process projection is structurally valid",
-        {"invalid-phase1-projection"},
-    ),
-)
-
-
 def _step(session: ProcessReviewSession, step_id: str):
     return next(item for item in session.steps if item.candidate_step_id == step_id)
-
-
-def _approval_errors(session: ProcessReviewSession) -> list[ApprovalError]:
-    """Run the Phase 4 approval boundary as a side-effect-free preflight."""
-    result = approve_review(
-        session,
-        ExplicitApproval(
-            approval_statement="APPROVE CURRENT-STATE PROCESS",
-            approved_at=session.updated_at,
-        ),
-    )
-    return result.errors
-
-
-def _approval_error_message(
-    session: ProcessReviewSession, error: ApprovalError
-) -> str:
-    if error.code == "step-activity-unconfirmed" and error.field_path:
-        step_id = error.field_path.removeprefix("steps.").removesuffix(".activity")
-        try:
-            step = _step(session, step_id)
-        except StopIteration:
-            pass
-        else:
-            return (
-                f"Step {step.sequence} “{step.activity.value or 'Unknown activity'}”: "
-                "accept or correct its Activity field in the selected-step editor."
-            )
-    if error.code == "process-identity-unconfirmed":
-        return "Accept or correct Process name in Process identity."
-    if error.code == "step-order-unconfirmed":
-        return "Accept the displayed order in Step order."
-    if error.code == "invalid-retained-dependency":
-        return "Resolve or reject the invalid dependency in the affected step's Dependencies section."
-    if error.code == "unresolved-structural-conflict":
-        return "Resolve the open item in Blocking conflicts."
-    return error.message
 
 
 def _apply(
@@ -122,8 +60,76 @@ def _apply(
         st.error(f"Review action could not be saved: {exc}")
         return
     st.session_state.review_feedback = success_message
+    st.session_state.pop("review_focus_path", None)
     refresh_workspace()
     st.rerun()
+
+
+def _confirm_document_supported(
+    working: ProcessReviewSession,
+    *,
+    step_id: str | None,
+    field_paths: list[str],
+) -> None:
+    targets = (
+        iter_process_assertions(working)
+        if step_id is None
+        else iter_step_assertions(working, step_id)
+    )
+    by_path = {item.field_path: item for item in targets}
+    service = workspace_service().review_service
+    for field_path in field_paths:
+        target = by_path[field_path]
+        service.accept_assertion(
+            working,
+            target.assertion,
+            field_path,
+            rationale="Confirmed in a grouped review of document-supported facts.",
+        )
+
+
+def _render_document_confirmation_group(
+    session: ProcessReviewSession,
+    *,
+    targets: list[AssertionTarget],
+    key: str,
+    scope_label: str,
+    step_id: str | None = None,
+) -> None:
+    pending = document_supported_unreviewed(targets)
+    if not pending:
+        st.success(f"All document-supported facts for {scope_label} have been reviewed.")
+        return
+    st.info(
+        f"{len(pending)} directly documented fact{'s' if len(pending) != 1 else ''} "
+        "can be confirmed together. Inferred, unknown, corrected, rejected and human-supplied values are excluded."
+    )
+    with st.expander(f"Facts included in this confirmation ({len(pending)})"):
+        for item in pending:
+            st.markdown(f"**{item.label}**")
+            st.write(item.assertion.value)
+            for evidence in item.assertion.evidence:
+                st.caption(evidence.source_locator)
+                st.code(evidence.exact_snippet, language=None, wrap_lines=True)
+    if st.button(
+        f"Confirm {len(pending)} document-supported fact{'s' if len(pending) != 1 else ''}",
+        key=f"confirm-documented-{key}",
+        type="primary",
+    ):
+        field_paths = [item.field_path for item in pending]
+        _apply(
+            session,
+            lambda working: _confirm_document_supported(
+                working,
+                step_id=step_id,
+                field_paths=field_paths,
+            ),
+            success_message=(
+                f"{len(pending)} document-supported fact"
+                f"{'s' if len(pending) != 1 else ''} confirmed for {scope_label}. "
+                "Each assertion has its own review disposition and audit event."
+            ),
+        )
 
 
 def _value_input(assertion: ReviewedAssertion, key: str, value_kind: type) -> Any:
@@ -163,6 +169,8 @@ def _assertion_editor(
 ) -> None:
     assertion = resolver(session)
     with st.container(border=True):
+        if st.session_state.get("review_focus_path") == field_path:
+            st.warning(f"Review attention requested here: {label}.")
         render_reviewed_assertion(assertion, label=label)
         if assertion.knowledge_state is KnowledgeState.UNKNOWN:
             if assertion.disposition is ReviewDisposition.UNKNOWN_RETAINED:
@@ -258,50 +266,106 @@ def _collection_progress(collection: ReviewedCollection) -> str:
     return f"{reviewed}/{len(collection.items)} reviewed"
 
 
-def _step_assertions(step) -> list[ReviewedAssertion]:
-    assertions = [
-        step.document_order,
-        step.activity,
-        step.description,
-        step.human_accountability_required,
-    ]
-    for collection in (
-        step.actors,
-        step.responsible_roles,
-        step.systems,
-        step.inputs,
-        step.outputs,
-        step.exceptions,
-        step.operational_characteristics,
-    ):
-        assertions.extend(collection.items)
-    for decision in step.decisions:
-        assertions.append(decision.condition)
-        assertions.extend(decision.branches.items)
-    for dependency in step.dependencies:
-        assertions.extend([dependency.target_label, dependency.relationship])
-    assertions.extend(item.assertion for item in step.criteria)
-    assertions.extend(item.assertion for item in step.capability_signals)
-    return assertions
-
-
-def _step_progress(step) -> str:
+def _step_status(step, progress: ReviewProgress) -> str:
     if not step.retained:
-        return "Removed"
-    activity_status = (
-        "Activity confirmed"
-        if step.activity.disposition
-        in {ReviewDisposition.ACCEPTED, ReviewDisposition.CORRECTED}
-        else "Activity needs review"
+        return ":gray-badge[Removed]"
+    remaining = sum(
+        item.step_id == step.candidate_step_id for item in progress.outstanding
     )
-    assertions = _step_assertions(step)
-    reviewed = sum(
-        item.disposition is not ReviewDisposition.UNREVIEWED for item in assertions
+    if remaining:
+        if step.activity.disposition is ReviewDisposition.UNREVIEWED:
+            return ":gray-badge[Not reviewed]"
+        return (
+            f":orange-badge[{remaining} required item"
+            f"{'s' if remaining != 1 else ''} remaining]"
+        )
+    return ":green-badge[Complete]"
+
+
+def _open_outstanding(item) -> None:
+    if item.step_id is not None:
+        st.session_state["selected-review-step"] = item.step_id
+    st.session_state["review_focus_path"] = item.field_path
+    st.session_state["review_feedback"] = (
+        f"Opened {item.location_label} → {item.field_label}. {item.reason}"
     )
-    unknown = sum(
-        item.disposition is ReviewDisposition.UNKNOWN_RETAINED for item in assertions
+    st.rerun()
+
+
+def _render_review_progress(progress: ReviewProgress) -> None:
+    st.subheader("Review progress")
+    columns = st.columns(3)
+    columns[0].metric("Required items", progress.total_required)
+    columns[1].metric("Complete", progress.completed_required)
+    columns[2].metric("Remaining", progress.remaining_required)
+    st.progress(
+        progress.completion_ratio,
+        text=(
+            f"{progress.completed_required} of {progress.total_required} "
+            "required review items complete"
+        ),
     )
-    return f"{activity_status} · {reviewed}/{len(assertions)} fields reviewed · {unknown} unknown retained"
+    st.caption(
+        "This progress follows the Phase 4 approval rules. Optional descriptive fields, "
+        "non-blocking unknowns and incomplete AI-assessment evidence do not reduce it."
+    )
+    if progress.is_ready:
+        st.success("Ready for explicit approval.")
+        return
+    noun = "item" if progress.remaining_required == 1 else "items"
+    verb = "needs" if progress.remaining_required == 1 else "need"
+    st.warning(
+        f"{progress.remaining_required} required {noun} {verb} attention before approval."
+    )
+    for item in progress.outstanding:
+        with st.container(border=True):
+            st.markdown(f"**{item.location_label} → {item.field_label}**")
+            st.write(item.reason)
+            if item.step_id is not None:
+                if st.button("Open step", key=f"open-outstanding-{item.item_id}"):
+                    _open_outstanding(item)
+            elif st.button(
+                "Show requirement", key=f"open-outstanding-{item.item_id}"
+            ):
+                _open_outstanding(item)
+
+
+def _render_non_blocking_attention(session: ProcessReviewSession) -> None:
+    inferred = inferred_unreviewed(session)
+    unknown_by_step = unknown_unreviewed_by_step(session)
+    unknown_total = sum(unknown_by_step.values())
+    with st.expander(
+        f"Non-blocking review attention — {len(inferred)} inferred, {unknown_total} unknown"
+    ):
+        if inferred:
+            st.warning(
+                f"{len(inferred)} model-inferred item"
+                f"{'s' if len(inferred) != 1 else ''} remain identifiable and are recommended for review."
+            )
+            for item in inferred:
+                st.write(f"- {item.activity or 'Process'} → {item.label}: {item.assertion.value}")
+                if item.step_id and st.button(
+                    "Open inferred item", key=f"open-inferred-{item.field_path}"
+                ):
+                    st.session_state["selected-review-step"] = item.step_id
+                    st.session_state["review_focus_path"] = item.field_path
+                    st.session_state["review_feedback"] = (
+                        f"Opened model-inferred item: {item.label}."
+                    )
+                    st.rerun()
+        else:
+            st.success("No unreviewed model-inferred items.")
+        st.caption(
+            f"{unknown_total} values remain unknown. They do not block process validation; "
+            "resolve them only when legitimate information is available. Otherwise they remain explicitly unknown."
+        )
+        for step in session.steps:
+            count = unknown_by_step.get(step.candidate_step_id, 0)
+            if count:
+                st.write(
+                    f"- Step {step.sequence} — {step.activity.value or 'Unknown activity'}: "
+                    f"{count} unknown value{'s' if count != 1 else ''}"
+                )
 
 
 def _collection_editor(
@@ -348,13 +412,16 @@ def _collection_editor(
             )
 
 
-def _render_step(session: ProcessReviewSession, step_id: str) -> None:
+def _render_step(
+    session: ProcessReviewSession, step_id: str, progress: ReviewProgress
+) -> None:
     step = _step(session, step_id)
     if not step.retained:
         st.caption("Rejected step retained in the audit record.")
         return
     top = st.columns([5, 2, 2])
     top[0].markdown(f"### {step.sequence}. {step.activity.value or 'Unknown activity'}")
+    top[0].markdown(_step_status(step, progress))
     retained_ids = [item.candidate_step_id for item in session.steps if item.retained]
     position = retained_ids.index(step_id)
     if top[1].button("Move earlier", key=f"up-{step_id}", disabled=position == 0):
@@ -377,6 +444,20 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
             ),
             success_message=f"Step {step.sequence} moved later. Review and re-accept the updated order.",
         )
+
+    focus_path = st.session_state.get("review_focus_path")
+    if focus_path and focus_path.startswith(f"steps.{step_id}."):
+        st.warning(
+            "Opened from Review progress. The outstanding or recommended field is shown in this activity editor."
+        )
+
+    _render_document_confirmation_group(
+        session,
+        targets=iter_step_assertions(session, step_id),
+        key=f"step-{step_id}",
+        scope_label=f"Step {step.sequence}",
+        step_id=step_id,
+    )
 
     _assertion_editor(
         session,
@@ -430,6 +511,22 @@ def _render_step(session: ProcessReviewSession, step_id: str) -> None:
         if not step.dependencies:
             st.caption("No candidate dependencies were extracted.")
         for index, dependency in enumerate(step.dependencies):
+            _assertion_editor(
+                session,
+                label=f"Dependency {index + 1} target",
+                field_path=f"steps.{step_id}.dependencies[{index}].target_label",
+                resolver=lambda working, i=index: _step(working, step_id).dependencies[
+                    i
+                ].target_label,
+            )
+            _assertion_editor(
+                session,
+                label=f"Dependency {index + 1} relationship",
+                field_path=f"steps.{step_id}.dependencies[{index}].relationship",
+                resolver=lambda working, i=index: _step(working, step_id).dependencies[
+                    i
+                ].relationship,
+            )
             st.write(
                 f"{dependency.relationship.value or 'Relationship unknown'}: "
                 f"{dependency.target_label.value or 'Target unknown'}"
@@ -588,30 +685,6 @@ def _render_approved(approved) -> None:
             st.rerun()
 
 
-def _render_approval_preflight(
-    session: ProcessReviewSession, *, heading: str = "Approval readiness"
-) -> list[ApprovalError]:
-    approval_errors = _approval_errors(session)
-    error_codes = {item.code for item in approval_errors}
-    st.subheader(heading)
-    for label, blocking_codes in _APPROVAL_REQUIREMENTS:
-        if error_codes.isdisjoint(blocking_codes):
-            st.markdown(f":green-badge[Complete] {label}")
-        else:
-            st.markdown(f":orange-badge[Incomplete] {label}")
-    if approval_errors:
-        st.warning(
-            "**Approval blocked because:**\n\n"
-            + "\n".join(
-                f"- {_approval_error_message(session, error)}"
-                for error in approval_errors
-            )
-        )
-    else:
-        st.success("All structural approval requirements are complete.")
-    return approval_errors
-
-
 def render() -> None:
     snapshot = hydrate_workspace()
     if snapshot is None:
@@ -639,10 +712,20 @@ def render() -> None:
     st.write(
         "Confirm what the document says, distinguish inference and human input, retain legitimate unknowns, and resolve structural blockers."
     )
+    progress = build_review_progress(session)
     with st.container(border=True):
-        _render_approval_preflight(session)
+        _render_review_progress(progress)
+        _render_non_blocking_attention(session)
 
     st.header("Process identity")
+    if st.session_state.get("review_focus_path") == "process.name":
+        st.warning("Opened from Review progress. Accept or correct the process name below.")
+    _render_document_confirmation_group(
+        session,
+        targets=iter_process_assertions(session),
+        key="process",
+        scope_label="the process identity",
+    )
     _assertion_editor(
         session,
         label="Process name",
@@ -667,24 +750,31 @@ def render() -> None:
     for item in ordered_steps:
         st.markdown(
             f"**{item.sequence}. {item.activity.value or 'Unknown activity'}**  \n"
-            f"{_step_progress(item)}"
+            f"{_step_status(item, progress)}"
         )
     retained_steps = [item for item in ordered_steps if item.retained]
     step_labels = {
         item.candidate_step_id: f"Step {item.sequence}: {item.activity.value or 'Unknown activity'}"
         for item in retained_steps
     }
-    selected_step_id = st.selectbox(
-        "Select an activity to review",
-        list(step_labels),
-        format_func=lambda value: step_labels[value],
-        key="selected-review-step",
-    )
-    with st.container(border=True):
-        _render_step(session, selected_step_id)
+    if retained_steps:
+        if st.session_state.get("selected-review-step") not in step_labels:
+            st.session_state.pop("selected-review-step", None)
+        selected_step_id = st.selectbox(
+            "Select an activity to review",
+            list(step_labels),
+            format_func=lambda value: step_labels[value],
+            key="selected-review-step",
+        )
+        with st.container(border=True):
+            _render_step(session, selected_step_id, progress)
+    else:
+        st.error("No process activities are currently retained. Restore or retain at least one activity before approval.")
 
     with st.container(border=True):
         st.subheader("Step order")
+        if st.session_state.get("review_focus_path") == "process.steps.order":
+            st.warning("Opened from Review progress. Confirm the displayed order below.")
         st.write(" → ".join(
             str(item.activity.value) for item in sorted(session.steps, key=lambda value: value.sequence) if item.retained
         ))
@@ -730,24 +820,35 @@ def render() -> None:
             "Approval confirms that this is an acceptable human-reviewed representation of the current-state process. "
             "Unknown AI-assessment information may remain unknown."
         )
-        approval_errors = _render_approval_preflight(
-            session, heading="Final approval check"
-        )
-        if not approval_errors:
-            st.caption("Confirm the statement below to enable approval.")
+        if not progress.is_ready:
+            noun = "item" if progress.remaining_required == 1 else "items"
+            verb = "remains" if progress.remaining_required == 1 else "remain"
+            st.error(
+                f"Not ready for approval — {progress.remaining_required} required "
+                f"{noun} {verb}."
+            )
+            for item in progress.outstanding:
+                st.write(
+                    f"- {item.location_label} → {item.field_label}: {item.reason}"
+                )
+            st.button(
+                "Approve current-state process",
+                type="primary",
+                disabled=True,
+                help=(
+                    f"Resolve the {progress.remaining_required} required item"
+                    f"{'s' if progress.remaining_required != 1 else ''} listed immediately above."
+                ),
+            )
+            return
 
-        confirmation_key = (
-            f"approve-current-state-{session.review_id}-{session.updated_at.isoformat()}"
-        )
+        st.success("Ready for approval — all required review items are complete.")
+        st.caption("Confirm the statement below to enable approval.")
+        confirmation_key = f"approve-current-state-{session.review_id}-{session.updated_at.isoformat()}"
         confirmed = st.checkbox(
             "APPROVE CURRENT-STATE PROCESS",
             key=confirmation_key,
-            disabled=bool(approval_errors),
-            help=(
-                "Resolve the incomplete approval requirements above first."
-                if approval_errors
-                else "This explicit confirmation is required before approval."
-            ),
+            help="This explicit confirmation is required before approval.",
         )
         rationale = st.text_input(
             "Optional approval rationale",
@@ -756,15 +857,11 @@ def render() -> None:
         submitted = st.button(
             "Approve current-state process",
             type="primary",
-            disabled=bool(approval_errors) or not confirmed,
+            disabled=not confirmed,
             help=(
-                "Resolve the listed approval requirements first."
-                if approval_errors
-                else (
-                    None
-                    if confirmed
-                    else "Select APPROVE CURRENT-STATE PROCESS to enable approval."
-                )
+                None
+                if confirmed
+                else "Select APPROVE CURRENT-STATE PROCESS to enable approval."
             ),
         )
         if submitted:
