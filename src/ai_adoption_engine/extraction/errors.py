@@ -13,5 +13,9 @@ class ExtractionProviderRefusal(ExtractionProviderError):
     code = "provider-refusal"
 
 
+class ExtractionProviderInvalidOutput(ExtractionProviderError):
+    code = "provider-invalid-structured-output"
+
+
 class ExtractionProviderConfigurationError(ExtractionProviderError):
     code = "provider-configuration-error"

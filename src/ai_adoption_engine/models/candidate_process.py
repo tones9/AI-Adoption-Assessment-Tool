@@ -116,11 +116,19 @@ class CandidateCollection(BaseModel, Generic[T]):
     completeness: CollectionCompleteness
     rationale: str = Field(min_length=1)
     items: list[CandidateAssertion[T]] = Field(default_factory=list)
+    evidence: list[ResolvedEvidenceReference] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def validate_completeness(self) -> "CandidateCollection[T]":
-        if self.completeness is CollectionCompleteness.UNKNOWN and self.items:
-            raise ValueError("An unknown collection cannot contain asserted items")
+        if self.completeness is CollectionCompleteness.UNKNOWN:
+            if self.items or self.evidence:
+                raise ValueError(
+                    "An unknown collection cannot contain asserted items or evidence"
+                )
+        elif not self.items and not self.evidence:
+            raise ValueError(
+                "A supported empty collection requires exact source evidence"
+            )
         return self
 
 

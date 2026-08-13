@@ -6,7 +6,10 @@ import uuid
 from collections.abc import Callable
 
 from ai_adoption_engine.extraction.chunking import ChunkingConfig, plan_chunks
-from ai_adoption_engine.extraction.errors import ExtractionProviderError
+from ai_adoption_engine.extraction.errors import (
+    ExtractionProviderError,
+    ExtractionProviderInvalidOutput,
+)
 from ai_adoption_engine.extraction.evidence import EvidenceResolver
 from ai_adoption_engine.extraction.merge import merge_chunks
 from ai_adoption_engine.extraction.providers.base import (
@@ -32,12 +35,16 @@ class ProcessExtractionService:
         chunking: ChunkingConfig | None = None,
         schema_version: str = "candidate-process.v0.1",
         prompt_version: str = "process-extraction.v0.1",
+        repair_attempts: int = 1,
         run_id_factory: Callable[[], str] | None = None,
     ) -> None:
+        if repair_attempts not in {0, 1}:
+            raise ValueError("Phase 3 supports zero or one repair attempt")
         self.provider = provider
         self.chunking = chunking or ChunkingConfig()
         self.schema_version = schema_version
         self.prompt_version = prompt_version
+        self.repair_attempts = repair_attempts
         self.run_id_factory = run_id_factory or (
             lambda: f"extraction-{uuid.uuid4()}"
         )
@@ -60,6 +67,7 @@ class ProcessExtractionService:
         issues: list[ExtractionIssue] = []
         invocations: list[ProviderInvocation] = []
         for chunk in chunks:
+            repair_consumed = False
             request = ExtractionRequest(
                 document_id=document.document_id,
                 chunk=chunk,
@@ -69,6 +77,39 @@ class ProcessExtractionService:
             try:
                 response = self.provider.extract_chunk(request)
                 invocations.append(response.invocation)
+            except ExtractionProviderInvalidOutput as exc:
+                if not self.repair_attempts:
+                    issues.append(
+                        ExtractionIssue(
+                            severity=ExtractionIssueSeverity.ERROR,
+                            code=exc.code,
+                            message="The provider returned invalid structured output.",
+                            chunk_id=chunk.chunk_id,
+                        )
+                    )
+                    continue
+                repair_consumed = True
+                repair_request = ExtractionRequest(
+                    document_id=document.document_id,
+                    chunk=chunk,
+                    schema_version=self.schema_version,
+                    prompt_version=self.prompt_version,
+                    attempt=2,
+                    repair_feedback=(exc.code,),
+                )
+                try:
+                    response = self.provider.extract_chunk(repair_request)
+                    invocations.append(response.invocation)
+                except ExtractionProviderError as repair_exc:
+                    issues.append(
+                        ExtractionIssue(
+                            severity=ExtractionIssueSeverity.ERROR,
+                            code=repair_exc.code,
+                            message="The provider could not repair invalid structured output.",
+                            chunk_id=chunk.chunk_id,
+                        )
+                    )
+                    continue
             except ExtractionProviderError as exc:
                 issues.append(
                     ExtractionIssue(
@@ -82,7 +123,7 @@ class ProcessExtractionService:
 
             resolver = EvidenceResolver(document, chunk)
             resolved, resolution_issues = resolver.resolve_chunk(response.extraction)
-            if resolution_issues:
+            if resolution_issues and self.repair_attempts and not repair_consumed:
                 repair_request = ExtractionRequest(
                     document_id=document.document_id,
                     chunk=chunk,

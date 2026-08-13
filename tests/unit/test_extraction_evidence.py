@@ -18,6 +18,8 @@ def test_application_resolves_trusted_offsets_from_exact_snippet() -> None:
         RawEvidencePointer(
             block_id="t-b0001",
             exact_snippet="records the complaint",
+            occurrence=None,
+            slice_id=None,
         )
     )
     assert reference.block_start_offset == len("Agent ")
@@ -33,6 +35,8 @@ def test_fabricated_snippet_is_rejected() -> None:
             RawEvidencePointer(
                 block_id="t-b0001",
                 exact_snippet="Manager approves the refund",
+                occurrence=None,
+                slice_id=None,
             )
         )
 
@@ -41,11 +45,19 @@ def test_duplicate_snippet_requires_disambiguation() -> None:
     resolver = _resolver("review then review again")
     with pytest.raises(ValueError, match="ambiguous-snippet"):
         resolver.resolve_pointer(
-            RawEvidencePointer(block_id="t-b0001", exact_snippet="review")
+            RawEvidencePointer(
+                block_id="t-b0001",
+                exact_snippet="review",
+                occurrence=None,
+                slice_id=None,
+            )
         )
     second = resolver.resolve_pointer(
         RawEvidencePointer(
-            block_id="t-b0001", exact_snippet="review", occurrence=2
+            block_id="t-b0001",
+            exact_snippet="review",
+            occurrence=2,
+            slice_id=None,
         )
     )
     assert second.block_start_offset == len("review then ")

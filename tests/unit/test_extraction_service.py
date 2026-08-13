@@ -1,4 +1,7 @@
-from ai_adoption_engine.extraction.errors import ExtractionProviderTimeout
+from ai_adoption_engine.extraction.errors import (
+    ExtractionProviderInvalidOutput,
+    ExtractionProviderTimeout,
+)
 from ai_adoption_engine.extraction.service import ProcessExtractionService
 from ai_adoption_engine.ingestion.text import ingest_raw_text
 from ai_adoption_engine.models.candidate_process import CandidateProcessStatus
@@ -113,3 +116,26 @@ def test_provider_timeout_is_sanitised() -> None:
     assert result.status is ExtractionStatus.FAILED
     assert result.issues[0].code == "provider-timeout"
     assert "secret" not in result.issues[0].message
+
+
+def test_invalid_structured_output_uses_single_repair_attempt() -> None:
+    ingestion = ingest_raw_text("Agent records the complaint.")
+    assert ingestion.document is not None
+    valid = raw_chunk(
+        raw_step(
+            local_step_id="step-1",
+            activity="Record complaint",
+            block_id="t-b0001",
+            snippet="Agent records the complaint.",
+        )
+    )
+    provider = ScriptedExtractionProvider(
+        [ExtractionProviderInvalidOutput("sensitive malformed output"), valid]
+    )
+    result = ProcessExtractionService(provider).extract(ingestion.document)
+    assert result.status is ExtractionStatus.SUCCESS
+    assert result.candidate is not None
+    assert [request.attempt for request in provider.requests] == [1, 2]
+    assert provider.requests[1].repair_feedback == (
+        "provider-invalid-structured-output",
+    )

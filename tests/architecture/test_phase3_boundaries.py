@@ -1,9 +1,16 @@
 import ast
 from pathlib import Path
 
+from ai_adoption_engine.decision.engine import AssessmentEngine
+from ai_adoption_engine.extraction.service import ProcessExtractionService
 from ai_adoption_engine.ingestion.text import ingest_raw_text
 from ai_adoption_engine.models.candidate_process import CandidateBusinessProcess
 from ai_adoption_engine.models.process import BusinessProcess
+from tests.fakes.extraction_provider import (
+    ScriptedExtractionProvider,
+    raw_chunk,
+    raw_step,
+)
 
 
 def test_extraction_source_has_no_phase1_engine_or_policy_imports() -> None:
@@ -41,3 +48,26 @@ def test_phase2_document_remains_extraction_free() -> None:
     assert result.document is not None
     assert not hasattr(result.document, "candidate_status")
     assert not hasattr(result.document, "steps")
+
+
+def test_extraction_runtime_never_invokes_assessment_engine(monkeypatch) -> None:
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("Phase 1 decision engine was invoked by Phase 3")
+
+    monkeypatch.setattr(AssessmentEngine, "assess", fail_if_called)
+    ingestion = ingest_raw_text("Agent records the complaint.")
+    assert ingestion.document is not None
+    provider = ScriptedExtractionProvider(
+        [
+            raw_chunk(
+                raw_step(
+                    local_step_id="one",
+                    activity="Record complaint",
+                    block_id="t-b0001",
+                    snippet="Agent records the complaint.",
+                )
+            )
+        ]
+    )
+    result = ProcessExtractionService(provider).extract(ingestion.document)
+    assert result.candidate is not None

@@ -8,8 +8,10 @@ from ai_adoption_engine.models.candidate_process import (
     CandidateCharacteristic,
     CandidateOrdinalAssertion,
     CandidateTaskCharacteristics,
+    CollectionCompleteness,
 )
 from ai_adoption_engine.models.enums import CriterionName, KnowledgeState
+from ai_adoption_engine.models.extraction import RawCandidateCollection
 
 
 def _unknown(assertion_type: type[CandidateAssertion] = CandidateAssertion):
@@ -57,4 +59,14 @@ def test_task_characteristics_require_every_criterion_explicitly() -> None:
             criteria=criteria,
             human_accountability_required=_unknown(),
             capability_signals=signals,
+        )
+
+
+def test_supported_empty_collection_requires_source_evidence() -> None:
+    with pytest.raises(ValidationError, match="requires an evidence pointer"):
+        RawCandidateCollection[str](
+            completeness=CollectionCompleteness.COMPLETE,
+            rationale="The source explicitly states that there are no exceptions.",
+            items=[],
+            evidence=[],
         )

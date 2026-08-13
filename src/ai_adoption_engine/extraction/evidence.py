@@ -62,7 +62,7 @@ class ResolvedChunkExtraction:
     process_description: CandidateAssertion[str]
     process_objective: CandidateAssertion[str]
     steps: list[ResolvedStepDraft]
-    multiple_processes_detected: bool
+    multiple_processes_detected: CandidateAssertion[bool]
 
 
 class EvidenceResolver:
@@ -82,6 +82,11 @@ class EvidenceResolver:
         block = self.blocks.get(pointer.block_id)
         if block is None:
             raise ValueError("unknown-block")
+        chunk_slices = [
+            item for item in self.chunk.slices if item.block_id == pointer.block_id
+        ]
+        if not chunk_slices:
+            raise ValueError("block-not-in-chunk")
 
         starts: list[int] = []
         search_from = 0
@@ -116,6 +121,13 @@ class EvidenceResolver:
             block_start = starts[0]
         else:
             raise ValueError("ambiguous-snippet")
+
+        if not any(
+            block_start >= item.block_start_offset
+            and block_start + len(pointer.exact_snippet) <= item.block_end_offset
+            for item in chunk_slices
+        ):
+            raise ValueError("snippet-outside-chunk")
 
         block_end = block_start + len(pointer.exact_snippet)
         document_start = block.document_start_offset + block_start
@@ -209,6 +221,21 @@ class EvidenceResolver:
     ) -> tuple[CandidateCollection[T], list[ExtractionIssue]]:
         items: list[CandidateAssertion[T]] = []
         issues: list[ExtractionIssue] = []
+        collection_evidence: list[ResolvedEvidenceReference] = []
+        for pointer in raw.evidence:
+            try:
+                collection_evidence.append(self.resolve_pointer(pointer))
+            except ValueError as exc:
+                issues.append(
+                    ExtractionIssue(
+                        severity=ExtractionIssueSeverity.ERROR,
+                        code=str(exc),
+                        message="Collection evidence could not be resolved exactly.",
+                        chunk_id=self.chunk.chunk_id,
+                        block_id=pointer.block_id,
+                        field_path=field_path,
+                    )
+                )
         for index, item in enumerate(raw.items):
             resolved, item_issues = self.resolve_assertion(
                 item, f"{field_path}.items[{index}]"
@@ -219,6 +246,7 @@ class EvidenceResolver:
         completeness = raw.completeness
         if issues and not items:
             completeness = type(raw.completeness).UNKNOWN
+            collection_evidence = []
         elif issues:
             completeness = type(raw.completeness).PARTIAL
         return (
@@ -226,6 +254,7 @@ class EvidenceResolver:
                 completeness=completeness,
                 rationale=raw.rationale,
                 items=items,
+                evidence=collection_evidence,
             ),
             issues,
         )
@@ -377,6 +406,10 @@ class EvidenceResolver:
             raw.process_objective, "process_objective"
         )
         issues.extend(found)
+        multiple_processes, found = self.resolve_assertion(
+            raw.multiple_processes_detected, "multiple_processes_detected"
+        )
+        issues.extend(found)
         steps: list[ResolvedStepDraft] = []
         for index, item in enumerate(raw.steps):
             step, found = self.resolve_step(item, index)
@@ -390,7 +423,7 @@ class EvidenceResolver:
                 process_description=description,
                 process_objective=objective,
                 steps=steps,
-                multiple_processes_detected=raw.multiple_processes_detected,
+                multiple_processes_detected=multiple_processes,
             ),
             issues,
         )

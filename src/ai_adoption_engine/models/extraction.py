@@ -36,8 +36,8 @@ class RawEvidencePointer(BaseModel):
 
     block_id: str = Field(min_length=1)
     exact_snippet: str = Field(min_length=1)
-    occurrence: int | None = Field(default=None, ge=1)
-    slice_id: str | None = Field(default=None, min_length=1)
+    occurrence: int | None = Field(ge=1)
+    slice_id: str | None = Field(min_length=1)
 
     @model_validator(mode="after")
     def use_one_disambiguator(self) -> "RawEvidencePointer":
@@ -49,11 +49,11 @@ class RawEvidencePointer(BaseModel):
 class RawCandidateAssertion(BaseModel, Generic[T]):
     model_config = ConfigDict(extra="forbid")
 
-    value: T | None = None
+    value: T | None
     knowledge_state: KnowledgeState
     rationale: str = Field(min_length=1)
-    evidence: list[RawEvidencePointer] = Field(default_factory=list)
-    confidence: float | None = Field(default=None, ge=0, le=1)
+    evidence: list[RawEvidencePointer]
+    confidence: float | None = Field(ge=0, le=1)
 
     @model_validator(mode="after")
     def validate_provenance(self) -> "RawCandidateAssertion[T]":
@@ -78,7 +78,7 @@ class RawCandidateAssertion(BaseModel, Generic[T]):
 
 
 class RawCandidateOrdinalAssertion(RawCandidateAssertion[int]):
-    value: int | None = Field(default=None, ge=0, le=5)
+    value: int | None = Field(ge=0, le=5)
 
 
 class RawCandidateCollection(BaseModel, Generic[T]):
@@ -86,12 +86,20 @@ class RawCandidateCollection(BaseModel, Generic[T]):
 
     completeness: CollectionCompleteness
     rationale: str = Field(min_length=1)
-    items: list[RawCandidateAssertion[T]] = Field(default_factory=list)
+    items: list[RawCandidateAssertion[T]]
+    evidence: list[RawEvidencePointer]
 
     @model_validator(mode="after")
     def validate_completeness(self) -> "RawCandidateCollection[T]":
-        if self.completeness is CollectionCompleteness.UNKNOWN and self.items:
-            raise ValueError("An unknown collection cannot contain assertions")
+        if self.completeness is CollectionCompleteness.UNKNOWN:
+            if self.items or self.evidence:
+                raise ValueError(
+                    "An unknown collection cannot contain assertions or evidence"
+                )
+        elif not self.items and not self.evidence:
+            raise ValueError(
+                "A supported empty collection requires an evidence pointer"
+            )
         return self
 
 
@@ -157,8 +165,8 @@ class RawCandidateProcessStep(BaseModel):
     systems: RawCandidateCollection[str]
     inputs: RawCandidateCollection[str]
     outputs: RawCandidateCollection[str]
-    decisions: list[RawCandidateDecision] = Field(default_factory=list)
-    dependencies: list[RawCandidateDependency] = Field(default_factory=list)
+    decisions: list[RawCandidateDecision]
+    dependencies: list[RawCandidateDependency]
     exceptions: RawCandidateCollection[str]
     operational_characteristics: RawCandidateCollection[str]
     characteristics: RawCandidateTaskCharacteristics
@@ -178,8 +186,8 @@ class RawChunkExtraction(BaseModel):
     process_name: RawCandidateAssertion[str]
     process_description: RawCandidateAssertion[str]
     process_objective: RawCandidateAssertion[str]
-    steps: list[RawCandidateProcessStep] = Field(default_factory=list)
-    multiple_processes_detected: bool
+    steps: list[RawCandidateProcessStep]
+    multiple_processes_detected: RawCandidateAssertion[bool]
 
 
 class ProviderUsage(BaseModel):

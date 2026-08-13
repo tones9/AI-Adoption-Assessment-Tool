@@ -33,6 +33,7 @@ def unknown(value_type: type = str) -> RawCandidateAssertion:
         knowledge_state=KnowledgeState.UNKNOWN,
         rationale="The source does not state this information.",
         evidence=[],
+        confidence=None,
     )
 
 
@@ -56,6 +57,7 @@ def known(
                 slice_id=slice_id,
             )
         ],
+        confidence=None,
     )
 
 
@@ -64,6 +66,7 @@ def unknown_collection() -> RawCandidateCollection[str]:
         completeness=CollectionCompleteness.UNKNOWN,
         rationale="The source does not provide this collection.",
         items=[],
+        evidence=[],
     )
 
 
@@ -77,6 +80,7 @@ def unknown_characteristics() -> RawCandidateTaskCharacteristics:
                     knowledge_state=KnowledgeState.UNKNOWN,
                     rationale="The source does not state this information.",
                     evidence=[],
+                    confidence=None,
                 ),
             )
             for name in CriterionName
@@ -126,14 +130,14 @@ def raw_step(
 def raw_chunk(
     *steps: RawCandidateProcessStep,
     process_name: RawCandidateAssertion[str] | None = None,
-    multiple_processes_detected: bool = False,
+    multiple_processes_detected: RawCandidateAssertion[bool] | None = None,
 ) -> RawChunkExtraction:
     return RawChunkExtraction(
         process_name=process_name or unknown(str),
         process_description=unknown(str),
         process_objective=unknown(str),
         steps=list(steps),
-        multiple_processes_detected=multiple_processes_detected,
+        multiple_processes_detected=multiple_processes_detected or unknown(bool),
     )
 
 

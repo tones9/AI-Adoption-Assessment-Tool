@@ -1,6 +1,6 @@
 # AI Business Process Opportunity Assessment Engine
 
-This repository contains the Phase 1 deterministic backend foundation and Phase 2 document-ingestion layer for an explainable decision-support system that identifies and prioritises potential AI adoption opportunities within **one documented business process at a time**.
+This repository contains the Phase 1 deterministic backend foundation, Phase 2 document-ingestion layer, and Phase 3 candidate process-extraction layer for an explainable decision-support system that identifies and prioritises potential AI adoption opportunities within **one documented business process at a time**.
 
 The [Master Bible](AI_Adoption_Engine_MASTER_BIBLE_v1.0.docx) is the highest-authority project document. The implementation must not broaden the project scope or replace deterministic recommendation logic with unconstrained LLM judgement.
 
@@ -67,6 +67,29 @@ IngestionResult
 - Identical source bytes processed by the same parser/version produce the same document ID, block order, block IDs, source locators, and offsets.
 
 PDFs with no extractable text do not invoke OCR. Encrypted, invalid, unreadable, empty, fallback-decoded, and page-partial inputs return explicit structured issues.
+
+## Phase 3 status
+
+Phase 3 converts one `IngestedDocument` into a **CANDIDATE / UNCONFIRMED PROCESS EXTRACTION**:
+
+- Provider-independent candidate process, activity, characteristic, uncertainty, and provenance contracts.
+- Deterministic Phase 2 block chunking with a one-block overlap and oversized-block slicing.
+- Exact-snippet evidence resolution in application code. The provider cannot create trusted offsets.
+- Conservative step deduplication, source ordering, and explicit ambiguity warnings.
+- One repair attempt for invalid structured or evidence output.
+- An optional OpenAI Responses API adapter using strict Pydantic structured output.
+- A deterministic fake provider for tests and offline development.
+
+Phase 3 does **not** create a validated `BusinessProcess`, invoke the decision engine, recommend AI adoption, produce a future-state workflow, or bypass Phase 4 human validation.
+
+The initial provider configuration is externalised in [`config/extraction.v0.1.json`](config/extraction.v0.1.json). Its 40,000-character and 30-block chunk limits are engineering defaults, not research-derived optima.
+
+The trusted evidence chain is:
+
+```text
+document_id → block_id → exact snippet resolved by Python
+            → computed block/document offsets → candidate assertion
+```
 
 ## Important methodology warning
 
@@ -194,6 +217,12 @@ source .venv/bin/activate
 python -m pip install '.[dev]'
 ```
 
+Install the optional OpenAI adapter only when live extraction is needed:
+
+```bash
+python -m pip install '.[dev,openai]'
+```
+
 ## Run the diagnostic assessment
 
 From the repository root:
@@ -236,6 +265,23 @@ pasted_result = ingest_raw_text("Current-state process description...")
 
 Each call returns `IngestionResult`; no call performs process extraction or AI-opportunity analysis.
 
+## Use Phase 3 extraction
+
+Provider-independent extraction can be tested without credentials by supplying an implementation of `StructuredExtractionProvider` to `ProcessExtractionService`.
+
+The approved OpenAI adapter can be composed from versioned configuration:
+
+```python
+from ai_adoption_engine.extraction.providers.openai import (
+    build_openai_extraction_service,
+)
+
+service = build_openai_extraction_service("config/extraction.v0.1.json")
+candidate_result = service.extract(ingested_document)
+```
+
+That live call requires `OPENAI_API_KEY`. Normal automated tests never require an API key or the optional OpenAI package. No live request is made automatically.
+
 ## Repository layout
 
 ```text
@@ -245,6 +291,7 @@ src/ai_adoption_engine/
   models/                   Typed input and output contracts
   decision/                 Mapper, gates, scoring, and engine
   ingestion/                PDF/text/raw-text document ingestion
+  extraction/               Candidate extraction, evidence, merge, and providers
   cli.py                    Diagnostic interface
 tests/unit/                 Isolated rules and validation tests
 tests/integration/          Complete sample/CLI assessment test

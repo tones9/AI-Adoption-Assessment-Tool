@@ -91,7 +91,12 @@ def merge_chunks(
     chunks: list[ResolvedChunkExtraction],
 ) -> tuple[CandidateBusinessProcess, list[ExtractionIssue]]:
     issues: list[ExtractionIssue] = []
-    if any(item.multiple_processes_detected for item in chunks):
+    if any(
+        item.multiple_processes_detected.value is True
+        and item.multiple_processes_detected.knowledge_state
+        is not KnowledgeState.UNKNOWN
+        for item in chunks
+    ):
         issues.append(
             ExtractionIssue(
                 severity=ExtractionIssueSeverity.WARNING,

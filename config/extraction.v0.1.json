@@ -1,0 +1,19 @@
+{
+  "configuration_id": "extraction.v0.1",
+  "version": "0.1.0",
+  "provider": "openai",
+  "model": "gpt-5.6-terra",
+  "reasoning_effort": "medium",
+  "prompt_version": "process-extraction.v0.1",
+  "schema_version": "candidate-process.v0.1",
+  "tools_enabled": false,
+  "streaming_enabled": false,
+  "store_responses": false,
+  "timeout_seconds": 120,
+  "sdk_max_retries": 2,
+  "repair_attempts": 1,
+  "max_output_tokens": 20000,
+  "chunk_max_characters": 40000,
+  "chunk_max_non_empty_blocks": 30,
+  "chunk_overlap_blocks": 1
+}
