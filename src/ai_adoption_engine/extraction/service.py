@@ -56,11 +56,15 @@ class ProcessExtractionService:
         message: str,
         chunk_id: str,
     ) -> ExtractionIssue:
+        diagnostic_summary = getattr(exc, "_sanitised_diagnostic_summary", "")
+        if diagnostic_summary:
+            message = f"{message} Sanitised diagnostic: {diagnostic_summary}."
         return ExtractionIssue(
             severity=ExtractionIssueSeverity.ERROR,
             code=exc.code,
             message=message,
             chunk_id=chunk_id,
+            field_path=getattr(exc, "_sanitised_field_path", None),
             provider_name=exc.provider_name or self.provider.provider_name,
             requested_model=exc.requested_model or self.provider.model_name,
             error_category=exc.category,
@@ -69,6 +73,15 @@ class ProcessExtractionService:
             sdk_retries_exhausted=exc.sdk_retries_exhausted,
             failure_stage=exc.failure_stage,
         )
+
+    @staticmethod
+    def _repair_feedback(exc: ExtractionProviderInvalidOutput) -> tuple[str, ...]:
+        feedback = getattr(exc, "_sanitised_repair_feedback", ())
+        if isinstance(feedback, tuple) and feedback and all(
+            isinstance(item, str) for item in feedback
+        ):
+            return feedback
+        return (exc.code,)
 
     def extract(self, document: IngestedDocument) -> CandidateExtractionResult:
         chunks = plan_chunks(document, self.chunking)
@@ -115,7 +128,7 @@ class ProcessExtractionService:
                     schema_version=self.schema_version,
                     prompt_version=self.prompt_version,
                     attempt=2,
-                    repair_feedback=(exc.code,),
+                    repair_feedback=self._repair_feedback(exc),
                 )
                 try:
                     response = self.provider.extract_chunk(repair_request)
