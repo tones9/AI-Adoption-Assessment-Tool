@@ -14,10 +14,21 @@ from ai_adoption_engine.presentation.context import (
     refresh_workspace,
     workspace_service,
 )
+from ai_adoption_engine.presentation.pages import review
 
 
 def _safe_name(name: str) -> str:
     return Path(name).name
+
+
+def _process_review_page():
+    """Recreate the registered callable page used by ``st.navigation``."""
+    return st.Page(
+        review.render,
+        title="Process Review",
+        icon=":material/fact_check:",
+        url_path="review",
+    )
 
 
 def render() -> None:
@@ -173,8 +184,23 @@ def render() -> None:
                     f"Candidate process: {candidate_result.candidate.process_name.value or 'Unknown'} · "
                     f"{len(candidate_result.candidate.steps)} activities"
                 )
-                if st.button("Start human review", type="primary"):
-                    workspace_service().start_review(snapshot.assessment.assessment_id)
-                    refresh_workspace()
-                    st.success("Review session created. Open Process Review.")
-                    st.rerun()
+                review_session = st.session_state.get("review_session")
+                if review_session is None:
+                    if st.button("Start human review", type="primary"):
+                        try:
+                            workspace_service().start_review(
+                                snapshot.assessment.assessment_id
+                            )
+                            refresh_workspace()
+                        except Exception as exc:
+                            st.error(
+                                "Human review could not start: "
+                                f"{type(exc).__name__}"
+                            )
+                            return
+                        st.switch_page(_process_review_page())
+                else:
+                    st.success("Human review is in progress and saved.")
+                    st.caption(f"Review session: {review_session.review_id}")
+                    if st.button("Open Process Review", type="primary"):
+                        st.switch_page(_process_review_page())

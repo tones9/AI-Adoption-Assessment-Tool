@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from streamlit.testing.v1 import AppTest
+from streamlit.util import calc_hash
 
 from ai_adoption_engine.workspace.models import (
     ArtifactType,
@@ -16,6 +17,8 @@ from ai_adoption_engine.models.document import (
     IssueSeverity,
 )
 from ai_adoption_engine.persistence.sqlite import SQLiteAssessmentRepository
+from ai_adoption_engine.workspace.composition import build_workspace_service
+from ai_adoption_engine.workspace.demo_extraction import demo_text
 from tests.fakes.decision_support import sample_integrated_assessment
 from tests.fakes.review import approved_review
 
@@ -225,3 +228,85 @@ def test_results_page_never_assesses_without_explicit_approval(tmp_path, monkeyp
     ).run()
     assert not app.exception
     assert any("Explicitly approve" in item.value for item in app.info)
+
+
+def test_start_human_review_button_persists_once_and_opens_same_review(
+    tmp_path, monkeypatch
+) -> None:
+    from ai_adoption_engine.decision.engine import AssessmentEngine
+    from ai_adoption_engine.extraction.providers.openai import OpenAIExtractionProvider
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("A review transition must not invoke OpenAI or assessment")
+
+    monkeypatch.setattr(OpenAIExtractionProvider, "extract_chunk", forbidden)
+    monkeypatch.setattr(AssessmentEngine, "assess", forbidden)
+
+    path = tmp_path / "start-review.db"
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
+    repository = SQLiteAssessmentRepository(path)
+    assessment = repository.create_assessment(
+        "Start review UAT", ExecutionMode.OFFLINE_DEMO
+    )
+    service = build_workspace_service(path)
+    service.ingest_upload(assessment.assessment_id, raw_text=demo_text())
+    service.extract(assessment.assessment_id)
+    candidate_workspace = repository.load_workspace(assessment.assessment_id)
+    candidate_ref = candidate_workspace.active_artifacts[
+        ArtifactType.CANDIDATE_EXTRACTION_RESULT
+    ]
+    assert candidate_workspace.assessment.current_stage is WorkflowStage.CANDIDATE_READY
+
+    app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=30)
+    app.session_state["selected_assessment_id"] = assessment.assessment_id
+    app._page_hash = calc_hash("source")
+    app.run()
+    assert app.title[0].value == "Source & Extraction"
+    start = next(button for button in app.button if button.label == "Start human review")
+
+    app = start.click().run()
+    assert not app.exception
+    assert app.title[0].value == "Process Review"
+    assert any(
+        "CANDIDATE / UNCONFIRMED" in warning.value for warning in app.warning
+    )
+
+    started = SQLiteAssessmentRepository(path).load_workspace(
+        assessment.assessment_id
+    )
+    review_ref = started.active_artifacts[ArtifactType.REVIEW_SESSION]
+    review_id = review_ref.payload.review_id
+    assert started.assessment.current_stage is WorkflowStage.IN_REVIEW
+    assert review_ref.parent_artifact_id == candidate_ref.artifact_id
+    assert len(
+        repository.list_artifact_revisions(
+            assessment.assessment_id, ArtifactType.REVIEW_SESSION
+        )
+    ) == 1
+    assert ArtifactType.APPROVED_REVIEW not in started.active_artifacts
+    assert ArtifactType.INTEGRATED_ASSESSMENT_RESULT not in started.active_artifacts
+    assert ArtifactType.DECISION_PACKAGE_RESULT not in started.active_artifacts
+
+    app._page_hash = calc_hash("source")
+    app.run()
+    assert app.title[0].value == "Source & Extraction"
+    assert not any(button.label == "Start human review" for button in app.button)
+    open_review = next(
+        button for button in app.button if button.label == "Open Process Review"
+    )
+    assert any(review_id in caption.value for caption in app.caption)
+
+    app = open_review.click().run()
+    assert not app.exception
+    assert app.title[0].value == "Process Review"
+    reopened = SQLiteAssessmentRepository(path).load_workspace(
+        assessment.assessment_id
+    )
+    reopened_review = reopened.active_artifacts[ArtifactType.REVIEW_SESSION]
+    assert reopened_review.artifact_id == review_ref.artifact_id
+    assert reopened_review.payload.review_id == review_id
+    assert len(
+        repository.list_artifact_revisions(
+            assessment.assessment_id, ArtifactType.REVIEW_SESSION
+        )
+    ) == 1
