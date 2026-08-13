@@ -1,6 +1,6 @@
 # AI Business Process Opportunity Assessment Engine
 
-This repository contains the Phase 1 deterministic backend foundation, Phase 2 document-ingestion layer, Phase 3 candidate process-extraction layer, and Phase 4 human-review boundary for an explainable decision-support system that identifies and prioritises potential AI adoption opportunities within **one documented business process at a time**.
+This repository contains the Phase 1 deterministic backend foundation, Phase 2 document-ingestion layer, Phase 3 candidate process-extraction layer, Phase 4 human-review boundary, and Phase 5 integrated assessment orchestration for an explainable decision-support system that identifies and prioritises potential AI adoption opportunities within **one documented business process at a time**.
 
 The [Master Bible](AI_Adoption_Engine_MASTER_BIBLE_v1.0.docx) is the highest-authority project document. The implementation must not broaden the project scope or replace deterministic recommendation logic with unconstrained LLM judgement.
 
@@ -109,6 +109,24 @@ The canonical `ApprovedProcessReview` retains the original candidate, multiple a
 Approval requires confirmed process identity, explicitly accepted step order, a confirmed activity for every retained step, valid retained dependencies, no unresolved blocking structural conflicts, and an explicit human approval action. Unknown assessment criteria and capability signals do not block process validation.
 
 Phase 4 is provider-independent and has no Streamlit, SQLite, OpenAI, or decision-engine runtime dependency.
+
+## Phase 5 status
+
+Phase 5 enforces the integrated application boundary:
+
+```text
+ApprovedProcessReview → validated BusinessProcess
+                      → AssessmentEngine(decision_policy.v0.2)
+                      → IntegratedAssessmentSuccess
+```
+
+`IntegratedAssessmentService` rejects candidates, extraction results, unapproved review sessions, blocked reviews, malformed approval artifacts, and invalid projections before engine invocation. The standalone Phase 1 engine remains independently callable for tests and research experiments.
+
+Successful results retain the unchanged `ProcessAssessment`, cross-phase lineage identifiers, policy/version metadata, and a per-step traceability index linking assessment fields to reviewed assertions and trusted Phase 2 evidence. Human-supplied values retain `HUMAN_SUPPLIED`; accepted model inference remains `MODEL_INFERRED`.
+
+SHA-256 fingerprints are calculated from canonical JSON for the exact validated process content and validated decision-policy content. The run-derived process ID is recorded separately and excluded from the process fingerprint, so assessment timestamps and run identifiers do not change either input fingerprint.
+
+`INVESTIGATE_FURTHER`, unknown characteristics, and incomplete priority remain successful assessment outcomes. Pipeline failure is reserved for approval, projection, policy, engine-output, or traceability contract failures. Phase 5 introduces no OpenAI, Streamlit, SQLite, reporting, roadmap, ROI, or future-workflow functionality.
 
 ## Important methodology warning
 
@@ -312,9 +330,10 @@ src/ai_adoption_engine/
   ingestion/                PDF/text/raw-text document ingestion
   extraction/               Candidate extraction, evidence, merge, and providers
   review/                   Human review operations and explicit approval boundary
+  application/              Approval-gated integrated assessment orchestration
   cli.py                    Diagnostic interface
 tests/unit/                 Isolated rules and validation tests
 tests/integration/          Complete sample/CLI assessment test
 ```
 
-Phase 5 and later packages will be added only when those phases are approved.
+Phase 6 and later packages will be added only when those phases are approved.

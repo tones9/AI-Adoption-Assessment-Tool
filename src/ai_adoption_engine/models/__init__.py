@@ -12,6 +12,11 @@ from ai_adoption_engine.models.evidence import (
     CriterionInput,
     EvidenceReference,
 )
+from ai_adoption_engine.models.integrated_assessment import (
+    IntegratedAssessmentFailure,
+    IntegratedAssessmentResult,
+    IntegratedAssessmentSuccess,
+)
 from ai_adoption_engine.models.process import (
     BusinessProcess,
     CapabilitySignalInput,
@@ -37,6 +42,9 @@ __all__ = [
     "ExplicitApproval",
     "IngestedDocument",
     "IngestionResult",
+    "IntegratedAssessmentFailure",
+    "IntegratedAssessmentResult",
+    "IntegratedAssessmentSuccess",
     "ProcessAssessment",
     "ProcessReviewSession",
     "ProcessStep",
