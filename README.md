@@ -149,6 +149,23 @@ Roadmaps include explicit `GO / REVISE / STOP` and deployment decision points. I
 
 Phase 6 always states `ROI / quantified benefit unavailable with current evidence.` Package content is deterministic for equivalent Phase 5 semantic input, retains process/policy fingerprints, labels planning interpretations as `DERIVED_PLANNING_GUIDANCE`, and contains 13 rendering-independent report sections. No OpenAI, UI, HTML/PDF renderer, SQLite, or assessment-engine runtime dependency is introduced.
 
+## Phase 7 status
+
+Phase 7 adds the local Streamlit product and persistence layer over the unchanged Phase 1–6 contracts:
+
+```text
+Assessments → Source & Extraction → Process Review
+            → Assessment Results → Decision Package
+```
+
+The five-page workspace enforces the backend boundaries: extraction is explicit, candidate output remains unconfirmed until Phase 4 approval, assessment requires the immutable approval artifact, and Phase 6 content is rendered without recreating assessment or planning rules. The process-review screen exposes document-supported, model-inferred, human-supplied and unknown information with literal source snippets and controlled Phase 4 service operations.
+
+Offline demo mode is permanently labelled `OFFLINE DEMO — SCRIPTED SYNTHETIC EXTRACTION` and operates only on [`data/demo/synthetic_complaint_process.txt`](data/demo/synthetic_complaint_process.txt). Arbitrary documents may be ingested in demo mode but cannot receive the scripted extraction. Live-provider mode never silently falls back to the demo adapter and requires an explicit extraction action plus local credentials.
+
+SQLite remains an application adapter around the existing Pydantic artifacts. In-progress review state may be updated, while candidate, approval, integrated-assessment and decision-package artifacts are revisioned snapshots. Active-artifact pointers are separate from append-only history, so resetting a workspace makes a downstream chain non-current without rewriting or deleting it. Integrated assessments reference their exact approval artifact ID, and decision packages reference their exact integrated-assessment artifact ID.
+
+The MVP is **local, single-user software for a user-controlled machine**. SQLite is not encrypted at rest. The application is not approved as a shared or public deployment for confidential organisational material. Original upload bytes are not retained; parsed document content and required typed artifacts are stored locally.
+
 ## Important methodology warning
 
 The active policy is:
@@ -311,6 +328,19 @@ python -m pytest
 
 The suite covers the complete Phase 1 engine plus document models, normalisation, offsets, stable identifiers, PDF page preservation, text decoding, ingestion warnings/errors, and proof that ingestion does not depend on Phase 1 process or decision modules.
 
+## Run the Phase 7 application
+
+Install the application and development dependencies, then launch Streamlit from the repository root:
+
+```bash
+python -m pip install -e '.[dev]'
+python -m streamlit run streamlit_app.py
+```
+
+The default local database is `var/ai_adoption_engine.db`. Set `AI_ADOPTION_ENGINE_DB_PATH` to use a different local path. `OPENAI_API_KEY` is required only for an explicitly initiated live-provider extraction; the offline demo never needs it.
+
+The report screen provides deterministic, print-friendly HTML export based on Phase 6 `DecisionReportContent`. It does not claim a dedicated PDF-generation feature.
+
 ## Use Phase 2 ingestion
 
 ```python
@@ -344,18 +374,25 @@ That live call requires `OPENAI_API_KEY`. Normal automated tests never require a
 
 ```text
 config/                     Versioned decision policy
+data/demo/                  Fixture-bound offline demonstration document
 data/sample_processes/      Hand-authored Phase 1 input
+.streamlit/                 Restrained local application theme
 src/ai_adoption_engine/
   models/                   Typed input and output contracts
   decision/                 Mapper, gates, scoring, and engine
   ingestion/                PDF/text/raw-text document ingestion
   extraction/               Candidate extraction, evidence, merge, and providers
   review/                   Human review operations and explicit approval boundary
-  application/              Approval-gated integrated assessment orchestration
+  application/              Phase 5 approval-gated integrated assessment
   decision_support/         Deterministic portfolio, workflow, roadmap, and report content
+  persistence/              Versioned transactional SQLite adapter
+  presentation/             Streamlit pages, components, state, and HTML rendering
+  workspace/                Phase 7 guarded workflow and provider composition
   cli.py                    Diagnostic interface
+streamlit_app.py            Shared Streamlit frame and five-page navigation
 tests/unit/                 Isolated rules and validation tests
 tests/integration/          Complete sample/CLI assessment test
+tests/ui/                   Headless Streamlit application tests
 ```
 
-Phase 7 and later packages will be added only when those phases are approved.
+Phase 8 research evaluation remains separate and has not started.
