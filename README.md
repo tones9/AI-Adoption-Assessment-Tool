@@ -1,6 +1,6 @@
 # AI Business Process Opportunity Assessment Engine
 
-This repository contains the Phase 1 backend foundation for an explainable decision-support system that identifies and prioritises potential AI adoption opportunities within **one documented business process at a time**.
+This repository contains the Phase 1 deterministic backend foundation and Phase 2 document-ingestion layer for an explainable decision-support system that identifies and prioritises potential AI adoption opportunities within **one documented business process at a time**.
 
 The [Master Bible](AI_Adoption_Engine_MASTER_BIBLE_v1.0.docx) is the highest-authority project document. The implementation must not broaden the project scope or replace deterministic recommendation logic with unconstrained LLM judgement.
 
@@ -29,6 +29,44 @@ Not implemented in Phase 1:
 - Enterprise integrations or benchmark experiments.
 
 Phases 1–7 produce the working product MVP. Phase 8 is the mandatory MSc research evaluation phase.
+
+## Phase 2 status
+
+Phase 2 adds document ingestion only:
+
+- Text-native PDF files through `pypdf`.
+- Plain-text files with UTF-8/UTF-8-BOM first and `charset-normalizer` fallback.
+- Pasted/raw text through a domain-level service.
+- Deterministic document and block identifiers.
+- Ordered text blocks, metadata, page/line locators, canonical document offsets, and structured warnings/errors.
+- Explicit preservation of empty PDF page positions with an OCR-out-of-scope warning.
+
+Phase 2 does **not** identify process steps, infer actors/systems/task characteristics, call an LLM, create a `BusinessProcess`, or run suitability analysis. Those responsibilities remain in later approved phases.
+
+The document-only contract is:
+
+```text
+IngestionResult
+  ├── status + issues
+  └── IngestedDocument
+        ├── deterministic document ID and source fingerprint
+        ├── source/parser metadata
+        ├── canonical text
+        └── ordered TextBlock records with exact locators and offsets
+```
+
+### Canonical text and locator contract
+
+- `CRLF` and `CR` line endings become `LF`.
+- Leading/trailing spaces and tabs are removed from each line.
+- Leading/trailing blank lines are removed; internal blank lines are retained as block boundaries.
+- Text is otherwise preserved: no case, punctuation, spelling, table, or semantic cleanup.
+- Blocks on the same input/page are joined with `LF + LF`.
+- PDF pages are joined with `LF + form-feed + LF`; a page with no extractable text remains represented by an empty page block.
+- Offsets are zero-based, half-open indexes measured in Python Unicode code points against `IngestedDocument.canonical_text`.
+- Identical source bytes processed by the same parser/version produce the same document ID, block order, block IDs, source locators, and offsets.
+
+PDFs with no extractable text do not invoke OCR. Encrypted, invalid, unreadable, empty, fallback-decoded, and page-partial inputs return explicit structured issues.
 
 ## Important methodology warning
 
@@ -153,7 +191,7 @@ Python 3.11 or newer is required.
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[dev]'
+python -m pip install '.[dev]'
 ```
 
 ## Run the diagnostic assessment
@@ -184,7 +222,19 @@ python -m ai_adoption_engine --policy path/to/policy.json --process path/to/proc
 python -m pytest
 ```
 
-The suite covers model validation, evidence sufficiency, every recommendation path, conventional-solution preference, capability mapping, scoring, deterministic repeatability, and the CLI integration path.
+The suite covers the complete Phase 1 engine plus document models, normalisation, offsets, stable identifiers, PDF page preservation, text decoding, ingestion warnings/errors, and proof that ingestion does not depend on Phase 1 process or decision modules.
+
+## Use Phase 2 ingestion
+
+```python
+from ai_adoption_engine.ingestion import ingest_file, ingest_raw_text
+
+pdf_result = ingest_file("current-process.pdf")
+text_result = ingest_file("current-process.txt")
+pasted_result = ingest_raw_text("Current-state process description...")
+```
+
+Each call returns `IngestionResult`; no call performs process extraction or AI-opportunity analysis.
 
 ## Repository layout
 
@@ -194,9 +244,10 @@ data/sample_processes/      Hand-authored Phase 1 input
 src/ai_adoption_engine/
   models/                   Typed input and output contracts
   decision/                 Mapper, gates, scoring, and engine
+  ingestion/                PDF/text/raw-text document ingestion
   cli.py                    Diagnostic interface
 tests/unit/                 Isolated rules and validation tests
 tests/integration/          Complete sample/CLI assessment test
 ```
 
-Future-phase packages will be added only when those phases are approved.
+Phase 3 and later packages will be added only when those phases are approved.

@@ -1,0 +1,4 @@
+First paragraph uses UTF-8: café.
+Second line remains in the same block.
+
+Second paragraph is traceable.
