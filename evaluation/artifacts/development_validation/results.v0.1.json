@@ -1,0 +1,9 @@
+{
+  "schema_id":"phase8-development-validation.v0.1","metrics_id":"phase8-primary-metrics.v0.1","api_calls":0,"confirmatory_runs":0,
+  "results":{
+    "DEV-001":{"packet_verified":true,"activity":{"precision":1.0,"recall":1.0,"f1":1.0},"ordering_kendall_tau_b":1.0,"attributes":{"precision":1.0,"recall":1.0,"f1":1.0},"evidence_supported_assertion_rate":1.0,"inappropriate_certainty_rate":0.0,"appropriate_unknown_rate":1.0},
+    "DEV-002":{"packet_verified":true,"activity":{"precision":0.75,"recall":0.75,"f1":0.75},"ordering_kendall_tau_b":0.3333333333333333,"attributes":{"precision":0.6666666666666666,"recall":0.5,"f1":0.5714285714285715},"evidence_supported_assertion_rate":0.6666666666666666,"inappropriate_certainty_rate":0.5,"appropriate_unknown_rate":0.5,"recommendation_accuracy":0.5,"macro_f1":0.41666666666666663,"unsafe_over_automation_rate":0.25,"conventional_solution_miss_rate":0.25,"capability_f1":0.6666666666666666,"prioritisation_kendall_tau_b":0.6666666666666666},
+    "frozen_engine_smoke":{"policy_id":"decision_policy.v0.2","policy_sha256":"c5770bde50d19c0bd2e48d60d23410d6df02440f4f546f87c9feba0138d7e1e6","step_count":5,"modes":["AUTOMATE","AUGMENT","INVESTIGATE_FURTHER","DO_NOT_RECOMMEND"]}
+  },
+  "validation_notes":["DEV-001 verified the perfect-match path.","DEV-002 verified known activity, order, attribute, uncertainty, decision, safety, conventional-solution, capability and ranking errors.","The initial DEV-002 expected Kendall value was corrected from -1/3 to +1/3 after manual pair counting; production code and frozen methodology were unchanged.","No provider or baseline API was called."]
+}
