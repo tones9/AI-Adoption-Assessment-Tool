@@ -23,6 +23,7 @@ from ai_adoption_engine.extraction.errors import (
 )
 from ai_adoption_engine.extraction.providers.base import ExtractionRequest
 from ai_adoption_engine.extraction.providers.openai import OpenAIExtractionProvider
+from ai_adoption_engine.extraction.prompting import SYSTEM_PROMPT
 from ai_adoption_engine.extraction.service import ProcessExtractionService
 from ai_adoption_engine.ingestion.text import ingest_raw_text
 from ai_adoption_engine.models.extraction import ExtractionStatus, RawChunkExtraction
@@ -153,6 +154,7 @@ def test_openai_adapter_uses_responses_structured_output_without_tools() -> None
     call = client.responses.calls[0]
     assert call["model"] == "gpt-5.6-terra"
     assert call["reasoning"] == {"effort": "medium"}
+    assert call["input"][0] == {"role": "system", "content": SYSTEM_PROMPT}
     assert call["text_format"] is RawChunkExtraction
     assert call["tools"] == []
     assert call["stream"] is False
