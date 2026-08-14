@@ -12,6 +12,9 @@ REQUIRED = {
     "output_path", "output_sha256", "recommendations_frozen",
 }
 
+FROZEN_REVIEW_INSTRUMENT_ID = "phase8-independent-reference-review-instrument.v0.1"
+FROZEN_REVIEW_INSTRUMENT_SHA256 = "22e60fed9972d27051bd306cccc6fa87a34be76d5a581e66c2b87be2053dc1f3"
+
 
 def validate_run_manifest(manifest: dict[str, Any], *, root: str | Path | None = None) -> None:
     missing = REQUIRED - set(manifest)
@@ -19,8 +22,13 @@ def validate_run_manifest(manifest: dict[str, Any], *, root: str | Path | None =
         raise ValueError(f"Run manifest missing fields: {sorted(missing)}")
     if manifest["schema_id"] != "phase8-run-manifest.v0.1":
         raise ValueError("Unexpected run-manifest schema")
-    if manifest["cohort"] == "confirmatory" and manifest.get("confirmatory_authorized") is not True:
-        raise PermissionError("Confirmatory execution is not authorized")
+    if manifest["cohort"] == "confirmatory":
+        if manifest.get("confirmatory_authorized") is not True:
+            raise PermissionError("Confirmatory execution is not authorized")
+        if manifest.get("reference_review_instrument_id") != FROZEN_REVIEW_INSTRUMENT_ID:
+            raise ValueError("Confirmatory run does not identify the frozen review instrument")
+        if manifest.get("reference_review_instrument_sha256") != FROZEN_REVIEW_INSTRUMENT_SHA256:
+            raise ValueError("Confirmatory run review-instrument hash mismatch")
     if root is not None and manifest["output_path"]:
         output = Path(root) / manifest["output_path"]
         if sha256_file(output) != manifest["output_sha256"]:

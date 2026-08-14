@@ -4,6 +4,7 @@ import json
 import re
 from pathlib import Path
 
+from evaluation.harness.common import sha256_file
 from evaluation.harness.freeze import verify_protocol_freeze
 
 
@@ -33,3 +34,13 @@ def test_case_manifests_record_every_eligibility_rule() -> None:
 
 def test_protocol_freeze_hashes_are_current() -> None:
     verify_protocol_freeze(ROOT)
+
+
+def test_independent_review_instrument_version_and_hash_are_frozen() -> None:
+    freeze = json.loads(
+        (ROOT / "evaluation" / "protocol" / "freeze_manifest.v0.1.json").read_text()
+    )
+    instrument = freeze["independent_reference_review_instrument"]
+    assert instrument["id"] == "phase8-independent-reference-review-instrument.v0.1"
+    assert instrument["sha256"] == "22e60fed9972d27051bd306cccc6fa87a34be76d5a581e66c2b87be2053dc1f3"
+    assert sha256_file(ROOT / instrument["path"]) == instrument["sha256"]

@@ -3,6 +3,11 @@
   "frozen_at":"2026-08-14",
   "production_baseline_commit":"4f2ba07b30f108f4b78ee5c7dc9ab42bb7956cf9",
   "status":"frozen-before-confirmatory-execution",
+  "independent_reference_review_instrument":{
+    "id":"phase8-independent-reference-review-instrument.v0.1",
+    "path":"evaluation/protocol/independent_reference_review_instrument_v0.1.md",
+    "sha256":"22e60fed9972d27051bd306cccc6fa87a34be76d5a581e66c2b87be2053dc1f3"
+  },
   "files":[
     {"path":"evaluation/config/baseline_prompt.v0.1.txt","sha256":"6180daacb6d51997713d2c928d3130f15138cf74ba955d9c666954d45a2e3898"},
     {"path":"evaluation/config/evaluation.v0.1.json","sha256":"49cf0382bd607ebb3e63ad2083c008c87592049f96fbcc6cabee47617ed58cbb"},
@@ -10,6 +15,7 @@
     {"path":"evaluation/protocol/baseline_protocol_v0.1.md","sha256":"da56be5c1193d7be174e3674ee40f354a4f7809dfaaa5a86678da0c4842f67e8"},
     {"path":"evaluation/protocol/case_selection_protocol_v0.1.md","sha256":"37e42bb9a7ee50313c7e79f915c395716080841db9a797538b38e6ab46cef3b5"},
     {"path":"evaluation/protocol/error_taxonomy_v0.1.md","sha256":"f69af57905c4df32deb067a41b2d3e98611885148990d979299a194d6b27a60b"},
+    {"path":"evaluation/protocol/independent_reference_review_instrument_v0.1.md","sha256":"22e60fed9972d27051bd306cccc6fa87a34be76d5a581e66c2b87be2053dc1f3"},
     {"path":"evaluation/protocol/phase8_protocol_v0.1.md","sha256":"f882ecfe8f17d0c40dbbd7c851525108e934976ded5a6caaa1d4b22db522eb5a"},
     {"path":"evaluation/protocol/primary_metrics_v0.1.md","sha256":"d2ca3faae6b04426b7f07d854db6576692f66b75691d34f92970c3c6c4f04ee8"},
     {"path":"evaluation/protocol/run_manifest_requirements_v0.1.md","sha256":"2283d030b56071b52689b7d1be6c40d013e53029914a31b9b647d34ffd68a587"},
