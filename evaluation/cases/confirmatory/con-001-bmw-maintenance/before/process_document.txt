@@ -1,0 +1,8 @@
+Assembly conveyor maintenance
+
+Vehicle assembly relies on conveyor systems that move parts and vehicles
+through production. Wear or faults in conveyor components can interrupt the
+line. Maintenance personnel inspect system condition, identify abnormal
+behaviour, diagnose the affected component, and arrange maintenance action so
+production can continue. The current-state packet does not disclose volumes,
+false-alarm rates, intervention costs, or acceptable operational risk.

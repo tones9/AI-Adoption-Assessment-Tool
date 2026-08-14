@@ -1,0 +1,7 @@
+Energy-company vendor invoice reconciliation
+
+Vendor invoices are received for reconciliation. A designated employee opens
+each invoice, reviews its contents, reconciles it against the relevant records,
+and prepares it for approval and payment within a short discount window. The
+source does not fully describe upstream receipt, approval exceptions, control
+tolerances, or the exact downstream system steps.

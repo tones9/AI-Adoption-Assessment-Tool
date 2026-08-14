@@ -1,0 +1,6 @@
+{
+  "schema_id":"phase8-case-manifest.v0.1","case_id":"CON-006","cohort":"confirmatory","title":"Elisa customer-contact handling",
+  "eligibility":{"identifiable_process":true,"minimum_three_activities":true,"verifiable_or_permitted_source":true,"before_after_separable":true,"annotation_evidence_sufficient":true,"privacy_suitable":true,"diversity_contribution":true,"stable_hashable_files":true},
+  "source_quality":"medium-high","contamination_risk":"medium","publication_bias":"vendor success case with named-company corroboration","sources":[{"publisher":"MindTitan","url":"https://mindtitan.com/resources/case-studies/chatbot-case-study-in-telecom/","accessed":"2026-08-14","role":"primary detailed case source"},{"publisher":"Elisa","url":"https://static.elisa.com/v2/image/2tqybbhjs47b/6zhh2CNkznGXNopeG1JSUD/Elisa_Sustainability-report_2022.pdf","accessed":"2026-08-14","role":"named-company corroboration"}],
+  "before_files":[{"path":"before/process_document.txt","sha256":"aac9c89a3874ae77e04ee2a3d33241cf9b3b09eb2820a98ff1be4aab71c8f685"}],"after_files":[{"path":"after/reference_evidence.md","sha256":"f68f1c4dc0b93d6852a183e8469d41b9183cab510461d6338e5567e81a325654"}],"after_sealed":true,"reference_status":"not_started_checkpoint"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_id":"phase8-reference-annotation.v0.1","case_id":"DEV-002","annotation_status":"adjudicated",
+  "steps":[
+    {"step_id":"R1","sequence":1,"activity":"Receive purchase request","attributes":{"input":["purchase request form"]}},
+    {"step_id":"R2","sequence":2,"activity":"Check required fields","attributes":{"check":["required fields present"]}},
+    {"step_id":"R3","sequence":3,"activity":"Route to budget owner","attributes":{"recipient":["appropriate budget owner"]}},
+    {"step_id":"R4","sequence":4,"activity":"Record decision","attributes":{"actor":["budget owner"]}}
+  ],
+  "decision_references":[
+    {"step_id":"R1","primary_mode":"AUTOMATE","acceptable_modes":["AUTOMATE"],"capabilities":["WORKFLOW_AUTOMATION"],"priority_rank":2,"unsafe_to_automate":false,"conventional_solution_preferable":false},
+    {"step_id":"R2","primary_mode":"AUGMENT","acceptable_modes":["AUGMENT","INVESTIGATE_FURTHER"],"capabilities":["DOCUMENT_INFORMATION_EXTRACTION"],"priority_rank":1,"unsafe_to_automate":true,"conventional_solution_preferable":false},
+    {"step_id":"R3","primary_mode":"DO_NOT_RECOMMEND","acceptable_modes":["DO_NOT_RECOMMEND"],"capabilities":[],"priority_rank":3,"unsafe_to_automate":false,"conventional_solution_preferable":true},
+    {"step_id":"R4","primary_mode":"INVESTIGATE_FURTHER","acceptable_modes":["INVESTIGATE_FURTHER"],"capabilities":["DECISION_SUPPORT"],"priority_rank":4,"unsafe_to_automate":true,"conventional_solution_preferable":false}
+  ],
+  "adjudication":{"primary_annotator":"researcher","reviewer":null,"method":"controlled known-answer fixture verification","independent_human_review":false,"disagreements":[{"item":"R2 mode","initial":"AUTOMATE","resolved":"AUGMENT","reason":"approval authority is explicitly unknown"}]}
+}

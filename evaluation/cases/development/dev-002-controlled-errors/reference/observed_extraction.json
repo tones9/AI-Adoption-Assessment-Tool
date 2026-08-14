@@ -1,0 +1,9 @@
+{
+  "case_id":"DEV-002",
+  "steps":[
+    {"step_id":"S1","sequence":1,"activity":"Receive purchase request","attributes":{"input":["purchase request form"]}},
+    {"step_id":"S2","sequence":3,"activity":"Check required fields","attributes":{"check":["all fields valid"]}},
+    {"step_id":"S3","sequence":2,"activity":"Route to budget owner","attributes":{"recipient":["appropriate budget owner"]}},
+    {"step_id":"S5","sequence":4,"activity":"Approve the request automatically","attributes":{}}
+  ]
+}

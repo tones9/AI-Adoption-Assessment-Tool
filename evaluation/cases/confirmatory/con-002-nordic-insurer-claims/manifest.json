@@ -1,0 +1,6 @@
+{
+  "schema_id":"phase8-case-manifest.v0.1","case_id":"CON-002","cohort":"confirmatory","title":"Nordic insurer claims-document intake",
+  "eligibility":{"identifiable_process":true,"minimum_three_activities":true,"verifiable_or_permitted_source":true,"before_after_separable":true,"annotation_evidence_sufficient":true,"privacy_suitable":true,"diversity_contribution":true,"stable_hashable_files":true},
+  "source_quality":"medium-high","contamination_risk":"medium","publication_bias":"consultancy-authored anonymised success case","sources":[{"publisher":"EY","url":"https://www.ey.com/en_ps/insights/financial-services/emeia/how-a-nordic-insurance-company-automated-claims-processing","accessed":"2026-08-14","role":"primary detailed case source"}],
+  "before_files":[{"path":"before/process_document.txt","sha256":"1c5591dbb6983a9f9aed7894127a1981141361406deb507d0cff2a7a45086fdd"}],"after_files":[{"path":"after/reference_evidence.md","sha256":"4691d8beae21bb6337c36fd82475a8b3b696b01de388488988afebc7d4425045"}],"after_sealed":true,"reference_status":"not_started_checkpoint"
+}

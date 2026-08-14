@@ -1,0 +1,9 @@
+Purchase Request Triage
+
+1. Receive a purchase request form.
+2. Check that the required fields are present.
+3. Route the request to the appropriate budget owner.
+4. Record the budget owner's decision.
+
+The source does not state request volume, handling time, error frequency,
+system integrations, or whether policy permits automated approval.

@@ -1,0 +1,11 @@
+Customer Complaint Handling Process
+
+1. Receive complaint by email or web form.
+2. Log the complaint in the CRM.
+3. Classify the complaint by product and severity.
+4. Investigate the complaint using order and account records.
+5. Draft and send a response to the customer.
+6. Close the complaint and record the outcome.
+
+The source does not state volumes, timings, data quality, exception rates,
+regulatory constraints, or error costs.

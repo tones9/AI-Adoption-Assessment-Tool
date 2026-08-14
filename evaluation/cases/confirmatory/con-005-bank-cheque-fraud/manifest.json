@@ -1,0 +1,6 @@
+{
+  "schema_id":"phase8-case-manifest.v0.1","case_id":"CON-005","cohort":"confirmatory","title":"Global bank cheque-fraud review",
+  "eligibility":{"identifiable_process":true,"minimum_three_activities":true,"verifiable_or_permitted_source":true,"before_after_separable":true,"annotation_evidence_sufficient":true,"privacy_suitable":true,"diversity_contribution":true,"stable_hashable_files":true},
+  "source_quality":"medium","contamination_risk":"medium","publication_bias":"vendor-authored anonymised success case","sources":[{"publisher":"Cognizant","url":"https://www.cognizant.com/us/en/case-studies/ai-machine-learning-fraud-detection","accessed":"2026-08-14","role":"primary detailed case source"}],
+  "before_files":[{"path":"before/process_document.txt","sha256":"05f63741c61521a86cbeeaa48b17fc76716fd30d4905d8a32d598f28ad4fdbe9"}],"after_files":[{"path":"after/reference_evidence.md","sha256":"e6e41da04745a8a251c7cd37794c405237e539a2377209e2ee4f353b6012e754"}],"after_sealed":true,"reference_status":"not_started_checkpoint"
+}

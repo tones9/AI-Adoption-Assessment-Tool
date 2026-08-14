@@ -1,0 +1,6 @@
+[
+  {"step_id":"R1","recommendation_mode":"AUTOMATE","capabilities":["WORKFLOW_AUTOMATION"],"priority_rank":2},
+  {"step_id":"R2","recommendation_mode":"AUTOMATE","capabilities":["DOCUMENT_INFORMATION_EXTRACTION"],"priority_rank":1},
+  {"step_id":"R3","recommendation_mode":"AUGMENT","capabilities":["WORKFLOW_AUTOMATION"],"priority_rank":4},
+  {"step_id":"R4","recommendation_mode":"INVESTIGATE_FURTHER","capabilities":[],"priority_rank":3}
+]

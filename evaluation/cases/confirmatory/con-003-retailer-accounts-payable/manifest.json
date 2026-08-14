@@ -1,0 +1,6 @@
+{
+  "schema_id":"phase8-case-manifest.v0.1","case_id":"CON-003","cohort":"confirmatory","title":"Retailer accounts-payable invoice entry",
+  "eligibility":{"identifiable_process":true,"minimum_three_activities":true,"verifiable_or_permitted_source":true,"before_after_separable":true,"annotation_evidence_sufficient":true,"privacy_suitable":true,"diversity_contribution":true,"stable_hashable_files":true},
+  "source_quality":"medium","contamination_risk":"medium","publication_bias":"vendor-authored anonymised success case","sources":[{"publisher":"Auxis","url":"https://www.auxis.com/case-study/accounts-payable-automation-case-study-for-retailer/","accessed":"2026-08-14","role":"primary detailed case source"}],
+  "before_files":[{"path":"before/process_document.txt","sha256":"ea9b6524b2bb961706e92d425b517704bec344164c7f4eaa80e3f93064a27bc9"}],"after_files":[{"path":"after/reference_evidence.md","sha256":"ca29277bd29cc7a7d7ba18a7e1db2ab8074953c62454ca9ce56a536228c2e226"}],"after_sealed":true,"reference_status":"not_started_checkpoint"
+}

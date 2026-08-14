@@ -1,0 +1,6 @@
+{
+  "schema_id":"phase8-case-manifest.v0.1","case_id":"CON-001","cohort":"confirmatory","title":"BMW assembly-conveyor maintenance",
+  "eligibility":{"identifiable_process":true,"minimum_three_activities":true,"verifiable_or_permitted_source":true,"before_after_separable":true,"annotation_evidence_sufficient":true,"privacy_suitable":true,"diversity_contribution":true,"stable_hashable_files":true},
+  "source_quality":"high","contamination_risk":"medium","publication_bias":"company-authored success case","sources":[{"publisher":"BMW Group","url":"https://www.press.bmwgroup.com/global/article/detail/T0438145EN/smart-maintenance-using-artificial-intelligence?language=en","accessed":"2026-08-14","role":"primary named-company source"}],
+  "before_files":[{"path":"before/process_document.txt","sha256":"0767e1e5dd672cb4a4faae490f97d0b56d7a3156572a446bc5c7487ee2e0fe9d"}],"after_files":[{"path":"after/reference_evidence.md","sha256":"32415e46ae5af6f04ac0a42f8c655289be4271259572ddb4dfc4cf6aace973f2"}],"after_sealed":true,"reference_status":"not_started_checkpoint"
+}

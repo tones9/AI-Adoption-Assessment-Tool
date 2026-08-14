@@ -1,0 +1,8 @@
+Telecommunications customer-contact handling
+
+Customers contact the telecommunications provider through service channels.
+An agent identifies the topic and tries to answer using available information.
+Questions requiring specialist knowledge are passed to specialised staff, and
+contacts may be forwarded between teams because knowledge is distributed
+across organisational silos. The packet does not state topic-level accuracy,
+service-risk tolerances, escalation rules, or channel-specific volumes.

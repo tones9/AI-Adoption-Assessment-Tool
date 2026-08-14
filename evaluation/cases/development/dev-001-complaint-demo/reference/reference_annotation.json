@@ -1,0 +1,15 @@
+{
+  "schema_id": "phase8-reference-annotation.v0.1",
+  "case_id": "DEV-001",
+  "annotation_status": "adjudicated",
+  "steps": [
+    {"step_id":"R1","sequence":1,"activity":"Receive complaint","attributes":{"channel":["email","web form"]}},
+    {"step_id":"R2","sequence":2,"activity":"Log complaint in CRM","attributes":{"system":["CRM"]}},
+    {"step_id":"R3","sequence":3,"activity":"Classify complaint","attributes":{"categories":["product","severity"]}},
+    {"step_id":"R4","sequence":4,"activity":"Investigate complaint","attributes":{"inputs":["order records","account records"]}},
+    {"step_id":"R5","sequence":5,"activity":"Draft and send response","attributes":{"recipient":["customer"]}},
+    {"step_id":"R6","sequence":6,"activity":"Close complaint and record outcome","attributes":{}}
+  ],
+  "decision_references": [],
+  "adjudication": {"primary_annotator":"researcher","reviewer":null,"method":"controlled known-answer fixture verification","independent_human_review":false,"disagreements":[]}
+}

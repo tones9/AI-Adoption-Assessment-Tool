@@ -1,0 +1,8 @@
+Claims-document intake
+
+Claims arrive with supporting images and PDF documents. Claims agents open the
+documents, inspect their contents, identify and extract relevant information,
+categorise whether the material is relevant to the claim, and upload the
+information into the insurer's core claims system so claim handling can
+continue. The packet does not state case mix, exception frequency, control
+requirements, or the consequences of an extraction error.

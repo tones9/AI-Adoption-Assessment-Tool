@@ -1,0 +1,18 @@
+{
+  "schema_id":"phase8-step-alignment.v0.1","case_id":"DEV-002",
+  "alignments":[
+    {"relation":"matched","system_step_ids":["S1"],"reference_step_ids":["R1"]},
+    {"relation":"matched","system_step_ids":["S2"],"reference_step_ids":["R2"]},
+    {"relation":"matched","system_step_ids":["S3"],"reference_step_ids":["R3"]},
+    {"relation":"spurious","system_step_ids":["S5"],"reference_step_ids":[]},
+    {"relation":"missed","system_step_ids":[],"reference_step_ids":["R4"]}
+  ],
+  "attribute_judgements":[
+    {"field":"input","outcome":"tp"},{"field":"check","outcome":"fp"},{"field":"check","outcome":"fn"},{"field":"recipient","outcome":"tp"},{"field":"actor","outcome":"fn"}
+  ],
+  "assertion_judgements":[
+    {"predicted_state":"known","reference_state":"known","evidence_supported":true,"certainty_appropriate":true},
+    {"predicted_state":"known","reference_state":"unknown","evidence_supported":false,"certainty_appropriate":false},
+    {"predicted_state":"unknown","reference_state":"unknown","evidence_supported":true,"certainty_appropriate":true}
+  ]
+}

@@ -1,0 +1,8 @@
+Cheque processing and fraud review
+
+A global bank processes very large numbers of handwritten cheques. Cheque
+images are captured and read using existing optical and deep-learning tools;
+signatures and transaction information are checked. Handwriting and unusual
+patterns make some cases difficult, so reviewers manually inspect exceptions
+and decide whether funds can be released. The packet does not state the fraud
+base rate, review threshold, false-positive cost, or control appetite.

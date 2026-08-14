@@ -1,0 +1,9 @@
+case_id,status,decision_date,reason
+DEV-001,included-development,2026-08-14,controlled synthetic extraction fixture
+DEV-002,included-development,2026-08-14,controlled metric edge-case fixture
+CON-001,proposed-confirmatory,2026-08-14,official named-company source and distinct predictive-maintenance domain
+CON-002,proposed-confirmatory,2026-08-14,detailed separable claims-document workflow
+CON-003,proposed-confirmatory,2026-08-14,detailed separable accounts-payable workflow
+CON-004,proposed-confirmatory,2026-08-14,separable invoice-reconciliation case retained with source-detail caveat
+CON-005,proposed-confirmatory,2026-08-14,high-risk anomaly-detection domain and separable workflow
+CON-006,proposed-confirmatory,2026-08-14,named-company service workflow and corroborating source

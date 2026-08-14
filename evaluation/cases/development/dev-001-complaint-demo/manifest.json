@@ -1,0 +1,7 @@
+{
+  "schema_id":"phase8-case-manifest.v0.1","case_id":"DEV-001","cohort":"development","title":"Synthetic customer complaint handling",
+  "eligibility":{"identifiable_process":true,"minimum_three_activities":true,"verifiable_or_permitted_source":true,"before_after_separable":true,"annotation_evidence_sufficient":true,"privacy_suitable":true,"diversity_contribution":true,"stable_hashable_files":true},
+  "source_quality":"controlled-synthetic","contamination_risk":"none","sources":[{"type":"repository fixture","path":"data/demo/synthetic_complaint_process.txt","purpose":"controlled harness validation only"}],
+  "before_files":[{"path":"before/process_document.txt","sha256":"beff1ea70d1315ffd5f8e359ecbfaa221b0fcdd8fc4890937b767787e7341d51"}],
+  "after_files":[{"path":"after/NOT_APPLICABLE.md","sha256":"f2418b1976b2c79d50af4f83253aaedd838431a8c95b05d1882ada596d57776e"}],"after_sealed":true
+}

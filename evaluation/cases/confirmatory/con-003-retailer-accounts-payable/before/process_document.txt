@@ -1,0 +1,7 @@
+Retailer accounts-payable invoice entry
+
+Accounts-payable staff monitor a shared vendor mailbox, identify invoice
+messages, download attached invoices, inspect and verify invoice details, and
+enter the required data into NetSuite for processing. The source describes
+multiple vendors and varied invoice formats but does not quantify current
+error rates, control tolerances, or exception-handling rules.

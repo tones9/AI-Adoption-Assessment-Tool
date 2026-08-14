@@ -1,0 +1,11 @@
+{
+  "case_id":"DEV-001",
+  "steps":[
+    {"step_id":"S1","sequence":1,"activity":"Receive complaint","attributes":{"channel":["email","web form"]}},
+    {"step_id":"S2","sequence":2,"activity":"Log complaint in CRM","attributes":{"system":["CRM"]}},
+    {"step_id":"S3","sequence":3,"activity":"Classify complaint","attributes":{"categories":["product","severity"]}},
+    {"step_id":"S4","sequence":4,"activity":"Investigate complaint","attributes":{"inputs":["order records","account records"]}},
+    {"step_id":"S5","sequence":5,"activity":"Draft and send response","attributes":{"recipient":["customer"]}},
+    {"step_id":"S6","sequence":6,"activity":"Close complaint and record outcome","attributes":{}}
+  ]
+}

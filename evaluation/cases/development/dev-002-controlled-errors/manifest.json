@@ -1,0 +1,7 @@
+{
+  "schema_id":"phase8-case-manifest.v0.1","case_id":"DEV-002","cohort":"development","title":"Controlled purchase-request metric fixture",
+  "eligibility":{"identifiable_process":true,"minimum_three_activities":true,"verifiable_or_permitted_source":true,"before_after_separable":true,"annotation_evidence_sufficient":true,"privacy_suitable":true,"diversity_contribution":true,"stable_hashable_files":true},
+  "source_quality":"controlled-synthetic","contamination_risk":"none","sources":[{"type":"controlled fixture","purpose":"known-error metric and adjudication validation only"}],
+  "before_files":[{"path":"before/process_document.txt","sha256":"5d14072efb39640badd67f66d939e31b5e82972c79f235e26f893e5b79238111"}],
+  "after_files":[{"path":"after/NOT_APPLICABLE.md","sha256":"f41a8af164e969ac6eeec9f2c084c5726009f26fde2f3f99ebc458f49b8aa061"}],"after_sealed":true
+}

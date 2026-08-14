@@ -1,0 +1,6 @@
+{
+  "schema_id":"phase8-case-manifest.v0.1","case_id":"CON-004","cohort":"confirmatory","title":"Energy-company invoice reconciliation",
+  "eligibility":{"identifiable_process":true,"minimum_three_activities":true,"verifiable_or_permitted_source":true,"before_after_separable":true,"annotation_evidence_sufficient":true,"privacy_suitable":true,"diversity_contribution":true,"stable_hashable_files":true},
+  "source_quality":"medium","contamination_risk":"medium","publication_bias":"vendor-authored anonymised success case","source_quality_caveat":"before-state description is comparatively sparse; approval requires explicit acceptance or replacement before annotation","sources":[{"publisher":"Smartbridge","url":"https://smartbridge.com/invoice-processing-automation-case-study/","accessed":"2026-08-14","role":"primary case source"}],
+  "before_files":[{"path":"before/process_document.txt","sha256":"05bcb210922d5046688bf641a8cce359767a4b584943796dc6668e552b751f49"}],"after_files":[{"path":"after/reference_evidence.md","sha256":"50be9afbc8febddf5383a45fd4abfe9420cd9621bdee4b4dc3a7ec1ae91b797f"}],"after_sealed":true,"reference_status":"not_started_checkpoint"
+}
