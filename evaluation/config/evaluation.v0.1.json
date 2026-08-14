@@ -1,0 +1,23 @@
+{
+  "evaluation_id": "phase8-evaluation.v0.1",
+  "protocol_id": "phase8-evaluation-protocol.v0.1",
+  "frozen_git_commit": "4f2ba07b30f108f4b78ee5c7dc9ab42bb7956cf9",
+  "frozen_policy_id": "decision_policy.v0.2",
+  "frozen_extraction_configuration_id": "extraction.v0.1",
+  "frozen_extraction_prompt_id": "process-extraction.v0.1",
+  "frozen_candidate_schema_id": "candidate-process.v0.1",
+  "annotation_protocol_id": "phase8-reference-annotation.v0.1",
+  "step_alignment_id": "phase8-step-alignment.v0.1",
+  "metrics_id": "phase8-primary-metrics.v0.1",
+  "baseline_protocol_id": "phase8-llm-baseline.v0.1",
+  "baseline_prompt_id": "phase8-unconstrained-baseline-prompt.v0.1",
+  "error_taxonomy_id": "phase8-error-taxonomy.v0.1",
+  "run_manifest_schema_id": "phase8-run-manifest.v0.1",
+  "development_case_count": 2,
+  "confirmatory_case_count": 6,
+  "confirmatory_extension_maximum": 8,
+  "repeatability_case_count": 3,
+  "repeatability_runs_per_case": 3,
+  "confirmatory_runs_authorized": false,
+  "external_human_evaluation_authorized": false
+}

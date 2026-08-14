@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase8-step-alignment.v0.1",
+  "type": "object",
+  "required": ["schema_id", "case_id", "alignments", "attribute_judgements", "assertion_judgements"],
+  "properties": {
+    "schema_id": {"const": "phase8-step-alignment.v0.1"},
+    "alignments": {"type": "array"},
+    "attribute_judgements": {"type": "array"},
+    "assertion_judgements": {"type": "array"}
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase8-case-manifest.v0.1",
+  "type": "object",
+  "required": ["schema_id", "case_id", "cohort", "title", "eligibility", "source_quality", "sources", "before_files", "after_files", "after_sealed"],
+  "properties": {
+    "schema_id": {"const": "phase8-case-manifest.v0.1"},
+    "case_id": {"type": "string"},
+    "cohort": {"enum": ["development", "confirmatory"]},
+    "title": {"type": "string"},
+    "eligibility": {"type": "object"},
+    "source_quality": {"enum": ["high", "medium-high", "medium", "controlled-synthetic"]},
+    "sources": {"type": "array"},
+    "before_files": {"$ref": "#/$defs/files"},
+    "after_files": {"$ref": "#/$defs/files"},
+    "after_sealed": {"const": true}
+  },
+  "$defs": {"files": {"type": "array", "items": {"type": "object", "required": ["path", "sha256"], "properties": {"path": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}}}}
+}

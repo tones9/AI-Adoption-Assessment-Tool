@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase8-reference-annotation.v0.1",
+  "type": "object",
+  "required": ["schema_id", "case_id", "annotation_status", "steps", "decision_references", "adjudication"],
+  "properties": {
+    "schema_id": {"const": "phase8-reference-annotation.v0.1"},
+    "annotation_status": {"enum": ["draft", "reviewed", "adjudicated"]},
+    "steps": {"type": "array"},
+    "decision_references": {"type": "array"},
+    "adjudication": {"type": "object"}
+  }
+}

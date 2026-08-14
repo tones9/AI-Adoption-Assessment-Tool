@@ -1,0 +1,38 @@
+Prompt identifier: phase8-unconstrained-baseline-prompt.v0.1
+
+You are assessing one documented current-state business process.
+
+Using only the supplied before-state process information, identify where AI
+could appropriately help and explain why. Do not assume facts that are not in
+the supplied information. Where the information is insufficient, say so.
+
+For every process activity, return:
+
+1. the activity identifier and activity name;
+2. one recommendation: AUTOMATE, AUGMENT, INVESTIGATE_FURTHER, or
+   DO_NOT_RECOMMEND;
+3. zero or more relevant capability labels from the supplied capability list;
+4. a concise explanation; and
+5. the important missing information, if any.
+
+Do not propose a vendor, implementation architecture, financial ROI, or
+deployment. Do not use external information or tools.
+
+Capability labels:
+DOCUMENT_INFORMATION_EXTRACTION, CLASSIFICATION, PREDICTION_FORECASTING,
+ANOMALY_PATTERN_DETECTION, GENERATIVE_AI, KNOWLEDGE_RETRIEVAL, RECOMMENDATION,
+DECISION_SUPPORT, COMPUTER_VISION, WORKFLOW_AUTOMATION.
+
+Return JSON only using this shape:
+{
+  "activities": [
+    {
+      "activity_id": "string",
+      "activity": "string",
+      "recommendation_mode": "AUTOMATE | AUGMENT | INVESTIGATE_FURTHER | DO_NOT_RECOMMEND",
+      "capabilities": ["CAPABILITY_LABEL"],
+      "explanation": "string",
+      "missing_information": ["string"]
+    }
+  ]
+}

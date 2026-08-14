@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase8-run-manifest.v0.1",
+  "type": "object",
+  "required": ["schema_id", "run_id", "case_id", "study_id", "cohort", "run_index", "status", "git_commit", "case_manifest_sha256", "input_sha256", "started_at", "completed_at", "output_path", "output_sha256", "recommendations_frozen"],
+  "properties": {
+    "schema_id": {"const": "phase8-run-manifest.v0.1"},
+    "cohort": {"enum": ["development", "confirmatory"]},
+    "status": {"enum": ["success", "failed", "invalid"]},
+    "recommendations_frozen": {"type": "boolean"}
+  }
+}

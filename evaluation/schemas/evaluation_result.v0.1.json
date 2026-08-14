@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase8-evaluation-result.v0.1",
+  "type": "object",
+  "required": ["schema_id", "metrics_id", "case_id", "study_id", "input_run_manifests", "metrics"],
+  "properties": {
+    "schema_id": {"const": "phase8-evaluation-result.v0.1"},
+    "metrics_id": {"const": "phase8-primary-metrics.v0.1"},
+    "metrics": {"type": "object"}
+  }
+}

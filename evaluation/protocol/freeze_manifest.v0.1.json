@@ -1,0 +1,23 @@
+{
+  "schema_id":"phase8-protocol-freeze-manifest.v0.1",
+  "frozen_at":"2026-08-14",
+  "production_baseline_commit":"4f2ba07b30f108f4b78ee5c7dc9ab42bb7956cf9",
+  "status":"frozen-before-confirmatory-execution",
+  "files":[
+    {"path":"evaluation/config/baseline_prompt.v0.1.txt","sha256":"6180daacb6d51997713d2c928d3130f15138cf74ba955d9c666954d45a2e3898"},
+    {"path":"evaluation/config/evaluation.v0.1.json","sha256":"49cf0382bd607ebb3e63ad2083c008c87592049f96fbcc6cabee47617ed58cbb"},
+    {"path":"evaluation/protocol/annotation_guide_v0.1.md","sha256":"b62d099b9c158a73607695db8d7cadba7c609884e6167b8563104014f8672953"},
+    {"path":"evaluation/protocol/baseline_protocol_v0.1.md","sha256":"da56be5c1193d7be174e3674ee40f354a4f7809dfaaa5a86678da0c4842f67e8"},
+    {"path":"evaluation/protocol/case_selection_protocol_v0.1.md","sha256":"37e42bb9a7ee50313c7e79f915c395716080841db9a797538b38e6ab46cef3b5"},
+    {"path":"evaluation/protocol/error_taxonomy_v0.1.md","sha256":"f69af57905c4df32deb067a41b2d3e98611885148990d979299a194d6b27a60b"},
+    {"path":"evaluation/protocol/phase8_protocol_v0.1.md","sha256":"f882ecfe8f17d0c40dbbd7c851525108e934976ded5a6caaa1d4b22db522eb5a"},
+    {"path":"evaluation/protocol/primary_metrics_v0.1.md","sha256":"d2ca3faae6b04426b7f07d854db6576692f66b75691d34f92970c3c6c4f04ee8"},
+    {"path":"evaluation/protocol/run_manifest_requirements_v0.1.md","sha256":"2283d030b56071b52689b7d1be6c40d013e53029914a31b9b647d34ffd68a587"},
+    {"path":"evaluation/protocol/step_alignment_v0.1.md","sha256":"8d583abf948355f8f4e864db18261c8589e478bb0f50c3fe4bcc1112705a2f9e"},
+    {"path":"evaluation/schemas/case_manifest.v0.1.json","sha256":"b3345f96b0d0fa4d70757ba65dcdb42e8b33ebfb3c7892d4d623530b40a5a4ed"},
+    {"path":"evaluation/schemas/evaluation_result.v0.1.json","sha256":"50d2a03a4d3d49ef73bf27def646ed13dcc368b40227abe37946a895e0fd344b"},
+    {"path":"evaluation/schemas/reference_annotation.v0.1.json","sha256":"4b31ff5e53d5687945330efe08d1e14f99f9570e6ab589c85f00e8eac60f8536"},
+    {"path":"evaluation/schemas/run_manifest.v0.1.json","sha256":"02f3060e2f9b94e57631d393d5cf3dc8d85b2ecca109885302290812d1dcea45"},
+    {"path":"evaluation/schemas/step_alignment.v0.1.json","sha256":"bc7f373944a897b11d4338dea849621c2a8b19514ce905caf1629be588feab70"}
+  ]
+}
