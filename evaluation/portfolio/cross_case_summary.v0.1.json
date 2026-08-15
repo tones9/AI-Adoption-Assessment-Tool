@@ -1,0 +1,183 @@
+{
+  "schema_version": "portfolio-cross-case-summary.v0.1",
+  "produced_at": "2026-08-15T13:59:41Z",
+  "evaluation_type": "retrospective-before-after-portfolio-validation",
+  "case_count": 3,
+  "status": "COMPLETE",
+  "derived_from": [
+    {
+      "case_id": "PORT-001",
+      "comparison_path": "evaluation/portfolio/runs/port-001/production-run-v0.1/comparison/retrospective_comparison.v0.1.json",
+      "output_freeze_manifest_path": "evaluation/portfolio/runs/port-001/production-run-v0.1/output_freeze_manifest.v0.1.json"
+    },
+    {
+      "case_id": "PORT-002",
+      "comparison_path": "evaluation/portfolio/runs/port-002/production-run-v0.1/comparison/retrospective_comparison.v0.1.json",
+      "output_freeze_manifest_path": "evaluation/portfolio/runs/port-002/production-run-v0.1/output_freeze_manifest.v0.1.json"
+    },
+    {
+      "case_id": "PORT-003",
+      "comparison_path": "evaluation/portfolio/runs/port-003/production-run-v0.1/comparison/retrospective_comparison.v0.1.json",
+      "output_freeze_manifest_path": "evaluation/portfolio/runs/port-003/production-run-v0.1/output_freeze_manifest.v0.1.json"
+    }
+  ],
+  "shared_production_baseline": {
+    "production_subtree_fingerprint": "4deca4251d4a9840d6948411544fdf506f1953c16a56eaca803099d2cf81be5a",
+    "decision_policy_id": "decision_policy.v0.2",
+    "decision_policy_version": "0.2.0",
+    "decision_policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66",
+    "phase1_contract_version": "phase1-v0.3",
+    "extraction_model": "gpt-5.6-terra",
+    "identical_across_all_three_cases": true
+  },
+  "per_case": [
+    {
+      "case_id": "PORT-001",
+      "domain": "Insurance claims-document processing",
+      "activities": 6,
+      "themes": 5,
+      "alignment": {"STRONG_ALIGNMENT": 0, "PARTIAL_ALIGNMENT": 3, "NO_DOCUMENTED_ALIGNMENT": 2, "CONTRADICTION": 0},
+      "recommendations": {"AUTOMATE": 0, "AUGMENT": 0, "INVESTIGATE_FURTHER": 6, "DO_NOT_RECOMMEND": 0},
+      "capabilities_identified": ["DOCUMENT_INFORMATION_EXTRACTION", "COMPUTER_VISION", "CLASSIFICATION"],
+      "capability_bearing_activities": 3,
+      "unsupported_activities_added": 0,
+      "review_event_counts": {"accept": 52, "retain-unknown": 117, "correct": 1, "reject": 4, "accept-step-order": 1, "approve": 1},
+      "review_profile": "SUPPRESSION",
+      "review_profile_detail": "Rejected four unsupported positive document and image capability assertions on arrival and opening-only activities, and corrected one step input from document evidence."
+    },
+    {
+      "case_id": "PORT-002",
+      "domain": "Telecommunications customer-call routing",
+      "activities": 6,
+      "themes": 5,
+      "alignment": {"STRONG_ALIGNMENT": 0, "PARTIAL_ALIGNMENT": 3, "NO_DOCUMENTED_ALIGNMENT": 2, "CONTRADICTION": 0},
+      "recommendations": {"AUTOMATE": 0, "AUGMENT": 0, "INVESTIGATE_FURTHER": 6, "DO_NOT_RECOMMEND": 0},
+      "capabilities_identified": ["CLASSIFICATION", "WORKFLOW_AUTOMATION"],
+      "capability_bearing_activities": 3,
+      "unsupported_activities_added": 0,
+      "review_event_counts": {"accept": 46, "retain-unknown": 123, "correct": 3, "reject": 1, "resolve-conflict": 1, "accept-step-order": 1, "approve": 1},
+      "review_profile": "RECOVERY",
+      "review_profile_detail": "Corrected three explicit capability signals the extraction had left unknown, rejected one incorrect forward dependency and resolved the resulting blocking conflict."
+    },
+    {
+      "case_id": "PORT-003",
+      "domain": "Wealth-management meeting documentation",
+      "activities": 4,
+      "themes": 6,
+      "alignment": {"STRONG_ALIGNMENT": 1, "PARTIAL_ALIGNMENT": 3, "NO_DOCUMENTED_ALIGNMENT": 2, "CONTRADICTION": 0},
+      "recommendations": {"AUTOMATE": 0, "AUGMENT": 0, "INVESTIGATE_FURTHER": 4, "DO_NOT_RECOMMEND": 0},
+      "capabilities_identified": ["GENERATIVE_AI"],
+      "capability_bearing_activities": 2,
+      "unsupported_activities_added": 0,
+      "review_event_counts": {"accept": 46, "retain-unknown": 81, "accept-step-order": 1, "approve": 1},
+      "review_profile": "VERIFICATION",
+      "review_profile_detail": "Made no corrections and no rejections. The extraction missed no supported signal and produced no incorrect structure."
+    }
+  ],
+  "aggregates": {
+    "total_activities_assessed": 16,
+    "total_unsupported_activities_added": 0,
+    "total_intervention_themes": 16,
+    "alignment": {
+      "STRONG_ALIGNMENT": 1,
+      "PARTIAL_ALIGNMENT": 9,
+      "NO_DOCUMENTED_ALIGNMENT": 6,
+      "CONTRADICTION": 0
+    },
+    "recommendations": {
+      "AUTOMATE": 0,
+      "AUGMENT": 0,
+      "INVESTIGATE_FURTHER": 16,
+      "DO_NOT_RECOMMEND": 0
+    },
+    "capability_bearing_activities": 8,
+    "total_unknowns_retained_by_review": 321,
+    "total_review_corrections": 4,
+    "total_review_rejections": 5,
+    "distinct_capabilities_exercised": [
+      "DOCUMENT_INFORMATION_EXTRACTION",
+      "COMPUTER_VISION",
+      "CLASSIFICATION",
+      "WORKFLOW_AUTOMATION",
+      "GENERATIVE_AI"
+    ],
+    "capabilities_never_exercised": [
+      "PREDICTION_FORECASTING",
+      "ANOMALY_PATTERN_DETECTION",
+      "KNOWLEDGE_RETRIEVAL",
+      "RECOMMENDATION",
+      "DECISION_SUPPORT"
+    ]
+  },
+  "findings": [
+    {
+      "finding_id": "XC-1",
+      "title": "Process reconstruction is the most consistently reliable behaviour",
+      "strength": "SUPPORTED_BY_ALL_THREE_CASES",
+      "detail": "All sixteen documented activities across three industries were reconstructed in source order with resolved evidence, and no unsupported activity was added in any case. On PORT-003, a high-profile case with high recorded memorisation risk, the extraction did not reconstruct the widely reported email-drafting or CRM steps that were absent from the anonymised input."
+    },
+    {
+      "finding_id": "XC-2",
+      "title": "The deterministic decision engine was never exercised beyond one gate",
+      "strength": "MATERIAL_LIMITATION",
+      "detail": "All sixteen activities returned INVESTIGATE_FURTHER, and every one of them stopped at the technical-fit gate on unknown ai_capability_fit. The business-value and risk-and-autonomy gates were never evaluated, no priority score was ever produced, and no threshold, weight or scoring band in decision_policy.v0.2 was ever tested. The portfolio therefore provides evidence about Phases 2 to 4 and about gate ordering, but almost none about the Phase 1 decision logic that the product presents as its core contribution.",
+      "root_cause": "Public BEFORE evidence describes what an organisation did, not the operational criterion values the policy consumes. Press releases and vendor case studies do not report repetition, predictability, data readiness, error consequence or quantified value, so those criteria are structurally unavailable in this evidence class."
+    },
+    {
+      "finding_id": "XC-3",
+      "title": "Human review demonstrated three distinct and complementary contribution profiles",
+      "strength": "SUPPORTED_BY_ALL_THREE_CASES",
+      "detail": "PORT-001 suppressed four unsupported positive capability assertions. PORT-002 recovered three supported signals the extraction had missed and rejected one incorrect dependency. PORT-003 correctly changed nothing. Across the portfolio, review caught extraction false positives, extraction false negatives, and correctly abstained when the extraction was sound. This is the clearest evidence that the Phase 4 boundary is functional rather than ceremonial."
+    },
+    {
+      "finding_id": "XC-4",
+      "title": "Human-oversight and control design was never reconstructed",
+      "strength": "SUPPORTED_BY_ALL_THREE_CASES",
+      "detail": "Every case documented an AFTER control boundary: PORT-001 confidence thresholds and retained organisational control, PORT-002 the retained human-service boundary, PORT-003 adviser verification and discretion. None was identified from BEFORE evidence. Two were classified NO_DOCUMENTED_ALIGNMENT and one PARTIAL_ALIGNMENT. Governance design appears to be systematically absent from public BEFORE descriptions."
+    },
+    {
+      "finding_id": "XC-5",
+      "title": "Half the capability taxonomy was never exercised, and one needed capability is unrepresentable",
+      "strength": "SUPPORTED_BY_ALL_THREE_CASES",
+      "detail": "Five of ten capabilities were never produced across sixteen activities. Separately, PORT-003 established that the taxonomy has no speech, audio or transcription signal, so the defining capability of that intervention could not have been expressed regardless of evidence quality. This is a product expressiveness finding. The taxonomy is frozen and was not modified during the evaluation."
+    },
+    {
+      "finding_id": "XC-6",
+      "title": "Zero contradictions, but the result is weaker than it appears",
+      "strength": "QUALIFIED",
+      "detail": "No theme in any case was classified CONTRADICTION. That is a real absence of false negatives, but it is substantially a consequence of finding XC-2: a system that always answers INVESTIGATE_FURTHER cannot contradict a later deployment. The absence of contradictions should not be read as decision accuracy."
+    },
+    {
+      "finding_id": "XC-7",
+      "title": "No negative case was evaluated, so specificity is unmeasured",
+      "strength": "MATERIAL_LIMITATION",
+      "detail": "All three cases are organisations that did adopt AI and published about it. The portfolio contains no case where AI was considered and rejected, or deployed and withdrawn. There is therefore no measurement of whether the product would decline to identify an opportunity where none existed, and no true-negative evidence of any kind."
+    }
+  ],
+  "evaluation_integrity": {
+    "protocol_order_preserved_in_all_cases": true,
+    "after_opened_only_after_output_freeze": true,
+    "production_code_modified_during_evaluation": false,
+    "policy_modified_during_evaluation": false,
+    "prompt_schema_or_model_modified_during_evaluation": false,
+    "capability_taxonomy_modified_during_evaluation": false,
+    "production_fingerprint_stable_across_all_cases": true,
+    "reviewer_blindness_claimed_in_any_case": false,
+    "operator_scripts_preserved": {
+      "PORT-001": false,
+      "PORT-002": false,
+      "PORT-003": true,
+      "note": "PORT-001 and PORT-002 operator scripts were not committed and are unrecoverable. Their runs remain hash-verifiable through frozen artefacts but are not re-executable. PORT-003 committed its operator scripts."
+    }
+  },
+  "overall_limitations": [
+    "Three self-selected cases, all published adoption success stories.",
+    "Every AFTER source is organisation-authored or relies materially on company sources; no independent accuracy, client-impact or risk evaluation was found for any intervention.",
+    "Reported outcome figures are non-comparable across and within cases and were never merged.",
+    "The reviewing research agent was not blind to public AFTER evidence in any case.",
+    "Model-memorisation contamination cannot be excluded, and is recorded as high for PORT-003.",
+    "The deterministic decision policy remains provisional and, per XC-2, effectively untested by this exercise.",
+    "No statistical, causal or cross-industry generalisation is supported by three cases."
+  ],
+  "honest_headline": "The product reliably reconstructs documented processes from thin public evidence, identifies a partially overlapping subset of the capability areas organisations later deployed, and consistently refuses to recommend adoption when the evidence does not support one. Its deterministic recommendation layer, which is the product's central claim, was not meaningfully exercised by this evaluation."
+}
