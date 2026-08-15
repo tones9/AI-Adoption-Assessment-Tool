@@ -1,0 +1,29 @@
+Claims-document intake and recording
+
+Purpose
+
+This process prepares information from incoming claim documents so that claim handling can continue in the organisation's claims system.
+
+Current-state process
+
+1. A claim request arrives with supporting material. The material can include bills, invoices, pharmacy or clinic receipts, medical-treatment diagnoses, images and PDF scans.
+2. A claims agent opens each image or PDF document individually.
+3. The agent examines the document to identify information needed for claim processing.
+4. The agent manually extracts the required information.
+5. The agent categorises the extracted information according to its relevance to the claim.
+6. The agent uploads the relevant document information to the organisation's existing claims system.
+
+Known operating context
+
+- The work is manual, repetitive and time-consuming.
+- The source material is unstructured and comes from several document types.
+
+Information not provided
+
+- Claim volumes or arrival rates.
+- Exception frequency or document-quality distribution.
+- Required accuracy or service-level targets.
+- Verification and approval controls.
+- Consequences of an extraction or categorisation error.
+- Privacy, security or regulatory requirements.
+- What happens after information is placed in the claims system.

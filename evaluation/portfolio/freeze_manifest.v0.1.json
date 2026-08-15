@@ -1,0 +1,66 @@
+{
+  "schema_version": "portfolio-freeze.v0.1",
+  "frozen_on": "2026-08-15",
+  "production_baseline": {
+    "git_commit": "c201cbbde33fd18a72c9dd0ca0106a1c754f31c7",
+    "git_tree": "2b940ffae763443a7cd6fd727b883bbfff741e05",
+    "production_subtree_fingerprint": "4deca4251d4a9840d6948411544fdf506f1953c16a56eaca803099d2cf81be5a",
+    "production_subtree_definition": "SHA-256 of the sorted per-file SHA-256 listing for tracked config/**, src/**, streamlit_app.py and pyproject.toml",
+    "decision_policy_path": "config/decision_policy.v0.2.json",
+    "decision_policy_sha256": "c5770bde50d19c0bd2e48d60d23410d6df02440f4f546f87c9feba0138d7e1e6",
+    "extraction_configuration_path": "config/extraction.v0.1.json",
+    "extraction_configuration_sha256": "0465fc47dbb4d3759fffc54c3e483d38314d03ef47196548846d355428657967",
+    "extraction_prompt_path": "src/ai_adoption_engine/extraction/prompting.py",
+    "extraction_prompt_sha256": "3e5425d3c623eedd99cb1ca1fdd10c24c7d08a305a0ed8376e22e138c489b13a",
+    "raw_extraction_contract_path": "src/ai_adoption_engine/models/extraction.py",
+    "raw_extraction_contract_sha256": "70f3530d1ee9712dc41c82d9738dee1ed1b78bc0134e39133c0a14d06edcfca7",
+    "candidate_contract_path": "src/ai_adoption_engine/models/candidate_process.py",
+    "candidate_contract_sha256": "b7620ee7fd2761891a1e81b9de76b0a0f19debe4697646feae522043a095fe0d"
+  },
+  "experimental_boundary": {
+    "allowed_product_inputs": [
+      "evaluation/portfolio/product_inputs/port-001.before.txt",
+      "evaluation/portfolio/product_inputs/port-002.before.txt",
+      "evaluation/portfolio/product_inputs/port-003.before.txt"
+    ],
+    "sealed_after_paths": [
+      "evaluation/portfolio/sealed_after/port-001.after.md",
+      "evaluation/portfolio/sealed_after/port-002.after.md",
+      "evaluation/portfolio/sealed_after/port-003.after.md"
+    ],
+    "extraction_must_not_receive": [
+      "case register",
+      "provenance manifests",
+      "source captures",
+      "leakage audits",
+      "sealed AFTER packets"
+    ],
+    "after_status": "SEALED",
+    "unseal_condition": "The complete case product output and lineage bundle must be hash-frozen first."
+  },
+  "artifacts": [
+    {"path": "evaluation/portfolio/README.md", "sha256": "2592891006e286d83e0d9a3d98450636a70eb0667e1f6c7493ad46ab4191f765"},
+    {"path": "evaluation/portfolio/leakage_audits/port-001.audit.json", "sha256": "b262e90417e630ee30c9ae6f3dacf8999e834520e682ecbe36ee5072905ff8c1"},
+    {"path": "evaluation/portfolio/leakage_audits/port-002.audit.json", "sha256": "5a6c5a38819820d347964dcc2973d25384ffe0bb06ef40ea62cb1f5b77f09fb5"},
+    {"path": "evaluation/portfolio/leakage_audits/port-003.audit.json", "sha256": "3aeaa0b7fc61cd5252c3787fffa7ac034c3a5e2d651d7352f19d2e5ee2e56e40"},
+    {"path": "evaluation/portfolio/product_inputs/port-001.before.txt", "sha256": "7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44"},
+    {"path": "evaluation/portfolio/product_inputs/port-002.before.txt", "sha256": "9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf"},
+    {"path": "evaluation/portfolio/product_inputs/port-003.before.txt", "sha256": "79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b"},
+    {"path": "evaluation/portfolio/provenance/port-001.manifest.json", "sha256": "4b8dde8aa99047dde2a13ff8bbfb990e7f82aa0efbd6419e0f7466353bd5f2ed"},
+    {"path": "evaluation/portfolio/provenance/port-002.manifest.json", "sha256": "07ea897fb4c75dfc9b6ebabfa8c98257c9cb33a49ee1858e07123e364f77f618"},
+    {"path": "evaluation/portfolio/provenance/port-003.manifest.json", "sha256": "659bf9d28e265380a71ee73f32bbe083ed8e43072241c152b20a709d5c2ba40e"},
+    {"path": "evaluation/portfolio/register.v0.1.json", "sha256": "22280d2cae10fe6cdf4c8e8ec92f950379f33e7432034c789267452fd7694ba7"},
+    {"path": "evaluation/portfolio/sealed_after/port-001.after.md", "sha256": "f951ec92e664c6bbff7221f9a13634dcc82a8333ee967e9474ce31eedf6406f0"},
+    {"path": "evaluation/portfolio/sealed_after/port-002.after.md", "sha256": "4445043c80a816f50a2856c6d1d283f24b78a8913a2102d802e1e38f7e929c2b"},
+    {"path": "evaluation/portfolio/sealed_after/port-003.after.md", "sha256": "b2f20906aea6895a5c0d0aa24f69a8f17ed8a470597ca6a70e9c30b901dd9e1a"},
+    {"path": "evaluation/portfolio/source_captures/port-001-s1-ey.capture.md", "sha256": "7f58965cba7848d7869fcdaa90fffd3d2a84c5b18431e87e428722b0b8c93b19"},
+    {"path": "evaluation/portfolio/source_captures/port-002-s1-elisa-customer-story.capture.md", "sha256": "4f6b6d600327f820663ee418a3a499863304adf7ca7a5545222df456384b6942"},
+    {"path": "evaluation/portfolio/source_captures/port-002-s2-elisa-ai.capture.md", "sha256": "d3616abac979d20811a82e8888421bc8ae0a0ca31d8785c00c4c75178a7e603a"},
+    {"path": "evaluation/portfolio/source_captures/port-002-s3-mindtitan.capture.md", "sha256": "949f68bb453abbd2fc6afa69e908408b63a7564547df1e5b9647458145f08417"},
+    {"path": "evaluation/portfolio/source_captures/port-002-s4-elisa-sustainability-2022.capture.md", "sha256": "ab7c75c845485328319f75f12228e870b3c585ef09bb924ab389d83177349bbd"},
+    {"path": "evaluation/portfolio/source_captures/port-002-s5-gsma-mindtitan.capture.md", "sha256": "284592397dd100ab390227e71b6d70063122bd0eb504ea5569724971d69c61c4"},
+    {"path": "evaluation/portfolio/source_captures/port-003-s1-morgan-stanley.capture.md", "sha256": "3d0d2c2e394292d7c61ff3fbda0d7b1bb8f5bfde1959c6ff4b80fe01a08b2e41"},
+    {"path": "evaluation/portfolio/source_captures/port-003-s2-cio.capture.md", "sha256": "112fadbfdc27cecdec4c9e99f9f0ea9e65af997e28fd0216a5dda778b0a7d655"},
+    {"path": "evaluation/portfolio/source_captures/port-003-s3-axios.capture.md", "sha256": "fafc9cdc6d48f26f863e8a067ec957dde24a5134a0172b8d61bce1d395b7ac0a"}
+  ]
+}

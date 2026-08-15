@@ -1,0 +1,62 @@
+{
+  "schema_version": "portfolio-provenance.v0.1",
+  "case_id": "PORT-003",
+  "research_identity": "Morgan Stanley client-meeting documentation and follow-up planning",
+  "product_identity": "Client-meeting documentation and follow-up planning",
+  "before_path": "product_inputs/port-003.before.txt",
+  "after_path": "sealed_after/port-003.after.md",
+  "sources": [
+    {
+      "source_id": "PORT-003-S1",
+      "publisher": "Morgan Stanley",
+      "title": "AI @ Morgan Stanley Debrief Launch",
+      "url": "https://www.morganstanley.com/press-releases/ai-at-morgan-stanley-debrief-launch",
+      "provenance": "organisation-authored launch announcement",
+      "quality": "MEDIUM_HIGH",
+      "capture_path": "source_captures/port-003-s1-morgan-stanley.capture.md"
+    },
+    {
+      "source_id": "PORT-003-S2",
+      "publisher": "CIO",
+      "title": "Morgan Stanley's gen AI launch is about global analysis",
+      "url": "https://www.cio.com/article/2510754/morgan-stanleys-gen-ai-launch-is-about-global-analysis.html",
+      "provenance": "independent publisher quoting a named company executive",
+      "quality": "MEDIUM_HIGH",
+      "capture_path": "source_captures/port-003-s2-cio.capture.md"
+    },
+    {
+      "source_id": "PORT-003-S3",
+      "publisher": "Axios",
+      "title": "Banks can't afford to ignore AI",
+      "url": "https://www.axios.com/2024/04/12/banks-ai-morgan-stanley",
+      "provenance": "independent pre-launch reporting",
+      "quality": "MEDIUM",
+      "capture_path": "source_captures/port-003-s3-axios.capture.md"
+    }
+  ],
+  "before_claims": [
+    {"field": "purpose", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-003-S1", "PORT-003-S2"]},
+    {"field": "activities[1]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-003-S1", "PORT-003-S2"]},
+    {"field": "activities[2]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-003-S1", "PORT-003-S2"]},
+    {"field": "activities[3]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-003-S2"]},
+    {"field": "activities[4]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-003-S1", "PORT-003-S2"]}
+  ],
+  "researcher_inference_in_product_input": false,
+  "additional_research_result": "CIO evidence supports post-meeting note cleanup as a distinct fourth BEFORE activity. Public evidence does not justify adding email drafting or CRM entry as prior activities.",
+  "unsupported_excluded": [
+    "investment-recommendation generation",
+    "research retrieval or portfolio analysis",
+    "autonomous client decisions or email sending",
+    "automatic action-item execution",
+    "a specific compliance-review sequence",
+    "client-email drafting as a distinct BEFORE activity",
+    "CRM entry as a distinct BEFORE activity",
+    "vendor and CRM product names in the BEFORE document"
+  ],
+  "limitations": [
+    "Strong AFTER documentation does not fully reconstruct the prior workflow.",
+    "No independent accuracy, completeness, client-impact or risk evaluation was found.",
+    "The launch announcement emphasises positive pilot testimonials.",
+    "Publication bias and model-memorisation risk are high."
+  ]
+}

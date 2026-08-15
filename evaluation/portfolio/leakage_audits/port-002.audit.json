@@ -1,0 +1,18 @@
+{
+  "schema_version": "portfolio-leakage-audit.v0.1",
+  "case_id": "PORT-002",
+  "before_path": "product_inputs/port-002.before.txt",
+  "checks": {
+    "organisation_identity_absent": true,
+    "ai_vendor_product_names_absent": true,
+    "after_outcomes_absent": true,
+    "after_urls_absent": true,
+    "later_intervention_absent": true,
+    "unsupported_steps_absent": true,
+    "missing_information_explicit": true
+  },
+  "forbidden_literals_checked": ["Elisa", "MindTitan", "Annika", "90%", "70%", "34%", "8%", "http://", "https://"],
+  "steering_review": "Exact organisation-specific volume and performance figures were omitted. The inferred receiving-agent diagnosis step was removed rather than preserved to maintain a seven-step count.",
+  "residual_contamination_risk": "MEDIUM_HIGH",
+  "passed": true
+}

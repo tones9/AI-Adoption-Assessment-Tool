@@ -1,0 +1,46 @@
+{
+  "schema_version": "portfolio-register.v0.1",
+  "freeze_date": "2026-08-15",
+  "evaluation_type": "retrospective-before-after-portfolio-validation",
+  "cases": [
+    {
+      "case_id": "PORT-001",
+      "research_identity": "Nordic insurer claims-document processing",
+      "product_title": "Claims-document intake and recording",
+      "before_activity_count": 6,
+      "before_path": "product_inputs/port-001.before.txt",
+      "provenance_path": "provenance/port-001.manifest.json",
+      "after_path": "sealed_after/port-001.after.md",
+      "leakage_audit_path": "leakage_audits/port-001.audit.json",
+      "status": "FROZEN_BEFORE_AFTER_SEALED"
+    },
+    {
+      "case_id": "PORT-002",
+      "research_identity": "Elisa customer-call routing and handling",
+      "product_title": "Customer-call routing and handling",
+      "before_activity_count": 6,
+      "before_path": "product_inputs/port-002.before.txt",
+      "provenance_path": "provenance/port-002.manifest.json",
+      "after_path": "sealed_after/port-002.after.md",
+      "leakage_audit_path": "leakage_audits/port-002.audit.json",
+      "status": "FROZEN_BEFORE_AFTER_SEALED"
+    },
+    {
+      "case_id": "PORT-003",
+      "research_identity": "Morgan Stanley client-meeting documentation and follow-up planning",
+      "product_title": "Client-meeting documentation and follow-up planning",
+      "before_activity_count": 4,
+      "before_path": "product_inputs/port-003.before.txt",
+      "provenance_path": "provenance/port-003.manifest.json",
+      "after_path": "sealed_after/port-003.after.md",
+      "leakage_audit_path": "leakage_audits/port-003.audit.json",
+      "status": "FROZEN_BEFORE_AFTER_SEALED"
+    }
+  ],
+  "excluded_from_portfolio": [
+    {
+      "case": "BMW maintenance",
+      "reason": "Historical evidence was insufficient for the approved three-case BEFORE-workflow portfolio."
+    }
+  ]
+}

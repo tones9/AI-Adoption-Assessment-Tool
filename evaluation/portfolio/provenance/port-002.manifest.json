@@ -1,0 +1,84 @@
+{
+  "schema_version": "portfolio-provenance.v0.1",
+  "case_id": "PORT-002",
+  "research_identity": "Elisa customer-call routing and handling",
+  "product_identity": "Customer-call routing and handling",
+  "before_path": "product_inputs/port-002.before.txt",
+  "after_path": "sealed_after/port-002.after.md",
+  "sources": [
+    {
+      "source_id": "PORT-002-S1",
+      "publisher": "Elisa Estonia",
+      "title": "Customer story: How to talk to a robot?",
+      "url": "https://www.elisa.ee/en/uudised/kogemuslugu-kuidas-raakida-robotiga",
+      "provenance": "organisation-authored",
+      "quality": "MEDIUM_HIGH",
+      "capture_path": "source_captures/port-002-s1-elisa-customer-story.capture.md"
+    },
+    {
+      "source_id": "PORT-002-S2",
+      "publisher": "Elisa Estonia",
+      "title": "Artificial intelligence at Elisa",
+      "url": "https://www.elisa.ee/en/ai",
+      "provenance": "organisation-authored",
+      "quality": "MEDIUM",
+      "capture_path": "source_captures/port-002-s2-elisa-ai.capture.md"
+    },
+    {
+      "source_id": "PORT-002-S3",
+      "publisher": "MindTitan",
+      "title": "Chatbot Case Study in the Telecommunication Industry",
+      "url": "https://mindtitan.com/resources/case-studies/chatbot-case-study-in-telecom/",
+      "provenance": "implementation-partner/vendor-authored",
+      "quality": "MEDIUM_LOW",
+      "capture_path": "source_captures/port-002-s3-mindtitan.capture.md"
+    },
+    {
+      "source_id": "PORT-002-S4",
+      "publisher": "Elisa Oyj",
+      "title": "Elisa Sustainability Report 2022",
+      "url": "https://static.elisa.com/v2/image/2tqybbhjs47b/6zhh2CNkznGXNopeG1JSUD/Elisa_Sustainability-report_2022.pdf",
+      "provenance": "organisation-authored corporate report",
+      "quality": "MEDIUM_HIGH",
+      "capture_path": "source_captures/port-002-s4-elisa-sustainability-2022.capture.md"
+    },
+    {
+      "source_id": "PORT-002-S5",
+      "publisher": "GSMA-hosted; content attributed to MindTitan",
+      "title": "Elisa customer-service chatbot case study",
+      "url": "https://gsma.my.site.com/mwcoem/servlet/servlet.FileDownload?file=00P6900002nvJgwEAE",
+      "provenance": "implementation-partner material hosted by an industry body",
+      "quality": "MEDIUM_LOW",
+      "capture_path": "source_captures/port-002-s5-gsma-mindtitan.capture.md"
+    }
+  ],
+  "before_claims": [
+    {"field": "purpose", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-002-S1"]},
+    {"field": "activities[1]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-002-S1"]},
+    {"field": "activities[2]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-002-S1"]},
+    {"field": "activities[3]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-002-S1"]},
+    {"field": "activities[4]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-002-S1"]},
+    {"field": "activities[5]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-002-S1"]},
+    {"field": "activities[6]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-002-S1"]}
+  ],
+  "researcher_inference_resolution": {
+    "original_issue": "The earlier seven-step draft inferred a separate activity in which the receiving agent established and handled the issue when it fell within the agent's expertise.",
+    "resolution": "The unsupported discrete activity was removed. Direct source evidence supports receiving-agent retransfer after a wrong route and use of appropriately qualified specialist agents, producing a six-step workflow.",
+    "researcher_inference_in_product_input": false
+  },
+  "unsupported_excluded": [
+    "a separate receiving-agent diagnosis activity",
+    "knowledge-base search or a specific answer-retrieval procedure",
+    "ticket creation or detailed case logging",
+    "automatic resolution in the BEFORE workflow",
+    "a fixed escalation or approval sequence",
+    "a synthetic combination of telephone and live-chat workflows"
+  ],
+  "limitations": [
+    "BEFORE and AFTER evidence are retrospective and success-oriented.",
+    "MindTitan was the implementation partner.",
+    "Outcome percentages use different years, channels or denominators and are not averaged.",
+    "No independent quality, harm or customer-satisfaction evaluation was found.",
+    "Publication bias is high and model-memorisation risk is medium-high."
+  ]
+}

@@ -1,0 +1,30 @@
+Customer-call routing and handling
+
+Purpose
+
+This process routes an incoming customer call to a service agent with relevant subject knowledge so that the customer's question can be addressed.
+
+Current-state process
+
+1. A customer calls the service centre about one of many possible service topics.
+2. A traditional interactive voice-response menu presents language and topic choices.
+3. The customer selects options using the telephone keypad.
+4. The system routes the call to a specialised service agent according to the selected option.
+5. If the call reached the wrong specialist area, the receiving agent retransfers it to another agent better qualified to address that topic.
+6. The appropriately specialised agent addresses the customer's question.
+
+Known operating context
+
+- The service centre handles a high volume of contacts across many topics.
+- Agents specialise in particular subject areas; no individual agent is expected to be qualified to handle every topic.
+- Multi-layer menu choices can result in customers selecting the wrong route.
+- Misrouted calls require retransfer and increase waiting and handling time.
+
+Information not provided
+
+- Exact call volumes or topic distribution.
+- Resolution rates or service-level targets.
+- The information and systems agents use to answer a question.
+- Escalation, verification or approval rules.
+- Consequences of incorrect routing or advice.
+- Privacy, security or regulatory requirements.

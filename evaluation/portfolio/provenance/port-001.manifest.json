@@ -1,0 +1,43 @@
+{
+  "schema_version": "portfolio-provenance.v0.1",
+  "case_id": "PORT-001",
+  "research_identity": "Nordic insurer claims-document processing",
+  "product_identity": "Claims-document intake and recording",
+  "before_path": "product_inputs/port-001.before.txt",
+  "after_path": "sealed_after/port-001.after.md",
+  "sources": [
+    {
+      "source_id": "PORT-001-S1",
+      "publisher": "EY",
+      "title": "How a Nordic insurance company automated claims processing",
+      "url": "https://www.ey.com/en_nl/insights/financial-services/emeia/how-a-nordic-insurance-company-automated-claims-processing",
+      "provenance": "implementation-partner-authored; case organisation anonymous",
+      "quality": "MEDIUM",
+      "capture_path": "source_captures/port-001-s1-ey.capture.md"
+    }
+  ],
+  "before_claims": [
+    {"field": "purpose", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-001-S1"]},
+    {"field": "activities[1]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-001-S1"]},
+    {"field": "activities[2]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-001-S1"]},
+    {"field": "activities[3]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-001-S1"]},
+    {"field": "activities[4]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-001-S1"]},
+    {"field": "activities[5]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-001-S1"]},
+    {"field": "activities[6]", "classification": "FAITHFUL_RESEARCHER_PARAPHRASE", "sources": ["PORT-001-S1"]}
+  ],
+  "researcher_inference_in_product_input": false,
+  "unsupported_excluded": [
+    "fraud checking or fraud decisions",
+    "claim eligibility, approval or rejection",
+    "payment calculation or reimbursement execution",
+    "customer notification",
+    "clinical or medical judgement",
+    "specific verification or human-approval controls"
+  ],
+  "limitations": [
+    "No named-insurer or independent corroborating source was found.",
+    "BEFORE and AFTER evidence are combined in one retrospective success story.",
+    "Sample size, evaluation method, error distribution, costs and negative results are undisclosed.",
+    "Publication bias is high and model-memorisation risk is medium."
+  ]
+}

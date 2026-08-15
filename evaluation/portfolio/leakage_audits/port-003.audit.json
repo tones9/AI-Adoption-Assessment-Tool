@@ -1,0 +1,18 @@
+{
+  "schema_version": "portfolio-leakage-audit.v0.1",
+  "case_id": "PORT-003",
+  "before_path": "product_inputs/port-003.before.txt",
+  "checks": {
+    "organisation_identity_absent": true,
+    "ai_vendor_product_names_absent": true,
+    "after_outcomes_absent": true,
+    "after_urls_absent": true,
+    "later_intervention_absent": true,
+    "unsupported_steps_absent": true,
+    "missing_information_explicit": true
+  },
+  "forbidden_literals_checked": ["Morgan Stanley", "Debrief", "OpenAI", "Salesforce", "half an hour", "http://", "https://"],
+  "steering_review": "Email drafting and CRM entry were excluded because public sources document them as later intervention functions rather than sufficiently as discrete BEFORE activities.",
+  "residual_contamination_risk": "HIGH",
+  "passed": true
+}

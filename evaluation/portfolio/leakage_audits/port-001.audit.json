@@ -1,0 +1,18 @@
+{
+  "schema_version": "portfolio-leakage-audit.v0.1",
+  "case_id": "PORT-001",
+  "before_path": "product_inputs/port-001.before.txt",
+  "checks": {
+    "organisation_identity_absent": true,
+    "ai_vendor_product_names_absent": true,
+    "after_outcomes_absent": true,
+    "after_urls_absent": true,
+    "later_intervention_absent": true,
+    "unsupported_steps_absent": true,
+    "missing_information_explicit": true
+  },
+  "forbidden_literals_checked": ["EY", "Fabric Document Intelligence", "70%", "http://", "https://"],
+  "steering_review": "The earlier sentence about existing technology not supporting end-to-end automation was removed because it was not required to describe the current workflow and could prime the evaluation.",
+  "residual_contamination_risk": "MEDIUM",
+  "passed": true
+}
