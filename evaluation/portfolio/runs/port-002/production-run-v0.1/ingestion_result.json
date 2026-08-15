@@ -1,0 +1,147 @@
+{
+  "document": {
+    "blocks": [
+      {
+        "block_id": "t-b0001",
+        "block_number": 1,
+        "document_end_offset": 34,
+        "document_start_offset": 0,
+        "extracted_text": "Customer-call routing and handling",
+        "has_extractable_text": true,
+        "line_end": 1,
+        "line_start": 1,
+        "page_number": null,
+        "sequence": 1,
+        "source_locator": "line 1"
+      },
+      {
+        "block_id": "t-b0002",
+        "block_number": 2,
+        "document_end_offset": 43,
+        "document_start_offset": 36,
+        "extracted_text": "Purpose",
+        "has_extractable_text": true,
+        "line_end": 3,
+        "line_start": 3,
+        "page_number": null,
+        "sequence": 2,
+        "source_locator": "line 3"
+      },
+      {
+        "block_id": "t-b0003",
+        "block_number": 3,
+        "document_end_offset": 191,
+        "document_start_offset": 45,
+        "extracted_text": "This process routes an incoming customer call to a service agent with relevant subject knowledge so that the customer's question can be addressed.",
+        "has_extractable_text": true,
+        "line_end": 5,
+        "line_start": 5,
+        "page_number": null,
+        "sequence": 3,
+        "source_locator": "line 5"
+      },
+      {
+        "block_id": "t-b0004",
+        "block_number": 4,
+        "document_end_offset": 214,
+        "document_start_offset": 193,
+        "extracted_text": "Current-state process",
+        "has_extractable_text": true,
+        "line_end": 7,
+        "line_start": 7,
+        "page_number": null,
+        "sequence": 4,
+        "source_locator": "line 7"
+      },
+      {
+        "block_id": "t-b0005",
+        "block_number": 5,
+        "document_end_offset": 754,
+        "document_start_offset": 216,
+        "extracted_text": "1. A customer calls the service centre about one of many possible service topics.\n2. A traditional interactive voice-response menu presents language and topic choices.\n3. The customer selects options using the telephone keypad.\n4. The system routes the call to a specialised service agent according to the selected option.\n5. If the call reached the wrong specialist area, the receiving agent retransfers it to another agent better qualified to address that topic.\n6. The appropriately specialised agent addresses the customer's question.",
+        "has_extractable_text": true,
+        "line_end": 14,
+        "line_start": 9,
+        "page_number": null,
+        "sequence": 5,
+        "source_locator": "lines 9-14"
+      },
+      {
+        "block_id": "t-b0006",
+        "block_number": 6,
+        "document_end_offset": 779,
+        "document_start_offset": 756,
+        "extracted_text": "Known operating context",
+        "has_extractable_text": true,
+        "line_end": 16,
+        "line_start": 16,
+        "page_number": null,
+        "sequence": 6,
+        "source_locator": "line 16"
+      },
+      {
+        "block_id": "t-b0007",
+        "block_number": 7,
+        "document_end_offset": 1130,
+        "document_start_offset": 781,
+        "extracted_text": "- The service centre handles a high volume of contacts across many topics.\n- Agents specialise in particular subject areas; no individual agent is expected to be qualified to handle every topic.\n- Multi-layer menu choices can result in customers selecting the wrong route.\n- Misrouted calls require retransfer and increase waiting and handling time.",
+        "has_extractable_text": true,
+        "line_end": 21,
+        "line_start": 18,
+        "page_number": null,
+        "sequence": 7,
+        "source_locator": "lines 18-21"
+      },
+      {
+        "block_id": "t-b0008",
+        "block_number": 8,
+        "document_end_offset": 1156,
+        "document_start_offset": 1132,
+        "extracted_text": "Information not provided",
+        "has_extractable_text": true,
+        "line_end": 23,
+        "line_start": 23,
+        "page_number": null,
+        "sequence": 8,
+        "source_locator": "line 23"
+      },
+      {
+        "block_id": "t-b0009",
+        "block_number": 9,
+        "document_end_offset": 1450,
+        "document_start_offset": 1158,
+        "extracted_text": "- Exact call volumes or topic distribution.\n- Resolution rates or service-level targets.\n- The information and systems agents use to answer a question.\n- Escalation, verification or approval rules.\n- Consequences of incorrect routing or advice.\n- Privacy, security or regulatory requirements.",
+        "has_extractable_text": true,
+        "line_end": 30,
+        "line_start": 25,
+        "page_number": null,
+        "sequence": 9,
+        "source_locator": "lines 25-30"
+      }
+    ],
+    "canonical_text": "Customer-call routing and handling\n\nPurpose\n\nThis process routes an incoming customer call to a service agent with relevant subject knowledge so that the customer's question can be addressed.\n\nCurrent-state process\n\n1. A customer calls the service centre about one of many possible service topics.\n2. A traditional interactive voice-response menu presents language and topic choices.\n3. The customer selects options using the telephone keypad.\n4. The system routes the call to a specialised service agent according to the selected option.\n5. If the call reached the wrong specialist area, the receiving agent retransfers it to another agent better qualified to address that topic.\n6. The appropriately specialised agent addresses the customer's question.\n\nKnown operating context\n\n- The service centre handles a high volume of contacts across many topics.\n- Agents specialise in particular subject areas; no individual agent is expected to be qualified to handle every topic.\n- Multi-layer menu choices can result in customers selecting the wrong route.\n- Misrouted calls require retransfer and increase waiting and handling time.\n\nInformation not provided\n\n- Exact call volumes or topic distribution.\n- Resolution rates or service-level targets.\n- The information and systems agents use to answer a question.\n- Escalation, verification or approval rules.\n- Consequences of incorrect routing or advice.\n- Privacy, security or regulatory requirements.",
+    "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+    "metadata": {
+      "author": null,
+      "created_at": null,
+      "creator": null,
+      "modified_at": null,
+      "page_count": null,
+      "producer": null,
+      "subject": null,
+      "title": null
+    },
+    "source": {
+      "byte_size": 1451,
+      "detected_encoding": "utf-8",
+      "input_type": "plain_text_file",
+      "media_type": "text/plain",
+      "original_filename": "port-002.before.txt",
+      "parser_name": "ai_adoption_engine.text",
+      "parser_version": "1",
+      "sha256": "9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf"
+    }
+  },
+  "issues": [],
+  "status": "success"
+}

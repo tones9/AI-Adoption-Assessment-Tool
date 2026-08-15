@@ -1,0 +1,12 @@
+0d3cc877f68b6d179fc77aff081d493ad30274620d7114435c91951ef6abc6fc  evaluation/portfolio/runs/port-002/production-run-v0.1/approval_result.json
+76f6df0b7913b60e5fe98b75a8dd896f77dd590a9baa56fd5e9a800bb6852a4e  evaluation/portfolio/runs/port-002/production-run-v0.1/approved_review.json
+6254f9bdada7684780cf10e3927cd39ee310dbe93e18051ef0ce07b6d5215f36  evaluation/portfolio/runs/port-002/production-run-v0.1/candidate_extraction.json
+bbcd7f3421f348f6092143d2795f646b7ee6ff0ba576f79d7861b380e5bda974  evaluation/portfolio/runs/port-002/production-run-v0.1/decision_package_result.json
+3beaf18f3648717ef90fd9a701955416c462b7c4755684f39a78c1757a8938c2  evaluation/portfolio/runs/port-002/production-run-v0.1/final_run_state.json
+dc8808196457b28ba5db931fe35fddc594a60d37754644ab564ba36dfef6110d  evaluation/portfolio/runs/port-002/production-run-v0.1/ingestion_result.json
+773c321bb000c9dbb9b9fb5dd3b746474f9a9725946e7b67a28439ea3ddbf2b3  evaluation/portfolio/runs/port-002/production-run-v0.1/integrated_assessment.json
+e0c2ccffaebe7d85dfd5d9171f4a4676a4c54c1b6804d2d2278062b104483e12  evaluation/portfolio/runs/port-002/production-run-v0.1/output_freeze_manifest.v0.1.json
+2e0040fb421c0a007dd50647a7490f8fa7680177df4df590ee526c4dd08bf93c  evaluation/portfolio/runs/port-002/production-run-v0.1/review_session.json
+8a340bae65b6fc12acdebf3280c23254be2c4077ce5752284b6c450f2d490578  evaluation/portfolio/runs/port-002/production-run-v0.1/run_state_after_extraction.json
+e16a95369911f91626d061716298a4e5c7d4857dcdb59df9495472adcd7f945d  evaluation/portfolio/runs/port-002/production-run-v0.1/validated_business_process.json
+e59a5a59db9bfc878c34a9a092dde353aa2f81ed22cd04610fd88ac745a80ac8  evaluation/portfolio/runs/port-002/production-run-v0.1/workspace.db

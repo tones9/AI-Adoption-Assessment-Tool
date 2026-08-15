@@ -1,0 +1,105 @@
+{
+  "schema_version": "portfolio-product-output-freeze.v0.1",
+  "case_id": "PORT-002",
+  "run_label": "production-run-v0.1",
+  "pre_run_freeze_commit": "d2deb43c4445743673768be85201e69be69554d3",
+  "before_input": {
+    "path": "evaluation/portfolio/product_inputs/port-002.before.txt",
+    "sha256": "9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+    "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf"
+  },
+  "provider": {
+    "name": "openai",
+    "sdk_version": "2.54.0",
+    "requested_model": "gpt-5.6-terra",
+    "effective_model": "gpt-5.6-terra",
+    "configuration_id": "extraction.v0.1",
+    "configuration_sha256": "0465fc47dbb4d3759fffc54c3e483d38314d03ef47196548846d355428657967",
+    "prompt_version": "process-extraction.v0.1",
+    "schema_version": "candidate-process.v0.1",
+    "application_level_extraction_attempts": 1,
+    "provider_calls": 1,
+    "repair_invoked": false,
+    "request_id": "resp_0654dacd31e2b7e5016a8049296728819380fc399b762a3ed3",
+    "input_tokens": 3037,
+    "output_tokens": 11013,
+    "structured_output_status": "SUCCESS",
+    "evidence_resolution_status": "SUCCESS"
+  },
+  "lineage": {
+    "assessment_id": "assessment-1e312b1c17aa4f1bafe93e29305ae4f8",
+    "extraction_run_id": "extraction-eb31aebf-0940-4816-9633-afe9a9c7c724",
+    "review_id": "review-79af0998fede4f109596eeb95a1670e4",
+    "approval_event_id": "approval-176",
+    "validated_process_id": "validated-extraction-eb31aebf-0940-4816-9633-afe9a9c7c724",
+    "validated_process_fingerprint": "e5a43fa52bf3368d59bdd7621631269a2bfcac83a589d4cb78978e2c0bfaba0a",
+    "assessment_run_id": "assessment-462b226428fb4ef0b8923c4d323d9c8e",
+    "decision_policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66",
+    "package_id": "decision-package-a95ec2fc5aabe5676cc6c90dbffb331365dd769ab276b4f443082579c704ae6a"
+  },
+  "product_outcome": {
+    "workflow_stage": "package-ready",
+    "candidate_step_count": 6,
+    "review_status": "APPROVED",
+    "recommendation_distribution": {
+      "AUTOMATE": 0,
+      "AUGMENT": 0,
+      "INVESTIGATE_FURTHER": 6,
+      "DO_NOT_RECOMMEND": 0
+    },
+    "package_completeness": "COMPLETE_WITH_INFORMATION_GAPS",
+    "future_state_status": "PROPOSED / NOT DEPLOYED",
+    "roi_statement": "ROI / quantified benefit unavailable with current evidence."
+  },
+  "after_boundary_at_output_freeze": {
+    "path": "evaluation/portfolio/sealed_after/port-002.after.md",
+    "sha256": "4445043c80a816f50a2856c6d1d283f24b78a8913a2102d802e1e38f7e929c2b",
+    "status": "SEALED_NOT_OPENED_FOR_COMPARISON"
+  },
+  "artifacts": [
+    {
+      "path": "approval_result.json",
+      "sha256": "0d3cc877f68b6d179fc77aff081d493ad30274620d7114435c91951ef6abc6fc"
+    },
+    {
+      "path": "approved_review.json",
+      "sha256": "76f6df0b7913b60e5fe98b75a8dd896f77dd590a9baa56fd5e9a800bb6852a4e"
+    },
+    {
+      "path": "candidate_extraction.json",
+      "sha256": "6254f9bdada7684780cf10e3927cd39ee310dbe93e18051ef0ce07b6d5215f36"
+    },
+    {
+      "path": "decision_package_result.json",
+      "sha256": "bbcd7f3421f348f6092143d2795f646b7ee6ff0ba576f79d7861b380e5bda974"
+    },
+    {
+      "path": "final_run_state.json",
+      "sha256": "3beaf18f3648717ef90fd9a701955416c462b7c4755684f39a78c1757a8938c2"
+    },
+    {
+      "path": "ingestion_result.json",
+      "sha256": "dc8808196457b28ba5db931fe35fddc594a60d37754644ab564ba36dfef6110d"
+    },
+    {
+      "path": "integrated_assessment.json",
+      "sha256": "773c321bb000c9dbb9b9fb5dd3b746474f9a9725946e7b67a28439ea3ddbf2b3"
+    },
+    {
+      "path": "review_session.json",
+      "sha256": "2e0040fb421c0a007dd50647a7490f8fa7680177df4df590ee526c4dd08bf93c"
+    },
+    {
+      "path": "run_state_after_extraction.json",
+      "sha256": "8a340bae65b6fc12acdebf3280c23254be2c4077ce5752284b6c450f2d490578"
+    },
+    {
+      "path": "validated_business_process.json",
+      "sha256": "e16a95369911f91626d061716298a4e5c7d4857dcdb59df9495472adcd7f945d"
+    },
+    {
+      "path": "workspace.db",
+      "sha256": "e59a5a59db9bfc878c34a9a092dde353aa2f81ed22cd04610fd88ac745a80ac8"
+    }
+  ]
+}

@@ -1,0 +1,2872 @@
+{
+  "candidate": {
+    "candidate_status": "CANDIDATE / UNCONFIRMED PROCESS EXTRACTION",
+    "extraction_run_id": "extraction-eb31aebf-0940-4816-9633-afe9a9c7c724",
+    "process_description": {
+      "confidence": null,
+      "evidence": [
+        {
+          "block_end_offset": 146,
+          "block_id": "t-b0003",
+          "block_start_offset": 0,
+          "document_end_offset": 191,
+          "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+          "document_start_offset": 45,
+          "evidence_id": "cev-2f1427b0028caad33c3164a92817a1689b4f98a4cb96e760feb8720c0952e9de",
+          "exact_snippet": "This process routes an incoming customer call to a service agent with relevant subject knowledge so that the customer's question can be addressed.",
+          "source_locator": "line 5"
+        }
+      ],
+      "knowledge_state": "known",
+      "rationale": "Purpose statement describes the process.",
+      "value": "This process routes an incoming customer call to a service agent with relevant subject knowledge so that the customer's question can be addressed."
+    },
+    "process_name": {
+      "confidence": null,
+      "evidence": [
+        {
+          "block_end_offset": 34,
+          "block_id": "t-b0001",
+          "block_start_offset": 0,
+          "document_end_offset": 34,
+          "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+          "document_start_offset": 0,
+          "evidence_id": "cev-b515483f1d9e7c71e4e62643610fc0c96540ac4561bf47a9464809e92a3fc21c",
+          "exact_snippet": "Customer-call routing and handling",
+          "source_locator": "line 1"
+        }
+      ],
+      "knowledge_state": "known",
+      "rationale": "Document title identifies the process.",
+      "value": "Customer-call routing and handling"
+    },
+    "process_objective": {
+      "confidence": 0.95,
+      "evidence": [
+        {
+          "block_end_offset": 146,
+          "block_id": "t-b0003",
+          "block_start_offset": 0,
+          "document_end_offset": 191,
+          "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+          "document_start_offset": 45,
+          "evidence_id": "cev-2f1427b0028caad33c3164a92817a1689b4f98a4cb96e760feb8720c0952e9de",
+          "exact_snippet": "This process routes an incoming customer call to a service agent with relevant subject knowledge so that the customer's question can be addressed.",
+          "source_locator": "line 5"
+        }
+      ],
+      "knowledge_state": "inferred",
+      "rationale": "This is a concise synthesis of the stated purpose.",
+      "value": "Route an incoming customer call to a service agent with relevant subject knowledge so that the customer's question can be addressed."
+    },
+    "prompt_version": "process-extraction.v0.1",
+    "schema_version": "candidate-process.v0.1",
+    "source_document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+    "steps": [
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 81,
+              "block_id": "t-b0005",
+              "block_start_offset": 0,
+              "document_end_offset": 297,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 216,
+              "evidence_id": "cev-3adbda43fccf3c8221049a73979c6d74c86faa4cd3e628a7a612da53cb07b3ab",
+              "exact_snippet": "1. A customer calls the service centre about one of many possible service topics.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The first documented activity is a customer call to the service centre.",
+          "value": "Customer calls the service centre"
+        },
+        "actors": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 38,
+              "block_id": "t-b0005",
+              "block_start_offset": 3,
+              "document_end_offset": 254,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 219,
+              "evidence_id": "cev-c1fbac7b22b7342d73f1034d55c34c2a85468fd2e57420a10a019c39448571d5",
+              "exact_snippet": "A customer calls the service centre",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 38,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 3,
+                  "document_end_offset": 254,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 219,
+                  "evidence_id": "cev-c1fbac7b22b7342d73f1034d55c34c2a85468fd2e57420a10a019c39448571d5",
+                  "exact_snippet": "A customer calls the service centre",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The step identifies a customer as making the call.",
+              "value": "customer"
+            }
+          ],
+          "rationale": "The customer is explicitly identified; the source does not establish whether other actors participate in this step."
+        },
+        "candidate_step_id": "candidate-step-4bf4eef9952963c4",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 81,
+              "block_id": "t-b0005",
+              "block_start_offset": 0,
+              "document_end_offset": 297,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 216,
+              "evidence_id": "cev-3adbda43fccf3c8221049a73979c6d74c86faa4cd3e628a7a612da53cb07b3ab",
+              "exact_snippet": "1. A customer calls the service centre about one of many possible service topics.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "value": "A customer calls the service centre about one of many possible service topics."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 81,
+              "block_id": "t-b0005",
+              "block_start_offset": 0,
+              "document_end_offset": 297,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 216,
+              "evidence_id": "cev-3adbda43fccf3c8221049a73979c6d74c86faa4cd3e628a7a612da53cb07b3ab",
+              "exact_snippet": "1. A customer calls the service centre about one of many possible service topics.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The activity is numbered first in the documented process.",
+          "value": 1
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is stated for this step."
+        },
+        "inputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 80,
+              "block_id": "t-b0005",
+              "block_start_offset": 39,
+              "document_end_offset": 296,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 255,
+              "evidence_id": "cev-9ea1f38e163b194d643eb664639c0188043f728d96015e41f9ed6c302ca31734",
+              "exact_snippet": "about one of many possible service topics",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 80,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 39,
+                  "document_end_offset": 296,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 255,
+                  "evidence_id": "cev-9ea1f38e163b194d643eb664639c0188043f728d96015e41f9ed6c302ca31734",
+                  "exact_snippet": "about one of many possible service topics",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The call concerns a service topic.",
+              "value": "service topic"
+            }
+          ],
+          "rationale": "The call topic is explicitly stated as part of the call."
+        },
+        "operational_characteristics": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No operational characteristic is stated specifically for this step."
+        },
+        "order_basis": "explicit",
+        "outputs": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No step output is explicitly stated."
+        },
+        "responsible_roles": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No responsible role is stated for this step."
+        },
+        "sequence": 1,
+        "systems": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No system is identified for this step."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 167,
+              "block_id": "t-b0005",
+              "block_start_offset": 82,
+              "document_end_offset": 383,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 298,
+              "evidence_id": "cev-31c31fa84d0aba4b4cc99a7a1d32ef3fc7c25c4cd8b5e608c0cffcd7da316ab6",
+              "exact_snippet": "2. A traditional interactive voice-response menu presents language and topic choices.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The second documented activity is the menu presentation.",
+          "value": "Interactive voice-response menu presents choices"
+        },
+        "actors": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No human actor is identified for this step."
+        },
+        "candidate_step_id": "candidate-step-663a94b4cc317416",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 167,
+              "block_id": "t-b0005",
+              "block_start_offset": 82,
+              "document_end_offset": 383,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 298,
+              "evidence_id": "cev-31c31fa84d0aba4b4cc99a7a1d32ef3fc7c25c4cd8b5e608c0cffcd7da316ab6",
+              "exact_snippet": "2. A traditional interactive voice-response menu presents language and topic choices.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "value": "A traditional interactive voice-response menu presents language and topic choices."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 167,
+              "block_id": "t-b0005",
+              "block_start_offset": 82,
+              "document_end_offset": 383,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 298,
+              "evidence_id": "cev-31c31fa84d0aba4b4cc99a7a1d32ef3fc7c25c4cd8b5e608c0cffcd7da316ab6",
+              "exact_snippet": "2. A traditional interactive voice-response menu presents language and topic choices.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The activity is numbered second in the documented process.",
+          "value": 2
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is stated for this step."
+        },
+        "inputs": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No input is explicitly stated for this step."
+        },
+        "operational_characteristics": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No operational characteristic is stated specifically for this step."
+        },
+        "order_basis": "explicit",
+        "outputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 166,
+              "block_id": "t-b0005",
+              "block_start_offset": 131,
+              "document_end_offset": 382,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 347,
+              "evidence_id": "cev-4f2aeb6c1fedebb0123ebba0ea509e0277e1588b0e0e851d6859575c383dd55e",
+              "exact_snippet": "presents language and topic choices",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 166,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 131,
+                  "document_end_offset": 382,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 347,
+                  "evidence_id": "cev-4f2aeb6c1fedebb0123ebba0ea509e0277e1588b0e0e851d6859575c383dd55e",
+                  "exact_snippet": "presents language and topic choices",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The menu presents these choices.",
+              "value": "language and topic choices"
+            }
+          ],
+          "rationale": "Language and topic choices are explicitly presented."
+        },
+        "responsible_roles": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No responsible role is stated for this step."
+        },
+        "sequence": 2,
+        "systems": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 130,
+              "block_id": "t-b0005",
+              "block_start_offset": 85,
+              "document_end_offset": 346,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 301,
+              "evidence_id": "cev-effdd8b649bf783baf9ef73dec4e203028c061c1c50e94dc20f095e73181a4f1",
+              "exact_snippet": "A traditional interactive voice-response menu",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 130,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 85,
+                  "document_end_offset": 346,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 301,
+                  "evidence_id": "cev-effdd8b649bf783baf9ef73dec4e203028c061c1c50e94dc20f095e73181a4f1",
+                  "exact_snippet": "A traditional interactive voice-response menu",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The menu is explicitly named.",
+              "value": "traditional interactive voice-response menu"
+            }
+          ],
+          "rationale": "The step identifies the system performing the activity."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 227,
+              "block_id": "t-b0005",
+              "block_start_offset": 168,
+              "document_end_offset": 443,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 384,
+              "evidence_id": "cev-bc7117cca84da5571fffa28f3d25cfeccdbb5473a1080a15ed746473c4f1652d",
+              "exact_snippet": "3. The customer selects options using the telephone keypad.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The third documented activity is selection of options by keypad.",
+          "value": "Customer selects menu options using the telephone keypad"
+        },
+        "actors": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 199,
+              "block_id": "t-b0005",
+              "block_start_offset": 171,
+              "document_end_offset": 415,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 387,
+              "evidence_id": "cev-5f40d5f93f5e40007b6d92323467843f147b167365f138fab4ee2841bc5ad366",
+              "exact_snippet": "The customer selects options",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 199,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 171,
+                  "document_end_offset": 415,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 387,
+                  "evidence_id": "cev-5f40d5f93f5e40007b6d92323467843f147b167365f138fab4ee2841bc5ad366",
+                  "exact_snippet": "The customer selects options",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The customer selects the options.",
+              "value": "customer"
+            }
+          ],
+          "rationale": "The step identifies the customer as the actor."
+        },
+        "candidate_step_id": "candidate-step-e338a50f6d7dd3fb",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [
+          {
+            "relationship": {
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "block_end_offset": 322,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 231,
+                  "document_end_offset": 538,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 447,
+                  "evidence_id": "cev-0a6e85aa2ce0a681157d0f1207ee56e6e3c33d58904662fa4bab3dc0c87103d5",
+                  "exact_snippet": "The system routes the call to a specialised service agent according to the selected option.",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "inferred",
+              "rationale": "The routing step is explicitly performed according to the selected option.",
+              "value": "selected option is used to route the call"
+            },
+            "target_candidate_step_id": null,
+            "target_label": {
+              "confidence": 0.9,
+              "evidence": [
+                {
+                  "block_end_offset": 227,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 171,
+                  "document_end_offset": 443,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 387,
+                  "evidence_id": "cev-15fe4ffedc3cb164268e4d422ac35d70f7a173ce33c1c1a78dfdf398b121aa8d",
+                  "exact_snippet": "The customer selects options using the telephone keypad.",
+                  "source_locator": "lines 9-14"
+                },
+                {
+                  "block_end_offset": 322,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 231,
+                  "document_end_offset": 538,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 447,
+                  "evidence_id": "cev-0a6e85aa2ce0a681157d0f1207ee56e6e3c33d58904662fa4bab3dc0c87103d5",
+                  "exact_snippet": "The system routes the call to a specialised service agent according to the selected option.",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "inferred",
+              "rationale": "The selected option is used in the following routing activity.",
+              "value": "Step 4: system routes the call"
+            }
+          }
+        ],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 227,
+              "block_id": "t-b0005",
+              "block_start_offset": 168,
+              "document_end_offset": 443,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 384,
+              "evidence_id": "cev-bc7117cca84da5571fffa28f3d25cfeccdbb5473a1080a15ed746473c4f1652d",
+              "exact_snippet": "3. The customer selects options using the telephone keypad.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "value": "The customer selects options using the telephone keypad."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 227,
+              "block_id": "t-b0005",
+              "block_start_offset": 168,
+              "document_end_offset": 443,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 384,
+              "evidence_id": "cev-bc7117cca84da5571fffa28f3d25cfeccdbb5473a1080a15ed746473c4f1652d",
+              "exact_snippet": "3. The customer selects options using the telephone keypad.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The activity is numbered third in the documented process.",
+          "value": 3
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is stated for this step."
+        },
+        "inputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 199,
+              "block_id": "t-b0005",
+              "block_start_offset": 184,
+              "document_end_offset": 415,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 400,
+              "evidence_id": "cev-9ffd49bcb62f10626d4fb2721f54f3f0241f849842887504e3a001d3946dc784",
+              "exact_snippet": "selects options",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 199,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 184,
+                  "document_end_offset": 415,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 400,
+                  "evidence_id": "cev-9ffd49bcb62f10626d4fb2721f54f3f0241f849842887504e3a001d3946dc784",
+                  "exact_snippet": "selects options",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The customer selects options.",
+              "value": "options"
+            }
+          ],
+          "rationale": "Options are explicitly selected in this step."
+        },
+        "operational_characteristics": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No operational characteristic is stated specifically for this step."
+        },
+        "order_basis": "explicit",
+        "outputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 227,
+              "block_id": "t-b0005",
+              "block_start_offset": 171,
+              "document_end_offset": 443,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 387,
+              "evidence_id": "cev-15fe4ffedc3cb164268e4d422ac35d70f7a173ce33c1c1a78dfdf398b121aa8d",
+              "exact_snippet": "The customer selects options using the telephone keypad.",
+              "source_locator": "lines 9-14"
+            },
+            {
+              "block_end_offset": 321,
+              "block_id": "t-b0005",
+              "block_start_offset": 289,
+              "document_end_offset": 537,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 505,
+              "evidence_id": "cev-2ba45389bbc1c0e3c1f41e3be17884d368847c0fcbfdd81e9c91fd23a4630dfb",
+              "exact_snippet": "according to the selected option",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": 0.9,
+              "evidence": [
+                {
+                  "block_end_offset": 227,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 171,
+                  "document_end_offset": 443,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 387,
+                  "evidence_id": "cev-15fe4ffedc3cb164268e4d422ac35d70f7a173ce33c1c1a78dfdf398b121aa8d",
+                  "exact_snippet": "The customer selects options using the telephone keypad.",
+                  "source_locator": "lines 9-14"
+                },
+                {
+                  "block_end_offset": 321,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 289,
+                  "document_end_offset": 537,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 505,
+                  "evidence_id": "cev-2ba45389bbc1c0e3c1f41e3be17884d368847c0fcbfdd81e9c91fd23a4630dfb",
+                  "exact_snippet": "according to the selected option",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "inferred",
+              "rationale": "The subsequent documented step routes the call according to the selected option.",
+              "value": "selected option"
+            }
+          ],
+          "rationale": "The selected option is referenced by the following routing step."
+        },
+        "responsible_roles": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No responsible role is stated for this step."
+        },
+        "sequence": 3,
+        "systems": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 226,
+              "block_id": "t-b0005",
+              "block_start_offset": 200,
+              "document_end_offset": 442,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 416,
+              "evidence_id": "cev-ae309507badc41031c19b808a55c9de7336ee9bf5722affa6ebff4774dea988e",
+              "exact_snippet": "using the telephone keypad",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 226,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 200,
+                  "document_end_offset": 442,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 416,
+                  "evidence_id": "cev-ae309507badc41031c19b808a55c9de7336ee9bf5722affa6ebff4774dea988e",
+                  "exact_snippet": "using the telephone keypad",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The customer uses the telephone keypad.",
+              "value": "telephone keypad"
+            }
+          ],
+          "rationale": "A telephone keypad is identified, but no broader system is specified."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 322,
+              "block_id": "t-b0005",
+              "block_start_offset": 228,
+              "document_end_offset": 538,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 444,
+              "evidence_id": "cev-060f16377d5094f18f7a5c45f21415c45ba76f69e8ebceb7412e5aa49eba360d",
+              "exact_snippet": "4. The system routes the call to a specialised service agent according to the selected option.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The fourth documented activity is call routing.",
+          "value": "System routes the call to a specialised service agent"
+        },
+        "actors": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No human actor is identified for this system activity."
+        },
+        "candidate_step_id": "candidate-step-1f661459229eb0e4",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 322,
+              "block_id": "t-b0005",
+              "block_start_offset": 228,
+              "document_end_offset": 538,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 444,
+              "evidence_id": "cev-060f16377d5094f18f7a5c45f21415c45ba76f69e8ebceb7412e5aa49eba360d",
+              "exact_snippet": "4. The system routes the call to a specialised service agent according to the selected option.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "value": "The system routes the call to a specialised service agent according to the selected option."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 322,
+              "block_id": "t-b0005",
+              "block_start_offset": 228,
+              "document_end_offset": 538,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 444,
+              "evidence_id": "cev-060f16377d5094f18f7a5c45f21415c45ba76f69e8ebceb7412e5aa49eba360d",
+              "exact_snippet": "4. The system routes the call to a specialised service agent according to the selected option.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The activity is numbered fourth in the documented process.",
+          "value": 4
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is stated for this step."
+        },
+        "inputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 321,
+              "block_id": "t-b0005",
+              "block_start_offset": 289,
+              "document_end_offset": 537,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 505,
+              "evidence_id": "cev-2ba45389bbc1c0e3c1f41e3be17884d368847c0fcbfdd81e9c91fd23a4630dfb",
+              "exact_snippet": "according to the selected option",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 321,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 289,
+                  "document_end_offset": 537,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 505,
+                  "evidence_id": "cev-2ba45389bbc1c0e3c1f41e3be17884d368847c0fcbfdd81e9c91fd23a4630dfb",
+                  "exact_snippet": "according to the selected option",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The routing basis is explicitly stated.",
+              "value": "selected option"
+            }
+          ],
+          "rationale": "Routing is performed according to the selected option."
+        },
+        "operational_characteristics": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No operational characteristic is stated specifically for this step."
+        },
+        "order_basis": "explicit",
+        "outputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 288,
+              "block_id": "t-b0005",
+              "block_start_offset": 242,
+              "document_end_offset": 504,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 458,
+              "evidence_id": "cev-f0cfa00eec8011ac0a89a673df2a449b4d3a451a992daa3d8c041e8738d25248",
+              "exact_snippet": "routes the call to a specialised service agent",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 288,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 242,
+                  "document_end_offset": 504,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 458,
+                  "evidence_id": "cev-f0cfa00eec8011ac0a89a673df2a449b4d3a451a992daa3d8c041e8738d25248",
+                  "exact_snippet": "routes the call to a specialised service agent",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The routing outcome is explicitly stated.",
+              "value": "call routed to a specialised service agent"
+            }
+          ],
+          "rationale": "The call is routed to a specialised service agent."
+        },
+        "responsible_roles": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 288,
+              "block_id": "t-b0005",
+              "block_start_offset": 258,
+              "document_end_offset": 504,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 474,
+              "evidence_id": "cev-a3feff9da7a69252c5bc7695d4c4da1838076ee4f08d0a6536772316b6426723",
+              "exact_snippet": "to a specialised service agent",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 288,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 258,
+                  "document_end_offset": 504,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 474,
+                  "evidence_id": "cev-a3feff9da7a69252c5bc7695d4c4da1838076ee4f08d0a6536772316b6426723",
+                  "exact_snippet": "to a specialised service agent",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The call is routed to this agent.",
+              "value": "specialised service agent"
+            }
+          ],
+          "rationale": "A specialised service agent is identified as the routing destination."
+        },
+        "sequence": 4,
+        "systems": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 257,
+              "block_id": "t-b0005",
+              "block_start_offset": 231,
+              "document_end_offset": 473,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 447,
+              "evidence_id": "cev-3e35789d93339012e43d226cfef50890af3ed498458400d8b3fbcd1007b81806",
+              "exact_snippet": "The system routes the call",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 257,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 231,
+                  "document_end_offset": 473,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 447,
+                  "evidence_id": "cev-3e35789d93339012e43d226cfef50890af3ed498458400d8b3fbcd1007b81806",
+                  "exact_snippet": "The system routes the call",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The system routes the call.",
+              "value": "system"
+            }
+          ],
+          "rationale": "The step identifies the system performing the routing."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 464,
+              "block_id": "t-b0005",
+              "block_start_offset": 323,
+              "document_end_offset": 680,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 539,
+              "evidence_id": "cev-56b368c13c8935a22de656c13e6c1b5b08821ada69652992a18cb0ffc56203e5",
+              "exact_snippet": "5. If the call reached the wrong specialist area, the receiving agent retransfers it to another agent better qualified to address that topic.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The fifth documented activity is retransfer by the receiving agent when the call reaches the wrong specialist area.",
+          "value": "Receiving agent retransfers a misrouted call"
+        },
+        "actors": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 463,
+              "block_id": "t-b0005",
+              "block_start_offset": 373,
+              "document_end_offset": 679,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 589,
+              "evidence_id": "cev-48f68dafc5d6a5a8cdf035f508e3d64ab62be1c4dcfb32ea2ab975b54b2e7fb4",
+              "exact_snippet": "the receiving agent retransfers it to another agent better qualified to address that topic",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 407,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 373,
+                  "document_end_offset": 623,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 589,
+                  "evidence_id": "cev-368751a8e6ad7e6b5ef1e206c205d4a85f7fe03da96eb215f942df23404bd855",
+                  "exact_snippet": "the receiving agent retransfers it",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The receiving agent retransfers the call.",
+              "value": "receiving agent"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 463,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 411,
+                  "document_end_offset": 679,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 627,
+                  "evidence_id": "cev-c91e7d82ba8055d1384d476acb35d631d8ba5da4d438d938a197b57d2357ec7b",
+                  "exact_snippet": "another agent better qualified to address that topic",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The call is retransferred to this agent.",
+              "value": "another agent better qualified to address that topic"
+            }
+          ],
+          "rationale": "The receiving agent and another agent are explicitly identified."
+        },
+        "candidate_step_id": "candidate-step-5a4300688661bd53",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "decisions": [
+          {
+            "branches": {
+              "completeness": "partial",
+              "evidence": [
+                {
+                  "block_end_offset": 464,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 326,
+                  "document_end_offset": 680,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 542,
+                  "evidence_id": "cev-55774bb979112765126c567b59955e689767ab339394523dc5771170259bec98",
+                  "exact_snippet": "If the call reached the wrong specialist area, the receiving agent retransfers it to another agent better qualified to address that topic.",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "items": [
+                {
+                  "confidence": null,
+                  "evidence": [
+                    {
+                      "block_end_offset": 463,
+                      "block_id": "t-b0005",
+                      "block_start_offset": 373,
+                      "document_end_offset": 679,
+                      "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                      "document_start_offset": 589,
+                      "evidence_id": "cev-48f68dafc5d6a5a8cdf035f508e3d64ab62be1c4dcfb32ea2ab975b54b2e7fb4",
+                      "exact_snippet": "the receiving agent retransfers it to another agent better qualified to address that topic",
+                      "source_locator": "lines 9-14"
+                    }
+                  ],
+                  "knowledge_state": "known",
+                  "rationale": "This is the documented conditional action.",
+                  "value": "the receiving agent retransfers it to another agent better qualified to address that topic"
+                }
+              ],
+              "rationale": "Only the branch for a call reaching the wrong specialist area is documented."
+            },
+            "condition": {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 371,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 326,
+                  "document_end_offset": 587,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 542,
+                  "evidence_id": "cev-cf51beb393adfb0e58148b68c60d6fcddca44480d6a2aa8dddc5421ea1663b96",
+                  "exact_snippet": "If the call reached the wrong specialist area",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The retransfer activity is conditional on this stated circumstance.",
+              "value": "the call reached the wrong specialist area"
+            }
+          }
+        ],
+        "dependencies": [],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 464,
+              "block_id": "t-b0005",
+              "block_start_offset": 323,
+              "document_end_offset": 680,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 539,
+              "evidence_id": "cev-56b368c13c8935a22de656c13e6c1b5b08821ada69652992a18cb0ffc56203e5",
+              "exact_snippet": "5. If the call reached the wrong specialist area, the receiving agent retransfers it to another agent better qualified to address that topic.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "value": "If the call reached the wrong specialist area, the receiving agent retransfers it to another agent better qualified to address that topic."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 464,
+              "block_id": "t-b0005",
+              "block_start_offset": 323,
+              "document_end_offset": 680,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 539,
+              "evidence_id": "cev-56b368c13c8935a22de656c13e6c1b5b08821ada69652992a18cb0ffc56203e5",
+              "exact_snippet": "5. If the call reached the wrong specialist area, the receiving agent retransfers it to another agent better qualified to address that topic.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The activity is numbered fifth in the documented process.",
+          "value": 5
+        },
+        "exceptions": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 349,
+              "block_id": "t-b0007",
+              "block_start_offset": 275,
+              "document_end_offset": 1130,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 1056,
+              "evidence_id": "cev-129288a47cd2ef1657211bec4e8512e9ee04cafb609d82e4a14819e58306691e",
+              "exact_snippet": "Misrouted calls require retransfer and increase waiting and handling time.",
+              "source_locator": "lines 18-21"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 349,
+                  "block_id": "t-b0007",
+                  "block_start_offset": 275,
+                  "document_end_offset": 1130,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 1056,
+                  "evidence_id": "cev-129288a47cd2ef1657211bec4e8512e9ee04cafb609d82e4a14819e58306691e",
+                  "exact_snippet": "Misrouted calls require retransfer and increase waiting and handling time.",
+                  "source_locator": "lines 18-21"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The operating context explicitly identifies this exception and its handling.",
+              "value": "Misrouted calls require retransfer"
+            }
+          ],
+          "rationale": "Misrouted calls are identified as requiring retransfer."
+        },
+        "inputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 371,
+              "block_id": "t-b0005",
+              "block_start_offset": 329,
+              "document_end_offset": 587,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 545,
+              "evidence_id": "cev-cd3581d8c48fe24f27f0729b87a3faf90ca7397143133e51576d3a1c6001e766",
+              "exact_snippet": "the call reached the wrong specialist area",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 371,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 329,
+                  "document_end_offset": 587,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 545,
+                  "evidence_id": "cev-cd3581d8c48fe24f27f0729b87a3faf90ca7397143133e51576d3a1c6001e766",
+                  "exact_snippet": "the call reached the wrong specialist area",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This condition is explicitly stated.",
+              "value": "call that reached the wrong specialist area"
+            }
+          ],
+          "rationale": "The step applies to a call that reached the wrong specialist area."
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 349,
+              "block_id": "t-b0007",
+              "block_start_offset": 275,
+              "document_end_offset": 1130,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 1056,
+              "evidence_id": "cev-129288a47cd2ef1657211bec4e8512e9ee04cafb609d82e4a14819e58306691e",
+              "exact_snippet": "Misrouted calls require retransfer and increase waiting and handling time.",
+              "source_locator": "lines 18-21"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 349,
+                  "block_id": "t-b0007",
+                  "block_start_offset": 275,
+                  "document_end_offset": 1130,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 1056,
+                  "evidence_id": "cev-129288a47cd2ef1657211bec4e8512e9ee04cafb609d82e4a14819e58306691e",
+                  "exact_snippet": "Misrouted calls require retransfer and increase waiting and handling time.",
+                  "source_locator": "lines 18-21"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The operating context explicitly states this effect.",
+              "value": "retransfer increases waiting and handling time"
+            }
+          ],
+          "rationale": "The source states the operational effect of misrouted calls."
+        },
+        "order_basis": "explicit",
+        "outputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 463,
+              "block_id": "t-b0005",
+              "block_start_offset": 393,
+              "document_end_offset": 679,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 609,
+              "evidence_id": "cev-478f602e1c826ec360eb85a73fc29b3eeb65abeda5d107064dfbfe3b84b592b8",
+              "exact_snippet": "retransfers it to another agent better qualified to address that topic",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 463,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 393,
+                  "document_end_offset": 679,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 609,
+                  "evidence_id": "cev-478f602e1c826ec360eb85a73fc29b3eeb65abeda5d107064dfbfe3b84b592b8",
+                  "exact_snippet": "retransfers it to another agent better qualified to address that topic",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The stated outcome is retransfer to the better-qualified agent.",
+              "value": "call retransferred to another agent better qualified to address that topic"
+            }
+          ],
+          "rationale": "The call is retransferred to a more qualified agent."
+        },
+        "responsible_roles": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 407,
+              "block_id": "t-b0005",
+              "block_start_offset": 373,
+              "document_end_offset": 623,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 589,
+              "evidence_id": "cev-368751a8e6ad7e6b5ef1e206c205d4a85f7fe03da96eb215f942df23404bd855",
+              "exact_snippet": "the receiving agent retransfers it",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 407,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 373,
+                  "document_end_offset": 623,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 589,
+                  "evidence_id": "cev-368751a8e6ad7e6b5ef1e206c205d4a85f7fe03da96eb215f942df23404bd855",
+                  "exact_snippet": "the receiving agent retransfers it",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The step assigns the retransfer activity to the receiving agent.",
+              "value": "receiving agent"
+            }
+          ],
+          "rationale": "The receiving agent performs the retransfer."
+        },
+        "sequence": 5,
+        "systems": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No system is identified for this step."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 538,
+              "block_id": "t-b0005",
+              "block_start_offset": 465,
+              "document_end_offset": 754,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 681,
+              "evidence_id": "cev-528b2e7a275118bc64bc16b7eacf1eac2a2bbc913fdbd852ac24f2037420caa0",
+              "exact_snippet": "6. The appropriately specialised agent addresses the customer's question.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The sixth documented activity is addressing the customer's question.",
+          "value": "Appropriately specialised agent addresses the customer's question"
+        },
+        "actors": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 538,
+              "block_id": "t-b0005",
+              "block_start_offset": 468,
+              "document_end_offset": 754,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 684,
+              "evidence_id": "cev-b2eb13e2aa47101eab24f808c7ff734982d540c93cb1256f3eeb83a67a6218c7",
+              "exact_snippet": "The appropriately specialised agent addresses the customer's question.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 538,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 468,
+                  "document_end_offset": 754,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 684,
+                  "evidence_id": "cev-b2eb13e2aa47101eab24f808c7ff734982d540c93cb1256f3eeb83a67a6218c7",
+                  "exact_snippet": "The appropriately specialised agent addresses the customer's question.",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This agent addresses the customer's question.",
+              "value": "appropriately specialised agent"
+            }
+          ],
+          "rationale": "The appropriately specialised agent is explicitly identified."
+        },
+        "candidate_step_id": "candidate-step-03f8f1c6ad9bc655",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 538,
+              "block_id": "t-b0005",
+              "block_start_offset": 465,
+              "document_end_offset": 754,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 681,
+              "evidence_id": "cev-528b2e7a275118bc64bc16b7eacf1eac2a2bbc913fdbd852ac24f2037420caa0",
+              "exact_snippet": "6. The appropriately specialised agent addresses the customer's question.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "value": "The appropriately specialised agent addresses the customer's question."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 538,
+              "block_id": "t-b0005",
+              "block_start_offset": 465,
+              "document_end_offset": 754,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 681,
+              "evidence_id": "cev-528b2e7a275118bc64bc16b7eacf1eac2a2bbc913fdbd852ac24f2037420caa0",
+              "exact_snippet": "6. The appropriately specialised agent addresses the customer's question.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The activity is numbered sixth in the documented process.",
+          "value": 6
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is stated for this step."
+        },
+        "inputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 537,
+              "block_id": "t-b0005",
+              "block_start_offset": 514,
+              "document_end_offset": 753,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 730,
+              "evidence_id": "cev-bcb7c76c182ba37ad70e15686c30e0fa02ff007e779143f2e50dcd0a0506422b",
+              "exact_snippet": "the customer's question",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 537,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 514,
+                  "document_end_offset": 753,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 730,
+                  "evidence_id": "cev-bcb7c76c182ba37ad70e15686c30e0fa02ff007e779143f2e50dcd0a0506422b",
+                  "exact_snippet": "the customer's question",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The agent addresses the customer's question.",
+              "value": "customer's question"
+            }
+          ],
+          "rationale": "The customer's question is explicitly handled."
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 194,
+              "block_id": "t-b0007",
+              "block_start_offset": 77,
+              "document_end_offset": 975,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 858,
+              "evidence_id": "cev-5884296671cdd2c35533c9cd8a7c755211f2927a4fdc583c33a1257b5cd17b90",
+              "exact_snippet": "Agents specialise in particular subject areas; no individual agent is expected to be qualified to handle every topic.",
+              "source_locator": "lines 18-21"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 194,
+                  "block_id": "t-b0007",
+                  "block_start_offset": 77,
+                  "document_end_offset": 975,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 858,
+                  "evidence_id": "cev-5884296671cdd2c35533c9cd8a7c755211f2927a4fdc583c33a1257b5cd17b90",
+                  "exact_snippet": "Agents specialise in particular subject areas; no individual agent is expected to be qualified to handle every topic.",
+                  "source_locator": "lines 18-21"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is stated operating context relevant to the agent handling the question.",
+              "value": "Agents specialise in particular subject areas"
+            }
+          ],
+          "rationale": "The source states that agents specialise and are not expected to handle every topic."
+        },
+        "order_basis": "explicit",
+        "outputs": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "Resolution outcome is not provided."
+        },
+        "responsible_roles": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 538,
+              "block_id": "t-b0005",
+              "block_start_offset": 468,
+              "document_end_offset": 754,
+              "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+              "document_start_offset": 684,
+              "evidence_id": "cev-b2eb13e2aa47101eab24f808c7ff734982d540c93cb1256f3eeb83a67a6218c7",
+              "exact_snippet": "The appropriately specialised agent addresses the customer's question.",
+              "source_locator": "lines 9-14"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 538,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 468,
+                  "document_end_offset": 754,
+                  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+                  "document_start_offset": 684,
+                  "evidence_id": "cev-b2eb13e2aa47101eab24f808c7ff734982d540c93cb1256f3eeb83a67a6218c7",
+                  "exact_snippet": "The appropriately specialised agent addresses the customer's question.",
+                  "source_locator": "lines 9-14"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The step assigns question handling to this agent.",
+              "value": "appropriately specialised agent"
+            }
+          ],
+          "rationale": "The appropriately specialised agent performs the activity."
+        },
+        "sequence": 6,
+        "systems": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "The source expressly does not provide the information and systems agents use to answer a question."
+        }
+      }
+    ]
+  },
+  "issues": [
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "ambiguous-dependency",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": null,
+      "http_status_code": null,
+      "message": "A candidate dependency could not be resolved uniquely.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    }
+  ],
+  "provider_invocations": [
+    {
+      "attempt": 1,
+      "chunk_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf-chunk-0001",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_0654dacd31e2b7e5016a8049296728819380fc399b762a3ed3",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 3037,
+        "output_tokens": 11013
+      }
+    }
+  ],
+  "status": "success"
+}

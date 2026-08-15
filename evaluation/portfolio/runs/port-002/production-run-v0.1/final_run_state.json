@@ -1,0 +1,227 @@
+{
+  "active_artifacts": {
+    "APPROVED_REVIEW": {
+      "artifact_id": "artifact-44be87aadee64bdf933bd75aeef39944",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase4-v0.1",
+      "parent_artifact_id": "artifact-f12b0400891843eab4af74b4c1a47458",
+      "payload_sha256": "27312583d9c34bd75a4d35b766cafdf27d79a64b0c80e08bec4f34134ee850b4"
+    },
+    "CANDIDATE_EXTRACTION_RESULT": {
+      "artifact_id": "artifact-5e5a2f7512ec4b9aa5e3a879e935edb4",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase3-v0.1",
+      "parent_artifact_id": "artifact-b4bcb64fcd0f444fafb0277cc4f39f69",
+      "payload_sha256": "d1af7e9121faf4c192b9fc787d0b2cb773189826c5152c2e667204b9ea5057e0"
+    },
+    "DECISION_PACKAGE_RESULT": {
+      "artifact_id": "artifact-ec473c7ce1f44de5898b362a52a8184a",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase6-v0.1",
+      "parent_artifact_id": "artifact-7396ecdd02164ab39f42326dc46a68b6",
+      "payload_sha256": "4df6b9bca6716a2ebd9bb0a284eaa2c08a4cecfb159d3982a378d1549fa6f932"
+    },
+    "INGESTION_RESULT": {
+      "artifact_id": "artifact-b4bcb64fcd0f444fafb0277cc4f39f69",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase2-v0.1",
+      "parent_artifact_id": null,
+      "payload_sha256": "26ecfe88d997ebea7f330efb5cf240af6d00832de9c7848214484249d04403c2"
+    },
+    "INTEGRATED_ASSESSMENT_RESULT": {
+      "artifact_id": "artifact-7396ecdd02164ab39f42326dc46a68b6",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase5-v0.1",
+      "parent_artifact_id": "artifact-44be87aadee64bdf933bd75aeef39944",
+      "payload_sha256": "54a5cb6c0936bec211b475fa001a3279eb6a95f0b7b74f4b3fa460fbed105bbc"
+    },
+    "REVIEW_SESSION": {
+      "artifact_id": "artifact-f12b0400891843eab4af74b4c1a47458",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase4-v0.1",
+      "parent_artifact_id": "artifact-5e5a2f7512ec4b9aa5e3a879e935edb4",
+      "payload_sha256": "ce4e47604fc8c22b1590aa603eeacd0def99cfcea8f511e3db38080aeec35b55"
+    }
+  },
+  "approval_event_id": "approval-176",
+  "approval_timestamp": "2026-08-15T11:15:37.693786+00:00",
+  "assessment_id": "assessment-1e312b1c17aa4f1bafe93e29305ae4f8",
+  "assessment_run_id": "assessment-462b226428fb4ef0b8923c4d323d9c8e",
+  "assessment_timestamp": "2026-08-15T11:15:37.725998+00:00",
+  "decision_policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66",
+  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+  "extraction_run_id": "extraction-eb31aebf-0940-4816-9633-afe9a9c7c724",
+  "future_state_status": "PROPOSED / NOT DEPLOYED",
+  "integration_schema_version": "phase5-v0.1",
+  "package_completeness": "COMPLETE_WITH_INFORMATION_GAPS",
+  "package_id": "decision-package-a95ec2fc5aabe5676cc6c90dbffb331365dd769ab276b4f443082579c704ae6a",
+  "package_schema_version": "phase6-v0.1",
+  "phase1_contract_version": "phase1-v0.3",
+  "policy_id": "decision_policy.v0.2",
+  "policy_status": "PROVISIONAL \u2014 NOT YET ACADEMICALLY VALIDATED",
+  "policy_version": "0.2.0",
+  "recommendations": [
+    {
+      "activity": "Customer calls the service centre",
+      "capabilities": [],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-4bf4eef9952963c4"
+    },
+    {
+      "activity": "Interactive voice-response menu presents choices",
+      "capabilities": [],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-663a94b4cc317416"
+    },
+    {
+      "activity": "Customer selects menu options using the telephone keypad",
+      "capabilities": [
+        "CLASSIFICATION"
+      ],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-e338a50f6d7dd3fb"
+    },
+    {
+      "activity": "System routes the call to a specialised service agent",
+      "capabilities": [
+        "WORKFLOW_AUTOMATION"
+      ],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-1f661459229eb0e4"
+    },
+    {
+      "activity": "Receiving agent retransfers a misrouted call",
+      "capabilities": [
+        "WORKFLOW_AUTOMATION"
+      ],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-5a4300688661bd53"
+    },
+    {
+      "activity": "Appropriately specialised agent addresses the customer's question",
+      "capabilities": [],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-03f8f1c6ad9bc655"
+    }
+  ],
+  "review_corrections": [
+    {
+      "action": "correct",
+      "field_path": "steps.candidate-step-e338a50f6d7dd3fb.capability_signals.categorises_items",
+      "rationale": "The frozen BEFORE step explicitly says the customer selects a topic option; this categorises the call for routing.",
+      "sequence": 74
+    },
+    {
+      "action": "reject",
+      "field_path": "steps.candidate-step-e338a50f6d7dd3fb.dependencies[0]",
+      "rationale": "The candidate attached a dependency from step 3 to the later routing step. The frozen numbered sequence instead establishes that routing follows the customer's selection.",
+      "sequence": 84
+    },
+    {
+      "action": "correct",
+      "field_path": "steps.candidate-step-1f661459229eb0e4.capability_signals.routes_or_orchestrates_work",
+      "rationale": "The frozen BEFORE description explicitly states that this step routes or retransfers the call to an agent.",
+      "sequence": 103
+    },
+    {
+      "action": "correct",
+      "field_path": "steps.candidate-step-5a4300688661bd53.capability_signals.routes_or_orchestrates_work",
+      "rationale": "The frozen BEFORE description explicitly states that this step routes or retransfers the call to an agent.",
+      "sequence": 136
+    },
+    {
+      "action": "resolve-conflict",
+      "field_path": "conflicts.conflict-275c7fa295d6402eaf32d3a904312f72",
+      "rationale": "The unresolved forward dependency was rejected; the source's explicit numbered activity order was accepted.",
+      "sequence": 175
+    }
+  ],
+  "review_event_count": 176,
+  "review_event_counts": {
+    "accept": 46,
+    "accept-step-order": 1,
+    "approve": 1,
+    "correct": 3,
+    "reject": 1,
+    "resolve-conflict": 1,
+    "retain-unknown": 123
+  },
+  "review_id": "review-79af0998fede4f109596eeb95a1670e4",
+  "roi_statement": "ROI / quantified benefit unavailable with current evidence.",
+  "source_sha256": "9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+  "validated_process_fingerprint": "e5a43fa52bf3368d59bdd7621631269a2bfcac83a589d4cb78978e2c0bfaba0a",
+  "validated_process_id": "validated-extraction-eb31aebf-0940-4816-9633-afe9a9c7c724",
+  "workflow_stage": "package-ready"
+}

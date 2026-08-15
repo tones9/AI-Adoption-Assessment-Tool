@@ -1,0 +1,1379 @@
+{
+  "business_objective": "Route an incoming customer call to a service agent with relevant subject knowledge so that the customer's question can be addressed.",
+  "description": "This process routes an incoming customer call to a service agent with relevant subject knowledge so that the customer's question can be addressed.",
+  "evidence": [
+    {
+      "confidence": null,
+      "evidence_id": "cev-3adbda43fccf3c8221049a73979c6d74c86faa4cd3e628a7a612da53cb07b3ab",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "1. A customer calls the service centre about one of many possible service topics.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-c1fbac7b22b7342d73f1034d55c34c2a85468fd2e57420a10a019c39448571d5",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "A customer calls the service centre",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-9ea1f38e163b194d643eb664639c0188043f728d96015e41f9ed6c302ca31734",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "about one of many possible service topics",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-31c31fa84d0aba4b4cc99a7a1d32ef3fc7c25c4cd8b5e608c0cffcd7da316ab6",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "2. A traditional interactive voice-response menu presents language and topic choices.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-effdd8b649bf783baf9ef73dec4e203028c061c1c50e94dc20f095e73181a4f1",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "A traditional interactive voice-response menu",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-4f2aeb6c1fedebb0123ebba0ea509e0277e1588b0e0e851d6859575c383dd55e",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "presents language and topic choices",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-bc7117cca84da5571fffa28f3d25cfeccdbb5473a1080a15ed746473c4f1652d",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "3. The customer selects options using the telephone keypad.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-5f40d5f93f5e40007b6d92323467843f147b167365f138fab4ee2841bc5ad366",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "The customer selects options",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-ae309507badc41031c19b808a55c9de7336ee9bf5722affa6ebff4774dea988e",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "using the telephone keypad",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-9ffd49bcb62f10626d4fb2721f54f3f0241f849842887504e3a001d3946dc784",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "selects options",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-15fe4ffedc3cb164268e4d422ac35d70f7a173ce33c1c1a78dfdf398b121aa8d",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "The customer selects options using the telephone keypad.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-2ba45389bbc1c0e3c1f41e3be17884d368847c0fcbfdd81e9c91fd23a4630dfb",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "according to the selected option",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-060f16377d5094f18f7a5c45f21415c45ba76f69e8ebceb7412e5aa49eba360d",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "4. The system routes the call to a specialised service agent according to the selected option.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-a3feff9da7a69252c5bc7695d4c4da1838076ee4f08d0a6536772316b6426723",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "to a specialised service agent",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-3e35789d93339012e43d226cfef50890af3ed498458400d8b3fbcd1007b81806",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "The system routes the call",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-f0cfa00eec8011ac0a89a673df2a449b4d3a451a992daa3d8c041e8738d25248",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "routes the call to a specialised service agent",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-56b368c13c8935a22de656c13e6c1b5b08821ada69652992a18cb0ffc56203e5",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "5. If the call reached the wrong specialist area, the receiving agent retransfers it to another agent better qualified to address that topic.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-48f68dafc5d6a5a8cdf035f508e3d64ab62be1c4dcfb32ea2ab975b54b2e7fb4",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "the receiving agent retransfers it to another agent better qualified to address that topic",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-368751a8e6ad7e6b5ef1e206c205d4a85f7fe03da96eb215f942df23404bd855",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "the receiving agent retransfers it",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-c91e7d82ba8055d1384d476acb35d631d8ba5da4d438d938a197b57d2357ec7b",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "another agent better qualified to address that topic",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-cd3581d8c48fe24f27f0729b87a3faf90ca7397143133e51576d3a1c6001e766",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "the call reached the wrong specialist area",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-478f602e1c826ec360eb85a73fc29b3eeb65abeda5d107064dfbfe3b84b592b8",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "retransfers it to another agent better qualified to address that topic",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-129288a47cd2ef1657211bec4e8512e9ee04cafb609d82e4a14819e58306691e",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 18-21",
+      "supporting_snippet": "Misrouted calls require retransfer and increase waiting and handling time.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-cf51beb393adfb0e58148b68c60d6fcddca44480d6a2aa8dddc5421ea1663b96",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "If the call reached the wrong specialist area",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-55774bb979112765126c567b59955e689767ab339394523dc5771170259bec98",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "If the call reached the wrong specialist area, the receiving agent retransfers it to another agent better qualified to address that topic.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-528b2e7a275118bc64bc16b7eacf1eac2a2bbc913fdbd852ac24f2037420caa0",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "6. The appropriately specialised agent addresses the customer's question.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-b2eb13e2aa47101eab24f808c7ff734982d540c93cb1256f3eeb83a67a6218c7",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "The appropriately specialised agent addresses the customer's question.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-bcb7c76c182ba37ad70e15686c30e0fa02ff007e779143f2e50dcd0a0506422b",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 9-14",
+      "supporting_snippet": "the customer's question",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-5884296671cdd2c35533c9cd8a7c755211f2927a4fdc583c33a1257b5cd17b90",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "lines 18-21",
+      "supporting_snippet": "Agents specialise in particular subject areas; no individual agent is expected to be qualified to handle every topic.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-b515483f1d9e7c71e4e62643610fc0c96540ac4561bf47a9464809e92a3fc21c",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "line 1",
+      "supporting_snippet": "Customer-call routing and handling",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-2f1427b0028caad33c3164a92817a1689b4f98a4cb96e760feb8720c0952e9de",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+      "source_locator": "line 5",
+      "supporting_snippet": "This process routes an incoming customer call to a service agent with relevant subject knowledge so that the customer's question can be addressed.",
+      "uncertainty_status": "certain"
+    }
+  ],
+  "name": "Customer-call routing and handling",
+  "organisation": null,
+  "process_id": "validated-extraction-eb31aebf-0940-4816-9633-afe9a9c7c724",
+  "steps": [
+    {
+      "activity": "Customer calls the service centre",
+      "actor": null,
+      "characteristics": {
+        "ai_capability_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "business_value": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "capability_signals": {
+          "categorises_items": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "creates_new_content": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "detects_anomalies_or_patterns": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "interprets_images_or_video": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "predicts_future_outcomes": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "ranks_or_suggests_options": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "reads_unstructured_documents": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "routes_or_orchestrates_work": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "searches_reference_knowledge": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "supports_complex_decisions": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "conventional_solution_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "data_readiness": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_accountability_required": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_judgement_requirement": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "implementation_complexity": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "predictability": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "repetition": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "residual_risk_with_human_oversight": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "risk_consequence": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        }
+      },
+      "dependencies": [],
+      "description": "A customer calls the service centre about one of many possible service topics.",
+      "evidence_ids": [
+        "cev-3adbda43fccf3c8221049a73979c6d74c86faa4cd3e628a7a612da53cb07b3ab",
+        "cev-9ea1f38e163b194d643eb664639c0188043f728d96015e41f9ed6c302ca31734",
+        "cev-c1fbac7b22b7342d73f1034d55c34c2a85468fd2e57420a10a019c39448571d5"
+      ],
+      "exceptions": [],
+      "inputs": [
+        "service topic"
+      ],
+      "outputs": [],
+      "responsible_role": null,
+      "sequence": 1,
+      "step_id": "candidate-step-4bf4eef9952963c4",
+      "systems": []
+    },
+    {
+      "activity": "Interactive voice-response menu presents choices",
+      "actor": null,
+      "characteristics": {
+        "ai_capability_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "business_value": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "capability_signals": {
+          "categorises_items": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "creates_new_content": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "detects_anomalies_or_patterns": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "interprets_images_or_video": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "predicts_future_outcomes": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "ranks_or_suggests_options": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "reads_unstructured_documents": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "routes_or_orchestrates_work": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "searches_reference_knowledge": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "supports_complex_decisions": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "conventional_solution_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "data_readiness": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_accountability_required": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_judgement_requirement": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "implementation_complexity": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "predictability": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "repetition": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "residual_risk_with_human_oversight": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "risk_consequence": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        }
+      },
+      "dependencies": [],
+      "description": "A traditional interactive voice-response menu presents language and topic choices.",
+      "evidence_ids": [
+        "cev-31c31fa84d0aba4b4cc99a7a1d32ef3fc7c25c4cd8b5e608c0cffcd7da316ab6",
+        "cev-4f2aeb6c1fedebb0123ebba0ea509e0277e1588b0e0e851d6859575c383dd55e",
+        "cev-effdd8b649bf783baf9ef73dec4e203028c061c1c50e94dc20f095e73181a4f1"
+      ],
+      "exceptions": [],
+      "inputs": [],
+      "outputs": [
+        "language and topic choices"
+      ],
+      "responsible_role": null,
+      "sequence": 2,
+      "step_id": "candidate-step-663a94b4cc317416",
+      "systems": [
+        "traditional interactive voice-response menu"
+      ]
+    },
+    {
+      "activity": "Customer selects menu options using the telephone keypad",
+      "actor": null,
+      "characteristics": {
+        "ai_capability_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "business_value": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "capability_signals": {
+          "categorises_items": {
+            "confidence": null,
+            "evidence_ids": [
+              "cev-bc7117cca84da5571fffa28f3d25cfeccdbb5473a1080a15ed746473c4f1652d"
+            ],
+            "knowledge_state": "known",
+            "rationale": "The frozen BEFORE step explicitly says the customer selects a topic option; this categorises the call for routing.",
+            "value": true
+          },
+          "creates_new_content": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "detects_anomalies_or_patterns": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "interprets_images_or_video": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "predicts_future_outcomes": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "ranks_or_suggests_options": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "reads_unstructured_documents": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "routes_or_orchestrates_work": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "searches_reference_knowledge": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "supports_complex_decisions": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "conventional_solution_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "data_readiness": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_accountability_required": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_judgement_requirement": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "implementation_complexity": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "predictability": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "repetition": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "residual_risk_with_human_oversight": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "risk_consequence": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        }
+      },
+      "dependencies": [],
+      "description": "The customer selects options using the telephone keypad.",
+      "evidence_ids": [
+        "cev-15fe4ffedc3cb164268e4d422ac35d70f7a173ce33c1c1a78dfdf398b121aa8d",
+        "cev-2ba45389bbc1c0e3c1f41e3be17884d368847c0fcbfdd81e9c91fd23a4630dfb",
+        "cev-5f40d5f93f5e40007b6d92323467843f147b167365f138fab4ee2841bc5ad366",
+        "cev-9ffd49bcb62f10626d4fb2721f54f3f0241f849842887504e3a001d3946dc784",
+        "cev-ae309507badc41031c19b808a55c9de7336ee9bf5722affa6ebff4774dea988e",
+        "cev-bc7117cca84da5571fffa28f3d25cfeccdbb5473a1080a15ed746473c4f1652d"
+      ],
+      "exceptions": [],
+      "inputs": [
+        "options"
+      ],
+      "outputs": [
+        "selected option"
+      ],
+      "responsible_role": null,
+      "sequence": 3,
+      "step_id": "candidate-step-e338a50f6d7dd3fb",
+      "systems": [
+        "telephone keypad"
+      ]
+    },
+    {
+      "activity": "System routes the call to a specialised service agent",
+      "actor": null,
+      "characteristics": {
+        "ai_capability_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "business_value": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "capability_signals": {
+          "categorises_items": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "creates_new_content": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "detects_anomalies_or_patterns": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "interprets_images_or_video": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "predicts_future_outcomes": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "ranks_or_suggests_options": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "reads_unstructured_documents": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "routes_or_orchestrates_work": {
+            "confidence": null,
+            "evidence_ids": [
+              "cev-060f16377d5094f18f7a5c45f21415c45ba76f69e8ebceb7412e5aa49eba360d"
+            ],
+            "knowledge_state": "known",
+            "rationale": "The frozen BEFORE description explicitly states that this step routes or retransfers the call to an agent.",
+            "value": true
+          },
+          "searches_reference_knowledge": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "supports_complex_decisions": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "conventional_solution_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "data_readiness": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_accountability_required": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_judgement_requirement": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "implementation_complexity": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "predictability": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "repetition": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "residual_risk_with_human_oversight": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "risk_consequence": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        }
+      },
+      "dependencies": [],
+      "description": "The system routes the call to a specialised service agent according to the selected option.",
+      "evidence_ids": [
+        "cev-060f16377d5094f18f7a5c45f21415c45ba76f69e8ebceb7412e5aa49eba360d",
+        "cev-2ba45389bbc1c0e3c1f41e3be17884d368847c0fcbfdd81e9c91fd23a4630dfb",
+        "cev-3e35789d93339012e43d226cfef50890af3ed498458400d8b3fbcd1007b81806",
+        "cev-a3feff9da7a69252c5bc7695d4c4da1838076ee4f08d0a6536772316b6426723",
+        "cev-f0cfa00eec8011ac0a89a673df2a449b4d3a451a992daa3d8c041e8738d25248"
+      ],
+      "exceptions": [],
+      "inputs": [
+        "selected option"
+      ],
+      "outputs": [
+        "call routed to a specialised service agent"
+      ],
+      "responsible_role": "specialised service agent",
+      "sequence": 4,
+      "step_id": "candidate-step-1f661459229eb0e4",
+      "systems": [
+        "system"
+      ]
+    },
+    {
+      "activity": "Receiving agent retransfers a misrouted call",
+      "actor": null,
+      "characteristics": {
+        "ai_capability_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "business_value": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "capability_signals": {
+          "categorises_items": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "creates_new_content": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "detects_anomalies_or_patterns": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "interprets_images_or_video": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "predicts_future_outcomes": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "ranks_or_suggests_options": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "reads_unstructured_documents": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "routes_or_orchestrates_work": {
+            "confidence": null,
+            "evidence_ids": [
+              "cev-56b368c13c8935a22de656c13e6c1b5b08821ada69652992a18cb0ffc56203e5"
+            ],
+            "knowledge_state": "known",
+            "rationale": "The frozen BEFORE description explicitly states that this step routes or retransfers the call to an agent.",
+            "value": true
+          },
+          "searches_reference_knowledge": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "supports_complex_decisions": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "conventional_solution_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "data_readiness": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_accountability_required": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_judgement_requirement": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "implementation_complexity": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "predictability": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "repetition": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "residual_risk_with_human_oversight": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "risk_consequence": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        }
+      },
+      "dependencies": [],
+      "description": "If the call reached the wrong specialist area, the receiving agent retransfers it to another agent better qualified to address that topic.",
+      "evidence_ids": [
+        "cev-129288a47cd2ef1657211bec4e8512e9ee04cafb609d82e4a14819e58306691e",
+        "cev-368751a8e6ad7e6b5ef1e206c205d4a85f7fe03da96eb215f942df23404bd855",
+        "cev-478f602e1c826ec360eb85a73fc29b3eeb65abeda5d107064dfbfe3b84b592b8",
+        "cev-48f68dafc5d6a5a8cdf035f508e3d64ab62be1c4dcfb32ea2ab975b54b2e7fb4",
+        "cev-55774bb979112765126c567b59955e689767ab339394523dc5771170259bec98",
+        "cev-56b368c13c8935a22de656c13e6c1b5b08821ada69652992a18cb0ffc56203e5",
+        "cev-c91e7d82ba8055d1384d476acb35d631d8ba5da4d438d938a197b57d2357ec7b",
+        "cev-cd3581d8c48fe24f27f0729b87a3faf90ca7397143133e51576d3a1c6001e766",
+        "cev-cf51beb393adfb0e58148b68c60d6fcddca44480d6a2aa8dddc5421ea1663b96"
+      ],
+      "exceptions": [
+        "Misrouted calls require retransfer"
+      ],
+      "inputs": [
+        "call that reached the wrong specialist area"
+      ],
+      "outputs": [
+        "call retransferred to another agent better qualified to address that topic"
+      ],
+      "responsible_role": "receiving agent",
+      "sequence": 5,
+      "step_id": "candidate-step-5a4300688661bd53",
+      "systems": []
+    },
+    {
+      "activity": "Appropriately specialised agent addresses the customer's question",
+      "actor": null,
+      "characteristics": {
+        "ai_capability_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "business_value": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "capability_signals": {
+          "categorises_items": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "creates_new_content": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "detects_anomalies_or_patterns": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "interprets_images_or_video": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "predicts_future_outcomes": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "ranks_or_suggests_options": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "reads_unstructured_documents": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "routes_or_orchestrates_work": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "searches_reference_knowledge": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          },
+          "supports_complex_decisions": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not supported for this step.",
+            "value": null
+          }
+        },
+        "conventional_solution_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "data_readiness": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_accountability_required": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "human_judgement_requirement": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "implementation_complexity": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "predictability": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "repetition": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "residual_risk_with_human_oversight": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        },
+        "risk_consequence": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "Not supported for this step.",
+          "value": null
+        }
+      },
+      "dependencies": [],
+      "description": "The appropriately specialised agent addresses the customer's question.",
+      "evidence_ids": [
+        "cev-528b2e7a275118bc64bc16b7eacf1eac2a2bbc913fdbd852ac24f2037420caa0",
+        "cev-5884296671cdd2c35533c9cd8a7c755211f2927a4fdc583c33a1257b5cd17b90",
+        "cev-b2eb13e2aa47101eab24f808c7ff734982d540c93cb1256f3eeb83a67a6218c7",
+        "cev-bcb7c76c182ba37ad70e15686c30e0fa02ff007e779143f2e50dcd0a0506422b"
+      ],
+      "exceptions": [],
+      "inputs": [
+        "customer's question"
+      ],
+      "outputs": [],
+      "responsible_role": "appropriately specialised agent",
+      "sequence": 6,
+      "step_id": "candidate-step-03f8f1c6ad9bc655",
+      "systems": []
+    }
+  ]
+}

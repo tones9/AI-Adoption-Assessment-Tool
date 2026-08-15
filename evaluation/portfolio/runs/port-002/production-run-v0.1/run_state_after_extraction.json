@@ -1,0 +1,58 @@
+{
+  "active_artifacts": {
+    "CANDIDATE_EXTRACTION_RESULT": {
+      "artifact_id": "artifact-5e5a2f7512ec4b9aa5e3a879e935edb4",
+      "artifact_revision": 1,
+      "parent_artifact_id": "artifact-b4bcb64fcd0f444fafb0277cc4f39f69",
+      "payload_sha256": "d1af7e9121faf4c192b9fc787d0b2cb773189826c5152c2e667204b9ea5057e0"
+    },
+    "INGESTION_RESULT": {
+      "artifact_id": "artifact-b4bcb64fcd0f444fafb0277cc4f39f69",
+      "artifact_revision": 1,
+      "parent_artifact_id": null,
+      "payload_sha256": "26ecfe88d997ebea7f330efb5cf240af6d00832de9c7848214484249d04403c2"
+    }
+  },
+  "assessment_id": "assessment-1e312b1c17aa4f1bafe93e29305ae4f8",
+  "candidate_present": true,
+  "candidate_step_count": 6,
+  "document_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+  "execution_mode": "live-provider",
+  "extraction_run_id": "extraction-eb31aebf-0940-4816-9633-afe9a9c7c724",
+  "extraction_status": "success",
+  "ingestion_status": "success",
+  "issues": [
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "ambiguous-dependency",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": null,
+      "http_status_code": null,
+      "message": "A candidate dependency could not be resolved uniquely.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    }
+  ],
+  "provider_calls": 1,
+  "provider_invocations": [
+    {
+      "attempt": 1,
+      "chunk_id": "doc-9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf-chunk-0001",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_0654dacd31e2b7e5016a8049296728819380fc399b762a3ed3",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 3037,
+        "output_tokens": 11013
+      }
+    }
+  ],
+  "source_sha256": "9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+  "workflow_stage": "candidate-ready"
+}
