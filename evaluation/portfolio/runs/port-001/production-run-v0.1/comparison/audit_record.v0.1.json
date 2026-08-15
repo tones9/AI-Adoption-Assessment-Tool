@@ -1,0 +1,58 @@
+{
+  "schema_version": "portfolio-comparison-audit.v0.1",
+  "case_id": "PORT-001",
+  "comparison_started_at": "2026-08-15T10:10:00Z",
+  "preconditions": {
+    "before_hash_verified": true,
+    "after_hash_verified": true,
+    "source_capture_hash_verified": true,
+    "product_output_freeze_hash_verified": true,
+    "product_output_frozen_before_after_open": true
+  },
+  "verified_hashes": {
+    "before_sha256": "7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+    "after_sha256": "f951ec92e664c6bbff7221f9a13634dcc82a8333ee967e9474ce31eedf6406f0",
+    "source_capture_sha256": "7f58965cba7848d7869fcdaa90fffd3d2a84c5b18431e87e428722b0b8c93b19",
+    "product_output_freeze_manifest_sha256": "87852cdbb052e9e4b59cd1f946b2840d13e8e1220cdb3059f932772a2bde03f1"
+  },
+  "materials_opened_for_comparison": [
+    "evaluation/portfolio/product_inputs/port-001.before.txt",
+    "evaluation/portfolio/provenance/port-001.manifest.json",
+    "evaluation/portfolio/source_captures/port-001-s1-ey.capture.md",
+    "evaluation/portfolio/sealed_after/port-001.after.md",
+    "evaluation/portfolio/runs/port-001/production-run-v0.1/output_freeze_manifest.v0.1.json",
+    "evaluation/portfolio/runs/port-001/production-run-v0.1/final_run_state.json",
+    "evaluation/portfolio/runs/port-001/production-run-v0.1/candidate_extraction.json",
+    "evaluation/portfolio/runs/port-001/production-run-v0.1/approved_review.json",
+    "evaluation/portfolio/runs/port-001/production-run-v0.1/integrated_assessment.json",
+    "evaluation/portfolio/runs/port-001/production-run-v0.1/decision_package_result.json"
+  ],
+  "materials_explicitly_not_opened": [
+    "evaluation/portfolio/sealed_after/port-002.after.md",
+    "evaluation/portfolio/sealed_after/port-003.after.md"
+  ],
+  "frozen_product_actions": {
+    "extraction_rerun": false,
+    "review_modified": false,
+    "assessment_rerun": false,
+    "decision_package_regenerated": false,
+    "policy_modified": false,
+    "prompt_or_schema_modified": false,
+    "production_code_modified": false
+  },
+  "classification_counts": {
+    "STRONG_ALIGNMENT": 0,
+    "PARTIAL_ALIGNMENT": 3,
+    "NO_DOCUMENTED_ALIGNMENT": 2,
+    "CONTRADICTION": 0,
+    "APPROPRIATE_UNCERTAINTY_FINDINGS": 2,
+    "ADDITIONAL_PLAUSIBLE_RECOMMENDATIONS": 0
+  },
+  "interpretive_controls": [
+    "A later implementation was not treated as proof that adoption should have been recommended from incomplete BEFORE evidence.",
+    "INVESTIGATE_FURTHER was not counted as an error or as strong implementation alignment.",
+    "Capabilities absent from frozen output were not credited.",
+    "Process reconstruction, capability recognition and adoption recommendation were assessed separately.",
+    "Unknown inputs were related to the actual gate trace rather than treated as equally material."
+  ]
+}

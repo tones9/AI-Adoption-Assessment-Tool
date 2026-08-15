@@ -1,0 +1,19 @@
+{
+  "schema_version": "portfolio-after-unseal.v0.1",
+  "case_id": "PORT-001",
+  "previous_status": "SEALED_NOT_OPENED_FOR_COMPARISON",
+  "current_status": "OPENED_FOR_PORT001_RETROSPECTIVE_COMPARISON",
+  "opened_at": "2026-08-15T10:10:00Z",
+  "precondition": {
+    "product_output_freeze_manifest_path": "evaluation/portfolio/runs/port-001/production-run-v0.1/output_freeze_manifest.v0.1.json",
+    "product_output_freeze_manifest_sha256": "87852cdbb052e9e4b59cd1f946b2840d13e8e1220cdb3059f932772a2bde03f1",
+    "verified_before_open": true
+  },
+  "opened_after_path": "evaluation/portfolio/sealed_after/port-001.after.md",
+  "opened_after_sha256": "f951ec92e664c6bbff7221f9a13634dcc82a8333ee967e9474ce31eedf6406f0",
+  "other_after_packets": {
+    "PORT-002": "SEALED_NOT_OPENED",
+    "PORT-003": "SEALED_NOT_OPENED"
+  },
+  "product_outputs_changed_after_unseal": false
+}

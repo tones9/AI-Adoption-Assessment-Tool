@@ -1,0 +1,271 @@
+{
+  "schema_version": "portfolio-retrospective-comparison.v0.1",
+  "case_id": "PORT-001",
+  "comparison_question": "Given only the documented BEFORE process, did the AI Adoption Engine identify opportunity areas that substantially align with the AI intervention later documented by EY, while behaving responsibly where evidence was insufficient?",
+  "comparison_basis": {
+    "before_path": "evaluation/portfolio/product_inputs/port-001.before.txt",
+    "before_sha256": "7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+    "product_output_freeze_manifest_path": "evaluation/portfolio/runs/port-001/production-run-v0.1/output_freeze_manifest.v0.1.json",
+    "product_output_freeze_manifest_sha256": "87852cdbb052e9e4b59cd1f946b2840d13e8e1220cdb3059f932772a2bde03f1",
+    "after_path": "evaluation/portfolio/sealed_after/port-001.after.md",
+    "after_sha256": "f951ec92e664c6bbff7221f9a13634dcc82a8333ee967e9474ce31eedf6406f0",
+    "source_capture_path": "evaluation/portfolio/source_captures/port-001-s1-ey.capture.md",
+    "source_capture_sha256": "7f58965cba7848d7869fcdaa90fffd3d2a84c5b18431e87e428722b0b8c93b19",
+    "after_opened_at": "2026-08-15T10:10:00Z"
+  },
+  "after_source": {
+    "source_id": "PORT-001-S1",
+    "publisher": "EY",
+    "provenance": "implementation-partner-authored case study; insurer anonymous",
+    "quality": "MEDIUM",
+    "ground_truth_status": "RETROSPECTIVE_REFERENCE_EVIDENCE_NOT_PERFECT_GROUND_TRUTH"
+  },
+  "themes": [
+    {
+      "theme_id": "PORT-001-T1",
+      "after_intervention_theme": "Document and image preprocessing",
+      "after_evidence": {
+        "source_id": "PORT-001-S1",
+        "locator": "Intervention section",
+        "claim": "Scanned documents were cleaned and processed using image preprocessing and document/layout analysis before downstream extraction."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-dc8e4b75a3f527a8",
+          "activity": "A claims agent opens each image or PDF document individually"
+        },
+        {
+          "step_id": "candidate-step-ef7db0517a3ae2a5",
+          "activity": "The agent examines the document to identify information needed for claim processing"
+        },
+        {
+          "step_id": "candidate-step-60b9ec576f640743",
+          "activity": "The agent manually extracts the required information"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [
+        {
+          "step_id": "candidate-step-ef7db0517a3ae2a5",
+          "capability": "COMPUTER_VISION"
+        },
+        {
+          "step_id": "candidate-step-60b9ec576f640743",
+          "capability": "COMPUTER_VISION"
+        }
+      ],
+      "human_review_provenance": "The reviewer rejected image/document capability signals for the arrival and opening-only steps because those activities did not themselves establish interpretation. The supported COMPUTER_VISION mappings for examination and extraction remained.",
+      "alignment_classification": "PARTIAL_ALIGNMENT",
+      "explanation": "The product recognised that substantive examination and extraction of image/PDF material could involve computer vision, which is compatible with the later image and layout processing. It did not identify preprocessing as a separate intervention pattern and did not recommend adoption.",
+      "remaining_limitation": "COMPUTER_VISION is broader than image cleaning, preprocessing and layout analysis; the frozen output cannot be credited with the specific implementation mechanism."
+    },
+    {
+      "theme_id": "PORT-001-T2",
+      "after_intervention_theme": "Document information extraction using OCR and natural-language processing",
+      "after_evidence": {
+        "source_id": "PORT-001-S1",
+        "locator": "Intervention section",
+        "claim": "The implementation used OCR and natural-language processing to extract information from unstructured claim documents."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-ef7db0517a3ae2a5",
+          "activity": "The agent examines the document to identify information needed for claim processing"
+        },
+        {
+          "step_id": "candidate-step-60b9ec576f640743",
+          "activity": "The agent manually extracts the required information"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [
+        {
+          "step_id": "candidate-step-ef7db0517a3ae2a5",
+          "capability": "DOCUMENT_INFORMATION_EXTRACTION"
+        },
+        {
+          "step_id": "candidate-step-ef7db0517a3ae2a5",
+          "capability": "COMPUTER_VISION"
+        },
+        {
+          "step_id": "candidate-step-60b9ec576f640743",
+          "capability": "DOCUMENT_INFORMATION_EXTRACTION"
+        },
+        {
+          "step_id": "candidate-step-60b9ec576f640743",
+          "capability": "COMPUTER_VISION"
+        }
+      ],
+      "human_review_provenance": "The reviewer accepted the source-backed examination and extraction activities and retained their positive document-extraction and computer-vision signals. The step-4 input was corrected, with document evidence, from already-extracted information to the document containing the required information.",
+      "alignment_classification": "PARTIAL_ALIGNMENT",
+      "explanation": "The product identified the same substantive opportunity area and compatible capabilities later used by EY. The alignment is not strong because the deterministic policy returned INVESTIGATE_FURTHER rather than an adoption recommendation.",
+      "remaining_limitation": "The BEFORE packet did not establish extraction accuracy, data readiness, technical performance, implementation complexity or error controls."
+    },
+    {
+      "theme_id": "PORT-001-T3",
+      "after_intervention_theme": "Document or information classification",
+      "after_evidence": {
+        "source_id": "PORT-001-S1",
+        "locator": "Intervention section",
+        "claim": "The implementation classified unstructured information as part of claims-document processing."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-7ea34eec0f190d65",
+          "activity": "The agent categorises the extracted information according to its relevance to the claim"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [
+        {
+          "step_id": "candidate-step-7ea34eec0f190d65",
+          "capability": "CLASSIFICATION"
+        }
+      ],
+      "human_review_provenance": "The categorisation activity and positive categorisation signal were accepted against the BEFORE source. The inferred output, categorised extracted information, remained explicitly model-inferred after acceptance.",
+      "alignment_classification": "PARTIAL_ALIGNMENT",
+      "explanation": "The frozen product directly recognised classification for the same categorisation activity later addressed by the implementation, but retained an investigation recommendation because technical-fit evidence was insufficient.",
+      "remaining_limitation": "The output does not establish the classification taxonomy, accuracy, exception handling or acceptable error rate."
+    },
+    {
+      "theme_id": "PORT-001-T4",
+      "after_intervention_theme": "Transfer of structured information into the core claims system",
+      "after_evidence": {
+        "source_id": "PORT-001-S1",
+        "locator": "Intervention section",
+        "claim": "Structured data produced by document processing was transferred to the insurer's core claims system."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-d8c90393b0778925",
+          "activity": "The agent uploads the relevant document information to the organisation's existing claims system"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [],
+      "human_review_provenance": "The upload activity was accepted and its inferred output remained identifiable as model inference. No routing/orchestration or integration capability was positively validated for the step.",
+      "alignment_classification": "NO_DOCUMENTED_ALIGNMENT",
+      "explanation": "Phase 3 reconstructed the relevant current activity, but the frozen assessment did not map an automation, orchestration or integration capability to it. A generic INVESTIGATE_FURTHER result alone is not credited as identifying the later system-transfer intervention.",
+      "remaining_limitation": "The BEFORE packet stated manual upload but did not state structured-data generation, interfaces or integration feasibility."
+    },
+    {
+      "theme_id": "PORT-001-T5",
+      "after_intervention_theme": "Controlled confidence levels and retained organisational control",
+      "after_evidence": {
+        "source_id": "PORT-001-S1",
+        "locator": "Intervention and control discussion",
+        "claim": "The implementation used controlled confidence levels and retained organisational control over automation."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-ef7db0517a3ae2a5",
+          "activity": "The agent examines the document to identify information needed for claim processing"
+        },
+        {
+          "step_id": "candidate-step-60b9ec576f640743",
+          "activity": "The agent manually extracts the required information"
+        },
+        {
+          "step_id": "candidate-step-7ea34eec0f190d65",
+          "activity": "The agent categorises the extracted information according to its relevance to the claim"
+        },
+        {
+          "step_id": "candidate-step-d8c90393b0778925",
+          "activity": "The agent uploads the relevant document information to the organisation's existing claims system"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [],
+      "human_review_provenance": "Human-accountability, verification, consequence and residual-risk information remained unknown. The reviewer retained those unknowns rather than supplying controls from outside the BEFORE packet.",
+      "alignment_classification": "NO_DOCUMENTED_ALIGNMENT",
+      "explanation": "The product behaved cautiously and did not contradict retained human or organisational control, but it did not identify the specific confidence-control design. Caution is recorded separately as appropriate uncertainty rather than credited as a capability match.",
+      "remaining_limitation": "Verification thresholds, accountability assignments, error consequences and human-control procedures were explicitly absent from BEFORE evidence."
+    }
+  ],
+  "alignment_counts": {
+    "STRONG_ALIGNMENT": 0,
+    "PARTIAL_ALIGNMENT": 3,
+    "NO_DOCUMENTED_ALIGNMENT": 2,
+    "CONTRADICTION": 0
+  },
+  "appropriate_uncertainty": [
+    {
+      "finding_id": "PORT-001-U1",
+      "scope": "all-six-steps",
+      "actual_gate": "technical_fit",
+      "material_missing_information": ["ai_capability_fit"],
+      "gate_trace": "Evidence sufficiency passed, then technical fit failed because ai_capability_fit was unknown. Business-value and risk/autonomy gates were not evaluated after that stopping result.",
+      "assessment": "APPROPRIATE_UNCERTAINTY",
+      "explanation": "The BEFORE document described activities and some capability signals but did not establish an ordinal, evidence-backed AI capability-fit assessment. INVESTIGATE_FURTHER therefore followed the frozen policy rather than contradicting the later implementation."
+    },
+    {
+      "finding_id": "PORT-001-U2",
+      "scope": "adoption-and-control-evidence",
+      "actual_gate": null,
+      "material_missing_information": [
+        "accuracy thresholds",
+        "verification and approval controls",
+        "consequence of extraction or categorisation error",
+        "human-accountability requirements",
+        "residual risk with oversight",
+        "data readiness",
+        "implementation complexity",
+        "quantified business value"
+      ],
+      "gate_trace": "These values remained unknown but were not the recorded stopping reason because technical fit had already failed on ai_capability_fit.",
+      "assessment": "APPROPRIATE_UNCERTAINTY",
+      "explanation": "These gaps explain why the case could not responsibly support deployment planning or quantitative prioritisation from BEFORE evidence alone. They are not misreported as equally material to the actual gate outcome."
+    }
+  ],
+  "additional_plausible_recommendations": [],
+  "process_reconstruction": {
+    "assessment": "SUBSTANTIALLY_CORRECT",
+    "extracted_step_count": 6,
+    "retained_step_count": 6,
+    "unsupported_steps_added": 0,
+    "ordering": "The explicit six-step source order was retained and human-accepted.",
+    "evidence_resolution": "All accepted evidence references resolve exactly to the frozen Phase 2 document.",
+    "limitations": "The public BEFORE packet is a concise retrospective process description rather than an operational SOP and omits exceptions, controls and downstream claim handling."
+  },
+  "capability_recognition": {
+    "assessment": "SUBSTANTIAL_BUT_INCOMPLETE",
+    "recognized_later_themes": [
+      "document/image processing at broad COMPUTER_VISION level",
+      "DOCUMENT_INFORMATION_EXTRACTION",
+      "CLASSIFICATION"
+    ],
+    "missed_later_themes": [
+      "automated transfer of structured information to the core claims system",
+      "specific confidence-control and organisational-control design"
+    ]
+  },
+  "deterministic_recommendation": {
+    "assessment": "CAUTIOUS_AND_POLICY_CONSISTENT",
+    "recommendation_distribution": {
+      "AUTOMATE": 0,
+      "AUGMENT": 0,
+      "INVESTIGATE_FURTHER": 6,
+      "DO_NOT_RECOMMEND": 0
+    },
+    "explanation": "The engine did not recommend deployment. Its cautious result was supported by the actual technical-fit gate trace and missing BEFORE evidence. This is not treated as strong alignment with the later implementation, but neither is it treated as contradiction."
+  },
+  "human_review_contribution": {
+    "assessment": "MATERIALLY_IMPROVED_INPUT_RELIABILITY",
+    "demonstrated_effects": [
+      "Four unsupported positive capability assertions were prevented from entering the validated process as trusted positives.",
+      "One step input was corrected using document evidence.",
+      "117 unknown assertions remained explicitly unknown instead of being completed from external knowledge.",
+      "Accepted inferred outputs retained MODEL_INFERRED provenance.",
+      "No AFTER information was added to the validated process."
+    ]
+  },
+  "case_conclusion": "The engine reconstructed the relevant six-step process and identified three central capability areas later used by EY: visual document processing, document information extraction and classification. It did not identify automated system transfer or the later confidence/control mechanism. All six recommendations remained INVESTIGATE_FURTHER because the BEFORE evidence did not establish material AI capability fit or the wider evidence needed for deployment. The result therefore demonstrates substantial but partial opportunity alignment together with appropriate uncertainty, not a successful prediction of deployment.",
+  "limitations": [
+    "The insurer is anonymous and EY is both implementation partner and publisher.",
+    "The AFTER case is retrospective reference evidence, not independently established ground truth.",
+    "The 70% outcome concerns documents correctly extracted and interpreted, not complete claims handled autonomously.",
+    "No sample size, evaluation method, error distribution, cost or negative outcome is disclosed.",
+    "The case has publication bias and potential model-memorisation contamination.",
+    "One case cannot support cross-case or statistical conclusions."
+  ]
+}
