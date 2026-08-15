@@ -1,0 +1,272 @@
+{
+  "schema_version": "portfolio-retrospective-comparison.v0.1",
+  "case_id": "PORT-002",
+  "comparison_question": "Given only the documented BEFORE customer-call process, did the AI Adoption Engine identify opportunity areas that substantially align with the later documented Elisa intervention, while behaving responsibly where evidence was insufficient?",
+  "comparison_basis": {
+    "before_path": "evaluation/portfolio/product_inputs/port-002.before.txt",
+    "before_sha256": "9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+    "product_output_freeze_manifest_path": "evaluation/portfolio/runs/port-002/production-run-v0.1/output_freeze_manifest.v0.1.json",
+    "product_output_freeze_manifest_sha256": "e0c2ccffaebe7d85dfd5d9171f4a4676a4c54c1b6804d2d2278062b104483e12",
+    "after_path": "evaluation/portfolio/sealed_after/port-002.after.md",
+    "after_sha256": "4445043c80a816f50a2856c6d1d283f24b78a8913a2102d802e1e38f7e929c2b",
+    "after_opened_at": "2026-08-15T11:19:17Z"
+  },
+  "after_sources": [
+    {
+      "source_ids": ["PORT-002-S1", "PORT-002-S2", "PORT-002-S4"],
+      "publishers": ["Elisa Estonia", "Elisa Oyj"],
+      "provenance": "organisation-authored success accounts and corporate reporting",
+      "quality": "MEDIUM_TO_MEDIUM_HIGH"
+    },
+    {
+      "source_ids": ["PORT-002-S3", "PORT-002-S5"],
+      "publishers": ["MindTitan", "GSMA-hosted MindTitan material"],
+      "provenance": "implementation-partner/vendor-authored case material",
+      "quality": "MEDIUM_LOW"
+    }
+  ],
+  "ground_truth_status": "RETROSPECTIVE_REFERENCE_EVIDENCE_NOT_PERFECT_GROUND_TRUTH",
+  "themes": [
+    {
+      "theme_id": "PORT-002-T1",
+      "after_intervention_theme": "Natural-language capture and classification of the caller's reason for contact",
+      "after_evidence": {
+        "source_ids": ["PORT-002-S1", "PORT-002-S2"],
+        "locator": "Documented intervention section",
+        "claim": "The service bot asks callers to describe their reason in natural language and interprets that reason."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-e338a50f6d7dd3fb",
+          "activity": "Customer selects menu options using the telephone keypad"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [
+        {
+          "step_id": "candidate-step-e338a50f6d7dd3fb",
+          "capability": "CLASSIFICATION"
+        }
+      ],
+      "human_review_provenance": "Live extraction left the categorisation signal unknown. Phase 4 corrected it from the explicit BEFORE statement that the customer selects a topic option; no natural-language or speech capability was added.",
+      "alignment_classification": "PARTIAL_ALIGNMENT",
+      "explanation": "The validated product identified the underlying topic-classification opportunity, which is part of the later intervention. It did not identify natural-language understanding or speech processing and did not recommend adoption.",
+      "remaining_limitation": "CLASSIFICATION is broader than natural-language intent recognition, and the frozen taxonomy contains no dedicated speech-recognition capability."
+    },
+    {
+      "theme_id": "PORT-002-T2",
+      "after_intervention_theme": "Automated routing to a suitably specialised agent",
+      "after_evidence": {
+        "source_ids": ["PORT-002-S1", "PORT-002-S2"],
+        "locator": "Documented intervention section",
+        "claim": "After interpreting the caller's reason, the bot routes the call to a suitable specialist agent."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-e338a50f6d7dd3fb",
+          "activity": "Customer selects menu options using the telephone keypad"
+        },
+        {
+          "step_id": "candidate-step-1f661459229eb0e4",
+          "activity": "System routes the call to a specialised service agent"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [
+        {
+          "step_id": "candidate-step-e338a50f6d7dd3fb",
+          "capability": "CLASSIFICATION"
+        },
+        {
+          "step_id": "candidate-step-1f661459229eb0e4",
+          "capability": "WORKFLOW_AUTOMATION"
+        }
+      ],
+      "human_review_provenance": "Phase 4 source-boundedly corrected the explicit routing step's routes-or-orchestrates-work signal. The correction used only the BEFORE sentence stating that the system routes according to the selected option.",
+      "alignment_classification": "PARTIAL_ALIGNMENT",
+      "explanation": "The validated product combined classification and workflow-automation capabilities around the same routing boundary later changed by Elisa. The deterministic engine still returned INVESTIGATE_FURTHER and did not specify an intent-aware conversational router.",
+      "remaining_limitation": "The BEFORE packet did not establish routing accuracy, intent-model performance, training data, exception handling or acceptable misrouting risk."
+    },
+    {
+      "theme_id": "PORT-002-T3",
+      "after_intervention_theme": "Reduction of wrong routing and call retransfers",
+      "after_evidence": {
+        "source_ids": ["PORT-002-S1"],
+        "locator": "Reported outcomes section",
+        "claim": "Elisa reports higher routing accuracy than the previous keypad menu and three times fewer retransfers."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-5a4300688661bd53",
+          "activity": "Receiving agent retransfers a misrouted call"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [
+        {
+          "step_id": "candidate-step-5a4300688661bd53",
+          "capability": "WORKFLOW_AUTOMATION"
+        }
+      ],
+      "human_review_provenance": "The reviewer corrected the routing/orchestration signal because the BEFORE step explicitly describes retransfer to a better-qualified agent. The review did not add the later performance result.",
+      "alignment_classification": "PARTIAL_ALIGNMENT",
+      "explanation": "The product recognised the retransfer activity as a workflow-routing opportunity at the same operational pain point later reported as improved. It neither predicted the magnitude of improvement nor recommended deployment.",
+      "remaining_limitation": "The reported accuracy and retransfer figures are organisation-authored outcomes without an independent method, sample size or error distribution."
+    },
+    {
+      "theme_id": "PORT-002-T4",
+      "after_intervention_theme": "Self-service chatbot answers for contacts not requiring a human agent",
+      "after_evidence": {
+        "source_ids": ["PORT-002-S3", "PORT-002-S4", "PORT-002-S5"],
+        "locator": "Documented intervention and reported outcomes sections",
+        "claim": "Annika also handled some customer questions through self-service rather than routing every contact to a human."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-03f8f1c6ad9bc655",
+          "activity": "Appropriately specialised agent addresses the customer's question"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [],
+      "human_review_provenance": "The BEFORE packet explicitly withheld the information and systems agents use to answer questions. Knowledge retrieval, content generation and decision-support signals therefore remained unknown.",
+      "alignment_classification": "NO_DOCUMENTED_ALIGNMENT",
+      "explanation": "The product reconstructed human question handling but identified no capability corresponding to self-service answering. Generic uncertainty is not credited as identifying the later chatbot intervention.",
+      "remaining_limitation": "The frozen BEFORE process intentionally excluded a synthetic live-chat workflow, answer-retrieval procedure or knowledge-base description."
+    },
+    {
+      "theme_id": "PORT-002-T5",
+      "after_intervention_theme": "Retained human-agent handling for contacts that still require a person",
+      "after_evidence": {
+        "source_ids": ["PORT-002-S1", "PORT-002-S2", "PORT-002-S3"],
+        "locator": "Documented intervention section",
+        "claim": "The later service retained specialist agents for routed calls and contacts not suitable for self-service."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-03f8f1c6ad9bc655",
+          "activity": "Appropriately specialised agent addresses the customer's question"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [],
+      "human_review_provenance": "The human-agent activity was accepted, but human-accountability, escalation, verification and consequences of incorrect advice remained unknown.",
+      "alignment_classification": "NO_DOCUMENTED_ALIGNMENT",
+      "explanation": "The product preserved the human activity and avoided an unsupported automation recommendation, but it did not identify or design the later human-retention boundary. That caution is recorded separately as appropriate uncertainty.",
+      "remaining_limitation": "The BEFORE packet did not distinguish simple from complex questions or state which contacts must remain with a human."
+    }
+  ],
+  "alignment_counts": {
+    "STRONG_ALIGNMENT": 0,
+    "PARTIAL_ALIGNMENT": 3,
+    "NO_DOCUMENTED_ALIGNMENT": 2,
+    "CONTRADICTION": 0
+  },
+  "reported_outcomes": [
+    {
+      "source_ids": ["PORT-002-S1"],
+      "measure": "routing accuracy and retransfers",
+      "reported_value": "approximately 90% routing accuracy versus 70-75% for the previous keypad menu; three times fewer retransfers",
+      "scope_note": "Organisation-authored call-routing account; methodology and denominator are not independently reported."
+    },
+    {
+      "source_ids": ["PORT-002-S3", "PORT-002-S5"],
+      "measure": "chatbot handling and resolution",
+      "reported_value": "up to 70% of inbound contacts handled; 42% of handled contacts fully resolved, described as 34% of all inbound contacts",
+      "scope_note": "Implementation-partner reporting; channel, year and denominator differ from Elisa's sustainability measure."
+    },
+    {
+      "source_ids": ["PORT-002-S4"],
+      "measure": "share of all incoming Estonia contacts resolved",
+      "reported_value": "8%",
+      "scope_note": "Elisa 2022 corporate-report measure; it is not averaged or treated as directly comparable with MindTitan's figures."
+    }
+  ],
+  "appropriate_uncertainty": [
+    {
+      "finding_id": "PORT-002-U1",
+      "scope": "all-six-steps",
+      "actual_gate": "technical_fit",
+      "material_missing_information": ["ai_capability_fit"],
+      "gate_trace": "Evidence sufficiency passed, then technical fit failed because ai_capability_fit was unknown. Business-value and risk/autonomy gates were not evaluated after that stopping result.",
+      "assessment": "APPROPRIATE_UNCERTAINTY",
+      "explanation": "The BEFORE document established classification and routing activities but did not supply an evidence-backed ordinal AI capability-fit judgement. INVESTIGATE_FURTHER therefore followed the frozen policy and is not treated as contradiction merely because Elisa later deployed AI."
+    },
+    {
+      "finding_id": "PORT-002-U2",
+      "scope": "routing-quality-and-human-service-boundary",
+      "actual_gate": null,
+      "material_missing_information": [
+        "call volumes and topic distribution",
+        "resolution rates and service-level targets",
+        "agent information and systems",
+        "escalation, verification and approval rules",
+        "consequences of incorrect routing or advice",
+        "privacy, security and regulatory requirements",
+        "data readiness and implementation complexity",
+        "quantified business value"
+      ],
+      "gate_trace": "These values remained unknown but were not the recorded stopping reason because technical fit had already failed on ai_capability_fit.",
+      "assessment": "APPROPRIATE_UNCERTAINTY",
+      "explanation": "The gaps prevent a responsible decision about conversational self-service, autonomous routing or human-service boundaries from BEFORE evidence alone."
+    }
+  ],
+  "additional_plausible_recommendations": [],
+  "process_reconstruction": {
+    "assessment": "SUBSTANTIALLY_CORRECT_AFTER_REVIEW",
+    "extracted_step_count": 6,
+    "retained_step_count": 6,
+    "unsupported_steps_added": 0,
+    "ordering": "All six explicit source activities were retained in numbered order. One erroneous forward dependency on the keypad-selection step was rejected and its blocking conflict resolved.",
+    "evidence_resolution": "All accepted evidence references resolve exactly to the frozen Phase 2 document.",
+    "limitations": "The public BEFORE packet is a concise retrospective description, not an operational call-centre SOP, and omits answering systems, controls and quantitative conditions."
+  },
+  "capability_recognition": {
+    "assessment": "SUBSTANTIAL_BUT_REVIEW_DEPENDENT_AND_INCOMPLETE",
+    "recognized_later_themes": [
+      "CLASSIFICATION at the customer topic-selection boundary",
+      "WORKFLOW_AUTOMATION for initial specialist routing",
+      "WORKFLOW_AUTOMATION for misroute retransfer"
+    ],
+    "missed_later_themes": [
+      "natural-language and speech understanding",
+      "self-service answer generation or approved-knowledge retrieval",
+      "explicit human-versus-self-service eligibility boundary"
+    ],
+    "review_dependency": "The live extraction left all three recognised positive signals unknown; Phase 4 supplied the final mappings from explicit BEFORE wording."
+  },
+  "deterministic_recommendation": {
+    "assessment": "CAUTIOUS_AND_POLICY_CONSISTENT",
+    "recommendation_distribution": {
+      "AUTOMATE": 0,
+      "AUGMENT": 0,
+      "INVESTIGATE_FURTHER": 6,
+      "DO_NOT_RECOMMEND": 0
+    },
+    "explanation": "The engine did not recommend deployment. Every source-backed activity passed evidence sufficiency and then stopped at technical fit because ai_capability_fit was unknown. This is neither strong intervention alignment nor contradiction."
+  },
+  "human_review_contribution": {
+    "assessment": "MATERIALLY_ENABLED_CAPABILITY_RECOGNITION_AND_IMPROVED_RELIABILITY",
+    "demonstrated_effects": [
+      "Corrected the topic-selection categorisation signal from unknown to true using BEFORE evidence.",
+      "Corrected two explicit routing/retransfer signals from unknown to true using BEFORE evidence.",
+      "Rejected an incorrect forward dependency and resolved the resulting structural conflict.",
+      "Retained 123 unsupported assertions as unknown rather than completing them from research knowledge.",
+      "Accepted the source's six-step order without adding or deleting an activity.",
+      "No AFTER content entered the production extraction request or validated-process record."
+    ],
+    "limitation": "The reviewing research agent had prior exposure to public AFTER evidence. Although every correction is independently supported by literal BEFORE wording, fully blind reviewer independence cannot be claimed."
+  },
+  "case_conclusion": "The live product reconstructed the six-step customer-call process, and the full extraction-plus-review workflow identified classification and routing opportunities at the same process boundaries later changed by Elisa. It did not identify natural-language understanding, self-service answering or the explicit retained-human boundary. All six deterministic outcomes remained INVESTIGATE_FURTHER because the BEFORE evidence did not establish AI capability fit or the controls and performance evidence required for adoption. PORT-002 therefore shows partial opportunity alignment and responsible uncertainty, not a prediction or recommendation of Elisa's deployment.",
+  "recruiter_friendly_conclusion": "The unchanged product was tested on a frozen public call-centre case using live extraction and a deterministic policy. It reconstructed six process steps; human review corrected one dependency and three missed capability signals; the final assessment identified classification and routing opportunities later used in practice, while refusing to recommend deployment without evidence. It also transparently missed the later self-service chatbot function.",
+  "limitations": [
+    "Elisa's sources are organisation-authored success accounts, while MindTitan was the implementation partner.",
+    "The AFTER evidence is retrospective reference evidence, not independently established ground truth.",
+    "The 90%, 70-75%, three-times-fewer, 70%, 42%, 34% and 8% figures have different scopes, years or denominators and are not combined.",
+    "No independent routing-quality, customer-harm, resolution-quality or negative-outcome evaluation was found.",
+    "The live extraction itself missed all three positive capability signals; final capability recognition depended materially on human review.",
+    "The reviewing research agent had prior public AFTER exposure, so blind reviewer independence cannot be claimed despite source-bounded corrections.",
+    "The anonymised input reduces but does not eliminate model-memorisation contamination risk.",
+    "One case cannot support cross-case or statistical conclusions."
+  ]
+}

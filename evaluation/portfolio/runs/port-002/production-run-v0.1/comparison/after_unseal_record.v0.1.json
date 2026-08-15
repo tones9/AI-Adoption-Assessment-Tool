@@ -1,0 +1,27 @@
+{
+  "schema_version": "portfolio-after-unseal.v0.1",
+  "case_id": "PORT-002",
+  "previous_status": "SEALED_NOT_OPENED_FOR_COMPARISON",
+  "current_status": "OPENED_FOR_PORT002_RETROSPECTIVE_COMPARISON",
+  "opened_at": "2026-08-15T11:19:17Z",
+  "precondition": {
+    "product_output_freeze_manifest_path": "evaluation/portfolio/runs/port-002/production-run-v0.1/output_freeze_manifest.v0.1.json",
+    "product_output_freeze_manifest_sha256": "e0c2ccffaebe7d85dfd5d9171f4a4676a4c54c1b6804d2d2278062b104483e12",
+    "verified_before_current_comparison_open": true
+  },
+  "opened_after_path": "evaluation/portfolio/sealed_after/port-002.after.md",
+  "opened_after_sha256": "4445043c80a816f50a2856c6d1d283f24b78a8913a2102d802e1e38f7e929c2b",
+  "other_after_packets": {
+    "PORT-001": "ALREADY_OPENED_FOR_PORT001_RETROSPECTIVE_COMPARISON",
+    "PORT-003": "SEALED_NOT_OPENED"
+  },
+  "researcher_exposure_disclosure": {
+    "prior_public_after_evidence_audit": true,
+    "prior_repository_search_exposed_after_summary": true,
+    "production_extraction_received_after_material": false,
+    "production_execution_scripts_read_after_material": false,
+    "reviewer_blindness_claimed": false,
+    "mitigation": "Every review correction cites only an assertion visible in the frozen BEFORE document and remains traceable in the append-only Phase 4 record. Prior exposure is nevertheless retained as a limitation."
+  },
+  "product_outputs_changed_after_unseal": false
+}

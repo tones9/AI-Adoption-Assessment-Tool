@@ -1,0 +1,73 @@
+{
+  "schema_version": "portfolio-comparison-audit.v0.1",
+  "case_id": "PORT-002",
+  "comparison_started_at": "2026-08-15T11:19:17Z",
+  "preconditions": {
+    "before_hash_verified": true,
+    "after_hash_verified": true,
+    "source_capture_hashes_verified": true,
+    "product_output_freeze_hash_verified": true,
+    "product_output_frozen_before_current_comparison_open": true,
+    "production_pipeline_received_before_only": true,
+    "production_execution_scripts_excluded_after": true,
+    "reviewer_blind_to_public_after_evidence": false
+  },
+  "verified_hashes": {
+    "before_sha256": "9c1e55e14f06f51a55b6c7b90ef5e4ad105a01f95871ff241d29a25d2a099caf",
+    "after_sha256": "4445043c80a816f50a2856c6d1d283f24b78a8913a2102d802e1e38f7e929c2b",
+    "product_output_freeze_manifest_sha256": "e0c2ccffaebe7d85dfd5d9171f4a4676a4c54c1b6804d2d2278062b104483e12",
+    "source_capture_sha256": {
+      "PORT-002-S1": "4f6b6d600327f820663ee418a3a499863304adf7ca7a5545222df456384b6942",
+      "PORT-002-S2": "d3616abac979d20811a82e8888421bc8ae0a0ca31d8785c00c4c75178a7e603a",
+      "PORT-002-S3": "949f68bb453abbd2fc6afa69e908408b63a7564547df1e5b9647458145f08417",
+      "PORT-002-S4": "ab7c75c845485328319f75f12228e870b3c585ef09bb924ab389d83177349bbd",
+      "PORT-002-S5": "284592397dd100ab390227e71b6d70063122bd0eb504ea5569724971d69c61c4"
+    }
+  },
+  "materials_opened_for_comparison": [
+    "evaluation/portfolio/product_inputs/port-002.before.txt",
+    "evaluation/portfolio/provenance/port-002.manifest.json",
+    "evaluation/portfolio/sealed_after/port-002.after.md",
+    "evaluation/portfolio/runs/port-002/production-run-v0.1/output_freeze_manifest.v0.1.json",
+    "evaluation/portfolio/runs/port-002/production-run-v0.1/final_run_state.json",
+    "evaluation/portfolio/runs/port-002/production-run-v0.1/candidate_extraction.json",
+    "evaluation/portfolio/runs/port-002/production-run-v0.1/approved_review.json",
+    "evaluation/portfolio/runs/port-002/production-run-v0.1/integrated_assessment.json",
+    "evaluation/portfolio/runs/port-002/production-run-v0.1/decision_package_result.json"
+  ],
+  "materials_hash_verified_without_content_review": [
+    "evaluation/portfolio/source_captures/port-002-s1-elisa-customer-story.capture.md",
+    "evaluation/portfolio/source_captures/port-002-s2-elisa-ai.capture.md",
+    "evaluation/portfolio/source_captures/port-002-s3-mindtitan.capture.md",
+    "evaluation/portfolio/source_captures/port-002-s4-elisa-sustainability-2022.capture.md",
+    "evaluation/portfolio/source_captures/port-002-s5-gsma-mindtitan.capture.md"
+  ],
+  "materials_explicitly_not_opened": [
+    "evaluation/portfolio/sealed_after/port-003.after.md"
+  ],
+  "frozen_product_actions": {
+    "extraction_rerun": false,
+    "review_modified_after_freeze": false,
+    "assessment_rerun": false,
+    "decision_package_regenerated": false,
+    "policy_modified": false,
+    "prompt_or_schema_modified": false,
+    "production_code_modified": false
+  },
+  "classification_counts": {
+    "STRONG_ALIGNMENT": 0,
+    "PARTIAL_ALIGNMENT": 3,
+    "NO_DOCUMENTED_ALIGNMENT": 2,
+    "CONTRADICTION": 0,
+    "APPROPRIATE_UNCERTAINTY_FINDINGS": 2,
+    "ADDITIONAL_PLAUSIBLE_RECOMMENDATIONS": 0
+  },
+  "interpretive_controls": [
+    "The later intervention was not treated as proof that adoption should have been recommended from incomplete BEFORE evidence.",
+    "INVESTIGATE_FURTHER was not counted as an error or as strong implementation alignment.",
+    "Capabilities absent from the frozen output were not credited.",
+    "Process reconstruction, capability recognition, deterministic recommendation and human-review contribution were assessed separately.",
+    "The incompatible outcome figures were retained with their individual source scope and were not averaged or merged.",
+    "Prior researcher exposure to public AFTER evidence was disclosed rather than presenting the review as blind."
+  ]
+}
