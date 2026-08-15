@@ -32,9 +32,11 @@ A human boundary that only ever rubber-stamps, or only ever rewrites, would be e
 
 ## What did not
 
-**The deterministic decision engine was never actually exercised.** All sixteen activities returned `INVESTIGATE_FURTHER`, and every single one stopped at the same gate — technical fit — for the same reason: `ai_capability_fit` unknown. The business-value and risk-and-autonomy gates were never evaluated. No priority score was ever produced. Not one threshold, weight or scoring band in `decision_policy.v0.2` was tested.
+**The deterministic decision engine was never exercised by a real case.** All sixteen activities returned `INVESTIGATE_FURTHER`, and every single one stopped at the same gate — technical fit — for the same reason: `ai_capability_fit` unknown. The business-value and risk-and-autonomy gates were never evaluated on a portfolio case, and no priority score was ever produced.
 
-This matters more than any alignment count in this document. The deterministic policy is the product's central claim, and this evaluation provides almost no evidence about it. What it does validate is Phases 2–4 and the gate *ordering*.
+To be precise about what this does and does not mean: policy logic is exercised by unit tests, which cover all four recommendation modes, the gate sequence and the scoring bands with synthetic inputs. But no real portfolio case reached the policy thresholds or scoring bands. The evaluation validates gate ordering and implementation behaviour, not whether policy judgements are defensible on real processes.
+
+That is a narrower claim than "the policy is untested", and it is still the most important limitation in this document. The deterministic policy is the product's central claim, and this evaluation provides evidence that it *behaves* correctly, not that it *judges* well.
 
 The root cause is a mismatch between the evidence class and the policy's inputs. Public BEFORE evidence describes what an organisation did; the policy consumes operational criterion values — repetition, predictability, data readiness, error consequence, quantified value. Press releases and vendor case studies do not report those. They are structurally unavailable in this kind of source, which means no amount of additional public cases would fix it.
 
@@ -79,5 +81,5 @@ Claims this evidence does **not** support:
 - Reported outcome figures are non-comparable within and across cases, and were never merged.
 - The reviewer was not blind to public AFTER evidence in any case.
 - Model-memorisation contamination cannot be excluded; recorded as high for PORT-003.
-- The deterministic decision policy remains provisional and is effectively untested by this exercise.
+- The deterministic decision policy remains provisional; its logic is unit-tested, but its judgements were never validated against a real process by this exercise.
 - Three cases cannot support statistical, causal or cross-industry generalisation.

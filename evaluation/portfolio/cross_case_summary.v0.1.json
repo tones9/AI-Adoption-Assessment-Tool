@@ -118,9 +118,10 @@
     },
     {
       "finding_id": "XC-2",
-      "title": "The deterministic decision engine was never exercised beyond one gate",
+      "title": "The deterministic decision engine was never exercised beyond one gate by a real case",
       "strength": "MATERIAL_LIMITATION",
-      "detail": "All sixteen activities returned INVESTIGATE_FURTHER, and every one of them stopped at the technical-fit gate on unknown ai_capability_fit. The business-value and risk-and-autonomy gates were never evaluated, no priority score was ever produced, and no threshold, weight or scoring band in decision_policy.v0.2 was ever tested. The portfolio therefore provides evidence about Phases 2 to 4 and about gate ordering, but almost none about the Phase 1 decision logic that the product presents as its core contribution.",
+      "detail": "All sixteen activities returned INVESTIGATE_FURTHER, and every one of them stopped at the technical-fit gate on unknown ai_capability_fit. The business-value and risk-and-autonomy gates were never evaluated on a portfolio case and no priority score was ever produced. Policy logic is exercised by unit tests, but no real portfolio case reached the policy thresholds or scoring bands. The evaluation validates gate ordering and implementation behaviour, not whether policy judgements are defensible on real processes.",
+      "scope_correction": "An earlier revision of this summary stated that no threshold, weight or scoring band in decision_policy.v0.2 was ever tested. That was inaccurate: tests/unit exercises all four recommendation modes, the gate sequence and the scoring bands with synthetic inputs. The accurate limitation is about construct validity on real processes, not about absent test coverage.",
       "root_cause": "Public BEFORE evidence describes what an organisation did, not the operational criterion values the policy consumes. Press releases and vendor case studies do not report repetition, predictability, data readiness, error consequence or quantified value, so those criteria are structurally unavailable in this evidence class."
     },
     {
@@ -176,7 +177,7 @@
     "Reported outcome figures are non-comparable across and within cases and were never merged.",
     "The reviewing research agent was not blind to public AFTER evidence in any case.",
     "Model-memorisation contamination cannot be excluded, and is recorded as high for PORT-003.",
-    "The deterministic decision policy remains provisional and, per XC-2, effectively untested by this exercise.",
+    "The deterministic decision policy remains provisional; per XC-2 its logic is unit-tested, but its judgements were never validated against a real process by this exercise.",
     "No statistical, causal or cross-industry generalisation is supported by three cases."
   ],
   "honest_headline": "The product reliably reconstructs documented processes from thin public evidence, identifies a partially overlapping subset of the capability areas organisations later deployed, and consistently refuses to recommend adoption when the evidence does not support one. Its deterministic recommendation layer, which is the product's central claim, was not meaningfully exercised by this evaluation."

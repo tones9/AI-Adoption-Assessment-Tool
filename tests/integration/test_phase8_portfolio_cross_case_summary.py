@@ -149,8 +149,35 @@ def test_cross_case_summary_reports_the_degenerate_recommendation_limitation() -
     assert "not meaningfully exercised" in summary["honest_headline"]
 
     markdown = (PORTFOLIO / "cross_case_summary.v0.1.md").read_text()
-    assert "never actually exercised" in markdown
+    assert "never exercised by a real case" in markdown
     assert "specificity is unmeasured" in markdown.lower()
+
+
+def test_cross_case_summary_scopes_the_policy_limitation_accurately() -> None:
+    """The limitation is construct validity, not absent unit-test coverage.
+
+    tests/unit exercises every recommendation mode, so claiming the policy is
+    untested would overstate the finding and misdescribe the codebase.
+    """
+
+    summary = _summary()
+    detail = next(
+        item for item in summary["findings"] if item["finding_id"] == "XC-2"
+    )
+    assert "Policy logic is exercised by unit tests" in detail["detail"]
+    assert "defensible on real processes" in detail["detail"]
+    assert "scope_correction" in detail
+
+    markdown = (PORTFOLIO / "cross_case_summary.v0.1.md").read_text()
+    assert "policy logic is exercised by unit tests" in markdown.lower()
+    assert "not whether policy judgements are defensible on real processes" in markdown
+
+    # The claim above must stay true of the actual suite.
+    unit_tests = "\n".join(
+        path.read_text() for path in sorted((ROOT / "tests" / "unit").glob("*.py"))
+    )
+    for mode in ("AUTOMATE", "AUGMENT", "DO_NOT_RECOMMEND", "INVESTIGATE_FURTHER"):
+        assert f"RecommendationMode.{mode}" in unit_tests, mode
 
 
 def test_cross_case_summary_records_the_shared_unchanged_baseline() -> None:
