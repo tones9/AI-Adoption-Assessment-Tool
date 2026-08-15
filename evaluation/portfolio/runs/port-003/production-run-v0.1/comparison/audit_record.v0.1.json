@@ -1,0 +1,76 @@
+{
+  "schema_version": "portfolio-comparison-audit.v0.1",
+  "case_id": "PORT-003",
+  "comparison_started_at": "2026-08-15T13:59:41Z",
+  "preconditions": {
+    "before_hash_verified": true,
+    "after_hash_verified": true,
+    "source_capture_hashes_verified": true,
+    "product_output_freeze_hash_verified": true,
+    "product_output_frozen_before_current_comparison_open": true,
+    "product_output_committed_before_current_comparison_open": true,
+    "production_pipeline_received_before_only": true,
+    "production_execution_scripts_excluded_after": true,
+    "production_subtree_fingerprint_unchanged": true,
+    "reviewer_blind_to_public_after_evidence": false
+  },
+  "verified_hashes": {
+    "before_sha256": "79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+    "after_sha256": "b2f20906aea6895a5c0d0aa24f69a8f17ed8a470597ca6a70e9c30b901dd9e1a",
+    "product_output_freeze_manifest_sha256": "7e3826ef908558266eff75f72e37ab198b71bd5e3c2e4b9de12a6b02d6009871",
+    "product_output_freeze_commit": "15ee707f37f5ca78b4a6841806e0f60388b17083",
+    "production_subtree_fingerprint": "4deca4251d4a9840d6948411544fdf506f1953c16a56eaca803099d2cf81be5a",
+    "source_capture_sha256": {
+      "PORT-003-S1": "3d0d2c2e394292d7c61ff3fbda0d7b1bb8f5bfde1959c6ff4b80fe01a08b2e41",
+      "PORT-003-S2": "112fadbfdc27cecdec4c9e99f9f0ea9e65af997e28fd0216a5dda778b0a7d655",
+      "PORT-003-S3": "fafc9cdc6d48f26f863e8a067ec957dde24a5134a0172b8d61bce1d395b7ac0a"
+    }
+  },
+  "materials_opened_for_comparison": [
+    "evaluation/portfolio/product_inputs/port-003.before.txt",
+    "evaluation/portfolio/provenance/port-003.manifest.json",
+    "evaluation/portfolio/sealed_after/port-003.after.md",
+    "evaluation/portfolio/source_captures/port-003-s1-morgan-stanley.capture.md",
+    "evaluation/portfolio/source_captures/port-003-s2-cio.capture.md",
+    "evaluation/portfolio/source_captures/port-003-s3-axios.capture.md",
+    "evaluation/portfolio/runs/port-003/production-run-v0.1/output_freeze_manifest.v0.1.json",
+    "evaluation/portfolio/runs/port-003/production-run-v0.1/final_run_state.json",
+    "evaluation/portfolio/runs/port-003/production-run-v0.1/candidate_extraction.json",
+    "evaluation/portfolio/runs/port-003/production-run-v0.1/approved_review.json",
+    "evaluation/portfolio/runs/port-003/production-run-v0.1/integrated_assessment.json",
+    "evaluation/portfolio/runs/port-003/production-run-v0.1/decision_package_result.json"
+  ],
+  "materials_hash_verified_without_content_review": [],
+  "materials_explicitly_not_opened": [],
+  "note_on_remaining_seals": "PORT-003 is the final portfolio case. No sealed AFTER packet remains unopened.",
+  "frozen_product_actions": {
+    "extraction_rerun": false,
+    "review_modified_after_freeze": false,
+    "assessment_rerun": false,
+    "decision_package_regenerated": false,
+    "policy_modified": false,
+    "prompt_or_schema_modified": false,
+    "capability_taxonomy_modified": false,
+    "production_code_modified": false
+  },
+  "classification_counts": {
+    "STRONG_ALIGNMENT": 1,
+    "PARTIAL_ALIGNMENT": 3,
+    "NO_DOCUMENTED_ALIGNMENT": 2,
+    "CONTRADICTION": 0,
+    "APPROPRIATE_UNCERTAINTY_FINDINGS": 3,
+    "ADDITIONAL_PLAUSIBLE_RECOMMENDATIONS": 0
+  },
+  "interpretive_controls": [
+    "The later intervention was not treated as proof that adoption should have been recommended from incomplete BEFORE evidence.",
+    "INVESTIGATE_FURTHER was not counted as an error, nor as implementation alignment.",
+    "Capabilities absent from the frozen output were not credited.",
+    "Process reconstruction, capability recognition, deterministic recommendation and human-review contribution were assessed separately.",
+    "The two intervention themes excluded from the BEFORE input by evaluation design were labelled NO_DOCUMENTED_ALIGNMENT and explicitly recorded as measuring the evaluation boundary rather than product capability, so they are neither counted as product failures nor quietly dropped from the denominator.",
+    "STRONG_ALIGNMENT was awarded once, for summarisation, on the basis that the correct activity and the correct capability family were identified by the extraction unaided; the family-level granularity and the cautious recommendation are recorded as limitations of that label.",
+    "The taxonomy's inability to express speech or transcription was recorded as a product expressiveness finding and was not used to excuse the T1 partial result.",
+    "The incompatible reported figures were retained with their individual source scope and were not averaged or merged.",
+    "Prior researcher exposure to the organisation identity and to the case leakage audit was disclosed rather than presenting the review as blind.",
+    "A withdrawn pre-run review proposal that would have touched the AFTER-aligned signal was disclosed in the unseal record even though it never reached an artefact."
+  ]
+}

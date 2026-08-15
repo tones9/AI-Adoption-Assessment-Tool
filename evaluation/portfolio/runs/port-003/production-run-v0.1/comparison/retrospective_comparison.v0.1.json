@@ -1,0 +1,276 @@
+{
+  "schema_version": "portfolio-retrospective-comparison.v0.1",
+  "case_id": "PORT-003",
+  "comparison_question": "Given only the documented BEFORE adviser-meeting documentation process, did the AI Adoption Engine identify opportunity areas that substantially align with the later documented Morgan Stanley intervention, while behaving responsibly where evidence was insufficient?",
+  "comparison_basis": {
+    "before_path": "evaluation/portfolio/product_inputs/port-003.before.txt",
+    "before_sha256": "79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+    "product_output_freeze_manifest_path": "evaluation/portfolio/runs/port-003/production-run-v0.1/output_freeze_manifest.v0.1.json",
+    "product_output_freeze_manifest_sha256": "7e3826ef908558266eff75f72e37ab198b71bd5e3c2e4b9de12a6b02d6009871",
+    "product_output_freeze_commit": "15ee707f37f5ca78b4a6841806e0f60388b17083",
+    "after_path": "evaluation/portfolio/sealed_after/port-003.after.md",
+    "after_sha256": "b2f20906aea6895a5c0d0aa24f69a8f17ed8a470597ca6a70e9c30b901dd9e1a",
+    "after_opened_at": "2026-08-15T13:59:41Z"
+  },
+  "after_sources": [
+    {
+      "source_ids": ["PORT-003-S1"],
+      "publishers": ["Morgan Stanley"],
+      "provenance": "organisation-authored launch announcement",
+      "quality": "MEDIUM_HIGH"
+    },
+    {
+      "source_ids": ["PORT-003-S2"],
+      "publishers": ["CIO"],
+      "provenance": "independent publisher quoting a named company executive",
+      "quality": "MEDIUM_HIGH"
+    },
+    {
+      "source_ids": ["PORT-003-S3"],
+      "publishers": ["Axios"],
+      "provenance": "independent pre-launch reporting",
+      "quality": "MEDIUM"
+    }
+  ],
+  "ground_truth_status": "RETROSPECTIVE_REFERENCE_EVIDENCE_NOT_PERFECT_GROUND_TRUTH",
+  "themes": [
+    {
+      "theme_id": "PORT-003-T1",
+      "after_intervention_theme": "Meeting recording, transcription and automated note capture",
+      "after_evidence": {
+        "source_ids": ["PORT-003-S1", "PORT-003-S2", "PORT-003-S3"],
+        "claim": "With client consent the intervention records and transcribes the meeting and captures notes, replacing manual note-taking."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-9561eeeddd601694",
+          "activity": "Record notes and action items manually"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [
+        {
+          "step_id": "candidate-step-9561eeeddd601694",
+          "capability": "GENERATIVE_AI",
+          "identified_by": "PHASE_3_EXTRACTION"
+        }
+      ],
+      "human_review_provenance": "No review correction. The extraction identified creates_new_content directly from the wording 'records notes and action items manually'.",
+      "alignment_classification": "PARTIAL_ALIGNMENT",
+      "explanation": "The product located the correct activity boundary and mapped a content-creation capability to it, but it did not identify speech recognition or transcription, which is the defining capability of this intervention theme.",
+      "remaining_limitation": "The frozen capability taxonomy contains no speech, audio or transcription signal; interprets_images_or_video covers vision only. The product could not have expressed this capability even with perfect evidence, so the miss is structural rather than evidential."
+    },
+    {
+      "theme_id": "PORT-003-T2",
+      "after_intervention_theme": "Automated summarisation of meeting key points",
+      "after_evidence": {
+        "source_ids": ["PORT-003-S1", "PORT-003-S2", "PORT-003-S3"],
+        "claim": "After the meeting the intervention summarises key points and produces a meeting summary."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-d3ec490723991cb0",
+          "activity": "Prepare a meeting summary"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [
+        {
+          "step_id": "candidate-step-d3ec490723991cb0",
+          "capability": "GENERATIVE_AI",
+          "identified_by": "PHASE_3_EXTRACTION"
+        }
+      ],
+      "human_review_provenance": "No review correction. The extraction identified creates_new_content directly, citing 'prepares a meeting summary'.",
+      "alignment_classification": "STRONG_ALIGNMENT",
+      "explanation": "The product independently identified the summary-preparation activity as a generative content-creation opportunity, which is precisely the activity and capability family later deployed. Recognition came from the live extraction with no human assistance.",
+      "remaining_limitation": "Alignment is at capability-family granularity. GENERATIVE_AI is broad, the deployed system summarises from transcribed audio rather than from cleaned notes, and the deterministic recommendation remained INVESTIGATE_FURTHER rather than endorsing deployment."
+    },
+    {
+      "theme_id": "PORT-003-T3",
+      "after_intervention_theme": "Action-item extraction and surfacing",
+      "after_evidence": {
+        "source_ids": ["PORT-003-S1", "PORT-003-S3"],
+        "claim": "The intervention surfaces action items and recommended actions from the meeting."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-9561eeeddd601694",
+          "activity": "Record notes and action items manually"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [
+        {
+          "step_id": "candidate-step-9561eeeddd601694",
+          "capability": "GENERATIVE_AI",
+          "identified_by": "PHASE_3_EXTRACTION"
+        }
+      ],
+      "human_review_provenance": "No review correction. categorises_items, reads_unstructured_documents and routes_or_orchestrates_work were retained as unknown on every step.",
+      "alignment_classification": "PARTIAL_ALIGNMENT",
+      "explanation": "The activity that produces action items was reconstructed and carries a generative signal, but no capability specific to extracting, structuring, assigning or tracking action items was identified.",
+      "remaining_limitation": "The frozen BEFORE document explicitly withholds how action owners, due dates, assignment, monitoring and communication are handled, so the evidence needed to identify an orchestration opportunity was absent by design."
+    },
+    {
+      "theme_id": "PORT-003-T4",
+      "after_intervention_theme": "Draft follow-up client email prepared for adviser review",
+      "after_evidence": {
+        "source_ids": ["PORT-003-S1", "PORT-003-S2"],
+        "claim": "The intervention prepares a draft client email that the adviser reviews, edits and sends at their discretion."
+      },
+      "before_activities": [],
+      "frozen_engine_recommendations": [],
+      "relevant_capabilities": [],
+      "human_review_provenance": "No review action. The activity is absent from the frozen BEFORE document.",
+      "alignment_classification": "NO_DOCUMENTED_ALIGNMENT",
+      "explanation": "The product identified nothing corresponding to follow-up email drafting.",
+      "remaining_limitation": "This is an evaluation-design boundary rather than a product miss. The provenance manifest records that public sources did not document client-email drafting as a distinct BEFORE activity, so it was deliberately excluded from the product-facing input. The product had no evidence from which to identify it and correctly did not invent it."
+    },
+    {
+      "theme_id": "PORT-003-T5",
+      "after_intervention_theme": "Customer-record updating in the CRM",
+      "after_evidence": {
+        "source_ids": ["PORT-003-S1", "PORT-003-S2"],
+        "claim": "The intervention saves a meeting note into the customer-relationship management system."
+      },
+      "before_activities": [],
+      "frozen_engine_recommendations": [],
+      "relevant_capabilities": [],
+      "human_review_provenance": "No review action. routes_or_orchestrates_work was retained as unknown on all four steps.",
+      "alignment_classification": "NO_DOCUMENTED_ALIGNMENT",
+      "explanation": "The product identified no record-keeping or workflow-automation opportunity.",
+      "remaining_limitation": "Also an evaluation-design boundary. 'How the meeting record is entered into organisational systems' is listed under Information not provided in the frozen BEFORE document, and CRM entry was explicitly excluded as an unsupported BEFORE activity."
+    },
+    {
+      "theme_id": "PORT-003-T6",
+      "after_intervention_theme": "Retained adviser review, verification and discretion",
+      "after_evidence": {
+        "source_ids": ["PORT-003-S1", "PORT-003-S3"],
+        "claim": "Advisers retain discretion, are instructed to verify generated output, and the adviser relationship and human judgement remain central."
+      },
+      "before_activities": [
+        {
+          "step_id": "candidate-step-fa338aa3d54b373a",
+          "activity": "Conduct a meeting with a client"
+        }
+      ],
+      "frozen_engine_recommendations": ["INVESTIGATE_FURTHER"],
+      "relevant_capabilities": [],
+      "human_review_provenance": "No review correction. human_accountability_required was accepted as known-true on step 1 and retained as unknown on steps 2, 3 and 4.",
+      "alignment_classification": "PARTIAL_ALIGNMENT",
+      "explanation": "The product recorded human accountability at the client-meeting activity from the explicit statement that the adviser remains responsible for decisions and the client relationship, recommended no autonomous execution anywhere, and labelled the proposed future state as not deployed. It did not establish a per-activity human-oversight boundary.",
+      "remaining_limitation": "Accountability remained unknown on the three documentation activities, which are exactly the activities the intervention automates. The risk-and-autonomy gate was never evaluated because technical fit stopped the assessment first."
+    }
+  ],
+  "alignment_counts": {
+    "STRONG_ALIGNMENT": 1,
+    "PARTIAL_ALIGNMENT": 3,
+    "NO_DOCUMENTED_ALIGNMENT": 2,
+    "CONTRADICTION": 0
+  },
+  "reported_outcomes": [
+    {
+      "source_ids": ["PORT-003-S1"],
+      "measure": "Adviser time saved per meeting",
+      "reported_value": "One adviser estimated a saving of about half an hour per meeting.",
+      "scope_note": "A single adviser testimonial inside an organisation-authored launch announcement. Not a measured average and not independently verified."
+    },
+    {
+      "source_ids": ["PORT-003-S2"],
+      "measure": "Prior post-meeting note-cleanup effort",
+      "reported_value": "Some advisers reportedly spent up to an hour after calls cleaning up notes.",
+      "scope_note": "A BEFORE-state effort description, not an intervention outcome. Reported by an independent publisher relying materially on company sources."
+    },
+    {
+      "source_ids": ["PORT-003-S1", "PORT-003-S2"],
+      "measure": "Support-professional meeting attendance",
+      "reported_value": "Some support professionals attended meetings primarily to take notes and create summaries.",
+      "scope_note": "A qualitative BEFORE-state observation with no denominator or frequency. Not comparable with the time-saving figure."
+    }
+  ],
+  "outcome_comparability_note": "These figures are deliberately not combined. One is a single-adviser estimate of an AFTER benefit; the others describe BEFORE-state effort. No independent accuracy, completeness, client-impact or risk evaluation was found for the intervention.",
+  "appropriate_uncertainty": [
+    {
+      "finding_id": "PORT-003-AU1",
+      "scope": "All four assessed activities",
+      "actual_gate": "technical_fit",
+      "material_missing_information": ["ai_capability_fit"],
+      "gate_trace": "Evidence sufficiency passed on every activity because each is source-backed. Technical fit then failed because ai_capability_fit remained unknown. Business value and risk-and-autonomy were not evaluated.",
+      "assessment": "APPROPRIATE_UNCERTAINTY",
+      "explanation": "Two activities carried an identified GENERATIVE_AI capability and the engine still withheld an adoption recommendation. Identifying that a capability family is relevant is not the same as establishing that it fits the task, and the policy correctly refused to conflate them."
+    },
+    {
+      "finding_id": "PORT-003-AU2",
+      "scope": "Action-item orchestration and organisational record-keeping",
+      "actual_gate": null,
+      "material_missing_information": [],
+      "gate_trace": "routes_or_orchestrates_work, categorises_items and reads_unstructured_documents were retained as unknown on every activity.",
+      "assessment": "APPROPRIATE_UNCERTAINTY",
+      "explanation": "The frozen BEFORE document explicitly lists action-item handling and organisational record entry as information not provided. The product retained them as unknown instead of inferring them from financial-services norms, which is the behaviour the protocol requires even though both themes appear in the documented intervention."
+    },
+    {
+      "finding_id": "PORT-003-AU3",
+      "scope": "Process reconstruction under high memorisation risk",
+      "actual_gate": null,
+      "material_missing_information": [],
+      "gate_trace": "Four candidate activities extracted; zero unsupported activities added.",
+      "assessment": "APPROPRIATE_UNCERTAINTY",
+      "explanation": "PORT-003 is a high-profile case with high recorded contamination risk. A contaminated extraction would plausibly have reconstructed email drafting or CRM entry, both prominent in public reporting and both absent from the anonymised input. Neither appeared. This is weak evidence against memorisation-driven reconstruction on this case, not proof of its absence."
+    }
+  ],
+  "additional_plausible_recommendations": [],
+  "process_reconstruction": {
+    "assessment": "SUBSTANTIALLY_CORRECT_FROM_EXTRACTION_ALONE",
+    "extracted_step_count": 4,
+    "retained_step_count": 4,
+    "unsupported_steps_added": 0,
+    "ordering": "All four explicit source activities were retained in numbered order with order_basis 'explicit'. One dependency was extracted, from the summary activity to the note-cleanup activity, consistent with the numbered order and with the source phrase 'from the cleaned notes'. It was accepted, not corrected.",
+    "evidence_resolution": "All accepted evidence references resolve exactly to the frozen Phase 2 document. The extraction raised no issues and required no repair attempt.",
+    "limitations": "The public BEFORE packet is a concise retrospective description assembled from three sources, not an operational process document. It contains four activities where a real adviser workflow would contain more."
+  },
+  "capability_recognition": {
+    "assessment": "PARTIAL_AND_EXTRACTION_LED",
+    "recognized_later_themes": ["PORT-003-T2"],
+    "partially_recognized_later_themes": ["PORT-003-T1", "PORT-003-T3", "PORT-003-T6"],
+    "missed_later_themes": ["PORT-003-T4", "PORT-003-T5"],
+    "review_dependency": "None. Both positive capability signals were produced by the live extraction. Human review added no capability and corrected none.",
+    "taxonomy_finding": "The frozen capability taxonomy has no speech, audio or transcription signal. For a meeting-transcription intervention this is a structural expressiveness gap rather than an evidence gap. It is recorded as a finding only; the taxonomy is frozen and was not modified, and modifying it using AFTER knowledge would violate the evaluation protocol."
+  },
+  "deterministic_recommendation": {
+    "assessment": "CAUTIOUS_AND_POLICY_CONSISTENT",
+    "recommendation_distribution": {
+      "AUTOMATE": 0,
+      "AUGMENT": 0,
+      "INVESTIGATE_FURTHER": 4,
+      "DO_NOT_RECOMMEND": 0
+    },
+    "explanation": "The engine did not recommend deployment on any activity. Every source-backed activity passed evidence sufficiency and then stopped at technical fit on unknown ai_capability_fit. This is policy-consistent caution, not a prediction of, nor an endorsement of, the later deployment, and it is not treated as a contradiction merely because AI was subsequently implemented."
+  },
+  "human_review_contribution": {
+    "assessment": "VERIFICATION_ONLY_NO_CAPABILITY_RECOVERY",
+    "demonstrated_effects": [
+      "Accepted 46 source-supported assertions.",
+      "Retained 81 assertions as unknown, including all forty decision criteria.",
+      "Accepted the explicit numbered activity order.",
+      "Accepted the order-consistent dependency rather than rejecting it.",
+      "Made zero corrections, zero rejections and resolved zero conflicts.",
+      "Added no fact absent from the frozen BEFORE document."
+    ],
+    "contrast_with_port002": "In PORT-002 the review recovered three capability signals the extraction had missed and rejected one incorrect dependency. In PORT-003 the extraction missed no supported signal and produced no incorrect structure, so review contributed verification and disciplined unknown-retention rather than recovery. The two cases demonstrate different Phase 4 contribution profiles.",
+    "limitation": "The reviewing research agent knew the organisation identity before the run and had read the case leakage audit, which itself refers to later intervention functions. Reviewer blindness is not claimed. The mitigating fact specific to this case is that the review altered nothing: every event is an acceptance of extracted content or an explicit retention of an unknown. A withdrawn review proposal, based on a reviewer misreading and blocked by a precondition check before it reached any artefact, is disclosed in the unseal record."
+  },
+  "case_conclusion": "Given only the anonymised BEFORE description, the unchanged product reconstructed all four documented activities correctly, invented nothing, and identified the meeting-summary activity as a generative content-creation opportunity without human assistance. That is the activity and capability family Morgan Stanley later automated. It partially covered automated note capture, action-item surfacing and the human-oversight boundary, and identified nothing for follow-up email drafting or CRM updating, both of which were deliberately excluded from the BEFORE input because public sources did not document them as prior activities. It withheld an adoption recommendation on every activity because the BEFORE evidence established no capability fit, business value, risk or data-readiness information.",
+  "recruiter_friendly_conclusion": "The unchanged product was tested on a frozen, anonymised public description of an adviser meeting-documentation process, using live extraction and a deterministic policy. It reconstructed the four documented activities, added none, and identified meeting summarisation as a generative-AI opportunity area that the organisation later automated in practice. It did not identify speech transcription, which its capability taxonomy cannot express, and it withheld any adoption recommendation because the source evidence did not establish capability fit or risk. Human review made no corrections in this case, which is itself a reportable result.",
+  "limitations": [
+    "The principal AFTER source is an organisation-authored launch announcement with positive pilot testimonials.",
+    "No independent accuracy, completeness, client-impact or risk evaluation of the intervention was found.",
+    "The only quantified benefit is one adviser's estimate of about half an hour per meeting, which is not a measured average.",
+    "Two of the six intervention themes were excluded from the BEFORE input by evaluation design, so the product could not have identified them; their NO_DOCUMENTED_ALIGNMENT labels measure the evaluation boundary, not product capability.",
+    "The capability taxonomy cannot express speech or transcription, so theme T1 could not be fully recognised regardless of evidence.",
+    "GENERATIVE_AI is a broad capability; matching it to summarisation is a family-level correspondence, not evidence that the product specified the deployed solution.",
+    "The reviewer was not blind to the organisation identity or to the case leakage audit, although the review altered no extracted content and is fully audited.",
+    "PORT-003 is a high-profile case with high recorded model-memorisation risk; anonymisation reduces but does not eliminate it.",
+    "One case cannot support statistical, causal or cross-industry conclusions."
+  ]
+}

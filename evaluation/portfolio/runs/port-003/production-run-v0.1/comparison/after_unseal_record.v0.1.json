@@ -1,0 +1,73 @@
+{
+  "schema_version": "portfolio-after-unseal.v0.1",
+  "case_id": "PORT-003",
+  "previous_status": "SEALED_NOT_OPENED_FOR_COMPARISON",
+  "current_status": "OPENED_FOR_PORT003_RETROSPECTIVE_COMPARISON",
+  "opened_at": "2026-08-15T13:59:41Z",
+  "precondition": {
+    "product_output_freeze_manifest_path": "evaluation/portfolio/runs/port-003/production-run-v0.1/output_freeze_manifest.v0.1.json",
+    "product_output_freeze_manifest_sha256": "7e3826ef908558266eff75f72e37ab198b71bd5e3c2e4b9de12a6b02d6009871",
+    "product_output_freeze_commit": "15ee707f37f5ca78b4a6841806e0f60388b17083",
+    "product_output_committed_before_after_access": true,
+    "verified_before_current_comparison_open": true,
+    "production_subtree_fingerprint_at_unseal": "4deca4251d4a9840d6948411544fdf506f1953c16a56eaca803099d2cf81be5a"
+  },
+  "opened_after_path": "evaluation/portfolio/sealed_after/port-003.after.md",
+  "opened_after_sha256": "b2f20906aea6895a5c0d0aa24f69a8f17ed8a470597ca6a70e9c30b901dd9e1a",
+  "also_opened_for_comparison": [
+    "evaluation/portfolio/source_captures/port-003-s1-morgan-stanley.capture.md",
+    "evaluation/portfolio/source_captures/port-003-s2-cio.capture.md",
+    "evaluation/portfolio/source_captures/port-003-s3-axios.capture.md",
+    "evaluation/portfolio/provenance/port-003.manifest.json"
+  ],
+  "other_after_packets": {
+    "PORT-001": "ALREADY_OPENED_FOR_PORT001_RETROSPECTIVE_COMPARISON",
+    "PORT-002": "ALREADY_OPENED_FOR_PORT002_RETROSPECTIVE_COMPARISON"
+  },
+  "researcher_exposure_disclosure": {
+    "reviewer_blindness_claimed": false,
+    "prior_public_after_evidence_audit": true,
+    "organisation_identity_known_to_reviewer_before_run": true,
+    "identity_disclosure_channel": "The governing project instructions and evaluation/portfolio/register.v0.1.json both name the PORT-003 research identity.",
+    "materials_read_by_reviewer_before_output_freeze": [
+      "evaluation/portfolio/register.v0.1.json",
+      "evaluation/portfolio/freeze_manifest.v0.1.json",
+      "evaluation/portfolio/leakage_audits/port-003.audit.json",
+      "evaluation/portfolio/product_inputs/port-003.before.txt",
+      "evaluation/portfolio/provenance/port-003.manifest.json (key structure only; one field value was displayed in truncated form)"
+    ],
+    "after_adjacent_hints_received_before_output_freeze": [
+      "The leakage audit's steering_review states that email drafting and CRM entry were excluded because public sources document them as later intervention functions.",
+      "The truncated provenance field indicated that post-meeting note cleanup is supported as a distinct fourth BEFORE activity.",
+      "The governing project instructions list forbidden literals that themselves identify later intervention technologies."
+    ],
+    "materials_not_read_by_reviewer_before_output_freeze": [
+      "evaluation/portfolio/sealed_after/port-003.after.md",
+      "evaluation/portfolio/source_captures/port-003-s1-morgan-stanley.capture.md",
+      "evaluation/portfolio/source_captures/port-003-s2-cio.capture.md",
+      "evaluation/portfolio/source_captures/port-003-s3-axios.capture.md"
+    ],
+    "production_extraction_received_after_material": false,
+    "production_execution_scripts_read_after_material": false,
+    "execution_guard": "Stage 1 and stage 2 installed a sys.addaudithook file-open guard that aborts the process if any file under evaluation/portfolio/ outside the frozen BEFORE document and this run's own output directory is opened. The stage 3 freeze script opened the sealed AFTER packet only inside a digest-only helper that streams bytes into a hash and retains no content, and compared the result against a digest recorded before the run.",
+    "withdrawn_review_proposal": {
+      "occurred": true,
+      "description": "Before the review was executed, the reviewing agent incorrectly reported that Phase 3 had left steps[4].capability_signals.creates_new_content unknown, and proposed correcting it to true. The user approved that proposal. The stage 2 precondition check then established that Phase 3 had already identified the signal as true with resolved evidence, so no correction was applied.",
+      "cause": "The reviewing agent read a truncated diagnostic dump and inferred the missing value rather than re-reading the artefact.",
+      "applied_to_any_artefact": false,
+      "relevance": "The withdrawn proposal concerned the signal most likely to align with the documented AFTER intervention. It is disclosed because it is exactly the class of reviewer error that AFTER-exposure could bias, even though the frozen artefacts were never affected.",
+      "detected_by": "The stage 2 verify_extraction_signals precondition assertion."
+    },
+    "mitigation": "The Phase 4 record contains zero corrections, zero rejections and zero conflict resolutions. Every event is an accept of a source-supported assertion or an explicit retention of an unknown, so no reviewer judgement altered the extracted content that the deterministic engine consumed. Prior exposure is nevertheless retained as a limitation and reviewer blindness is not claimed."
+  },
+  "product_outputs_changed_after_unseal": false,
+  "frozen_product_actions_permitted_after_unseal": {
+    "extraction_rerun": false,
+    "review_modified": false,
+    "assessment_rerun": false,
+    "decision_package_regenerated": false,
+    "policy_modified": false,
+    "prompt_or_schema_modified": false,
+    "production_code_modified": false
+  }
+}
