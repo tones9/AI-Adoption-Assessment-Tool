@@ -1,0 +1,3001 @@
+{
+  "status": "success",
+  "candidate": {
+    "candidate_status": "CANDIDATE / UNCONFIRMED PROCESS EXTRACTION",
+    "extraction_run_id": "extraction-43d692fa-7d4c-4511-b6cc-9394eb2c2a41",
+    "source_document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+    "schema_version": "candidate-process.v0.1",
+    "prompt_version": "process-extraction.v0.1",
+    "process_name": {
+      "value": "Claims-document intake and recording",
+      "knowledge_state": "known",
+      "rationale": "Document title.",
+      "evidence": [
+        {
+          "evidence_id": "cev-075c1220b4e6caba3653c7dd948e7ebaaa27a281b2e8ce2ab4082ccfa283d32f",
+          "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+          "block_id": "t-b0001",
+          "block_start_offset": 0,
+          "block_end_offset": 36,
+          "document_start_offset": 0,
+          "document_end_offset": 36,
+          "source_locator": "line 1",
+          "exact_snippet": "Claims-document intake and recording"
+        }
+      ],
+      "confidence": null
+    },
+    "process_description": {
+      "value": "This process prepares information from incoming claim documents so that claim handling can continue in the organisation's claims system.",
+      "knowledge_state": "known",
+      "rationale": "Directly stated process description.",
+      "evidence": [
+        {
+          "evidence_id": "cev-d0e833b978a0110ce0cc1ec3f2a22bf7609a2e8a64f29cf1cc43bb69e74ce982",
+          "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+          "block_id": "t-b0003",
+          "block_start_offset": 0,
+          "block_end_offset": 136,
+          "document_start_offset": 47,
+          "document_end_offset": 183,
+          "source_locator": "line 5",
+          "exact_snippet": "This process prepares information from incoming claim documents so that claim handling can continue in the organisation's claims system."
+        }
+      ],
+      "confidence": null
+    },
+    "process_objective": {
+      "value": "so that claim handling can continue in the organisation's claims system",
+      "knowledge_state": "known",
+      "rationale": "Directly stated purpose clause.",
+      "evidence": [
+        {
+          "evidence_id": "cev-1f67686fd09ff2ac3c57b443ace94216b0628859b1db721645045e6369f8bf09",
+          "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+          "block_id": "t-b0003",
+          "block_start_offset": 64,
+          "block_end_offset": 135,
+          "document_start_offset": 111,
+          "document_end_offset": 182,
+          "source_locator": "line 5",
+          "exact_snippet": "so that claim handling can continue in the organisation's claims system"
+        }
+      ],
+      "confidence": null
+    },
+    "steps": [
+      {
+        "candidate_step_id": "candidate-step-361f56e3eb989598",
+        "sequence": 1,
+        "order_basis": "explicit",
+        "document_order": {
+          "value": 1,
+          "knowledge_state": "known",
+          "rationale": "Explicit numbered step.",
+          "evidence": [
+            {
+              "evidence_id": "cev-eba5cb7092d978f80b1b1a83fb1e842b564a2840396d4cd3debd29b31d5f4418",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 0,
+              "block_end_offset": 52,
+              "document_start_offset": 208,
+              "document_end_offset": 260,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "1. A claim request arrives with supporting material."
+            }
+          ],
+          "confidence": null
+        },
+        "activity": {
+          "value": "A claim request arrives with supporting material",
+          "knowledge_state": "known",
+          "rationale": "Directly stated activity.",
+          "evidence": [
+            {
+              "evidence_id": "cev-2d025e82cc9c04be4299754138bf3ce60ceb5930b311531ff694a38fc60649ea",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 3,
+              "block_end_offset": 52,
+              "document_start_offset": 211,
+              "document_end_offset": 260,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "A claim request arrives with supporting material."
+            }
+          ],
+          "confidence": null
+        },
+        "description": {
+          "value": "The material can include bills, invoices, pharmacy or clinic receipts, medical-treatment diagnoses, images and PDF scans.",
+          "knowledge_state": "known",
+          "rationale": "Directly stated description of the arriving material.",
+          "evidence": [
+            {
+              "evidence_id": "cev-ff012238f1d855a138cbcbe1c987f594ac47d5706190f52530d31dd392407083",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 53,
+              "block_end_offset": 174,
+              "document_start_offset": 261,
+              "document_end_offset": 382,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The material can include bills, invoices, pharmacy or clinic receipts, medical-treatment diagnoses, images and PDF scans."
+            }
+          ],
+          "confidence": null
+        },
+        "actors": {
+          "completeness": "unknown",
+          "rationale": "No actor is stated for arrival.",
+          "items": [],
+          "evidence": []
+        },
+        "responsible_roles": {
+          "completeness": "unknown",
+          "rationale": "No responsible role is stated for arrival.",
+          "items": [],
+          "evidence": []
+        },
+        "systems": {
+          "completeness": "unknown",
+          "rationale": "No system is stated for arrival.",
+          "items": [],
+          "evidence": []
+        },
+        "inputs": {
+          "completeness": "partial",
+          "rationale": "The claim request and supporting material are stated; completeness of all inputs is not established.",
+          "items": [
+            {
+              "value": "claim request",
+              "knowledge_state": "known",
+              "rationale": "Directly stated input.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-2d025e82cc9c04be4299754138bf3ce60ceb5930b311531ff694a38fc60649ea",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 3,
+                  "block_end_offset": 52,
+                  "document_start_offset": 211,
+                  "document_end_offset": 260,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "A claim request arrives with supporting material."
+                }
+              ],
+              "confidence": null
+            },
+            {
+              "value": "supporting material",
+              "knowledge_state": "known",
+              "rationale": "Directly stated input.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-2d025e82cc9c04be4299754138bf3ce60ceb5930b311531ff694a38fc60649ea",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 3,
+                  "block_end_offset": 52,
+                  "document_start_offset": 211,
+                  "document_end_offset": 260,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "A claim request arrives with supporting material."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-2d025e82cc9c04be4299754138bf3ce60ceb5930b311531ff694a38fc60649ea",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 3,
+              "block_end_offset": 52,
+              "document_start_offset": 211,
+              "document_end_offset": 260,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "A claim request arrives with supporting material."
+            }
+          ]
+        },
+        "outputs": {
+          "completeness": "unknown",
+          "rationale": "No step output is stated.",
+          "items": [],
+          "evidence": []
+        },
+        "decisions": [],
+        "dependencies": [],
+        "exceptions": {
+          "completeness": "unknown",
+          "rationale": "No exceptions are stated.",
+          "items": [],
+          "evidence": []
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "rationale": "The source material is stated to be unstructured and from several document types.",
+          "items": [
+            {
+              "value": "The source material is unstructured and comes from several document types.",
+              "knowledge_state": "known",
+              "rationale": "Directly stated operating context.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0007",
+                  "block_start_offset": 53,
+                  "block_end_offset": 129,
+                  "document_start_offset": 865,
+                  "document_end_offset": 941,
+                  "source_locator": "lines 18-19",
+                  "exact_snippet": "- The source material is unstructured and comes from several document types."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0007",
+              "block_start_offset": 53,
+              "block_end_offset": 129,
+              "document_start_offset": 865,
+              "document_end_offset": 941,
+              "source_locator": "lines 18-19",
+              "exact_snippet": "- The source material is unstructured and comes from several document types."
+            }
+          ]
+        },
+        "characteristics": {
+          "criteria": [
+            {
+              "name": "repetition",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predictability",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "data_readiness",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ai_capability_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "human_judgement_requirement",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "business_value",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "risk_consequence",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Consequences of errors are explicitly not provided.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "residual_risk_with_human_oversight",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "implementation_complexity",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "conventional_solution_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ],
+          "human_accountability_required": {
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Accountability requirements are not stated.",
+            "evidence": [],
+            "confidence": null
+          },
+          "capability_signals": [
+            {
+              "name": "reads_unstructured_documents",
+              "assertion": {
+                "value": true,
+                "knowledge_state": "known",
+                "rationale": "This step receives source material stated to be unstructured.",
+                "evidence": [
+                  {
+                    "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0007",
+                    "block_start_offset": 53,
+                    "block_end_offset": 129,
+                    "document_start_offset": 865,
+                    "document_end_offset": 941,
+                    "source_locator": "lines 18-19",
+                    "exact_snippet": "- The source material is unstructured and comes from several document types."
+                  }
+                ],
+                "confidence": null
+              }
+            },
+            {
+              "name": "categorises_items",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predicts_future_outcomes",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "detects_anomalies_or_patterns",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "creates_new_content",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "searches_reference_knowledge",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ranks_or_suggests_options",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "supports_complex_decisions",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "interprets_images_or_video",
+              "assertion": {
+                "value": true,
+                "knowledge_state": "known",
+                "rationale": "Images are identified as source material.",
+                "evidence": [
+                  {
+                    "evidence_id": "cev-ff012238f1d855a138cbcbe1c987f594ac47d5706190f52530d31dd392407083",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0005",
+                    "block_start_offset": 53,
+                    "block_end_offset": 174,
+                    "document_start_offset": 261,
+                    "document_end_offset": 382,
+                    "source_locator": "lines 9-14",
+                    "exact_snippet": "The material can include bills, invoices, pharmacy or clinic receipts, medical-treatment diagnoses, images and PDF scans."
+                  }
+                ],
+                "confidence": null
+              }
+            },
+            {
+              "name": "routes_or_orchestrates_work",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ]
+        }
+      },
+      {
+        "candidate_step_id": "candidate-step-dc8e4b75a3f527a8",
+        "sequence": 2,
+        "order_basis": "explicit",
+        "document_order": {
+          "value": 2,
+          "knowledge_state": "known",
+          "rationale": "Explicit numbered step.",
+          "evidence": [
+            {
+              "evidence_id": "cev-f76ff4c4b33c32067f03e4904969b638a32832663c5b53d844e6380f20948fd6",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 175,
+              "block_end_offset": 239,
+              "document_start_offset": 383,
+              "document_end_offset": 447,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "2. A claims agent opens each image or PDF document individually."
+            }
+          ],
+          "confidence": null
+        },
+        "activity": {
+          "value": "A claims agent opens each image or PDF document individually",
+          "knowledge_state": "known",
+          "rationale": "Directly stated activity.",
+          "evidence": [
+            {
+              "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 178,
+              "block_end_offset": 239,
+              "document_start_offset": 386,
+              "document_end_offset": 447,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "A claims agent opens each image or PDF document individually."
+            }
+          ],
+          "confidence": null
+        },
+        "description": {
+          "value": "A claims agent opens each image or PDF document individually.",
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "evidence": [
+            {
+              "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 178,
+              "block_end_offset": 239,
+              "document_start_offset": 386,
+              "document_end_offset": 447,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "A claims agent opens each image or PDF document individually."
+            }
+          ],
+          "confidence": null
+        },
+        "actors": {
+          "completeness": "partial",
+          "rationale": "A claims agent is stated; completeness is not established.",
+          "items": [
+            {
+              "value": "claims agent",
+              "knowledge_state": "known",
+              "rationale": "Directly stated actor.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 178,
+                  "block_end_offset": 239,
+                  "document_start_offset": 386,
+                  "document_end_offset": 447,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "A claims agent opens each image or PDF document individually."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 178,
+              "block_end_offset": 239,
+              "document_start_offset": 386,
+              "document_end_offset": 447,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "A claims agent opens each image or PDF document individually."
+            }
+          ]
+        },
+        "responsible_roles": {
+          "completeness": "partial",
+          "rationale": "A claims agent performs the step; completeness is not established.",
+          "items": [
+            {
+              "value": "claims agent",
+              "knowledge_state": "known",
+              "rationale": "Directly stated performer.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 178,
+                  "block_end_offset": 239,
+                  "document_start_offset": 386,
+                  "document_end_offset": 447,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "A claims agent opens each image or PDF document individually."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 178,
+              "block_end_offset": 239,
+              "document_start_offset": 386,
+              "document_end_offset": 447,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "A claims agent opens each image or PDF document individually."
+            }
+          ]
+        },
+        "systems": {
+          "completeness": "unknown",
+          "rationale": "No system is stated.",
+          "items": [],
+          "evidence": []
+        },
+        "inputs": {
+          "completeness": "partial",
+          "rationale": "Image or PDF documents are stated; completeness is not established.",
+          "items": [
+            {
+              "value": "image or PDF document",
+              "knowledge_state": "known",
+              "rationale": "Directly stated document input.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 178,
+                  "block_end_offset": 239,
+                  "document_start_offset": 386,
+                  "document_end_offset": 447,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "A claims agent opens each image or PDF document individually."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 178,
+              "block_end_offset": 239,
+              "document_start_offset": 386,
+              "document_end_offset": 447,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "A claims agent opens each image or PDF document individually."
+            }
+          ]
+        },
+        "outputs": {
+          "completeness": "unknown",
+          "rationale": "No output is stated.",
+          "items": [],
+          "evidence": []
+        },
+        "decisions": [],
+        "dependencies": [],
+        "exceptions": {
+          "completeness": "unknown",
+          "rationale": "No exceptions are stated.",
+          "items": [],
+          "evidence": []
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "rationale": "The step is individually performed for each document.",
+          "items": [
+            {
+              "value": "individually",
+              "knowledge_state": "known",
+              "rationale": "Directly stated operating characteristic.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 178,
+                  "block_end_offset": 239,
+                  "document_start_offset": 386,
+                  "document_end_offset": 447,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "A claims agent opens each image or PDF document individually."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 178,
+              "block_end_offset": 239,
+              "document_start_offset": 386,
+              "document_end_offset": 447,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "A claims agent opens each image or PDF document individually."
+            }
+          ]
+        },
+        "characteristics": {
+          "criteria": [
+            {
+              "name": "repetition",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predictability",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "data_readiness",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ai_capability_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "human_judgement_requirement",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "business_value",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "risk_consequence",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Consequences of errors are explicitly not provided.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "residual_risk_with_human_oversight",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "implementation_complexity",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "conventional_solution_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ],
+          "human_accountability_required": {
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Accountability requirements are not stated.",
+            "evidence": [],
+            "confidence": null
+          },
+          "capability_signals": [
+            {
+              "name": "reads_unstructured_documents",
+              "assertion": {
+                "value": true,
+                "knowledge_state": "known",
+                "rationale": "The agent opens image or PDF documents.",
+                "evidence": [
+                  {
+                    "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0005",
+                    "block_start_offset": 178,
+                    "block_end_offset": 239,
+                    "document_start_offset": 386,
+                    "document_end_offset": 447,
+                    "source_locator": "lines 9-14",
+                    "exact_snippet": "A claims agent opens each image or PDF document individually."
+                  }
+                ],
+                "confidence": null
+              }
+            },
+            {
+              "name": "categorises_items",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predicts_future_outcomes",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "detects_anomalies_or_patterns",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "creates_new_content",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "searches_reference_knowledge",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ranks_or_suggests_options",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "supports_complex_decisions",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "interprets_images_or_video",
+              "assertion": {
+                "value": true,
+                "knowledge_state": "known",
+                "rationale": "The agent opens each image or PDF document.",
+                "evidence": [
+                  {
+                    "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0005",
+                    "block_start_offset": 178,
+                    "block_end_offset": 239,
+                    "document_start_offset": 386,
+                    "document_end_offset": 447,
+                    "source_locator": "lines 9-14",
+                    "exact_snippet": "A claims agent opens each image or PDF document individually."
+                  }
+                ],
+                "confidence": null
+              }
+            },
+            {
+              "name": "routes_or_orchestrates_work",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ]
+        }
+      },
+      {
+        "candidate_step_id": "candidate-step-ef7db0517a3ae2a5",
+        "sequence": 3,
+        "order_basis": "explicit",
+        "document_order": {
+          "value": 3,
+          "knowledge_state": "known",
+          "rationale": "Explicit numbered step.",
+          "evidence": [
+            {
+              "evidence_id": "cev-c80a224e48f935fd63733c0f90929ee5afa1b2868222a8268f72fa2d793a0879",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 240,
+              "block_end_offset": 327,
+              "document_start_offset": 448,
+              "document_end_offset": 535,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "3. The agent examines the document to identify information needed for claim processing."
+            }
+          ],
+          "confidence": null
+        },
+        "activity": {
+          "value": "The agent examines the document to identify information needed for claim processing",
+          "knowledge_state": "known",
+          "rationale": "Directly stated activity.",
+          "evidence": [
+            {
+              "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 243,
+              "block_end_offset": 327,
+              "document_start_offset": 451,
+              "document_end_offset": 535,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+            }
+          ],
+          "confidence": null
+        },
+        "description": {
+          "value": "The agent examines the document to identify information needed for claim processing.",
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "evidence": [
+            {
+              "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 243,
+              "block_end_offset": 327,
+              "document_start_offset": 451,
+              "document_end_offset": 535,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+            }
+          ],
+          "confidence": null
+        },
+        "actors": {
+          "completeness": "partial",
+          "rationale": "An agent is stated; completeness is not established.",
+          "items": [
+            {
+              "value": "agent",
+              "knowledge_state": "known",
+              "rationale": "Directly stated actor.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 243,
+                  "block_end_offset": 327,
+                  "document_start_offset": 451,
+                  "document_end_offset": 535,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 243,
+              "block_end_offset": 327,
+              "document_start_offset": 451,
+              "document_end_offset": 535,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+            }
+          ]
+        },
+        "responsible_roles": {
+          "completeness": "partial",
+          "rationale": "An agent performs the step; completeness is not established.",
+          "items": [
+            {
+              "value": "agent",
+              "knowledge_state": "known",
+              "rationale": "Directly stated performer.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 243,
+                  "block_end_offset": 327,
+                  "document_start_offset": 451,
+                  "document_end_offset": 535,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 243,
+              "block_end_offset": 327,
+              "document_start_offset": 451,
+              "document_end_offset": 535,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+            }
+          ]
+        },
+        "systems": {
+          "completeness": "unknown",
+          "rationale": "No system is stated.",
+          "items": [],
+          "evidence": []
+        },
+        "inputs": {
+          "completeness": "partial",
+          "rationale": "The document is stated as the item examined.",
+          "items": [
+            {
+              "value": "document",
+              "knowledge_state": "known",
+              "rationale": "Directly stated input.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 243,
+                  "block_end_offset": 327,
+                  "document_start_offset": 451,
+                  "document_end_offset": 535,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 243,
+              "block_end_offset": 327,
+              "document_start_offset": 451,
+              "document_end_offset": 535,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+            }
+          ]
+        },
+        "outputs": {
+          "completeness": "partial",
+          "rationale": "Information needed for claim processing is identified.",
+          "items": [
+            {
+              "value": "information needed for claim processing",
+              "knowledge_state": "known",
+              "rationale": "Directly stated identified information.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 243,
+                  "block_end_offset": 327,
+                  "document_start_offset": 451,
+                  "document_end_offset": 535,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 243,
+              "block_end_offset": 327,
+              "document_start_offset": 451,
+              "document_end_offset": 535,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+            }
+          ]
+        },
+        "decisions": [],
+        "dependencies": [],
+        "exceptions": {
+          "completeness": "unknown",
+          "rationale": "No exceptions are stated.",
+          "items": [],
+          "evidence": []
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "rationale": "The source material is unstructured.",
+          "items": [
+            {
+              "value": "The source material is unstructured and comes from several document types.",
+              "knowledge_state": "known",
+              "rationale": "Directly stated operating context.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0007",
+                  "block_start_offset": 53,
+                  "block_end_offset": 129,
+                  "document_start_offset": 865,
+                  "document_end_offset": 941,
+                  "source_locator": "lines 18-19",
+                  "exact_snippet": "- The source material is unstructured and comes from several document types."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0007",
+              "block_start_offset": 53,
+              "block_end_offset": 129,
+              "document_start_offset": 865,
+              "document_end_offset": 941,
+              "source_locator": "lines 18-19",
+              "exact_snippet": "- The source material is unstructured and comes from several document types."
+            }
+          ]
+        },
+        "characteristics": {
+          "criteria": [
+            {
+              "name": "repetition",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predictability",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "data_readiness",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ai_capability_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "human_judgement_requirement",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "business_value",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "risk_consequence",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Consequences of errors are explicitly not provided.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "residual_risk_with_human_oversight",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "implementation_complexity",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "conventional_solution_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ],
+          "human_accountability_required": {
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Accountability requirements are not stated.",
+            "evidence": [],
+            "confidence": null
+          },
+          "capability_signals": [
+            {
+              "name": "reads_unstructured_documents",
+              "assertion": {
+                "value": true,
+                "knowledge_state": "known",
+                "rationale": "The agent examines the document, and source material is stated to be unstructured.",
+                "evidence": [
+                  {
+                    "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0005",
+                    "block_start_offset": 243,
+                    "block_end_offset": 327,
+                    "document_start_offset": 451,
+                    "document_end_offset": 535,
+                    "source_locator": "lines 9-14",
+                    "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+                  },
+                  {
+                    "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0007",
+                    "block_start_offset": 53,
+                    "block_end_offset": 129,
+                    "document_start_offset": 865,
+                    "document_end_offset": 941,
+                    "source_locator": "lines 18-19",
+                    "exact_snippet": "- The source material is unstructured and comes from several document types."
+                  }
+                ],
+                "confidence": null
+              }
+            },
+            {
+              "name": "categorises_items",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predicts_future_outcomes",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "detects_anomalies_or_patterns",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "creates_new_content",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "searches_reference_knowledge",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ranks_or_suggests_options",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "supports_complex_decisions",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "interprets_images_or_video",
+              "assertion": {
+                "value": true,
+                "knowledge_state": "known",
+                "rationale": "The agent examines the document; images are among the stated source material.",
+                "evidence": [
+                  {
+                    "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0005",
+                    "block_start_offset": 243,
+                    "block_end_offset": 327,
+                    "document_start_offset": 451,
+                    "document_end_offset": 535,
+                    "source_locator": "lines 9-14",
+                    "exact_snippet": "The agent examines the document to identify information needed for claim processing."
+                  },
+                  {
+                    "evidence_id": "cev-ff012238f1d855a138cbcbe1c987f594ac47d5706190f52530d31dd392407083",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0005",
+                    "block_start_offset": 53,
+                    "block_end_offset": 174,
+                    "document_start_offset": 261,
+                    "document_end_offset": 382,
+                    "source_locator": "lines 9-14",
+                    "exact_snippet": "The material can include bills, invoices, pharmacy or clinic receipts, medical-treatment diagnoses, images and PDF scans."
+                  }
+                ],
+                "confidence": null
+              }
+            },
+            {
+              "name": "routes_or_orchestrates_work",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ]
+        }
+      },
+      {
+        "candidate_step_id": "candidate-step-60b9ec576f640743",
+        "sequence": 4,
+        "order_basis": "explicit",
+        "document_order": {
+          "value": 4,
+          "knowledge_state": "known",
+          "rationale": "Explicit numbered step.",
+          "evidence": [
+            {
+              "evidence_id": "cev-f15c6654b9e897add1150d35989e0b8acc0a63b01c16dbc5bcf8511c8b734841",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 328,
+              "block_end_offset": 384,
+              "document_start_offset": 536,
+              "document_end_offset": 592,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "4. The agent manually extracts the required information."
+            }
+          ],
+          "confidence": null
+        },
+        "activity": {
+          "value": "The agent manually extracts the required information",
+          "knowledge_state": "known",
+          "rationale": "Directly stated activity.",
+          "evidence": [
+            {
+              "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 331,
+              "block_end_offset": 384,
+              "document_start_offset": 539,
+              "document_end_offset": 592,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent manually extracts the required information."
+            }
+          ],
+          "confidence": null
+        },
+        "description": {
+          "value": "The agent manually extracts the required information.",
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "evidence": [
+            {
+              "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 331,
+              "block_end_offset": 384,
+              "document_start_offset": 539,
+              "document_end_offset": 592,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent manually extracts the required information."
+            }
+          ],
+          "confidence": null
+        },
+        "actors": {
+          "completeness": "partial",
+          "rationale": "An agent is stated; completeness is not established.",
+          "items": [
+            {
+              "value": "agent",
+              "knowledge_state": "known",
+              "rationale": "Directly stated actor.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 331,
+                  "block_end_offset": 384,
+                  "document_start_offset": 539,
+                  "document_end_offset": 592,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent manually extracts the required information."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 331,
+              "block_end_offset": 384,
+              "document_start_offset": 539,
+              "document_end_offset": 592,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent manually extracts the required information."
+            }
+          ]
+        },
+        "responsible_roles": {
+          "completeness": "partial",
+          "rationale": "An agent performs the step; completeness is not established.",
+          "items": [
+            {
+              "value": "agent",
+              "knowledge_state": "known",
+              "rationale": "Directly stated performer.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 331,
+                  "block_end_offset": 384,
+                  "document_start_offset": 539,
+                  "document_end_offset": 592,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent manually extracts the required information."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 331,
+              "block_end_offset": 384,
+              "document_start_offset": 539,
+              "document_end_offset": 592,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent manually extracts the required information."
+            }
+          ]
+        },
+        "systems": {
+          "completeness": "unknown",
+          "rationale": "No system is stated.",
+          "items": [],
+          "evidence": []
+        },
+        "inputs": {
+          "completeness": "partial",
+          "rationale": "Required information is the item extracted; source completeness is not established.",
+          "items": [
+            {
+              "value": "required information",
+              "knowledge_state": "known",
+              "rationale": "Directly stated information handled by the step.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 331,
+                  "block_end_offset": 384,
+                  "document_start_offset": 539,
+                  "document_end_offset": 592,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent manually extracts the required information."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 331,
+              "block_end_offset": 384,
+              "document_start_offset": 539,
+              "document_end_offset": 592,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent manually extracts the required information."
+            }
+          ]
+        },
+        "outputs": {
+          "completeness": "partial",
+          "rationale": "The required information is extracted.",
+          "items": [
+            {
+              "value": "required information",
+              "knowledge_state": "known",
+              "rationale": "Directly stated extraction output.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 331,
+                  "block_end_offset": 384,
+                  "document_start_offset": 539,
+                  "document_end_offset": 592,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent manually extracts the required information."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 331,
+              "block_end_offset": 384,
+              "document_start_offset": 539,
+              "document_end_offset": 592,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent manually extracts the required information."
+            }
+          ]
+        },
+        "decisions": [],
+        "dependencies": [],
+        "exceptions": {
+          "completeness": "unknown",
+          "rationale": "No exceptions are stated.",
+          "items": [],
+          "evidence": []
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "rationale": "Work is stated to be manual.",
+          "items": [
+            {
+              "value": "manual",
+              "knowledge_state": "known",
+              "rationale": "Directly stated operating context.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-60070ba03172d8dd483644c792e3c7a1145b553545e891159383b93b6533fdcc",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0007",
+                  "block_start_offset": 0,
+                  "block_end_offset": 52,
+                  "document_start_offset": 812,
+                  "document_end_offset": 864,
+                  "source_locator": "lines 18-19",
+                  "exact_snippet": "- The work is manual, repetitive and time-consuming."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-60070ba03172d8dd483644c792e3c7a1145b553545e891159383b93b6533fdcc",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0007",
+              "block_start_offset": 0,
+              "block_end_offset": 52,
+              "document_start_offset": 812,
+              "document_end_offset": 864,
+              "source_locator": "lines 18-19",
+              "exact_snippet": "- The work is manual, repetitive and time-consuming."
+            }
+          ]
+        },
+        "characteristics": {
+          "criteria": [
+            {
+              "name": "repetition",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predictability",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "data_readiness",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ai_capability_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "human_judgement_requirement",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "business_value",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "risk_consequence",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Consequences of errors are explicitly not provided.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "residual_risk_with_human_oversight",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "implementation_complexity",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "conventional_solution_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ],
+          "human_accountability_required": {
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Accountability requirements are not stated.",
+            "evidence": [],
+            "confidence": null
+          },
+          "capability_signals": [
+            {
+              "name": "reads_unstructured_documents",
+              "assertion": {
+                "value": true,
+                "knowledge_state": "known",
+                "rationale": "Required information is manually extracted from the source material, which is stated to be unstructured.",
+                "evidence": [
+                  {
+                    "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0005",
+                    "block_start_offset": 331,
+                    "block_end_offset": 384,
+                    "document_start_offset": 539,
+                    "document_end_offset": 592,
+                    "source_locator": "lines 9-14",
+                    "exact_snippet": "The agent manually extracts the required information."
+                  },
+                  {
+                    "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0007",
+                    "block_start_offset": 53,
+                    "block_end_offset": 129,
+                    "document_start_offset": 865,
+                    "document_end_offset": 941,
+                    "source_locator": "lines 18-19",
+                    "exact_snippet": "- The source material is unstructured and comes from several document types."
+                  }
+                ],
+                "confidence": null
+              }
+            },
+            {
+              "name": "categorises_items",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predicts_future_outcomes",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "detects_anomalies_or_patterns",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "creates_new_content",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "searches_reference_knowledge",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ranks_or_suggests_options",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "supports_complex_decisions",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "interprets_images_or_video",
+              "assertion": {
+                "value": true,
+                "knowledge_state": "known",
+                "rationale": "Images are among the source material from which required information is extracted.",
+                "evidence": [
+                  {
+                    "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0005",
+                    "block_start_offset": 331,
+                    "block_end_offset": 384,
+                    "document_start_offset": 539,
+                    "document_end_offset": 592,
+                    "source_locator": "lines 9-14",
+                    "exact_snippet": "The agent manually extracts the required information."
+                  },
+                  {
+                    "evidence_id": "cev-ff012238f1d855a138cbcbe1c987f594ac47d5706190f52530d31dd392407083",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0005",
+                    "block_start_offset": 53,
+                    "block_end_offset": 174,
+                    "document_start_offset": 261,
+                    "document_end_offset": 382,
+                    "source_locator": "lines 9-14",
+                    "exact_snippet": "The material can include bills, invoices, pharmacy or clinic receipts, medical-treatment diagnoses, images and PDF scans."
+                  }
+                ],
+                "confidence": null
+              }
+            },
+            {
+              "name": "routes_or_orchestrates_work",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ]
+        }
+      },
+      {
+        "candidate_step_id": "candidate-step-7ea34eec0f190d65",
+        "sequence": 5,
+        "order_basis": "explicit",
+        "document_order": {
+          "value": 5,
+          "knowledge_state": "known",
+          "rationale": "Explicit numbered step.",
+          "evidence": [
+            {
+              "evidence_id": "cev-fd86643e34d86b9de98c80ea626bcc4a93537ae3632446391bbd3f015b422451",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 385,
+              "block_end_offset": 476,
+              "document_start_offset": 593,
+              "document_end_offset": 684,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "5. The agent categorises the extracted information according to its relevance to the claim."
+            }
+          ],
+          "confidence": null
+        },
+        "activity": {
+          "value": "The agent categorises the extracted information according to its relevance to the claim",
+          "knowledge_state": "known",
+          "rationale": "Directly stated activity.",
+          "evidence": [
+            {
+              "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 388,
+              "block_end_offset": 476,
+              "document_start_offset": 596,
+              "document_end_offset": 684,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent categorises the extracted information according to its relevance to the claim."
+            }
+          ],
+          "confidence": null
+        },
+        "description": {
+          "value": "The agent categorises the extracted information according to its relevance to the claim.",
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "evidence": [
+            {
+              "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 388,
+              "block_end_offset": 476,
+              "document_start_offset": 596,
+              "document_end_offset": 684,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent categorises the extracted information according to its relevance to the claim."
+            }
+          ],
+          "confidence": null
+        },
+        "actors": {
+          "completeness": "partial",
+          "rationale": "An agent is stated; completeness is not established.",
+          "items": [
+            {
+              "value": "agent",
+              "knowledge_state": "known",
+              "rationale": "Directly stated actor.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 388,
+                  "block_end_offset": 476,
+                  "document_start_offset": 596,
+                  "document_end_offset": 684,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent categorises the extracted information according to its relevance to the claim."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 388,
+              "block_end_offset": 476,
+              "document_start_offset": 596,
+              "document_end_offset": 684,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent categorises the extracted information according to its relevance to the claim."
+            }
+          ]
+        },
+        "responsible_roles": {
+          "completeness": "partial",
+          "rationale": "An agent performs the step; completeness is not established.",
+          "items": [
+            {
+              "value": "agent",
+              "knowledge_state": "known",
+              "rationale": "Directly stated performer.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 388,
+                  "block_end_offset": 476,
+                  "document_start_offset": 596,
+                  "document_end_offset": 684,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent categorises the extracted information according to its relevance to the claim."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 388,
+              "block_end_offset": 476,
+              "document_start_offset": 596,
+              "document_end_offset": 684,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent categorises the extracted information according to its relevance to the claim."
+            }
+          ]
+        },
+        "systems": {
+          "completeness": "unknown",
+          "rationale": "No system is stated.",
+          "items": [],
+          "evidence": []
+        },
+        "inputs": {
+          "completeness": "partial",
+          "rationale": "Extracted information is directly stated.",
+          "items": [
+            {
+              "value": "extracted information",
+              "knowledge_state": "known",
+              "rationale": "Directly stated input.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 388,
+                  "block_end_offset": 476,
+                  "document_start_offset": 596,
+                  "document_end_offset": 684,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent categorises the extracted information according to its relevance to the claim."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 388,
+              "block_end_offset": 476,
+              "document_start_offset": 596,
+              "document_end_offset": 684,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent categorises the extracted information according to its relevance to the claim."
+            }
+          ]
+        },
+        "outputs": {
+          "completeness": "partial",
+          "rationale": "The extracted information is categorised according to relevance to the claim.",
+          "items": [
+            {
+              "value": "categorised extracted information",
+              "knowledge_state": "inferred",
+              "rationale": "The direct statement says the agent categorises extracted information.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 388,
+                  "block_end_offset": 476,
+                  "document_start_offset": 596,
+                  "document_end_offset": 684,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent categorises the extracted information according to its relevance to the claim."
+                }
+              ],
+              "confidence": 0.95
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 388,
+              "block_end_offset": 476,
+              "document_start_offset": 596,
+              "document_end_offset": 684,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent categorises the extracted information according to its relevance to the claim."
+            }
+          ]
+        },
+        "decisions": [],
+        "dependencies": [],
+        "exceptions": {
+          "completeness": "unknown",
+          "rationale": "No exceptions are stated.",
+          "items": [],
+          "evidence": []
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "rationale": "Work is stated to be manual and repetitive.",
+          "items": [
+            {
+              "value": "manual, repetitive and time-consuming",
+              "knowledge_state": "known",
+              "rationale": "Directly stated operating context.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-60070ba03172d8dd483644c792e3c7a1145b553545e891159383b93b6533fdcc",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0007",
+                  "block_start_offset": 0,
+                  "block_end_offset": 52,
+                  "document_start_offset": 812,
+                  "document_end_offset": 864,
+                  "source_locator": "lines 18-19",
+                  "exact_snippet": "- The work is manual, repetitive and time-consuming."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-60070ba03172d8dd483644c792e3c7a1145b553545e891159383b93b6533fdcc",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0007",
+              "block_start_offset": 0,
+              "block_end_offset": 52,
+              "document_start_offset": 812,
+              "document_end_offset": 864,
+              "source_locator": "lines 18-19",
+              "exact_snippet": "- The work is manual, repetitive and time-consuming."
+            }
+          ]
+        },
+        "characteristics": {
+          "criteria": [
+            {
+              "name": "repetition",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predictability",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "data_readiness",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ai_capability_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "human_judgement_requirement",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "business_value",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "risk_consequence",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Consequences of errors are explicitly not provided.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "residual_risk_with_human_oversight",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "implementation_complexity",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "conventional_solution_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ],
+          "human_accountability_required": {
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Accountability requirements are not stated.",
+            "evidence": [],
+            "confidence": null
+          },
+          "capability_signals": [
+            {
+              "name": "reads_unstructured_documents",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "categorises_items",
+              "assertion": {
+                "value": true,
+                "knowledge_state": "known",
+                "rationale": "The agent categorises extracted information.",
+                "evidence": [
+                  {
+                    "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+                    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                    "block_id": "t-b0005",
+                    "block_start_offset": 388,
+                    "block_end_offset": 476,
+                    "document_start_offset": 596,
+                    "document_end_offset": 684,
+                    "source_locator": "lines 9-14",
+                    "exact_snippet": "The agent categorises the extracted information according to its relevance to the claim."
+                  }
+                ],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predicts_future_outcomes",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "detects_anomalies_or_patterns",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "creates_new_content",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "searches_reference_knowledge",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ranks_or_suggests_options",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "supports_complex_decisions",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "interprets_images_or_video",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "routes_or_orchestrates_work",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ]
+        }
+      },
+      {
+        "candidate_step_id": "candidate-step-d8c90393b0778925",
+        "sequence": 6,
+        "order_basis": "explicit",
+        "document_order": {
+          "value": 6,
+          "knowledge_state": "known",
+          "rationale": "Explicit numbered step.",
+          "evidence": [
+            {
+              "evidence_id": "cev-46afb1f4e34641e62ccbafd54197fd9053bdccbc8368adfc4ade718aa82226be",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 477,
+              "block_end_offset": 577,
+              "document_start_offset": 685,
+              "document_end_offset": 785,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "6. The agent uploads the relevant document information to the organisation's existing claims system."
+            }
+          ],
+          "confidence": null
+        },
+        "activity": {
+          "value": "The agent uploads the relevant document information to the organisation's existing claims system",
+          "knowledge_state": "known",
+          "rationale": "Directly stated activity.",
+          "evidence": [
+            {
+              "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 480,
+              "block_end_offset": 577,
+              "document_start_offset": 688,
+              "document_end_offset": 785,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+            }
+          ],
+          "confidence": null
+        },
+        "description": {
+          "value": "The agent uploads the relevant document information to the organisation's existing claims system.",
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "evidence": [
+            {
+              "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 480,
+              "block_end_offset": 577,
+              "document_start_offset": 688,
+              "document_end_offset": 785,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+            }
+          ],
+          "confidence": null
+        },
+        "actors": {
+          "completeness": "partial",
+          "rationale": "An agent is stated; completeness is not established.",
+          "items": [
+            {
+              "value": "agent",
+              "knowledge_state": "known",
+              "rationale": "Directly stated actor.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 480,
+                  "block_end_offset": 577,
+                  "document_start_offset": 688,
+                  "document_end_offset": 785,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 480,
+              "block_end_offset": 577,
+              "document_start_offset": 688,
+              "document_end_offset": 785,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+            }
+          ]
+        },
+        "responsible_roles": {
+          "completeness": "partial",
+          "rationale": "An agent performs the step; completeness is not established.",
+          "items": [
+            {
+              "value": "agent",
+              "knowledge_state": "known",
+              "rationale": "Directly stated performer.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 480,
+                  "block_end_offset": 577,
+                  "document_start_offset": 688,
+                  "document_end_offset": 785,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 480,
+              "block_end_offset": 577,
+              "document_start_offset": 688,
+              "document_end_offset": 785,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+            }
+          ]
+        },
+        "systems": {
+          "completeness": "partial",
+          "rationale": "The destination system is stated; completeness of systems used is not established.",
+          "items": [
+            {
+              "value": "organisation's existing claims system",
+              "knowledge_state": "known",
+              "rationale": "Directly stated system.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 480,
+                  "block_end_offset": 577,
+                  "document_start_offset": 688,
+                  "document_end_offset": 785,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 480,
+              "block_end_offset": 577,
+              "document_start_offset": 688,
+              "document_end_offset": 785,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+            }
+          ]
+        },
+        "inputs": {
+          "completeness": "partial",
+          "rationale": "Relevant document information is directly stated.",
+          "items": [
+            {
+              "value": "relevant document information",
+              "knowledge_state": "known",
+              "rationale": "Directly stated input.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 480,
+                  "block_end_offset": 577,
+                  "document_start_offset": 688,
+                  "document_end_offset": 785,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+                }
+              ],
+              "confidence": null
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 480,
+              "block_end_offset": 577,
+              "document_start_offset": 688,
+              "document_end_offset": 785,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+            }
+          ]
+        },
+        "outputs": {
+          "completeness": "partial",
+          "rationale": "Relevant document information is uploaded to the existing claims system.",
+          "items": [
+            {
+              "value": "relevant document information in the organisation's existing claims system",
+              "knowledge_state": "inferred",
+              "rationale": "The direct statement specifies that the agent uploads relevant document information to that system.",
+              "evidence": [
+                {
+                  "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+                  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+                  "block_id": "t-b0005",
+                  "block_start_offset": 480,
+                  "block_end_offset": 577,
+                  "document_start_offset": 688,
+                  "document_end_offset": 785,
+                  "source_locator": "lines 9-14",
+                  "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+                }
+              ],
+              "confidence": 0.95
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 480,
+              "block_end_offset": 577,
+              "document_start_offset": 688,
+              "document_end_offset": 785,
+              "source_locator": "lines 9-14",
+              "exact_snippet": "The agent uploads the relevant document information to the organisation's existing claims system."
+            }
+          ]
+        },
+        "decisions": [],
+        "dependencies": [],
+        "exceptions": {
+          "completeness": "unknown",
+          "rationale": "No exceptions are stated.",
+          "items": [],
+          "evidence": []
+        },
+        "operational_characteristics": {
+          "completeness": "unknown",
+          "rationale": "No additional step-specific operating characteristic is stated.",
+          "items": [],
+          "evidence": []
+        },
+        "characteristics": {
+          "criteria": [
+            {
+              "name": "repetition",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predictability",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "data_readiness",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ai_capability_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "human_judgement_requirement",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "business_value",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "risk_consequence",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Consequences of errors are explicitly not provided.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "residual_risk_with_human_oversight",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "implementation_complexity",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "conventional_solution_fit",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "No compatible ordinal value is stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ],
+          "human_accountability_required": {
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Accountability requirements are not stated.",
+            "evidence": [],
+            "confidence": null
+          },
+          "capability_signals": [
+            {
+              "name": "reads_unstructured_documents",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "categorises_items",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "predicts_future_outcomes",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "detects_anomalies_or_patterns",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "creates_new_content",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "searches_reference_knowledge",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "ranks_or_suggests_options",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "supports_complex_decisions",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "interprets_images_or_video",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not supported for this step.",
+                "evidence": [],
+                "confidence": null
+              }
+            },
+            {
+              "name": "routes_or_orchestrates_work",
+              "assertion": {
+                "value": null,
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "evidence": [],
+                "confidence": null
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "issues": [],
+  "provider_invocations": [
+    {
+      "provider_name": "openai",
+      "requested_model": "gpt-5.6-terra",
+      "effective_model": "gpt-5.6-terra",
+      "request_id": "resp_0edac2bf506cbfc9016a7fb6a117f481a08d9d59789a74f61b",
+      "chunk_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44-chunk-0001",
+      "attempt": 1,
+      "usage": {
+        "input_tokens": 2999,
+        "output_tokens": 11334
+      }
+    }
+  ]
+}

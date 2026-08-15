@@ -1,0 +1,40 @@
+{
+  "active_artifacts": {
+    "CANDIDATE_EXTRACTION_RESULT": {
+      "artifact_id": "artifact-d9b6f3b24b0b440080ad43ef53d93c36",
+      "artifact_revision": 1,
+      "parent_artifact_id": "artifact-1de5696216de448cb2524231ddd72499",
+      "payload_sha256": "80f67bbfd44662ea604ea09a37c0b1e00b0c6548108dc590eec8a26b035b83f7"
+    },
+    "INGESTION_RESULT": {
+      "artifact_id": "artifact-1de5696216de448cb2524231ddd72499",
+      "artifact_revision": 1,
+      "parent_artifact_id": null,
+      "payload_sha256": "b446c4e8875541c8f30620b182c151ef824702109bd405d321cbbd291a95ece1"
+    }
+  },
+  "assessment_id": "assessment-26d35293ae0246eaabbba75543deeb93",
+  "candidate_present": true,
+  "candidate_step_count": 6,
+  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+  "execution_mode": "live-provider",
+  "extraction_run_id": "extraction-43d692fa-7d4c-4511-b6cc-9394eb2c2a41",
+  "extraction_status": "success",
+  "ingestion_status": "success",
+  "issues": [],
+  "provider_calls": 1,
+  "provider_invocations": [
+    {
+      "attempt": 1,
+      "chunk_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44-chunk-0001",
+      "effective_model": "gpt-5.6-terra",
+      "input_tokens": 2999,
+      "output_tokens": 11334,
+      "provider_name": "openai",
+      "request_id": "resp_0edac2bf506cbfc9016a7fb6a117f481a08d9d59789a74f61b",
+      "requested_model": "gpt-5.6-terra"
+    }
+  ],
+  "source_sha256": "7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+  "workflow_stage": "candidate-ready"
+}

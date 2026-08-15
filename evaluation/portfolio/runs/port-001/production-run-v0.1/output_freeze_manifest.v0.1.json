@@ -1,0 +1,72 @@
+{
+  "schema_version": "portfolio-product-output-freeze.v0.1",
+  "case_id": "PORT-001",
+  "run_label": "production-run-v0.1",
+  "pre_run_freeze_commit": "d2deb43c4445743673768be85201e69be69554d3",
+  "before_input": {
+    "path": "evaluation/portfolio/product_inputs/port-001.before.txt",
+    "sha256": "7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44"
+  },
+  "provider": {
+    "name": "openai",
+    "sdk_version": "2.54.0",
+    "requested_model": "gpt-5.6-terra",
+    "effective_model": "gpt-5.6-terra",
+    "configuration_id": "extraction.v0.1",
+    "configuration_sha256": "0465fc47dbb4d3759fffc54c3e483d38314d03ef47196548846d355428657967",
+    "prompt_version": "process-extraction.v0.1",
+    "schema_version": "candidate-process.v0.1",
+    "application_level_extraction_attempts": 1,
+    "provider_calls": 1,
+    "repair_invoked": false,
+    "request_id": "resp_0edac2bf506cbfc9016a7fb6a117f481a08d9d59789a74f61b",
+    "input_tokens": 2999,
+    "output_tokens": 11334,
+    "structured_output_status": "SUCCESS",
+    "evidence_resolution_status": "SUCCESS"
+  },
+  "lineage": {
+    "assessment_id": "assessment-26d35293ae0246eaabbba75543deeb93",
+    "extraction_run_id": "extraction-43d692fa-7d4c-4511-b6cc-9394eb2c2a41",
+    "review_id": "review-04f7eac882284303ac706cc09eb1ad22",
+    "approval_event_id": "approval-176",
+    "validated_process_id": "validated-extraction-43d692fa-7d4c-4511-b6cc-9394eb2c2a41",
+    "validated_process_fingerprint": "38ddf9954d31677b49577dc969996c2f13e4efc664dde3c1af1306946b270e71",
+    "assessment_run_id": "assessment-a36c9e3ae58a488abb224fabb0ebb928",
+    "decision_policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66",
+    "package_id": "decision-package-8e5a1bb22cccea7e3043ae8ec893088d5ea239c4437a00bee145486f39c3eecb"
+  },
+  "product_outcome": {
+    "workflow_stage": "package-ready",
+    "candidate_step_count": 6,
+    "review_status": "APPROVED",
+    "recommendation_distribution": {
+      "AUTOMATE": 0,
+      "AUGMENT": 0,
+      "INVESTIGATE_FURTHER": 6,
+      "DO_NOT_RECOMMEND": 0
+    },
+    "package_completeness": "COMPLETE_WITH_INFORMATION_GAPS",
+    "future_state_status": "PROPOSED / NOT DEPLOYED",
+    "roi_statement": "ROI / quantified benefit unavailable with current evidence."
+  },
+  "after_boundary_at_output_freeze": {
+    "path": "evaluation/portfolio/sealed_after/port-001.after.md",
+    "sha256": "f951ec92e664c6bbff7221f9a13634dcc82a8333ee967e9474ce31eedf6406f0",
+    "status": "SEALED_NOT_OPENED_FOR_COMPARISON"
+  },
+  "artifacts": [
+    {"path": "approval_result.json", "sha256": "da6503564862c9c8fff309d3868020b97faa3e53b3395d85d245ba00f95327dd"},
+    {"path": "approved_review.json", "sha256": "d1b118ec3ff38f5f617b3f10a092e3de88b60c85fe186202ac10e3b3d8394e64"},
+    {"path": "candidate_extraction.json", "sha256": "f215deb06df3b72b80f8ef796d43fa725bdbdbae195c91da49e00d79b558791a"},
+    {"path": "decision_package_result.json", "sha256": "1ef41e49abdc9dda0008321ac24ac5761c91a4675538a58bea650d520606ddf2"},
+    {"path": "final_run_state.json", "sha256": "8784ad627a42d9224343430a63e588c55dbff4d6e6f627a008a493a8ee0fcdc5"},
+    {"path": "ingestion_result.json", "sha256": "a8ca06db8192fd293f9f52a13d30ee01727dcb30b14d9540dcec9f9c7bf895bc"},
+    {"path": "integrated_assessment.json", "sha256": "4de091d167b0f80152012e4afc28a22c505aa1ed37868b27f720beda1a4c1345"},
+    {"path": "review_session.json", "sha256": "1e0eccad5caf93528bb1c309bb047de0155a3a796deeb93d7581d6018afebd02"},
+    {"path": "run_state_after_extraction.json", "sha256": "c0205937c1bafb02d734232e6bae7f6c6d8f11aa03caba7f90355f47e5130deb"},
+    {"path": "validated_business_process.json", "sha256": "828e99859be470e0458126414dfaa02983d9ae0cceb1c9710ff1d128963585af"},
+    {"path": "workspace.db", "sha256": "8c803c52d52e86b36ddf6e88347fa79aa41546b6b69639d5b2cf8be987152e78"}
+  ]
+}

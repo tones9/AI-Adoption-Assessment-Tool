@@ -1,0 +1,147 @@
+{
+  "status": "success",
+  "document": {
+    "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+    "source": {
+      "input_type": "plain_text_file",
+      "original_filename": "claims-document-intake.txt",
+      "media_type": "text/plain",
+      "byte_size": 1313,
+      "sha256": "7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+      "detected_encoding": "utf-8",
+      "parser_name": "ai_adoption_engine.text",
+      "parser_version": "1"
+    },
+    "metadata": {
+      "title": null,
+      "author": null,
+      "subject": null,
+      "creator": null,
+      "producer": null,
+      "created_at": null,
+      "modified_at": null,
+      "page_count": null
+    },
+    "canonical_text": "Claims-document intake and recording\n\nPurpose\n\nThis process prepares information from incoming claim documents so that claim handling can continue in the organisation's claims system.\n\nCurrent-state process\n\n1. A claim request arrives with supporting material. The material can include bills, invoices, pharmacy or clinic receipts, medical-treatment diagnoses, images and PDF scans.\n2. A claims agent opens each image or PDF document individually.\n3. The agent examines the document to identify information needed for claim processing.\n4. The agent manually extracts the required information.\n5. The agent categorises the extracted information according to its relevance to the claim.\n6. The agent uploads the relevant document information to the organisation's existing claims system.\n\nKnown operating context\n\n- The work is manual, repetitive and time-consuming.\n- The source material is unstructured and comes from several document types.\n\nInformation not provided\n\n- Claim volumes or arrival rates.\n- Exception frequency or document-quality distribution.\n- Required accuracy or service-level targets.\n- Verification and approval controls.\n- Consequences of an extraction or categorisation error.\n- Privacy, security or regulatory requirements.\n- What happens after information is placed in the claims system.",
+    "blocks": [
+      {
+        "block_id": "t-b0001",
+        "sequence": 1,
+        "page_number": null,
+        "block_number": 1,
+        "line_start": 1,
+        "line_end": 1,
+        "document_start_offset": 0,
+        "document_end_offset": 36,
+        "source_locator": "line 1",
+        "extracted_text": "Claims-document intake and recording",
+        "has_extractable_text": true
+      },
+      {
+        "block_id": "t-b0002",
+        "sequence": 2,
+        "page_number": null,
+        "block_number": 2,
+        "line_start": 3,
+        "line_end": 3,
+        "document_start_offset": 38,
+        "document_end_offset": 45,
+        "source_locator": "line 3",
+        "extracted_text": "Purpose",
+        "has_extractable_text": true
+      },
+      {
+        "block_id": "t-b0003",
+        "sequence": 3,
+        "page_number": null,
+        "block_number": 3,
+        "line_start": 5,
+        "line_end": 5,
+        "document_start_offset": 47,
+        "document_end_offset": 183,
+        "source_locator": "line 5",
+        "extracted_text": "This process prepares information from incoming claim documents so that claim handling can continue in the organisation's claims system.",
+        "has_extractable_text": true
+      },
+      {
+        "block_id": "t-b0004",
+        "sequence": 4,
+        "page_number": null,
+        "block_number": 4,
+        "line_start": 7,
+        "line_end": 7,
+        "document_start_offset": 185,
+        "document_end_offset": 206,
+        "source_locator": "line 7",
+        "extracted_text": "Current-state process",
+        "has_extractable_text": true
+      },
+      {
+        "block_id": "t-b0005",
+        "sequence": 5,
+        "page_number": null,
+        "block_number": 5,
+        "line_start": 9,
+        "line_end": 14,
+        "document_start_offset": 208,
+        "document_end_offset": 785,
+        "source_locator": "lines 9-14",
+        "extracted_text": "1. A claim request arrives with supporting material. The material can include bills, invoices, pharmacy or clinic receipts, medical-treatment diagnoses, images and PDF scans.\n2. A claims agent opens each image or PDF document individually.\n3. The agent examines the document to identify information needed for claim processing.\n4. The agent manually extracts the required information.\n5. The agent categorises the extracted information according to its relevance to the claim.\n6. The agent uploads the relevant document information to the organisation's existing claims system.",
+        "has_extractable_text": true
+      },
+      {
+        "block_id": "t-b0006",
+        "sequence": 6,
+        "page_number": null,
+        "block_number": 6,
+        "line_start": 16,
+        "line_end": 16,
+        "document_start_offset": 787,
+        "document_end_offset": 810,
+        "source_locator": "line 16",
+        "extracted_text": "Known operating context",
+        "has_extractable_text": true
+      },
+      {
+        "block_id": "t-b0007",
+        "sequence": 7,
+        "page_number": null,
+        "block_number": 7,
+        "line_start": 18,
+        "line_end": 19,
+        "document_start_offset": 812,
+        "document_end_offset": 941,
+        "source_locator": "lines 18-19",
+        "extracted_text": "- The work is manual, repetitive and time-consuming.\n- The source material is unstructured and comes from several document types.",
+        "has_extractable_text": true
+      },
+      {
+        "block_id": "t-b0008",
+        "sequence": 8,
+        "page_number": null,
+        "block_number": 8,
+        "line_start": 21,
+        "line_end": 21,
+        "document_start_offset": 943,
+        "document_end_offset": 967,
+        "source_locator": "line 21",
+        "extracted_text": "Information not provided",
+        "has_extractable_text": true
+      },
+      {
+        "block_id": "t-b0009",
+        "sequence": 9,
+        "page_number": null,
+        "block_number": 9,
+        "line_start": 23,
+        "line_end": 29,
+        "document_start_offset": 969,
+        "document_end_offset": 1312,
+        "source_locator": "lines 23-29",
+        "extracted_text": "- Claim volumes or arrival rates.\n- Exception frequency or document-quality distribution.\n- Required accuracy or service-level targets.\n- Verification and approval controls.\n- Consequences of an extraction or categorisation error.\n- Privacy, security or regulatory requirements.\n- What happens after information is placed in the claims system.",
+        "has_extractable_text": true
+      }
+    ]
+  },
+  "issues": []
+}

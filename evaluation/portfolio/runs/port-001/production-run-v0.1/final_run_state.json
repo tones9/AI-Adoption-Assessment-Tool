@@ -1,0 +1,228 @@
+{
+  "active_artifacts": {
+    "APPROVED_REVIEW": {
+      "artifact_id": "artifact-ce86982378e34f7a977fe327a852dcd9",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase4-v0.1",
+      "parent_artifact_id": "artifact-e68b270a51a543c8bfa16030a9aa4aeb",
+      "payload_sha256": "ad19918fe85b9ee6259d95c5dfcd6e6db4f89da5fcb74ec36d0e49b0621cf3d5"
+    },
+    "CANDIDATE_EXTRACTION_RESULT": {
+      "artifact_id": "artifact-d9b6f3b24b0b440080ad43ef53d93c36",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase3-v0.1",
+      "parent_artifact_id": "artifact-1de5696216de448cb2524231ddd72499",
+      "payload_sha256": "80f67bbfd44662ea604ea09a37c0b1e00b0c6548108dc590eec8a26b035b83f7"
+    },
+    "DECISION_PACKAGE_RESULT": {
+      "artifact_id": "artifact-0b7efa6356174f139a272891fa423477",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase6-v0.1",
+      "parent_artifact_id": "artifact-aa1a16ea958b414781deb329c6801da5",
+      "payload_sha256": "7adf990d2762651af860a2fee5ef3cc1f6261faf30e2bad8f5ef5de94fe0c8bf"
+    },
+    "INGESTION_RESULT": {
+      "artifact_id": "artifact-1de5696216de448cb2524231ddd72499",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase2-v0.1",
+      "parent_artifact_id": null,
+      "payload_sha256": "b446c4e8875541c8f30620b182c151ef824702109bd405d321cbbd291a95ece1"
+    },
+    "INTEGRATED_ASSESSMENT_RESULT": {
+      "artifact_id": "artifact-aa1a16ea958b414781deb329c6801da5",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase5-v0.1",
+      "parent_artifact_id": "artifact-ce86982378e34f7a977fe327a852dcd9",
+      "payload_sha256": "b15de21ebba376d71c5384eb9cbc0b687021f2df4b2cc362f15202c3581490ac"
+    },
+    "REVIEW_SESSION": {
+      "artifact_id": "artifact-e68b270a51a543c8bfa16030a9aa4aeb",
+      "artifact_revision": 1,
+      "artifact_schema_version": "phase4-v0.1",
+      "parent_artifact_id": "artifact-d9b6f3b24b0b440080ad43ef53d93c36",
+      "payload_sha256": "2e2ad304ccb33b345d407defb035fabbdc13e4d0737fdd4579e4532cbd63484d"
+    }
+  },
+  "approval_event_id": "approval-176",
+  "approval_timestamp": "2026-08-15T00:48:34.631123+00:00",
+  "assessment_id": "assessment-26d35293ae0246eaabbba75543deeb93",
+  "assessment_run_id": "assessment-a36c9e3ae58a488abb224fabb0ebb928",
+  "assessment_timestamp": "2026-08-15T00:48:34.693717+00:00",
+  "decision_policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66",
+  "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+  "extraction_run_id": "extraction-43d692fa-7d4c-4511-b6cc-9394eb2c2a41",
+  "future_state_status": "PROPOSED / NOT DEPLOYED",
+  "integration_schema_version": "phase5-v0.1",
+  "package_completeness": "COMPLETE_WITH_INFORMATION_GAPS",
+  "package_id": "decision-package-8e5a1bb22cccea7e3043ae8ec893088d5ea239c4437a00bee145486f39c3eecb",
+  "package_schema_version": "phase6-v0.1",
+  "phase1_contract_version": "phase1-v0.3",
+  "policy_id": "decision_policy.v0.2",
+  "policy_status": "PROVISIONAL \u2014 NOT YET ACADEMICALLY VALIDATED",
+  "policy_version": "0.2.0",
+  "recommendations": [
+    {
+      "activity": "A claim request arrives with supporting material",
+      "capabilities": [],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-361f56e3eb989598"
+    },
+    {
+      "activity": "A claims agent opens each image or PDF document individually",
+      "capabilities": [],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-dc8e4b75a3f527a8"
+    },
+    {
+      "activity": "The agent examines the document to identify information needed for claim processing",
+      "capabilities": [
+        "DOCUMENT_INFORMATION_EXTRACTION",
+        "COMPUTER_VISION"
+      ],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-ef7db0517a3ae2a5"
+    },
+    {
+      "activity": "The agent manually extracts the required information",
+      "capabilities": [
+        "DOCUMENT_INFORMATION_EXTRACTION",
+        "COMPUTER_VISION"
+      ],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-60b9ec576f640743"
+    },
+    {
+      "activity": "The agent categorises the extracted information according to its relevance to the claim",
+      "capabilities": [
+        "CLASSIFICATION"
+      ],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-7ea34eec0f190d65"
+    },
+    {
+      "activity": "The agent uploads the relevant document information to the organisation's existing claims system",
+      "capabilities": [],
+      "failed_gates": [
+        {
+          "gate": "technical_fit",
+          "material_criteria": [
+            "ai_capability_fit"
+          ],
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown."
+        }
+      ],
+      "priority_missing_criteria": [],
+      "priority_score": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-d8c90393b0778925"
+    }
+  ],
+  "review_corrections": [
+    {
+      "action": "reject",
+      "field_path": "steps.candidate-step-361f56e3eb989598.capability_signals.reads_unstructured_documents",
+      "rationale": "The frozen BEFORE activity describes document arrival/opening only; it does not support treating this capability as positively performed by this step.",
+      "sequence": 21
+    },
+    {
+      "action": "reject",
+      "field_path": "steps.candidate-step-361f56e3eb989598.capability_signals.interprets_images_or_video",
+      "rationale": "The frozen BEFORE activity describes document arrival/opening only; it does not support treating this capability as positively performed by this step.",
+      "sequence": 29
+    },
+    {
+      "action": "reject",
+      "field_path": "steps.candidate-step-dc8e4b75a3f527a8.capability_signals.reads_unstructured_documents",
+      "rationale": "The frozen BEFORE activity describes document arrival/opening only; it does not support treating this capability as positively performed by this step.",
+      "sequence": 49
+    },
+    {
+      "action": "reject",
+      "field_path": "steps.candidate-step-dc8e4b75a3f527a8.capability_signals.interprets_images_or_video",
+      "rationale": "The frozen BEFORE activity describes document arrival/opening only; it does not support treating this capability as positively performed by this step.",
+      "sequence": 57
+    },
+    {
+      "action": "correct",
+      "field_path": "steps.candidate-step-60b9ec576f640743.inputs.items[0]",
+      "rationale": "The frozen BEFORE sequence states that the agent examines the document and then extracts the required information; the document is the input, not information that has already been extracted.",
+      "sequence": 93
+    }
+  ],
+  "review_event_count": 176,
+  "review_event_counts": {
+    "accept": 52,
+    "accept-step-order": 1,
+    "approve": 1,
+    "correct": 1,
+    "reject": 4,
+    "retain-unknown": 117
+  },
+  "review_id": "review-04f7eac882284303ac706cc09eb1ad22",
+  "roi_statement": "ROI / quantified benefit unavailable with current evidence.",
+  "source_sha256": "7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+  "validated_process_fingerprint": "38ddf9954d31677b49577dc969996c2f13e4efc664dde3c1af1306946b270e71",
+  "validated_process_id": "validated-extraction-43d692fa-7d4c-4511-b6cc-9394eb2c2a41",
+  "workflow_stage": "package-ready"
+}

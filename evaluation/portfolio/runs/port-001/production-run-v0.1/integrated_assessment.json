@@ -1,0 +1,2719 @@
+{
+  "status": "success",
+  "metadata": {
+    "assessment_run_id": "assessment-a36c9e3ae58a488abb224fabb0ebb928",
+    "assessed_at": "2026-08-15T00:48:34.693717Z",
+    "integration_schema_version": "phase5-v0.1",
+    "phase1_contract_version": "phase1-v0.3"
+  },
+  "lineage": {
+    "source_document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+    "extraction_run_id": "extraction-43d692fa-7d4c-4511-b6cc-9394eb2c2a41",
+    "review_id": "review-04f7eac882284303ac706cc09eb1ad22",
+    "approval_event_id": "approval-176",
+    "approved_at": "2026-08-15T00:48:34.631123Z",
+    "validated_process_id": "validated-extraction-43d692fa-7d4c-4511-b6cc-9394eb2c2a41",
+    "validated_process_fingerprint": "38ddf9954d31677b49577dc969996c2f13e4efc664dde3c1af1306946b270e71"
+  },
+  "policy": {
+    "policy_id": "decision_policy.v0.2",
+    "policy_version": "0.2.0",
+    "policy_status": "PROVISIONAL — NOT YET ACADEMICALLY VALIDATED",
+    "decision_policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66"
+  },
+  "process_assessment": {
+    "process_id": "validated-extraction-43d692fa-7d4c-4511-b6cc-9394eb2c2a41",
+    "process_name": "Claims-document intake and recording",
+    "policy_id": "decision_policy.v0.2",
+    "policy_version": "0.2.0",
+    "policy_status": "PROVISIONAL — NOT YET ACADEMICALLY VALIDATED",
+    "step_assessments": [
+      {
+        "step_id": "candidate-step-361f56e3eb989598",
+        "activity": "A claim request arrives with supporting material",
+        "recommendation_mode": "INVESTIGATE_FURTHER",
+        "capabilities": [],
+        "criteria": [
+          {
+            "criterion": "repetition",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "predictability",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "data_readiness",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "ai_capability_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": true,
+            "material_to_priority": false,
+            "material_at_gates": [
+              "technical_fit"
+            ]
+          },
+          {
+            "criterion": "human_judgement_requirement",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "business_value",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "risk_consequence",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Consequences of errors are explicitly not provided.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "residual_risk_with_human_oversight",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "implementation_complexity",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "conventional_solution_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          }
+        ],
+        "human_accountability": {
+          "value": null,
+          "knowledge_state": "unknown",
+          "rationale": "Accountability requirements are not stated.",
+          "evidence_ids": [],
+          "confidence": null,
+          "material_to_recommendation": false,
+          "material_at_gates": []
+        },
+        "gate_results": [
+          {
+            "gate": "evidence_sufficiency",
+            "status": "passed",
+            "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+            "evidence_ids": [
+              "cev-2d025e82cc9c04be4299754138bf3ce60ceb5930b311531ff694a38fc60649ea",
+              "cev-eba5cb7092d978f80b1b1a83fb1e842b564a2840396d4cd3debd29b31d5f4418",
+              "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+              "cev-ff012238f1d855a138cbcbe1c987f594ac47d5706190f52530d31dd392407083"
+            ],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "technical_fit",
+            "status": "failed",
+            "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+            "evidence_ids": [],
+            "material_criteria": [
+              "ai_capability_fit"
+            ],
+            "accountability_material": false
+          },
+          {
+            "gate": "business_value",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "risk_and_autonomy",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          }
+        ],
+        "priority": null,
+        "priority_status": "not_applicable",
+        "priority_missing_criteria": [],
+        "reasoning": [
+          "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Final mode: INVESTIGATE_FURTHER under decision_policy.v0.2 (PROVISIONAL — NOT YET ACADEMICALLY VALIDATED)."
+        ],
+        "evidence": [
+          {
+            "evidence_id": "cev-2d025e82cc9c04be4299754138bf3ce60ceb5930b311531ff694a38fc60649ea",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "A claim request arrives with supporting material.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-ff012238f1d855a138cbcbe1c987f594ac47d5706190f52530d31dd392407083",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "The material can include bills, invoices, pharmacy or clinic receipts, medical-treatment diagnoses, images and PDF scans.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-eba5cb7092d978f80b1b1a83fb1e842b564a2840396d4cd3debd29b31d5f4418",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "1. A claim request arrives with supporting material.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 18-19",
+            "supporting_snippet": "- The source material is unstructured and comes from several document types.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "step_id": "candidate-step-dc8e4b75a3f527a8",
+        "activity": "A claims agent opens each image or PDF document individually",
+        "recommendation_mode": "INVESTIGATE_FURTHER",
+        "capabilities": [],
+        "criteria": [
+          {
+            "criterion": "repetition",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "predictability",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "data_readiness",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "ai_capability_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": true,
+            "material_to_priority": false,
+            "material_at_gates": [
+              "technical_fit"
+            ]
+          },
+          {
+            "criterion": "human_judgement_requirement",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "business_value",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "risk_consequence",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Consequences of errors are explicitly not provided.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "residual_risk_with_human_oversight",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "implementation_complexity",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "conventional_solution_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          }
+        ],
+        "human_accountability": {
+          "value": null,
+          "knowledge_state": "unknown",
+          "rationale": "Accountability requirements are not stated.",
+          "evidence_ids": [],
+          "confidence": null,
+          "material_to_recommendation": false,
+          "material_at_gates": []
+        },
+        "gate_results": [
+          {
+            "gate": "evidence_sufficiency",
+            "status": "passed",
+            "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+            "evidence_ids": [
+              "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+              "cev-f76ff4c4b33c32067f03e4904969b638a32832663c5b53d844e6380f20948fd6"
+            ],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "technical_fit",
+            "status": "failed",
+            "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+            "evidence_ids": [],
+            "material_criteria": [
+              "ai_capability_fit"
+            ],
+            "accountability_material": false
+          },
+          {
+            "gate": "business_value",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "risk_and_autonomy",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          }
+        ],
+        "priority": null,
+        "priority_status": "not_applicable",
+        "priority_missing_criteria": [],
+        "reasoning": [
+          "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Final mode: INVESTIGATE_FURTHER under decision_policy.v0.2 (PROVISIONAL — NOT YET ACADEMICALLY VALIDATED)."
+        ],
+        "evidence": [
+          {
+            "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "A claims agent opens each image or PDF document individually.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-f76ff4c4b33c32067f03e4904969b638a32832663c5b53d844e6380f20948fd6",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "2. A claims agent opens each image or PDF document individually.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "step_id": "candidate-step-ef7db0517a3ae2a5",
+        "activity": "The agent examines the document to identify information needed for claim processing",
+        "recommendation_mode": "INVESTIGATE_FURTHER",
+        "capabilities": [
+          "DOCUMENT_INFORMATION_EXTRACTION",
+          "COMPUTER_VISION"
+        ],
+        "criteria": [
+          {
+            "criterion": "repetition",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "predictability",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "data_readiness",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "ai_capability_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": true,
+            "material_to_priority": false,
+            "material_at_gates": [
+              "technical_fit"
+            ]
+          },
+          {
+            "criterion": "human_judgement_requirement",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "business_value",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "risk_consequence",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Consequences of errors are explicitly not provided.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "residual_risk_with_human_oversight",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "implementation_complexity",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "conventional_solution_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          }
+        ],
+        "human_accountability": {
+          "value": null,
+          "knowledge_state": "unknown",
+          "rationale": "Accountability requirements are not stated.",
+          "evidence_ids": [],
+          "confidence": null,
+          "material_to_recommendation": false,
+          "material_at_gates": []
+        },
+        "gate_results": [
+          {
+            "gate": "evidence_sufficiency",
+            "status": "passed",
+            "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+            "evidence_ids": [
+              "cev-c80a224e48f935fd63733c0f90929ee5afa1b2868222a8268f72fa2d793a0879",
+              "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+              "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8"
+            ],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "technical_fit",
+            "status": "failed",
+            "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+            "evidence_ids": [],
+            "material_criteria": [
+              "ai_capability_fit"
+            ],
+            "accountability_material": false
+          },
+          {
+            "gate": "business_value",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "risk_and_autonomy",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          }
+        ],
+        "priority": null,
+        "priority_status": "not_applicable",
+        "priority_missing_criteria": [],
+        "reasoning": [
+          "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Final mode: INVESTIGATE_FURTHER under decision_policy.v0.2 (PROVISIONAL — NOT YET ACADEMICALLY VALIDATED)."
+        ],
+        "evidence": [
+          {
+            "evidence_id": "cev-ff012238f1d855a138cbcbe1c987f594ac47d5706190f52530d31dd392407083",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "The material can include bills, invoices, pharmacy or clinic receipts, medical-treatment diagnoses, images and PDF scans.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 18-19",
+            "supporting_snippet": "- The source material is unstructured and comes from several document types.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "The agent examines the document to identify information needed for claim processing.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-c80a224e48f935fd63733c0f90929ee5afa1b2868222a8268f72fa2d793a0879",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "3. The agent examines the document to identify information needed for claim processing.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "step_id": "candidate-step-60b9ec576f640743",
+        "activity": "The agent manually extracts the required information",
+        "recommendation_mode": "INVESTIGATE_FURTHER",
+        "capabilities": [
+          "DOCUMENT_INFORMATION_EXTRACTION",
+          "COMPUTER_VISION"
+        ],
+        "criteria": [
+          {
+            "criterion": "repetition",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "predictability",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "data_readiness",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "ai_capability_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": true,
+            "material_to_priority": false,
+            "material_at_gates": [
+              "technical_fit"
+            ]
+          },
+          {
+            "criterion": "human_judgement_requirement",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "business_value",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "risk_consequence",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Consequences of errors are explicitly not provided.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "residual_risk_with_human_oversight",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "implementation_complexity",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "conventional_solution_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          }
+        ],
+        "human_accountability": {
+          "value": null,
+          "knowledge_state": "unknown",
+          "rationale": "Accountability requirements are not stated.",
+          "evidence_ids": [],
+          "confidence": null,
+          "material_to_recommendation": false,
+          "material_at_gates": []
+        },
+        "gate_results": [
+          {
+            "gate": "evidence_sufficiency",
+            "status": "passed",
+            "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+            "evidence_ids": [
+              "cev-60070ba03172d8dd483644c792e3c7a1145b553545e891159383b93b6533fdcc",
+              "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+              "cev-f15c6654b9e897add1150d35989e0b8acc0a63b01c16dbc5bcf8511c8b734841"
+            ],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "technical_fit",
+            "status": "failed",
+            "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+            "evidence_ids": [],
+            "material_criteria": [
+              "ai_capability_fit"
+            ],
+            "accountability_material": false
+          },
+          {
+            "gate": "business_value",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "risk_and_autonomy",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          }
+        ],
+        "priority": null,
+        "priority_status": "not_applicable",
+        "priority_missing_criteria": [],
+        "reasoning": [
+          "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Final mode: INVESTIGATE_FURTHER under decision_policy.v0.2 (PROVISIONAL — NOT YET ACADEMICALLY VALIDATED)."
+        ],
+        "evidence": [
+          {
+            "evidence_id": "cev-ff012238f1d855a138cbcbe1c987f594ac47d5706190f52530d31dd392407083",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "The material can include bills, invoices, pharmacy or clinic receipts, medical-treatment diagnoses, images and PDF scans.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 18-19",
+            "supporting_snippet": "- The source material is unstructured and comes from several document types.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "The agent manually extracts the required information.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-f15c6654b9e897add1150d35989e0b8acc0a63b01c16dbc5bcf8511c8b734841",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "4. The agent manually extracts the required information.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-60070ba03172d8dd483644c792e3c7a1145b553545e891159383b93b6533fdcc",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 18-19",
+            "supporting_snippet": "- The work is manual, repetitive and time-consuming.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "step_id": "candidate-step-7ea34eec0f190d65",
+        "activity": "The agent categorises the extracted information according to its relevance to the claim",
+        "recommendation_mode": "INVESTIGATE_FURTHER",
+        "capabilities": [
+          "CLASSIFICATION"
+        ],
+        "criteria": [
+          {
+            "criterion": "repetition",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "predictability",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "data_readiness",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "ai_capability_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": true,
+            "material_to_priority": false,
+            "material_at_gates": [
+              "technical_fit"
+            ]
+          },
+          {
+            "criterion": "human_judgement_requirement",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "business_value",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "risk_consequence",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Consequences of errors are explicitly not provided.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "residual_risk_with_human_oversight",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "implementation_complexity",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "conventional_solution_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          }
+        ],
+        "human_accountability": {
+          "value": null,
+          "knowledge_state": "unknown",
+          "rationale": "Accountability requirements are not stated.",
+          "evidence_ids": [],
+          "confidence": null,
+          "material_to_recommendation": false,
+          "material_at_gates": []
+        },
+        "gate_results": [
+          {
+            "gate": "evidence_sufficiency",
+            "status": "passed",
+            "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+            "evidence_ids": [
+              "cev-60070ba03172d8dd483644c792e3c7a1145b553545e891159383b93b6533fdcc",
+              "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+              "cev-fd86643e34d86b9de98c80ea626bcc4a93537ae3632446391bbd3f015b422451"
+            ],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "technical_fit",
+            "status": "failed",
+            "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+            "evidence_ids": [],
+            "material_criteria": [
+              "ai_capability_fit"
+            ],
+            "accountability_material": false
+          },
+          {
+            "gate": "business_value",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "risk_and_autonomy",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          }
+        ],
+        "priority": null,
+        "priority_status": "not_applicable",
+        "priority_missing_criteria": [],
+        "reasoning": [
+          "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Final mode: INVESTIGATE_FURTHER under decision_policy.v0.2 (PROVISIONAL — NOT YET ACADEMICALLY VALIDATED)."
+        ],
+        "evidence": [
+          {
+            "evidence_id": "cev-60070ba03172d8dd483644c792e3c7a1145b553545e891159383b93b6533fdcc",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 18-19",
+            "supporting_snippet": "- The work is manual, repetitive and time-consuming.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "The agent categorises the extracted information according to its relevance to the claim.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-fd86643e34d86b9de98c80ea626bcc4a93537ae3632446391bbd3f015b422451",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "5. The agent categorises the extracted information according to its relevance to the claim.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "step_id": "candidate-step-d8c90393b0778925",
+        "activity": "The agent uploads the relevant document information to the organisation's existing claims system",
+        "recommendation_mode": "INVESTIGATE_FURTHER",
+        "capabilities": [],
+        "criteria": [
+          {
+            "criterion": "repetition",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "predictability",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "data_readiness",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "ai_capability_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": true,
+            "material_to_priority": false,
+            "material_at_gates": [
+              "technical_fit"
+            ]
+          },
+          {
+            "criterion": "human_judgement_requirement",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "business_value",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "risk_consequence",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "Consequences of errors are explicitly not provided.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "residual_risk_with_human_oversight",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "implementation_complexity",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          },
+          {
+            "criterion": "conventional_solution_fit",
+            "value": null,
+            "knowledge_state": "unknown",
+            "rationale": "No compatible ordinal value is stated.",
+            "evidence_ids": [],
+            "confidence": null,
+            "material_to_recommendation": false,
+            "material_to_priority": false,
+            "material_at_gates": []
+          }
+        ],
+        "human_accountability": {
+          "value": null,
+          "knowledge_state": "unknown",
+          "rationale": "Accountability requirements are not stated.",
+          "evidence_ids": [],
+          "confidence": null,
+          "material_to_recommendation": false,
+          "material_at_gates": []
+        },
+        "gate_results": [
+          {
+            "gate": "evidence_sufficiency",
+            "status": "passed",
+            "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+            "evidence_ids": [
+              "cev-46afb1f4e34641e62ccbafd54197fd9053bdccbc8368adfc4ade718aa82226be",
+              "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501"
+            ],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "technical_fit",
+            "status": "failed",
+            "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+            "evidence_ids": [],
+            "material_criteria": [
+              "ai_capability_fit"
+            ],
+            "accountability_material": false
+          },
+          {
+            "gate": "business_value",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          },
+          {
+            "gate": "risk_and_autonomy",
+            "status": "not_evaluated",
+            "rationale": "Not evaluated because an earlier gate determined the outcome.",
+            "evidence_ids": [],
+            "material_criteria": [],
+            "accountability_material": false
+          }
+        ],
+        "priority": null,
+        "priority_status": "not_applicable",
+        "priority_missing_criteria": [],
+        "reasoning": [
+          "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Not evaluated because an earlier gate determined the outcome.",
+          "Final mode: INVESTIGATE_FURTHER under decision_policy.v0.2 (PROVISIONAL — NOT YET ACADEMICALLY VALIDATED)."
+        ],
+        "evidence": [
+          {
+            "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "The agent uploads the relevant document information to the organisation's existing claims system.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          },
+          {
+            "evidence_id": "cev-46afb1f4e34641e62ccbafd54197fd9053bdccbc8368adfc4ade718aa82226be",
+            "source_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "source_locator": "lines 9-14",
+            "supporting_snippet": "6. The agent uploads the relevant document information to the organisation's existing claims system.",
+            "provenance": "Phase 2 document-supported source evidence",
+            "knowledge_state": "known",
+            "uncertainty_status": "certain",
+            "confidence": null
+          }
+        ]
+      }
+    ]
+  },
+  "step_traceability": [
+    {
+      "step_id": "candidate-step-361f56e3eb989598",
+      "assessment_step_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598]",
+      "recommendation_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].recommendation_mode",
+      "gate_results_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].gate_results",
+      "validated_step_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598]",
+      "review_step_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598]",
+      "activity": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].activity",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].activity",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].activity",
+        "origin": "DOCUMENT_SUPPORTED",
+        "knowledge_state": "known",
+        "review_disposition": "accepted",
+        "evidence": [
+          {
+            "evidence_id": "cev-2d025e82cc9c04be4299754138bf3ce60ceb5930b311531ff694a38fc60649ea",
+            "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "block_id": "t-b0005",
+            "block_start_offset": 3,
+            "block_end_offset": 52,
+            "source_locator": "lines 9-14"
+          }
+        ]
+      },
+      "criteria": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.repetition",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].criteria[name=repetition]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].criteria[criterion=repetition]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.predictability",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].criteria[name=predictability]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].criteria[criterion=predictability]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.data_readiness",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].criteria[name=data_readiness]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].criteria[criterion=data_readiness]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.ai_capability_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].criteria[name=ai_capability_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].criteria[criterion=ai_capability_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.human_judgement_requirement",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].criteria[name=human_judgement_requirement]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].criteria[criterion=human_judgement_requirement]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.business_value",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].criteria[name=business_value]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].criteria[criterion=business_value]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.risk_consequence",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].criteria[name=risk_consequence]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].criteria[criterion=risk_consequence]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.residual_risk_with_human_oversight",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].criteria[name=residual_risk_with_human_oversight]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].criteria[criterion=residual_risk_with_human_oversight]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.implementation_complexity",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].criteria[name=implementation_complexity]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].criteria[criterion=implementation_complexity]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.conventional_solution_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].criteria[name=conventional_solution_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].criteria[criterion=conventional_solution_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ],
+      "human_accountability": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.human_accountability_required",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].human_accountability_required",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-361f56e3eb989598].human_accountability",
+        "origin": "UNKNOWN",
+        "knowledge_state": "unknown",
+        "review_disposition": "unknown-retained",
+        "evidence": []
+      },
+      "capability_signals": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.capability_signals.reads_unstructured_documents",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].capability_signals[name=reads_unstructured_documents]",
+          "assessment_field_path": null,
+          "origin": "DOCUMENT_SUPPORTED",
+          "knowledge_state": "known",
+          "review_disposition": "rejected",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.capability_signals.categorises_items",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].capability_signals[name=categorises_items]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.capability_signals.predicts_future_outcomes",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].capability_signals[name=predicts_future_outcomes]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.capability_signals.detects_anomalies_or_patterns",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].capability_signals[name=detects_anomalies_or_patterns]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.capability_signals.creates_new_content",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].capability_signals[name=creates_new_content]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.capability_signals.searches_reference_knowledge",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].capability_signals[name=searches_reference_knowledge]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.capability_signals.ranks_or_suggests_options",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].capability_signals[name=ranks_or_suggests_options]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.capability_signals.supports_complex_decisions",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].capability_signals[name=supports_complex_decisions]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.capability_signals.interprets_images_or_video",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].capability_signals[name=interprets_images_or_video]",
+          "assessment_field_path": null,
+          "origin": "DOCUMENT_SUPPORTED",
+          "knowledge_state": "known",
+          "review_disposition": "rejected",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-361f56e3eb989598].characteristics.capability_signals.routes_or_orchestrates_work",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-361f56e3eb989598].capability_signals[name=routes_or_orchestrates_work]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "step_id": "candidate-step-dc8e4b75a3f527a8",
+      "assessment_step_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8]",
+      "recommendation_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].recommendation_mode",
+      "gate_results_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].gate_results",
+      "validated_step_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8]",
+      "review_step_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8]",
+      "activity": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].activity",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].activity",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].activity",
+        "origin": "DOCUMENT_SUPPORTED",
+        "knowledge_state": "known",
+        "review_disposition": "accepted",
+        "evidence": [
+          {
+            "evidence_id": "cev-dde399530d28c852f06174411ead3b2e02c2e246d81d5f96b5ca456c6036ed82",
+            "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "block_id": "t-b0005",
+            "block_start_offset": 178,
+            "block_end_offset": 239,
+            "source_locator": "lines 9-14"
+          }
+        ]
+      },
+      "criteria": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.repetition",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].criteria[name=repetition]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].criteria[criterion=repetition]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.predictability",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].criteria[name=predictability]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].criteria[criterion=predictability]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.data_readiness",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].criteria[name=data_readiness]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].criteria[criterion=data_readiness]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.ai_capability_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].criteria[name=ai_capability_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].criteria[criterion=ai_capability_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.human_judgement_requirement",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].criteria[name=human_judgement_requirement]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].criteria[criterion=human_judgement_requirement]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.business_value",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].criteria[name=business_value]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].criteria[criterion=business_value]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.risk_consequence",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].criteria[name=risk_consequence]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].criteria[criterion=risk_consequence]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.residual_risk_with_human_oversight",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].criteria[name=residual_risk_with_human_oversight]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].criteria[criterion=residual_risk_with_human_oversight]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.implementation_complexity",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].criteria[name=implementation_complexity]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].criteria[criterion=implementation_complexity]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.conventional_solution_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].criteria[name=conventional_solution_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].criteria[criterion=conventional_solution_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ],
+      "human_accountability": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.human_accountability_required",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].human_accountability_required",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-dc8e4b75a3f527a8].human_accountability",
+        "origin": "UNKNOWN",
+        "knowledge_state": "unknown",
+        "review_disposition": "unknown-retained",
+        "evidence": []
+      },
+      "capability_signals": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.capability_signals.reads_unstructured_documents",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].capability_signals[name=reads_unstructured_documents]",
+          "assessment_field_path": null,
+          "origin": "DOCUMENT_SUPPORTED",
+          "knowledge_state": "known",
+          "review_disposition": "rejected",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.capability_signals.categorises_items",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].capability_signals[name=categorises_items]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.capability_signals.predicts_future_outcomes",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].capability_signals[name=predicts_future_outcomes]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.capability_signals.detects_anomalies_or_patterns",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].capability_signals[name=detects_anomalies_or_patterns]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.capability_signals.creates_new_content",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].capability_signals[name=creates_new_content]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.capability_signals.searches_reference_knowledge",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].capability_signals[name=searches_reference_knowledge]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.capability_signals.ranks_or_suggests_options",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].capability_signals[name=ranks_or_suggests_options]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.capability_signals.supports_complex_decisions",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].capability_signals[name=supports_complex_decisions]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.capability_signals.interprets_images_or_video",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].capability_signals[name=interprets_images_or_video]",
+          "assessment_field_path": null,
+          "origin": "DOCUMENT_SUPPORTED",
+          "knowledge_state": "known",
+          "review_disposition": "rejected",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-dc8e4b75a3f527a8].characteristics.capability_signals.routes_or_orchestrates_work",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-dc8e4b75a3f527a8].capability_signals[name=routes_or_orchestrates_work]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "step_id": "candidate-step-ef7db0517a3ae2a5",
+      "assessment_step_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5]",
+      "recommendation_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].recommendation_mode",
+      "gate_results_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].gate_results",
+      "validated_step_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5]",
+      "review_step_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5]",
+      "activity": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].activity",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].activity",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].activity",
+        "origin": "DOCUMENT_SUPPORTED",
+        "knowledge_state": "known",
+        "review_disposition": "accepted",
+        "evidence": [
+          {
+            "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+            "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "block_id": "t-b0005",
+            "block_start_offset": 243,
+            "block_end_offset": 327,
+            "source_locator": "lines 9-14"
+          }
+        ]
+      },
+      "criteria": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.repetition",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].criteria[name=repetition]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].criteria[criterion=repetition]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.predictability",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].criteria[name=predictability]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].criteria[criterion=predictability]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.data_readiness",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].criteria[name=data_readiness]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].criteria[criterion=data_readiness]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.ai_capability_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].criteria[name=ai_capability_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].criteria[criterion=ai_capability_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.human_judgement_requirement",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].criteria[name=human_judgement_requirement]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].criteria[criterion=human_judgement_requirement]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.business_value",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].criteria[name=business_value]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].criteria[criterion=business_value]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.risk_consequence",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].criteria[name=risk_consequence]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].criteria[criterion=risk_consequence]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.residual_risk_with_human_oversight",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].criteria[name=residual_risk_with_human_oversight]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].criteria[criterion=residual_risk_with_human_oversight]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.implementation_complexity",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].criteria[name=implementation_complexity]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].criteria[criterion=implementation_complexity]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.conventional_solution_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].criteria[name=conventional_solution_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].criteria[criterion=conventional_solution_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ],
+      "human_accountability": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.human_accountability_required",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].human_accountability_required",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-ef7db0517a3ae2a5].human_accountability",
+        "origin": "UNKNOWN",
+        "knowledge_state": "unknown",
+        "review_disposition": "unknown-retained",
+        "evidence": []
+      },
+      "capability_signals": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.capability_signals.reads_unstructured_documents",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].capability_signals[name=reads_unstructured_documents]",
+          "assessment_field_path": null,
+          "origin": "DOCUMENT_SUPPORTED",
+          "knowledge_state": "known",
+          "review_disposition": "accepted",
+          "evidence": [
+            {
+              "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 243,
+              "block_end_offset": 327,
+              "source_locator": "lines 9-14"
+            },
+            {
+              "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0007",
+              "block_start_offset": 53,
+              "block_end_offset": 129,
+              "source_locator": "lines 18-19"
+            }
+          ]
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.capability_signals.categorises_items",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].capability_signals[name=categorises_items]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.capability_signals.predicts_future_outcomes",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].capability_signals[name=predicts_future_outcomes]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.capability_signals.detects_anomalies_or_patterns",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].capability_signals[name=detects_anomalies_or_patterns]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.capability_signals.creates_new_content",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].capability_signals[name=creates_new_content]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.capability_signals.searches_reference_knowledge",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].capability_signals[name=searches_reference_knowledge]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.capability_signals.ranks_or_suggests_options",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].capability_signals[name=ranks_or_suggests_options]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.capability_signals.supports_complex_decisions",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].capability_signals[name=supports_complex_decisions]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.capability_signals.interprets_images_or_video",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].capability_signals[name=interprets_images_or_video]",
+          "assessment_field_path": null,
+          "origin": "DOCUMENT_SUPPORTED",
+          "knowledge_state": "known",
+          "review_disposition": "accepted",
+          "evidence": [
+            {
+              "evidence_id": "cev-dc231747306e07147649b2e6e2b9da078c410ea876578ef484a98b9479df47f9",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 243,
+              "block_end_offset": 327,
+              "source_locator": "lines 9-14"
+            },
+            {
+              "evidence_id": "cev-ff012238f1d855a138cbcbe1c987f594ac47d5706190f52530d31dd392407083",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 53,
+              "block_end_offset": 174,
+              "source_locator": "lines 9-14"
+            }
+          ]
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-ef7db0517a3ae2a5].characteristics.capability_signals.routes_or_orchestrates_work",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-ef7db0517a3ae2a5].capability_signals[name=routes_or_orchestrates_work]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "step_id": "candidate-step-60b9ec576f640743",
+      "assessment_step_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743]",
+      "recommendation_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].recommendation_mode",
+      "gate_results_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].gate_results",
+      "validated_step_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743]",
+      "review_step_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743]",
+      "activity": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].activity",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].activity",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].activity",
+        "origin": "DOCUMENT_SUPPORTED",
+        "knowledge_state": "known",
+        "review_disposition": "accepted",
+        "evidence": [
+          {
+            "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+            "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "block_id": "t-b0005",
+            "block_start_offset": 331,
+            "block_end_offset": 384,
+            "source_locator": "lines 9-14"
+          }
+        ]
+      },
+      "criteria": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.repetition",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].criteria[name=repetition]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].criteria[criterion=repetition]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.predictability",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].criteria[name=predictability]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].criteria[criterion=predictability]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.data_readiness",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].criteria[name=data_readiness]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].criteria[criterion=data_readiness]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.ai_capability_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].criteria[name=ai_capability_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].criteria[criterion=ai_capability_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.human_judgement_requirement",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].criteria[name=human_judgement_requirement]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].criteria[criterion=human_judgement_requirement]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.business_value",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].criteria[name=business_value]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].criteria[criterion=business_value]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.risk_consequence",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].criteria[name=risk_consequence]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].criteria[criterion=risk_consequence]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.residual_risk_with_human_oversight",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].criteria[name=residual_risk_with_human_oversight]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].criteria[criterion=residual_risk_with_human_oversight]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.implementation_complexity",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].criteria[name=implementation_complexity]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].criteria[criterion=implementation_complexity]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.conventional_solution_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].criteria[name=conventional_solution_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].criteria[criterion=conventional_solution_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ],
+      "human_accountability": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.human_accountability_required",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].human_accountability_required",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-60b9ec576f640743].human_accountability",
+        "origin": "UNKNOWN",
+        "knowledge_state": "unknown",
+        "review_disposition": "unknown-retained",
+        "evidence": []
+      },
+      "capability_signals": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.capability_signals.reads_unstructured_documents",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].capability_signals[name=reads_unstructured_documents]",
+          "assessment_field_path": null,
+          "origin": "DOCUMENT_SUPPORTED",
+          "knowledge_state": "known",
+          "review_disposition": "accepted",
+          "evidence": [
+            {
+              "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 331,
+              "block_end_offset": 384,
+              "source_locator": "lines 9-14"
+            },
+            {
+              "evidence_id": "cev-f0362425c576946055aff478a831fa5813a39829d96ed1327add7e05ccf8e2d8",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0007",
+              "block_start_offset": 53,
+              "block_end_offset": 129,
+              "source_locator": "lines 18-19"
+            }
+          ]
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.capability_signals.categorises_items",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].capability_signals[name=categorises_items]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.capability_signals.predicts_future_outcomes",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].capability_signals[name=predicts_future_outcomes]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.capability_signals.detects_anomalies_or_patterns",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].capability_signals[name=detects_anomalies_or_patterns]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.capability_signals.creates_new_content",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].capability_signals[name=creates_new_content]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.capability_signals.searches_reference_knowledge",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].capability_signals[name=searches_reference_knowledge]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.capability_signals.ranks_or_suggests_options",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].capability_signals[name=ranks_or_suggests_options]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.capability_signals.supports_complex_decisions",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].capability_signals[name=supports_complex_decisions]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.capability_signals.interprets_images_or_video",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].capability_signals[name=interprets_images_or_video]",
+          "assessment_field_path": null,
+          "origin": "DOCUMENT_SUPPORTED",
+          "knowledge_state": "known",
+          "review_disposition": "accepted",
+          "evidence": [
+            {
+              "evidence_id": "cev-8e19ecbddfadf65c136657f1d268aa8f079cb933984b45fbb6dacda21113350f",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 331,
+              "block_end_offset": 384,
+              "source_locator": "lines 9-14"
+            },
+            {
+              "evidence_id": "cev-ff012238f1d855a138cbcbe1c987f594ac47d5706190f52530d31dd392407083",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 53,
+              "block_end_offset": 174,
+              "source_locator": "lines 9-14"
+            }
+          ]
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-60b9ec576f640743].characteristics.capability_signals.routes_or_orchestrates_work",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-60b9ec576f640743].capability_signals[name=routes_or_orchestrates_work]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "step_id": "candidate-step-7ea34eec0f190d65",
+      "assessment_step_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65]",
+      "recommendation_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].recommendation_mode",
+      "gate_results_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].gate_results",
+      "validated_step_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65]",
+      "review_step_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65]",
+      "activity": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].activity",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].activity",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].activity",
+        "origin": "DOCUMENT_SUPPORTED",
+        "knowledge_state": "known",
+        "review_disposition": "accepted",
+        "evidence": [
+          {
+            "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+            "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "block_id": "t-b0005",
+            "block_start_offset": 388,
+            "block_end_offset": 476,
+            "source_locator": "lines 9-14"
+          }
+        ]
+      },
+      "criteria": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.repetition",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].criteria[name=repetition]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].criteria[criterion=repetition]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.predictability",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].criteria[name=predictability]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].criteria[criterion=predictability]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.data_readiness",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].criteria[name=data_readiness]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].criteria[criterion=data_readiness]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.ai_capability_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].criteria[name=ai_capability_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].criteria[criterion=ai_capability_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.human_judgement_requirement",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].criteria[name=human_judgement_requirement]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].criteria[criterion=human_judgement_requirement]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.business_value",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].criteria[name=business_value]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].criteria[criterion=business_value]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.risk_consequence",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].criteria[name=risk_consequence]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].criteria[criterion=risk_consequence]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.residual_risk_with_human_oversight",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].criteria[name=residual_risk_with_human_oversight]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].criteria[criterion=residual_risk_with_human_oversight]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.implementation_complexity",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].criteria[name=implementation_complexity]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].criteria[criterion=implementation_complexity]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.conventional_solution_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].criteria[name=conventional_solution_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].criteria[criterion=conventional_solution_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ],
+      "human_accountability": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.human_accountability_required",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].human_accountability_required",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-7ea34eec0f190d65].human_accountability",
+        "origin": "UNKNOWN",
+        "knowledge_state": "unknown",
+        "review_disposition": "unknown-retained",
+        "evidence": []
+      },
+      "capability_signals": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.capability_signals.reads_unstructured_documents",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].capability_signals[name=reads_unstructured_documents]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.capability_signals.categorises_items",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].capability_signals[name=categorises_items]",
+          "assessment_field_path": null,
+          "origin": "DOCUMENT_SUPPORTED",
+          "knowledge_state": "known",
+          "review_disposition": "accepted",
+          "evidence": [
+            {
+              "evidence_id": "cev-984916aa85f2163cc29a18be688bad20141a73c613336c10f112f65df09bddf8",
+              "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+              "block_id": "t-b0005",
+              "block_start_offset": 388,
+              "block_end_offset": 476,
+              "source_locator": "lines 9-14"
+            }
+          ]
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.capability_signals.predicts_future_outcomes",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].capability_signals[name=predicts_future_outcomes]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.capability_signals.detects_anomalies_or_patterns",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].capability_signals[name=detects_anomalies_or_patterns]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.capability_signals.creates_new_content",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].capability_signals[name=creates_new_content]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.capability_signals.searches_reference_knowledge",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].capability_signals[name=searches_reference_knowledge]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.capability_signals.ranks_or_suggests_options",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].capability_signals[name=ranks_or_suggests_options]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.capability_signals.supports_complex_decisions",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].capability_signals[name=supports_complex_decisions]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.capability_signals.interprets_images_or_video",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].capability_signals[name=interprets_images_or_video]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-7ea34eec0f190d65].characteristics.capability_signals.routes_or_orchestrates_work",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-7ea34eec0f190d65].capability_signals[name=routes_or_orchestrates_work]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "step_id": "candidate-step-d8c90393b0778925",
+      "assessment_step_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925]",
+      "recommendation_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].recommendation_mode",
+      "gate_results_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].gate_results",
+      "validated_step_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925]",
+      "review_step_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925]",
+      "activity": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].activity",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].activity",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].activity",
+        "origin": "DOCUMENT_SUPPORTED",
+        "knowledge_state": "known",
+        "review_disposition": "accepted",
+        "evidence": [
+          {
+            "evidence_id": "cev-a65c415cc4f676696819d325345eda453473c67f8606c135295adb4c13a66501",
+            "document_id": "doc-7c857713a40c1beb8e22bcf1d56dbbcab54effadf372b59cabd6563a7f086d44",
+            "block_id": "t-b0005",
+            "block_start_offset": 480,
+            "block_end_offset": 577,
+            "source_locator": "lines 9-14"
+          }
+        ]
+      },
+      "criteria": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.repetition",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].criteria[name=repetition]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].criteria[criterion=repetition]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.predictability",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].criteria[name=predictability]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].criteria[criterion=predictability]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.data_readiness",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].criteria[name=data_readiness]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].criteria[criterion=data_readiness]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.ai_capability_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].criteria[name=ai_capability_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].criteria[criterion=ai_capability_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.human_judgement_requirement",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].criteria[name=human_judgement_requirement]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].criteria[criterion=human_judgement_requirement]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.business_value",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].criteria[name=business_value]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].criteria[criterion=business_value]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.risk_consequence",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].criteria[name=risk_consequence]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].criteria[criterion=risk_consequence]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.residual_risk_with_human_oversight",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].criteria[name=residual_risk_with_human_oversight]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].criteria[criterion=residual_risk_with_human_oversight]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.implementation_complexity",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].criteria[name=implementation_complexity]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].criteria[criterion=implementation_complexity]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.conventional_solution_fit",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].criteria[name=conventional_solution_fit]",
+          "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].criteria[criterion=conventional_solution_fit]",
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ],
+      "human_accountability": {
+        "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.human_accountability_required",
+        "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].human_accountability_required",
+        "assessment_field_path": "process_assessment.step_assessments[step_id=candidate-step-d8c90393b0778925].human_accountability",
+        "origin": "UNKNOWN",
+        "knowledge_state": "unknown",
+        "review_disposition": "unknown-retained",
+        "evidence": []
+      },
+      "capability_signals": [
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.capability_signals.reads_unstructured_documents",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].capability_signals[name=reads_unstructured_documents]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.capability_signals.categorises_items",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].capability_signals[name=categorises_items]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.capability_signals.predicts_future_outcomes",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].capability_signals[name=predicts_future_outcomes]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.capability_signals.detects_anomalies_or_patterns",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].capability_signals[name=detects_anomalies_or_patterns]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.capability_signals.creates_new_content",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].capability_signals[name=creates_new_content]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.capability_signals.searches_reference_knowledge",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].capability_signals[name=searches_reference_knowledge]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.capability_signals.ranks_or_suggests_options",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].capability_signals[name=ranks_or_suggests_options]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.capability_signals.supports_complex_decisions",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].capability_signals[name=supports_complex_decisions]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.capability_signals.interprets_images_or_video",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].capability_signals[name=interprets_images_or_video]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        },
+        {
+          "validated_process_field_path": "business_process.steps[step_id=candidate-step-d8c90393b0778925].characteristics.capability_signals.routes_or_orchestrates_work",
+          "review_field_path": "review.steps[candidate_step_id=candidate-step-d8c90393b0778925].capability_signals[name=routes_or_orchestrates_work]",
+          "assessment_field_path": null,
+          "origin": "UNKNOWN",
+          "knowledge_state": "unknown",
+          "review_disposition": "unknown-retained",
+          "evidence": []
+        }
+      ]
+    }
+  ]
+}
