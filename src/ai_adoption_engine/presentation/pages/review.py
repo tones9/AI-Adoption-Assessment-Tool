@@ -2,14 +2,16 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from typing import Any
 
 import streamlit as st
 
+from ai_adoption_engine.models.candidate_process import ResolvedEvidenceReference
 from ai_adoption_engine.models.enums import KnowledgeState
 from ai_adoption_engine.models.review import (
     ConflictStatus,
+    InformationOrigin,
     ProcessReviewSession,
     ReviewDisposition,
     ReviewedAssertion,
@@ -159,6 +161,57 @@ def _value_input(assertion: ReviewedAssertion, key: str, value_kind: type) -> An
     )
 
 
+_DOCUMENT_SUPPORTED_CHOICE = "Document supported — cite source evidence"
+_HUMAN_SUPPLIED_CHOICE = "Human supplied — no document evidence"
+
+
+def _step_evidence_choices(step) -> tuple[ResolvedEvidenceReference, ...]:
+    """Resolved Phase 2 evidence already present anywhere on a reviewed step.
+
+    A reviewer may cite only evidence the extraction already resolved against this
+    document, which guarantees the reference is genuine and belongs to the reviewed
+    source. Read-only; nothing is created or mutated here.
+    """
+
+    references: dict[str, ResolvedEvidenceReference] = {}
+
+    def collect(items) -> None:
+        for reference in items:
+            references.setdefault(reference.evidence_id, reference)
+
+    for assertion in (step.document_order, step.activity, step.description):
+        collect(assertion.evidence)
+    for name in (
+        "actors",
+        "responsible_roles",
+        "systems",
+        "inputs",
+        "outputs",
+        "exceptions",
+        "operational_characteristics",
+    ):
+        collection = getattr(step, name)
+        collect(collection.evidence)
+        for item in collection.items:
+            collect(item.evidence)
+    for decision in step.decisions:
+        collect(decision.condition.evidence)
+        collect(decision.branches.evidence)
+        for item in decision.branches.items:
+            collect(item.evidence)
+    for dependency in step.dependencies:
+        collect(dependency.target_label.evidence)
+        collect(dependency.relationship.evidence)
+    return tuple(references.values())
+
+
+def _evidence_option_label(reference: ResolvedEvidenceReference) -> str:
+    snippet = reference.exact_snippet.strip().replace("\n", " ")
+    if len(snippet) > 80:
+        snippet = f"{snippet[:77]}…"
+    return f"{reference.source_locator} — {snippet}"
+
+
 def _assertion_editor(
     session: ProcessReviewSession,
     *,
@@ -166,6 +219,7 @@ def _assertion_editor(
     field_path: str,
     resolver: AssertionResolver,
     value_kind: type = str,
+    evidence_choices: Sequence[ResolvedEvidenceReference] = (),
 ) -> None:
     assertion = resolver(session)
     with st.container(border=True):
@@ -194,8 +248,39 @@ def _assertion_editor(
         )
         corrected = None
         rationale = ""
+        chosen_origin = InformationOrigin.HUMAN_SUPPLIED
+        cited: list[ResolvedEvidenceReference] = []
         if action in {"Correct", "Resolve unknown"}:
             corrected = _value_input(assertion, state_key, value_kind)
+            if evidence_choices:
+                by_label = {
+                    _evidence_option_label(reference): reference
+                    for reference in evidence_choices
+                }
+                origin_choice = st.selectbox(
+                    "Where does this value come from?",
+                    [_HUMAN_SUPPLIED_CHOICE, _DOCUMENT_SUPPORTED_CHOICE],
+                    key=f"origin-{state_key}",
+                    help=(
+                        "Only a document-supported value carries evidence into the "
+                        "assessment. A human-supplied value is recorded but the "
+                        "decision policy treats it as unevidenced."
+                    ),
+                )
+                if origin_choice == _DOCUMENT_SUPPORTED_CHOICE:
+                    chosen_origin = InformationOrigin.DOCUMENT_SUPPORTED
+                    cited = [
+                        by_label[selected]
+                        for selected in st.multiselect(
+                            "Supporting source evidence (required)",
+                            list(by_label),
+                            key=f"evidence-{state_key}",
+                        )
+                    ]
+                    st.caption(
+                        "The citation is recorded verbatim and shown in the decision "
+                        "report. It is not checked for relevance to this value."
+                    )
         if action in {"Correct", "Reject", "Resolve unknown"}:
             rationale = st.text_input(
                 "Reviewer rationale (required)",
@@ -223,6 +308,9 @@ def _assertion_editor(
             if action in {"Correct", "Reject", "Resolve unknown"} and not rationale.strip():
                 st.error("Provide a rationale for this action.")
                 return
+            if chosen_origin is InformationOrigin.DOCUMENT_SUPPORTED and not cited:
+                st.error("Select the source evidence that supports this value.")
+                return
 
             def mutate(working: ProcessReviewSession) -> None:
                 target = resolver(working)
@@ -231,7 +319,13 @@ def _assertion_editor(
                     service.accept_assertion(working, target, field_path)
                 elif action == "Correct":
                     service.correct_assertion(
-                        working, target, field_path, corrected, rationale=rationale
+                        working,
+                        target,
+                        field_path,
+                        corrected,
+                        rationale=rationale,
+                        origin=chosen_origin,
+                        evidence=list(cited),
                     )
                 elif action == "Reject":
                     service.reject_assertion(
@@ -239,7 +333,13 @@ def _assertion_editor(
                     )
                 elif action == "Resolve unknown":
                     service.resolve_unknown(
-                        working, target, field_path, corrected, rationale=rationale
+                        working,
+                        target,
+                        field_path,
+                        corrected,
+                        rationale=rationale,
+                        origin=chosen_origin,
+                        evidence=list(cited),
                     )
                 else:
                     service.retain_unknown(working, target, field_path)
@@ -599,6 +699,11 @@ def _render_step(
                     )
 
     with st.expander("Assessment characteristics"):
+        # Criteria and accountability are gate-material: the decision policy requires an
+        # evidence reference before it will read them, so the reviewer must be able to
+        # cite one. Capability signals are deliberately excluded from this affordance;
+        # they are not evidence-gated on the current decision path.
+        criterion_evidence = _step_evidence_choices(step)
         for index, characteristic in enumerate(step.criteria):
             _assertion_editor(
                 session,
@@ -606,6 +711,7 @@ def _render_step(
                 field_path=f"steps.{step_id}.criteria[{index}]",
                 resolver=lambda working, i=index: _step(working, step_id).criteria[i].assertion,
                 value_kind=int,
+                evidence_choices=criterion_evidence,
             )
         _assertion_editor(
             session,
@@ -613,6 +719,7 @@ def _render_step(
             field_path=f"steps.{step_id}.human_accountability_required",
             resolver=lambda working: _step(working, step_id).human_accountability_required,
             value_kind=bool,
+            evidence_choices=criterion_evidence,
         )
 
     with st.expander("Capability signals"):

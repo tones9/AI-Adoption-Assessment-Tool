@@ -53,6 +53,38 @@ This is the strongest available demonstration of the defect: an operator supplyi
 
 The conclusions in this document are no longer provisional.
 
+### 1.4 Phase 9A-0a test result — the domain path works, and the blockage is evidence-only
+
+`tests/integration/test_phase9a_criterion_evidence_boundary.py` was added before any fix, and run 2026-08-15.
+
+| Test | Layer | Result | Meaning |
+|---|---|---|---|
+| `test_document_supported_criterion_survives_projection_and_reaches_the_engine` | domain | **passes** | `DOCUMENT_SUPPORTED` criteria retain `evidence_ids` through projection and the engine reads them. |
+| `test_review_ui_can_produce_an_evidence_backed_criterion` | product surface | **xfail (strict)** | The UI produces `HUMAN_SUPPLIED`; evidence is stripped. Confirms the defect is presentation-only. |
+
+Together these bound the defect precisely: **the domain model is sound and the product surface is incomplete.** Fix 0 is therefore the correct repair, and no contract change is required to restore the intended capability.
+
+#### Unexpected finding: `DO_NOT_RECOMMEND` on maximally favourable criteria
+
+The domain test initially asserted `AUTOMATE`/`AUGMENT`. It returned `DO_NOT_RECOMMEND`. The assertion was wrong, not the engine.
+
+Cause, at `decision/gates.py:175`:
+
+```python
+if not capabilities or ai_fit < policy.gates.minimum_ai_capability_fit:
+    return GateEvaluation(RecommendationMode.DO_NOT_RECOMMEND, results)
+```
+
+The test supplied all ten criteria including `ai_capability_fit = 5`, but set no **capability signal** to true, so `map_capabilities` returned `[]`. The policy declines when a high capability-fit score is claimed while no AI capability is actually mapped to the activity. That is correct and defensible behaviour — it prevents a self-declared score from manufacturing an AI use case with nothing behind it.
+
+Three consequences worth recording:
+
+1. **The test was corrected**, not the engine. It now asserts provenance and the absence of an evidence blockage, and records the recommendation as an observed policy outcome rather than a target.
+2. **`technical_fit` has two independent requirements**: an evidenced `ai_capability_fit` at or above the minimum, *and* at least one mapped capability. Fix 0 addresses only the first.
+3. **This refines the Phase 8 picture.** PORT-003 steps 2 and 4 did carry `GENERATIVE_AI`, so `not capabilities` would have been false for them. Their sole blocker was unknown `ai_capability_fit`. Those two activities are therefore the most likely to move once Fix 0 lands — which makes them a useful, honest observation target for 9A-0c, provided nothing is tuned in response to what is observed.
+
+This does not alter any Phase 8 artefact or conclusion.
+
 ---
 
 ## 2. Is this a real defect or an interpretation issue?

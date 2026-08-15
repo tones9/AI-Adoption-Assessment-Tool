@@ -158,7 +158,17 @@ class ProcessReviewService:
         value: Any,
         *,
         rationale: str,
+        origin: InformationOrigin = InformationOrigin.HUMAN_SUPPLIED,
+        evidence: list[ResolvedEvidenceReference] | None = None,
     ) -> None:
+        """Resolve an unknown assertion, optionally citing source evidence.
+
+        ``origin`` and ``evidence`` are forwarded unchanged to
+        :meth:`correct_assertion`, which owns every provenance rule. The defaults
+        reproduce the original human-supplied behaviour, so existing callers are
+        unaffected. The recorded action remains ``RESOLVE_UNKNOWN``.
+        """
+
         if assertion.knowledge_state is not KnowledgeState.UNKNOWN:
             raise ValueError("Only an unknown assertion can be resolved as unknown")
         before = assertion.model_dump(mode="json")
@@ -168,6 +178,8 @@ class ProcessReviewService:
             field_path,
             value,
             rationale=rationale,
+            origin=origin,
+            evidence=evidence,
         )
         session.events.pop()
         self._record(

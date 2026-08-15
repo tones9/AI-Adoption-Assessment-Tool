@@ -85,6 +85,20 @@ Semantics restored: *"You may set a criterion value when the source document sta
 
 **Why it still comes first.** It is the smallest change that makes the product behave as designed, it carries no contract risk, and it lets the §4 question be decided against an observed working system rather than in the abstract. It also forces the integration test whose absence allowed this defect to ship.
 
+### 2A.1 What Fix 0 solves, and what it explicitly does not
+
+Recorded so the boundary is not misremembered later. Full analysis in `phase9a-fix0-brief-v0.1.md` §6.
+
+**Solves — the provenance path and its UI exposure.** A reviewer can record *where* a criterion value came from, and a `DOCUMENT_SUPPORTED` value survives projection and reaches the decision engine. The intended design is restored.
+
+**Does not solve — semantic evidence validity.** `correct_assertion` validates only that cited evidence belongs to the reviewed document. It never checks that the snippet supports the asserted value.
+
+**Consequence: a reviewer can attach technically valid but semantically irrelevant evidence.** Setting `data_readiness = 5` while citing a sentence about meeting frequency would be accepted as document-supported. After Fix 0 the product distinguishes *evidenced* from *unevidenced*, but not *well-evidenced* from *badly evidenced*. Fix 0 therefore makes fabrication easier as well as justification easier — a real tension with the principle that unknowns remain unknown unless legitimately resolved.
+
+**This limitation is accepted temporarily and knowingly**, on the basis that a recorded citation is auditable and visible in the decision report, so a wrong citation can be detected even though it cannot be prevented. It is strictly better than the current state, in which a reviewer cannot evidence anything at all.
+
+**Deferred to a future evidence-quality control layer**, alongside the attestation model, measured-data ingestion and tiered provenance rules in §3–§4. That work must not begin until Fix 0 has landed and 9A-0c has observed the corrected behaviour. The limitation is to be stated in the Fix 0 commit message and carried into any recruiter-facing description of the review step.
+
 ---
 
 ## 2. Design principles
@@ -137,6 +151,10 @@ A derived `ai_capability_fit`, computed from which capability signals are presen
 This is the highest-value idea in this document and also the most dangerous. It changes policy semantics, and the temptation to calibrate the derivation so that Phase 8 cases would have passed is exactly the hindsight error the whole evaluation was built to avoid.
 
 **Proposed constraint:** design the derivation from the taxonomy definitions alone, freeze it, and only then re-run the Phase 8 BEFORE inputs as a *observational* check. Whatever happens, do not adjust the derivation in response. If it still returns `INVESTIGATE_FURTHER`, that is a result, not a failure.
+
+**Complication found by the 9A-0a test (2026-08-15).** `technical_fit` already requires a mapped capability independently of the score — `gates.py:175` returns `DO_NOT_RECOMMEND` when `not capabilities`, regardless of how high `ai_capability_fit` is. So the gate consumes two related but distinct facts: *are any AI capabilities mapped to this activity*, and *how well do they fit it*. Deriving the second purely from the first would collapse them and make the score partly tautological.
+
+Any derivation must therefore add information the capability signals do not already carry — how *directly* the mapped capability addresses the activity, not merely that one exists. That is a harder design problem than it first appeared, and it strengthens the case for leaving this deferred.
 
 ---
 
@@ -209,9 +227,9 @@ Sequence:
 
 | Step | Deliverable | Status |
 |---|---|---|
-| **9A-0a** | Integration test asserting a reviewer-supplied criterion value reaches a gate — the test whose absence let this defect ship. Written first, expected to fail. | **decision point** |
-| **9A-0b** | Fix 0 — review UI exposes origin selection and document-evidence attachment for criteria (§2A) | **decision point** |
-| **9A-0c** | Observe: re-run a real process end to end and record what is now reachable and what still is not | **decision point** |
+| **9A-0a** | Integration test asserting a reviewer-supplied criterion value reaches a gate — the test whose absence let this defect ship. Written first, expected to fail. | **done** |
+| **9A-0b** | Fix 0 — review UI exposes origin selection and document-evidence attachment for criteria (§2A) | **done** |
+| **9A-0c** | Observe: re-run a real process end to end and record what is now reachable and what still is not | **next** |
 | 9A-1 | Decide the §4 contract question, informed by 9A-0c | deferred |
 | 9A-2 | `criterion_instrument.v0.1` — ten anchored questions with bands | deferred |
 | 9A-3 | Criterion provenance model + attestation evidence record | deferred |
