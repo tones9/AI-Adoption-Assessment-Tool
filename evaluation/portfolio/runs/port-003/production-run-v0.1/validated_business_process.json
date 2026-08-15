@@ -1,0 +1,886 @@
+{
+  "business_objective": "creates an internal meeting record, summary and record of action items after an adviser meeting",
+  "description": "This process creates an internal meeting record, summary and record of action items after an adviser meeting.",
+  "evidence": [
+    {
+      "confidence": null,
+      "evidence_id": "cev-ae50897d33afd44da5d5b47f4d32c5520c679d4a33451f2b1df790b9091c6fd4",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "1. An adviser conducts a meeting with a client.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-4be2cf620baf60127bdfedaf158add9505d4f652222c5bfef06ee1e97172723e",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "line 5",
+      "supporting_snippet": "The adviser remains responsible for the client relationship and decisions.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-f9b356c0e58278f64295aec0c32c922bbec8ebaf7312035c149bc5117498c3a3",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "2. During the meeting, the adviser, a junior colleague or another team member records notes and action items manually.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-d823b521246dc0906f91a7840726cd91f4393711615bbf67c80246a921028e51",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "the adviser, a junior colleague or another team member",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-61be1e9576c2b579f6d59e3baa8f1901cd16b2c9c2e55654b6c313fdfe83d68b",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "During the meeting",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-ed5006cdbafcaa86923e448abd83bd3af1d7149a0ed5176f330fe08f711646cb",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "records notes and action items manually",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-c395dc3f4edf696f88ec8df266421b188068c7eece631a4af92bc9216b74107a",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "3. After the meeting, the adviser or a support professional reviews and cleans up the notes.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-e798f4c439d61cbc13c7f7b2de0562be0070883cc8e890a290c39bf4b1010ca0",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "the adviser or a support professional",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-eb9d3ca00e8f4b7aff1d7e107a6e22528bb2b1af24ae18a07fbf323058da5a76",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "reviews and cleans up the notes",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-37bc94e58c560a20f67f7044ae6ac9d62a85b667961be3ef92e4f9d0a776d146",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "The adviser or team prepares a meeting summary from the cleaned notes and recorded action items.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-e11bce76e3a608e74bc6b15d5ed43683c68809c56d1b35f3b9374c3170a9067f",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "4. The adviser or team prepares a meeting summary from the cleaned notes and recorded action items.",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-a03423b9cd563defa7f4a0bfd958797f67c23e96793e31bf12f45ee115b69ff7",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "The adviser or team prepares a meeting summary",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-84904ffa3a322fd79872657112b7d5e31da3535b6ebe0835e505598fb3728cb9",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "from the cleaned notes and recorded action items",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-7bd7623e4b8cb5c417aaa883cf0781c207afff9ed5306649f238a3a4c4867579",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "prepares a meeting summary",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-05dde4fc2590c810361a7953f8c1e00351efa597a09eb1d673f99a784ab6861e",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "lines 9-12",
+      "supporting_snippet": "prepares a meeting summary from the cleaned notes and recorded action items",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-59a4b61942c80e32a29a6724eed0798d78d68bdcfce7676affa42226ceb2307a",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "line 1",
+      "supporting_snippet": "Client-meeting documentation and follow-up planning",
+      "uncertainty_status": "certain"
+    },
+    {
+      "confidence": null,
+      "evidence_id": "cev-0f7b23c6588ef77383090091650e1b915680a9476c5716d2d0c06e9fafdf948e",
+      "knowledge_state": "known",
+      "provenance": "Phase 2 document-supported source evidence",
+      "source_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+      "source_locator": "line 5",
+      "supporting_snippet": "This process creates an internal meeting record, summary and record of action items after an adviser meeting.",
+      "uncertainty_status": "certain"
+    }
+  ],
+  "name": "Client-meeting documentation and follow-up planning",
+  "organisation": null,
+  "process_id": "validated-extraction-a0ca3b07-970e-4350-93ea-71430ade7653",
+  "steps": [
+    {
+      "activity": "Conduct a meeting with a client",
+      "actor": null,
+      "characteristics": {
+        "ai_capability_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "business_value": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "capability_signals": {
+          "categorises_items": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "creates_new_content": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "detects_anomalies_or_patterns": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "interprets_images_or_video": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "predicts_future_outcomes": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "ranks_or_suggests_options": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "reads_unstructured_documents": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "routes_or_orchestrates_work": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "searches_reference_knowledge": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "supports_complex_decisions": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          }
+        },
+        "conventional_solution_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "data_readiness": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "human_accountability_required": {
+          "confidence": null,
+          "evidence_ids": [
+            "cev-4be2cf620baf60127bdfedaf158add9505d4f652222c5bfef06ee1e97172723e"
+          ],
+          "knowledge_state": "known",
+          "rationale": "The adviser is stated to remain responsible for decisions and the client relationship.",
+          "value": true
+        },
+        "human_judgement_requirement": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "implementation_complexity": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "predictability": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "repetition": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "residual_risk_with_human_oversight": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "risk_consequence": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        }
+      },
+      "dependencies": [],
+      "description": "An adviser conducts a meeting with a client.",
+      "evidence_ids": [
+        "cev-4be2cf620baf60127bdfedaf158add9505d4f652222c5bfef06ee1e97172723e",
+        "cev-ae50897d33afd44da5d5b47f4d32c5520c679d4a33451f2b1df790b9091c6fd4"
+      ],
+      "exceptions": [],
+      "inputs": [
+        "client"
+      ],
+      "outputs": [],
+      "responsible_role": "adviser",
+      "sequence": 1,
+      "step_id": "candidate-step-fa338aa3d54b373a",
+      "systems": []
+    },
+    {
+      "activity": "Record notes and action items manually",
+      "actor": null,
+      "characteristics": {
+        "ai_capability_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "business_value": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "capability_signals": {
+          "categorises_items": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "creates_new_content": {
+            "confidence": null,
+            "evidence_ids": [
+              "cev-ed5006cdbafcaa86923e448abd83bd3af1d7149a0ed5176f330fe08f711646cb"
+            ],
+            "knowledge_state": "known",
+            "rationale": "The activity explicitly creates notes and records action items.",
+            "value": true
+          },
+          "detects_anomalies_or_patterns": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "interprets_images_or_video": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "predicts_future_outcomes": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "ranks_or_suggests_options": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "reads_unstructured_documents": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "routes_or_orchestrates_work": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "searches_reference_knowledge": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "supports_complex_decisions": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          }
+        },
+        "conventional_solution_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "data_readiness": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "human_accountability_required": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "The source does not state whether accountability is required specifically for recording notes and action items.",
+          "value": null
+        },
+        "human_judgement_requirement": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "implementation_complexity": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "predictability": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "repetition": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "residual_risk_with_human_oversight": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "risk_consequence": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        }
+      },
+      "dependencies": [],
+      "description": "During the meeting, the adviser, a junior colleague or another team member records notes and action items manually.",
+      "evidence_ids": [
+        "cev-61be1e9576c2b579f6d59e3baa8f1901cd16b2c9c2e55654b6c313fdfe83d68b",
+        "cev-d823b521246dc0906f91a7840726cd91f4393711615bbf67c80246a921028e51",
+        "cev-ed5006cdbafcaa86923e448abd83bd3af1d7149a0ed5176f330fe08f711646cb",
+        "cev-f9b356c0e58278f64295aec0c32c922bbec8ebaf7312035c149bc5117498c3a3"
+      ],
+      "exceptions": [],
+      "inputs": [
+        "meeting"
+      ],
+      "outputs": [
+        "notes",
+        "action items"
+      ],
+      "responsible_role": "adviser",
+      "sequence": 2,
+      "step_id": "candidate-step-9561eeeddd601694",
+      "systems": []
+    },
+    {
+      "activity": "Review and clean up the notes",
+      "actor": null,
+      "characteristics": {
+        "ai_capability_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "business_value": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "capability_signals": {
+          "categorises_items": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "creates_new_content": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "detects_anomalies_or_patterns": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "interprets_images_or_video": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "predicts_future_outcomes": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "ranks_or_suggests_options": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "reads_unstructured_documents": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "routes_or_orchestrates_work": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "searches_reference_knowledge": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "supports_complex_decisions": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          }
+        },
+        "conventional_solution_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "data_readiness": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "human_accountability_required": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "The source does not state whether accountability is required specifically for review and cleanup of notes.",
+          "value": null
+        },
+        "human_judgement_requirement": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "implementation_complexity": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "predictability": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "repetition": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "residual_risk_with_human_oversight": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "risk_consequence": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        }
+      },
+      "dependencies": [],
+      "description": "After the meeting, the adviser or a support professional reviews and cleans up the notes.",
+      "evidence_ids": [
+        "cev-37bc94e58c560a20f67f7044ae6ac9d62a85b667961be3ef92e4f9d0a776d146",
+        "cev-c395dc3f4edf696f88ec8df266421b188068c7eece631a4af92bc9216b74107a",
+        "cev-e798f4c439d61cbc13c7f7b2de0562be0070883cc8e890a290c39bf4b1010ca0",
+        "cev-eb9d3ca00e8f4b7aff1d7e107a6e22528bb2b1af24ae18a07fbf323058da5a76"
+      ],
+      "exceptions": [],
+      "inputs": [
+        "notes"
+      ],
+      "outputs": [
+        "cleaned notes"
+      ],
+      "responsible_role": "adviser",
+      "sequence": 3,
+      "step_id": "candidate-step-a7954dce6dd05a0e",
+      "systems": []
+    },
+    {
+      "activity": "Prepare a meeting summary",
+      "actor": null,
+      "characteristics": {
+        "ai_capability_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "business_value": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "capability_signals": {
+          "categorises_items": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "creates_new_content": {
+            "confidence": null,
+            "evidence_ids": [
+              "cev-7bd7623e4b8cb5c417aaa883cf0781c207afff9ed5306649f238a3a4c4867579"
+            ],
+            "knowledge_state": "known",
+            "rationale": "The activity explicitly prepares a meeting summary.",
+            "value": true
+          },
+          "detects_anomalies_or_patterns": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "interprets_images_or_video": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "predicts_future_outcomes": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "ranks_or_suggests_options": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "reads_unstructured_documents": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "routes_or_orchestrates_work": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "searches_reference_knowledge": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          },
+          "supports_complex_decisions": {
+            "confidence": null,
+            "evidence_ids": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated for this step.",
+            "value": null
+          }
+        },
+        "conventional_solution_fit": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "data_readiness": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "human_accountability_required": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "The source does not state whether accountability is required specifically for preparing the meeting summary.",
+          "value": null
+        },
+        "human_judgement_requirement": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "implementation_complexity": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "predictability": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "repetition": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "residual_risk_with_human_oversight": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        },
+        "risk_consequence": {
+          "confidence": null,
+          "evidence_ids": [],
+          "knowledge_state": "unknown",
+          "rationale": "No compatible criterion value is stated for this step.",
+          "value": null
+        }
+      },
+      "dependencies": [
+        "candidate-step-a7954dce6dd05a0e"
+      ],
+      "description": "The adviser or team prepares a meeting summary from the cleaned notes and recorded action items.",
+      "evidence_ids": [
+        "cev-05dde4fc2590c810361a7953f8c1e00351efa597a09eb1d673f99a784ab6861e",
+        "cev-7bd7623e4b8cb5c417aaa883cf0781c207afff9ed5306649f238a3a4c4867579",
+        "cev-84904ffa3a322fd79872657112b7d5e31da3535b6ebe0835e505598fb3728cb9",
+        "cev-a03423b9cd563defa7f4a0bfd958797f67c23e96793e31bf12f45ee115b69ff7",
+        "cev-c395dc3f4edf696f88ec8df266421b188068c7eece631a4af92bc9216b74107a",
+        "cev-e11bce76e3a608e74bc6b15d5ed43683c68809c56d1b35f3b9374c3170a9067f",
+        "cev-eb9d3ca00e8f4b7aff1d7e107a6e22528bb2b1af24ae18a07fbf323058da5a76"
+      ],
+      "exceptions": [],
+      "inputs": [
+        "cleaned notes",
+        "recorded action items"
+      ],
+      "outputs": [
+        "meeting summary"
+      ],
+      "responsible_role": "adviser",
+      "sequence": 4,
+      "step_id": "candidate-step-d3ec490723991cb0",
+      "systems": []
+    }
+  ]
+}

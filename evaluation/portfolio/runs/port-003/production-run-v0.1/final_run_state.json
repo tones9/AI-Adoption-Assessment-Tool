@@ -1,0 +1,75 @@
+{
+  "active_artifacts": {
+    "APPROVED_REVIEW": {
+      "artifact_id": "artifact-7aa26ce9cb9243c185429cf18baa7e42",
+      "artifact_revision": 1,
+      "parent_artifact_id": "artifact-b4bf5278cb294317b27f6297485d884c",
+      "payload_sha256": "d4958a453d87ff3de2c4480eae6e7eeb2bb2f6ea73a45d680f2894834a08a08a"
+    },
+    "CANDIDATE_EXTRACTION_RESULT": {
+      "artifact_id": "artifact-fd87094372914ecc9fc3cb9e7cf06f6a",
+      "artifact_revision": 1,
+      "parent_artifact_id": "artifact-e28cba36d71840dc8de9c929a30f935f",
+      "payload_sha256": "299e51c32f940e6d142fe32fdd35956338db68dd76521ac968aefc8cb8ac8a13"
+    },
+    "DECISION_PACKAGE_RESULT": {
+      "artifact_id": "artifact-d5cb7656eef24b03bbca10f87fc1e3bb",
+      "artifact_revision": 1,
+      "parent_artifact_id": "artifact-dbc8c4b5ce17423999f7ffc4bcb4919a",
+      "payload_sha256": "efa203dadb7ee70756ee7ff203ca3371b2a058ac50182a44cc340ef491ec10ff"
+    },
+    "INGESTION_RESULT": {
+      "artifact_id": "artifact-e28cba36d71840dc8de9c929a30f935f",
+      "artifact_revision": 1,
+      "parent_artifact_id": null,
+      "payload_sha256": "21ddf06c4d2fca71723267128d0c245bcbba5bf9ba0be648e5b6abf1bef60f74"
+    },
+    "INTEGRATED_ASSESSMENT_RESULT": {
+      "artifact_id": "artifact-dbc8c4b5ce17423999f7ffc4bcb4919a",
+      "artifact_revision": 1,
+      "parent_artifact_id": "artifact-7aa26ce9cb9243c185429cf18baa7e42",
+      "payload_sha256": "d36227d007b664063001cbc141de7e886a23722e4c3d94d72b548a41852e2933"
+    },
+    "REVIEW_SESSION": {
+      "artifact_id": "artifact-b4bf5278cb294317b27f6297485d884c",
+      "artifact_revision": 1,
+      "parent_artifact_id": "artifact-fd87094372914ecc9fc3cb9e7cf06f6a",
+      "payload_sha256": "b48c5c4f0afadc97bb1d55c3c6e5d440a9b2e4ed30ae484fbd0a560c763c2634"
+    }
+  },
+  "approval_event_id": "approval-129",
+  "approval_timestamp": "2026-08-15T13:22:51.798980+00:00",
+  "assessed_at": "2026-08-15T13:22:51.862566+00:00",
+  "assessment_id": "assessment-6d1d3adbbfda4a61b52ee33d2297653a",
+  "assessment_run_id": "assessment-cf3aa0af14444cf8a0e2b4bc8e68b431",
+  "decision_policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66",
+  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+  "extraction_run_id": "extraction-a0ca3b07-970e-4350-93ea-71430ade7653",
+  "future_state_status": "PROPOSED / NOT DEPLOYED",
+  "integration_schema_version": "phase5-v0.1",
+  "package_completeness": "COMPLETE_WITH_INFORMATION_GAPS",
+  "package_id": "decision-package-eef50dd350678622f0a75a4ead8cebe8c555abe84cc1accac7cfa13137f712f6",
+  "phase1_contract_version": "phase1-v0.3",
+  "policy_id": "decision_policy.v0.2",
+  "policy_status": "PROVISIONAL \u2014 NOT YET ACADEMICALLY VALIDATED",
+  "policy_version": "0.2.0",
+  "recommendations": {
+    "candidate-step-9561eeeddd601694": "INVESTIGATE_FURTHER",
+    "candidate-step-a7954dce6dd05a0e": "INVESTIGATE_FURTHER",
+    "candidate-step-d3ec490723991cb0": "INVESTIGATE_FURTHER",
+    "candidate-step-fa338aa3d54b373a": "INVESTIGATE_FURTHER"
+  },
+  "review_event_counts": {
+    "accept": 46,
+    "accept-step-order": 1,
+    "approve": 1,
+    "retain-unknown": 81
+  },
+  "review_id": "review-8948a551d2ef418d969e0fd02f894988",
+  "roi_statement": "ROI / quantified benefit unavailable with current evidence.",
+  "source_document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+  "source_sha256": "79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+  "validated_process_fingerprint": "c62df896ea37be23abb350a359bd3b73a0d987caf0250ea02c8e5af0c7b859ce",
+  "validated_process_id": "validated-extraction-a0ca3b07-970e-4350-93ea-71430ade7653",
+  "workflow_stage": "package-ready"
+}

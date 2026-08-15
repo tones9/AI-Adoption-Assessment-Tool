@@ -1,0 +1,147 @@
+{
+  "document": {
+    "blocks": [
+      {
+        "block_id": "t-b0001",
+        "block_number": 1,
+        "document_end_offset": 51,
+        "document_start_offset": 0,
+        "extracted_text": "Client-meeting documentation and follow-up planning",
+        "has_extractable_text": true,
+        "line_end": 1,
+        "line_start": 1,
+        "page_number": null,
+        "sequence": 1,
+        "source_locator": "line 1"
+      },
+      {
+        "block_id": "t-b0002",
+        "block_number": 2,
+        "document_end_offset": 60,
+        "document_start_offset": 53,
+        "extracted_text": "Purpose",
+        "has_extractable_text": true,
+        "line_end": 3,
+        "line_start": 3,
+        "page_number": null,
+        "sequence": 2,
+        "source_locator": "line 3"
+      },
+      {
+        "block_id": "t-b0003",
+        "block_number": 3,
+        "document_end_offset": 246,
+        "document_start_offset": 62,
+        "extracted_text": "This process creates an internal meeting record, summary and record of action items after an adviser meeting. The adviser remains responsible for the client relationship and decisions.",
+        "has_extractable_text": true,
+        "line_end": 5,
+        "line_start": 5,
+        "page_number": null,
+        "sequence": 3,
+        "source_locator": "line 5"
+      },
+      {
+        "block_id": "t-b0004",
+        "block_number": 4,
+        "document_end_offset": 269,
+        "document_start_offset": 248,
+        "extracted_text": "Current-state process",
+        "has_extractable_text": true,
+        "line_end": 7,
+        "line_start": 7,
+        "page_number": null,
+        "sequence": 4,
+        "source_locator": "line 7"
+      },
+      {
+        "block_id": "t-b0005",
+        "block_number": 5,
+        "document_end_offset": 630,
+        "document_start_offset": 271,
+        "extracted_text": "1. An adviser conducts a meeting with a client.\n2. During the meeting, the adviser, a junior colleague or another team member records notes and action items manually.\n3. After the meeting, the adviser or a support professional reviews and cleans up the notes.\n4. The adviser or team prepares a meeting summary from the cleaned notes and recorded action items.",
+        "has_extractable_text": true,
+        "line_end": 12,
+        "line_start": 9,
+        "page_number": null,
+        "sequence": 5,
+        "source_locator": "lines 9-12"
+      },
+      {
+        "block_id": "t-b0006",
+        "block_number": 6,
+        "document_end_offset": 655,
+        "document_start_offset": 632,
+        "extracted_text": "Known operating context",
+        "has_extractable_text": true,
+        "line_end": 14,
+        "line_start": 14,
+        "page_number": null,
+        "sequence": 6,
+        "source_locator": "line 14"
+      },
+      {
+        "block_id": "t-b0007",
+        "block_number": 7,
+        "document_end_offset": 1036,
+        "document_start_offset": 657,
+        "extracted_text": "- Advisers may conduct several client meetings in a working day.\n- Manual note-taking can divide attention during the meeting.\n- Post-meeting documentation can require substantial adviser or support-team time.\n- A support professional may attend a meeting primarily to take notes and prepare a summary.\n- The adviser remains responsible for decisions and the client relationship.",
+        "has_extractable_text": true,
+        "line_end": 20,
+        "line_start": 16,
+        "page_number": null,
+        "sequence": 7,
+        "source_locator": "lines 16-20"
+      },
+      {
+        "block_id": "t-b0008",
+        "block_number": 8,
+        "document_end_offset": 1062,
+        "document_start_offset": 1038,
+        "extracted_text": "Information not provided",
+        "has_extractable_text": true,
+        "line_end": 22,
+        "line_start": 22,
+        "page_number": null,
+        "sequence": 8,
+        "source_locator": "line 22"
+      },
+      {
+        "block_id": "t-b0009",
+        "block_number": 9,
+        "document_end_offset": 1504,
+        "document_start_offset": 1064,
+        "extracted_text": "- Meeting types, duration or distribution.\n- Required note templates or mandatory record fields.\n- How action owners and due dates are recorded or monitored.\n- How action items are assigned, monitored or communicated.\n- How the meeting record is entered into organisational systems.\n- Detailed review, compliance or approval controls.\n- Consequences of inaccurate or incomplete notes.\n- Privacy, consent, security or retention requirements.",
+        "has_extractable_text": true,
+        "line_end": 31,
+        "line_start": 24,
+        "page_number": null,
+        "sequence": 9,
+        "source_locator": "lines 24-31"
+      }
+    ],
+    "canonical_text": "Client-meeting documentation and follow-up planning\n\nPurpose\n\nThis process creates an internal meeting record, summary and record of action items after an adviser meeting. The adviser remains responsible for the client relationship and decisions.\n\nCurrent-state process\n\n1. An adviser conducts a meeting with a client.\n2. During the meeting, the adviser, a junior colleague or another team member records notes and action items manually.\n3. After the meeting, the adviser or a support professional reviews and cleans up the notes.\n4. The adviser or team prepares a meeting summary from the cleaned notes and recorded action items.\n\nKnown operating context\n\n- Advisers may conduct several client meetings in a working day.\n- Manual note-taking can divide attention during the meeting.\n- Post-meeting documentation can require substantial adviser or support-team time.\n- A support professional may attend a meeting primarily to take notes and prepare a summary.\n- The adviser remains responsible for decisions and the client relationship.\n\nInformation not provided\n\n- Meeting types, duration or distribution.\n- Required note templates or mandatory record fields.\n- How action owners and due dates are recorded or monitored.\n- How action items are assigned, monitored or communicated.\n- How the meeting record is entered into organisational systems.\n- Detailed review, compliance or approval controls.\n- Consequences of inaccurate or incomplete notes.\n- Privacy, consent, security or retention requirements.",
+    "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+    "metadata": {
+      "author": null,
+      "created_at": null,
+      "creator": null,
+      "modified_at": null,
+      "page_count": null,
+      "producer": null,
+      "subject": null,
+      "title": null
+    },
+    "source": {
+      "byte_size": 1505,
+      "detected_encoding": "utf-8",
+      "input_type": "plain_text_file",
+      "media_type": "text/plain",
+      "original_filename": "port-003.before.txt",
+      "parser_name": "ai_adoption_engine.text",
+      "parser_version": "1",
+      "sha256": "79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b"
+    }
+  },
+  "issues": [],
+  "status": "success"
+}

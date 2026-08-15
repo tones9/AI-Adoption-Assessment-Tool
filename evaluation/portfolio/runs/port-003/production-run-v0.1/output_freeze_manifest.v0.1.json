@@ -1,0 +1,130 @@
+{
+  "after_boundary_at_output_freeze": {
+    "path": "evaluation/portfolio/sealed_after/port-003.after.md",
+    "sha256": "b2f20906aea6895a5c0d0aa24f69a8f17ed8a470597ca6a70e9c30b901dd9e1a",
+    "status": "SEALED_NOT_OPENED_FOR_COMPARISON"
+  },
+  "artifacts": [
+    {
+      "path": "approval_result.json",
+      "sha256": "d3e1e5a22348f95a8af4699524ef108947f05b5d8e9cab2c7c65593085db9904"
+    },
+    {
+      "path": "approved_review.json",
+      "sha256": "7ab51c5b98d7427aaec8e826b1fa40f6872a4a4d18d34566cd27ed48f88ad2e1"
+    },
+    {
+      "path": "candidate_extraction.json",
+      "sha256": "5314664fbe0db122694467e4ce38453c40ae289eae16eb39ae3689da8173b8a9"
+    },
+    {
+      "path": "decision_package_result.json",
+      "sha256": "df9c6babe9c95d324a13f71d4251e1fdccf2baa64bf80baf095370e16c3c8320"
+    },
+    {
+      "path": "final_run_state.json",
+      "sha256": "3e5f9bd107f0fa84868a50cc386b4e7b510856f63d0ac9aee8a5100c18c1463f"
+    },
+    {
+      "path": "ingestion_result.json",
+      "sha256": "f7ccf20bc1771c4ccff546a773e2025615eb67b01f7db770921699a625afaaed"
+    },
+    {
+      "path": "integrated_assessment.json",
+      "sha256": "b40f7910f5cb0d88eff8c9bfbcf90e91e2a4623191e32e4e9a04823107f213b0"
+    },
+    {
+      "path": "review_session.json",
+      "sha256": "f7a86991d7b54eb7ea689035952725131e5ca4ba54dc8eff31b814b98f5d6485"
+    },
+    {
+      "path": "run_state_after_extraction.json",
+      "sha256": "8555128730e2a70333cbe8d5b5f2c793b0b3068739d75732f53473ea6cac5b69"
+    },
+    {
+      "path": "validated_business_process.json",
+      "sha256": "fc307e7778e393db1470a8ea71a6327aae9ed3645faf6f671ea93ec866867e71"
+    },
+    {
+      "path": "workspace.db",
+      "sha256": "5865fd9becaa054ede5531149d8317565af295a0840b9acdeb2505add3aba2a1"
+    }
+  ],
+  "before_input": {
+    "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+    "path": "evaluation/portfolio/product_inputs/port-003.before.txt",
+    "sha256": "79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b"
+  },
+  "case_id": "PORT-003",
+  "human_review": {
+    "assertions_rejected": 0,
+    "capability_signals_corrected": 0,
+    "conflicts_resolved": 0,
+    "event_counts": {
+      "accept": 46,
+      "accept-step-order": 1,
+      "approve": 1,
+      "retain-unknown": 81
+    },
+    "note": "The live extraction identified creates_new_content on the note-recording and summary-preparation activities unaided. Review accepted every source-supported assertion, accepted the order-consistent dependency, and retained all remaining unknowns. Unlike PORT-002, review recovered no missed capability signal because none was missed."
+  },
+  "lineage": {
+    "approval_event_id": "approval-129",
+    "assessment_id": "assessment-6d1d3adbbfda4a61b52ee33d2297653a",
+    "assessment_run_id": "assessment-cf3aa0af14444cf8a0e2b4bc8e68b431",
+    "decision_policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66",
+    "extraction_run_id": "extraction-a0ca3b07-970e-4350-93ea-71430ade7653",
+    "package_id": "decision-package-eef50dd350678622f0a75a4ead8cebe8c555abe84cc1accac7cfa13137f712f6",
+    "review_id": "review-8948a551d2ef418d969e0fd02f894988",
+    "validated_process_fingerprint": "c62df896ea37be23abb350a359bd3b73a0d987caf0250ea02c8e5af0c7b859ce",
+    "validated_process_id": "validated-extraction-a0ca3b07-970e-4350-93ea-71430ade7653"
+  },
+  "operator_scripts": {
+    "note": "PORT-001 and PORT-002 operator scripts were not preserved in version control. PORT-003 commits its operator scripts so the run can be inspected and, apart from non-deterministic provider output, re-executed.",
+    "stage1": {
+      "path": "evaluation/portfolio/_run_port003_stage1.py",
+      "sha256": "f3512aed7527efbc746dd9bbe18757f67fbee8c2344d43261b2b2990b3e0b574"
+    },
+    "stage2": {
+      "path": "evaluation/portfolio/_run_port003_stage2.py",
+      "sha256": "5c99f03304d47f6c5969dd09e978ada0e0d244580bf69fc5077abbde91078788"
+    }
+  },
+  "pre_run_freeze_commit": "d2deb43c4445743673768be85201e69be69554d3",
+  "product_outcome": {
+    "candidate_step_count": 4,
+    "future_state_status": "PROPOSED / NOT DEPLOYED",
+    "package_completeness": "COMPLETE_WITH_INFORMATION_GAPS",
+    "recommendation_distribution": {
+      "AUGMENT": 0,
+      "AUTOMATE": 0,
+      "DO_NOT_RECOMMEND": 0,
+      "INVESTIGATE_FURTHER": 4
+    },
+    "review_status": "APPROVED",
+    "roi_statement": "ROI / quantified benefit unavailable with current evidence.",
+    "workflow_stage": "package-ready"
+  },
+  "production_subtree_fingerprint": "4deca4251d4a9840d6948411544fdf506f1953c16a56eaca803099d2cf81be5a",
+  "provider": {
+    "application_level_extraction_attempts": 1,
+    "configuration_id": "extraction.v0.1",
+    "configuration_sha256": "0465fc47dbb4d3759fffc54c3e483d38314d03ef47196548846d355428657967",
+    "effective_model": "gpt-5.6-terra",
+    "evidence_resolution_status": "SUCCESS",
+    "input_tokens": 3046,
+    "name": "openai",
+    "output_tokens": 8549,
+    "prompt_version": "process-extraction.v0.1",
+    "provider_calls": 1,
+    "repair_invoked": false,
+    "request_id": "resp_089d68ecb06d4edf016a8064b6b08c819cae0e45a6bab91a44",
+    "requested_model": "gpt-5.6-terra",
+    "schema_version": "candidate-process.v0.1",
+    "sdk_version": "2.54.0",
+    "structured_output_status": "SUCCESS"
+  },
+  "repository_head_at_run": "dc6004a3b310338338908bda953a45b1bf7576fa",
+  "run_label": "production-run-v0.1",
+  "schema_version": "portfolio-product-output-freeze.v0.1"
+}

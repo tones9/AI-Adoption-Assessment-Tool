@@ -1,0 +1,2184 @@
+{
+  "candidate": {
+    "candidate_status": "CANDIDATE / UNCONFIRMED PROCESS EXTRACTION",
+    "extraction_run_id": "extraction-a0ca3b07-970e-4350-93ea-71430ade7653",
+    "process_description": {
+      "confidence": null,
+      "evidence": [
+        {
+          "block_end_offset": 109,
+          "block_id": "t-b0003",
+          "block_start_offset": 0,
+          "document_end_offset": 171,
+          "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+          "document_start_offset": 62,
+          "evidence_id": "cev-0f7b23c6588ef77383090091650e1b915680a9476c5716d2d0c06e9fafdf948e",
+          "exact_snippet": "This process creates an internal meeting record, summary and record of action items after an adviser meeting.",
+          "source_locator": "line 5"
+        }
+      ],
+      "knowledge_state": "known",
+      "rationale": "Directly stated process description.",
+      "value": "This process creates an internal meeting record, summary and record of action items after an adviser meeting."
+    },
+    "process_name": {
+      "confidence": null,
+      "evidence": [
+        {
+          "block_end_offset": 51,
+          "block_id": "t-b0001",
+          "block_start_offset": 0,
+          "document_end_offset": 51,
+          "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+          "document_start_offset": 0,
+          "evidence_id": "cev-59a4b61942c80e32a29a6724eed0798d78d68bdcfce7676affa42226ceb2307a",
+          "exact_snippet": "Client-meeting documentation and follow-up planning",
+          "source_locator": "line 1"
+        }
+      ],
+      "knowledge_state": "known",
+      "rationale": "Document title.",
+      "value": "Client-meeting documentation and follow-up planning"
+    },
+    "process_objective": {
+      "confidence": null,
+      "evidence": [
+        {
+          "block_end_offset": 109,
+          "block_id": "t-b0003",
+          "block_start_offset": 0,
+          "document_end_offset": 171,
+          "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+          "document_start_offset": 62,
+          "evidence_id": "cev-0f7b23c6588ef77383090091650e1b915680a9476c5716d2d0c06e9fafdf948e",
+          "exact_snippet": "This process creates an internal meeting record, summary and record of action items after an adviser meeting.",
+          "source_locator": "line 5"
+        }
+      ],
+      "knowledge_state": "known",
+      "rationale": "Directly stated purpose of the process.",
+      "value": "creates an internal meeting record, summary and record of action items after an adviser meeting"
+    },
+    "prompt_version": "process-extraction.v0.1",
+    "schema_version": "candidate-process.v0.1",
+    "source_document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+    "steps": [
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 47,
+              "block_id": "t-b0005",
+              "block_start_offset": 0,
+              "document_end_offset": 318,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 271,
+              "evidence_id": "cev-ae50897d33afd44da5d5b47f4d32c5520c679d4a33451f2b1df790b9091c6fd4",
+              "exact_snippet": "1. An adviser conducts a meeting with a client.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated activity.",
+          "value": "Conduct a meeting with a client"
+        },
+        "actors": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 47,
+              "block_id": "t-b0005",
+              "block_start_offset": 0,
+              "document_end_offset": 318,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 271,
+              "evidence_id": "cev-ae50897d33afd44da5d5b47f4d32c5520c679d4a33451f2b1df790b9091c6fd4",
+              "exact_snippet": "1. An adviser conducts a meeting with a client.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 47,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 0,
+                  "document_end_offset": 318,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 271,
+                  "evidence_id": "cev-ae50897d33afd44da5d5b47f4d32c5520c679d4a33451f2b1df790b9091c6fd4",
+                  "exact_snippet": "1. An adviser conducts a meeting with a client.",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated actor.",
+              "value": "adviser"
+            }
+          ],
+          "rationale": "The step explicitly identifies the actor."
+        },
+        "candidate_step_id": "candidate-step-fa338aa3d54b373a",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [
+              {
+                "block_end_offset": 184,
+                "block_id": "t-b0003",
+                "block_start_offset": 110,
+                "document_end_offset": 246,
+                "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                "document_start_offset": 172,
+                "evidence_id": "cev-4be2cf620baf60127bdfedaf158add9505d4f652222c5bfef06ee1e97172723e",
+                "exact_snippet": "The adviser remains responsible for the client relationship and decisions.",
+                "source_locator": "line 5"
+              }
+            ],
+            "knowledge_state": "known",
+            "rationale": "The adviser is stated to remain responsible for decisions and the client relationship.",
+            "value": true
+          }
+        },
+        "decisions": [],
+        "dependencies": [],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 47,
+              "block_id": "t-b0005",
+              "block_start_offset": 0,
+              "document_end_offset": 318,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 271,
+              "evidence_id": "cev-ae50897d33afd44da5d5b47f4d32c5520c679d4a33451f2b1df790b9091c6fd4",
+              "exact_snippet": "1. An adviser conducts a meeting with a client.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "value": "An adviser conducts a meeting with a client."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 47,
+              "block_id": "t-b0005",
+              "block_start_offset": 0,
+              "document_end_offset": 318,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 271,
+              "evidence_id": "cev-ae50897d33afd44da5d5b47f4d32c5520c679d4a33451f2b1df790b9091c6fd4",
+              "exact_snippet": "1. An adviser conducts a meeting with a client.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Explicit numbered process step.",
+          "value": 1
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is specified for this step."
+        },
+        "inputs": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 47,
+              "block_id": "t-b0005",
+              "block_start_offset": 0,
+              "document_end_offset": 318,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 271,
+              "evidence_id": "cev-ae50897d33afd44da5d5b47f4d32c5520c679d4a33451f2b1df790b9091c6fd4",
+              "exact_snippet": "1. An adviser conducts a meeting with a client.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 47,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 0,
+                  "document_end_offset": 318,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 271,
+                  "evidence_id": "cev-ae50897d33afd44da5d5b47f4d32c5520c679d4a33451f2b1df790b9091c6fd4",
+                  "exact_snippet": "1. An adviser conducts a meeting with a client.",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated meeting participant.",
+              "value": "client"
+            }
+          ],
+          "rationale": "The client is explicitly part of the meeting activity."
+        },
+        "operational_characteristics": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No step-specific operating characteristic is stated."
+        },
+        "order_basis": "explicit",
+        "outputs": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No output is specified for the meeting-conducting step."
+        },
+        "responsible_roles": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 47,
+              "block_id": "t-b0005",
+              "block_start_offset": 0,
+              "document_end_offset": 318,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 271,
+              "evidence_id": "cev-ae50897d33afd44da5d5b47f4d32c5520c679d4a33451f2b1df790b9091c6fd4",
+              "exact_snippet": "1. An adviser conducts a meeting with a client.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 47,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 0,
+                  "document_end_offset": 318,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 271,
+                  "evidence_id": "cev-ae50897d33afd44da5d5b47f4d32c5520c679d4a33451f2b1df790b9091c6fd4",
+                  "exact_snippet": "1. An adviser conducts a meeting with a client.",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated performer.",
+              "value": "adviser"
+            }
+          ],
+          "rationale": "The adviser is the stated performer of this activity."
+        },
+        "sequence": 1,
+        "systems": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No system is identified for this step."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 166,
+              "block_id": "t-b0005",
+              "block_start_offset": 48,
+              "document_end_offset": 437,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 319,
+              "evidence_id": "cev-f9b356c0e58278f64295aec0c32c922bbec8ebaf7312035c149bc5117498c3a3",
+              "exact_snippet": "2. During the meeting, the adviser, a junior colleague or another team member records notes and action items manually.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated activity.",
+          "value": "Record notes and action items manually"
+        },
+        "actors": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 125,
+              "block_id": "t-b0005",
+              "block_start_offset": 71,
+              "document_end_offset": 396,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 342,
+              "evidence_id": "cev-d823b521246dc0906f91a7840726cd91f4393711615bbf67c80246a921028e51",
+              "exact_snippet": "the adviser, a junior colleague or another team member",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 125,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 71,
+                  "document_end_offset": 396,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 342,
+                  "evidence_id": "cev-d823b521246dc0906f91a7840726cd91f4393711615bbf67c80246a921028e51",
+                  "exact_snippet": "the adviser, a junior colleague or another team member",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible actor.",
+              "value": "adviser"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 125,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 71,
+                  "document_end_offset": 396,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 342,
+                  "evidence_id": "cev-d823b521246dc0906f91a7840726cd91f4393711615bbf67c80246a921028e51",
+                  "exact_snippet": "the adviser, a junior colleague or another team member",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible actor.",
+              "value": "junior colleague"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 125,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 71,
+                  "document_end_offset": 396,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 342,
+                  "evidence_id": "cev-d823b521246dc0906f91a7840726cd91f4393711615bbf67c80246a921028e51",
+                  "exact_snippet": "the adviser, a junior colleague or another team member",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible actor.",
+              "value": "another team member"
+            }
+          ],
+          "rationale": "The step identifies the alternative actors that may perform it."
+        },
+        "candidate_step_id": "candidate-step-9561eeeddd601694",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [
+                  {
+                    "block_end_offset": 165,
+                    "block_id": "t-b0005",
+                    "block_start_offset": 126,
+                    "document_end_offset": 436,
+                    "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                    "document_start_offset": 397,
+                    "evidence_id": "cev-ed5006cdbafcaa86923e448abd83bd3af1d7149a0ed5176f330fe08f711646cb",
+                    "exact_snippet": "records notes and action items manually",
+                    "source_locator": "lines 9-12"
+                  }
+                ],
+                "knowledge_state": "known",
+                "rationale": "The activity explicitly creates notes and records action items.",
+                "value": true
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "The source does not state whether accountability is required specifically for recording notes and action items.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 166,
+              "block_id": "t-b0005",
+              "block_start_offset": 48,
+              "document_end_offset": 437,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 319,
+              "evidence_id": "cev-f9b356c0e58278f64295aec0c32c922bbec8ebaf7312035c149bc5117498c3a3",
+              "exact_snippet": "2. During the meeting, the adviser, a junior colleague or another team member records notes and action items manually.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "value": "During the meeting, the adviser, a junior colleague or another team member records notes and action items manually."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 166,
+              "block_id": "t-b0005",
+              "block_start_offset": 48,
+              "document_end_offset": 437,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 319,
+              "evidence_id": "cev-f9b356c0e58278f64295aec0c32c922bbec8ebaf7312035c149bc5117498c3a3",
+              "exact_snippet": "2. During the meeting, the adviser, a junior colleague or another team member records notes and action items manually.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Explicit numbered process step.",
+          "value": 2
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is specified for this step."
+        },
+        "inputs": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 69,
+              "block_id": "t-b0005",
+              "block_start_offset": 51,
+              "document_end_offset": 340,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 322,
+              "evidence_id": "cev-61be1e9576c2b579f6d59e3baa8f1901cd16b2c9c2e55654b6c313fdfe83d68b",
+              "exact_snippet": "During the meeting",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 69,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 51,
+                  "document_end_offset": 340,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 322,
+                  "evidence_id": "cev-61be1e9576c2b579f6d59e3baa8f1901cd16b2c9c2e55654b6c313fdfe83d68b",
+                  "exact_snippet": "During the meeting",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated context for the recording activity.",
+              "value": "meeting"
+            }
+          ],
+          "rationale": "The recording takes place during the meeting."
+        },
+        "operational_characteristics": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 165,
+              "block_id": "t-b0005",
+              "block_start_offset": 126,
+              "document_end_offset": 436,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 397,
+              "evidence_id": "cev-ed5006cdbafcaa86923e448abd83bd3af1d7149a0ed5176f330fe08f711646cb",
+              "exact_snippet": "records notes and action items manually",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 165,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 126,
+                  "document_end_offset": 436,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 397,
+                  "evidence_id": "cev-ed5006cdbafcaa86923e448abd83bd3af1d7149a0ed5176f330fe08f711646cb",
+                  "exact_snippet": "records notes and action items manually",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated operating characteristic.",
+              "value": "manual recording"
+            }
+          ],
+          "rationale": "The note and action-item recording is explicitly manual."
+        },
+        "order_basis": "explicit",
+        "outputs": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 165,
+              "block_id": "t-b0005",
+              "block_start_offset": 126,
+              "document_end_offset": 436,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 397,
+              "evidence_id": "cev-ed5006cdbafcaa86923e448abd83bd3af1d7149a0ed5176f330fe08f711646cb",
+              "exact_snippet": "records notes and action items manually",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 165,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 126,
+                  "document_end_offset": 436,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 397,
+                  "evidence_id": "cev-ed5006cdbafcaa86923e448abd83bd3af1d7149a0ed5176f330fe08f711646cb",
+                  "exact_snippet": "records notes and action items manually",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated recorded item.",
+              "value": "notes"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 165,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 126,
+                  "document_end_offset": 436,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 397,
+                  "evidence_id": "cev-ed5006cdbafcaa86923e448abd83bd3af1d7149a0ed5176f330fe08f711646cb",
+                  "exact_snippet": "records notes and action items manually",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated recorded item.",
+              "value": "action items"
+            }
+          ],
+          "rationale": "The step explicitly records two outputs."
+        },
+        "responsible_roles": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 125,
+              "block_id": "t-b0005",
+              "block_start_offset": 71,
+              "document_end_offset": 396,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 342,
+              "evidence_id": "cev-d823b521246dc0906f91a7840726cd91f4393711615bbf67c80246a921028e51",
+              "exact_snippet": "the adviser, a junior colleague or another team member",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 125,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 71,
+                  "document_end_offset": 396,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 342,
+                  "evidence_id": "cev-d823b521246dc0906f91a7840726cd91f4393711615bbf67c80246a921028e51",
+                  "exact_snippet": "the adviser, a junior colleague or another team member",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible performer.",
+              "value": "adviser"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 125,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 71,
+                  "document_end_offset": 396,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 342,
+                  "evidence_id": "cev-d823b521246dc0906f91a7840726cd91f4393711615bbf67c80246a921028e51",
+                  "exact_snippet": "the adviser, a junior colleague or another team member",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible performer.",
+              "value": "junior colleague"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 125,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 71,
+                  "document_end_offset": 396,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 342,
+                  "evidence_id": "cev-d823b521246dc0906f91a7840726cd91f4393711615bbf67c80246a921028e51",
+                  "exact_snippet": "the adviser, a junior colleague or another team member",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible performer.",
+              "value": "another team member"
+            }
+          ],
+          "rationale": "The step identifies the alternative performers."
+        },
+        "sequence": 2,
+        "systems": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No system is identified for this step."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 259,
+              "block_id": "t-b0005",
+              "block_start_offset": 167,
+              "document_end_offset": 530,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 438,
+              "evidence_id": "cev-c395dc3f4edf696f88ec8df266421b188068c7eece631a4af92bc9216b74107a",
+              "exact_snippet": "3. After the meeting, the adviser or a support professional reviews and cleans up the notes.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated activity.",
+          "value": "Review and clean up the notes"
+        },
+        "actors": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 226,
+              "block_id": "t-b0005",
+              "block_start_offset": 189,
+              "document_end_offset": 497,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 460,
+              "evidence_id": "cev-e798f4c439d61cbc13c7f7b2de0562be0070883cc8e890a290c39bf4b1010ca0",
+              "exact_snippet": "the adviser or a support professional",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 226,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 189,
+                  "document_end_offset": 497,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 460,
+                  "evidence_id": "cev-e798f4c439d61cbc13c7f7b2de0562be0070883cc8e890a290c39bf4b1010ca0",
+                  "exact_snippet": "the adviser or a support professional",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible actor.",
+              "value": "adviser"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 226,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 189,
+                  "document_end_offset": 497,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 460,
+                  "evidence_id": "cev-e798f4c439d61cbc13c7f7b2de0562be0070883cc8e890a290c39bf4b1010ca0",
+                  "exact_snippet": "the adviser or a support professional",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible actor.",
+              "value": "support professional"
+            }
+          ],
+          "rationale": "The step identifies the alternative actors that may perform it."
+        },
+        "candidate_step_id": "candidate-step-a7954dce6dd05a0e",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "The source does not state whether accountability is required specifically for review and cleanup of notes.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 259,
+              "block_id": "t-b0005",
+              "block_start_offset": 167,
+              "document_end_offset": 530,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 438,
+              "evidence_id": "cev-c395dc3f4edf696f88ec8df266421b188068c7eece631a4af92bc9216b74107a",
+              "exact_snippet": "3. After the meeting, the adviser or a support professional reviews and cleans up the notes.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "value": "After the meeting, the adviser or a support professional reviews and cleans up the notes."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 259,
+              "block_id": "t-b0005",
+              "block_start_offset": 167,
+              "document_end_offset": 530,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 438,
+              "evidence_id": "cev-c395dc3f4edf696f88ec8df266421b188068c7eece631a4af92bc9216b74107a",
+              "exact_snippet": "3. After the meeting, the adviser or a support professional reviews and cleans up the notes.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Explicit numbered process step.",
+          "value": 3
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is specified for this step."
+        },
+        "inputs": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 258,
+              "block_id": "t-b0005",
+              "block_start_offset": 227,
+              "document_end_offset": 529,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 498,
+              "evidence_id": "cev-eb9d3ca00e8f4b7aff1d7e107a6e22528bb2b1af24ae18a07fbf323058da5a76",
+              "exact_snippet": "reviews and cleans up the notes",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 258,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 227,
+                  "document_end_offset": 529,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 498,
+                  "evidence_id": "cev-eb9d3ca00e8f4b7aff1d7e107a6e22528bb2b1af24ae18a07fbf323058da5a76",
+                  "exact_snippet": "reviews and cleans up the notes",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated object of review and cleanup.",
+              "value": "notes"
+            }
+          ],
+          "rationale": "The notes are explicitly reviewed and cleaned up."
+        },
+        "operational_characteristics": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No step-specific operating characteristic is stated."
+        },
+        "order_basis": "explicit",
+        "outputs": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 258,
+              "block_id": "t-b0005",
+              "block_start_offset": 227,
+              "document_end_offset": 529,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 498,
+              "evidence_id": "cev-eb9d3ca00e8f4b7aff1d7e107a6e22528bb2b1af24ae18a07fbf323058da5a76",
+              "exact_snippet": "reviews and cleans up the notes",
+              "source_locator": "lines 9-12"
+            },
+            {
+              "block_end_offset": 359,
+              "block_id": "t-b0005",
+              "block_start_offset": 263,
+              "document_end_offset": 630,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 534,
+              "evidence_id": "cev-37bc94e58c560a20f67f7044ae6ac9d62a85b667961be3ef92e4f9d0a776d146",
+              "exact_snippet": "The adviser or team prepares a meeting summary from the cleaned notes and recorded action items.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": 0.9,
+              "evidence": [
+                {
+                  "block_end_offset": 258,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 227,
+                  "document_end_offset": 529,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 498,
+                  "evidence_id": "cev-eb9d3ca00e8f4b7aff1d7e107a6e22528bb2b1af24ae18a07fbf323058da5a76",
+                  "exact_snippet": "reviews and cleans up the notes",
+                  "source_locator": "lines 9-12"
+                },
+                {
+                  "block_end_offset": 359,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 263,
+                  "document_end_offset": 630,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 534,
+                  "evidence_id": "cev-37bc94e58c560a20f67f7044ae6ac9d62a85b667961be3ef92e4f9d0a776d146",
+                  "exact_snippet": "The adviser or team prepares a meeting summary from the cleaned notes and recorded action items.",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "inferred",
+              "rationale": "The next documented step prepares the summary from cleaned notes after this step cleans up the notes.",
+              "value": "cleaned notes"
+            }
+          ],
+          "rationale": "The following step explicitly refers to cleaned notes, supporting this as the output of this step."
+        },
+        "responsible_roles": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 226,
+              "block_id": "t-b0005",
+              "block_start_offset": 189,
+              "document_end_offset": 497,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 460,
+              "evidence_id": "cev-e798f4c439d61cbc13c7f7b2de0562be0070883cc8e890a290c39bf4b1010ca0",
+              "exact_snippet": "the adviser or a support professional",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 226,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 189,
+                  "document_end_offset": 497,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 460,
+                  "evidence_id": "cev-e798f4c439d61cbc13c7f7b2de0562be0070883cc8e890a290c39bf4b1010ca0",
+                  "exact_snippet": "the adviser or a support professional",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible performer.",
+              "value": "adviser"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 226,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 189,
+                  "document_end_offset": 497,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 460,
+                  "evidence_id": "cev-e798f4c439d61cbc13c7f7b2de0562be0070883cc8e890a290c39bf4b1010ca0",
+                  "exact_snippet": "the adviser or a support professional",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible performer.",
+              "value": "support professional"
+            }
+          ],
+          "rationale": "The step identifies the alternative performers."
+        },
+        "sequence": 3,
+        "systems": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No system is identified for this step."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 359,
+              "block_id": "t-b0005",
+              "block_start_offset": 260,
+              "document_end_offset": 630,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 531,
+              "evidence_id": "cev-e11bce76e3a608e74bc6b15d5ed43683c68809c56d1b35f3b9374c3170a9067f",
+              "exact_snippet": "4. The adviser or team prepares a meeting summary from the cleaned notes and recorded action items.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated activity.",
+          "value": "Prepare a meeting summary"
+        },
+        "actors": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 309,
+              "block_id": "t-b0005",
+              "block_start_offset": 263,
+              "document_end_offset": 580,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 534,
+              "evidence_id": "cev-a03423b9cd563defa7f4a0bfd958797f67c23e96793e31bf12f45ee115b69ff7",
+              "exact_snippet": "The adviser or team prepares a meeting summary",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 309,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 263,
+                  "document_end_offset": 580,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 534,
+                  "evidence_id": "cev-a03423b9cd563defa7f4a0bfd958797f67c23e96793e31bf12f45ee115b69ff7",
+                  "exact_snippet": "The adviser or team prepares a meeting summary",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible actor.",
+              "value": "adviser"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 309,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 263,
+                  "document_end_offset": 580,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 534,
+                  "evidence_id": "cev-a03423b9cd563defa7f4a0bfd958797f67c23e96793e31bf12f45ee115b69ff7",
+                  "exact_snippet": "The adviser or team prepares a meeting summary",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible actor.",
+              "value": "team"
+            }
+          ],
+          "rationale": "The step identifies the alternative actors that may perform it."
+        },
+        "candidate_step_id": "candidate-step-d3ec490723991cb0",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [
+                  {
+                    "block_end_offset": 309,
+                    "block_id": "t-b0005",
+                    "block_start_offset": 283,
+                    "document_end_offset": 580,
+                    "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                    "document_start_offset": 554,
+                    "evidence_id": "cev-7bd7623e4b8cb5c417aaa883cf0781c207afff9ed5306649f238a3a4c4867579",
+                    "exact_snippet": "prepares a meeting summary",
+                    "source_locator": "lines 9-12"
+                  }
+                ],
+                "knowledge_state": "known",
+                "rationale": "The activity explicitly prepares a meeting summary.",
+                "value": true
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated for this step.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible criterion value is stated for this step.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "The source does not state whether accountability is required specifically for preparing the meeting summary.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [
+          {
+            "relationship": {
+              "confidence": 0.9,
+              "evidence": [
+                {
+                  "block_end_offset": 258,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 227,
+                  "document_end_offset": 529,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 498,
+                  "evidence_id": "cev-eb9d3ca00e8f4b7aff1d7e107a6e22528bb2b1af24ae18a07fbf323058da5a76",
+                  "exact_snippet": "reviews and cleans up the notes",
+                  "source_locator": "lines 9-12"
+                },
+                {
+                  "block_end_offset": 358,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 283,
+                  "document_end_offset": 629,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 554,
+                  "evidence_id": "cev-05dde4fc2590c810361a7953f8c1e00351efa597a09eb1d673f99a784ab6861e",
+                  "exact_snippet": "prepares a meeting summary from the cleaned notes and recorded action items",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "inferred",
+              "rationale": "The summary is prepared from cleaned notes created through the preceding cleanup activity.",
+              "value": "uses output of"
+            },
+            "target_candidate_step_id": "candidate-step-a7954dce6dd05a0e",
+            "target_label": {
+              "confidence": 0.9,
+              "evidence": [
+                {
+                  "block_end_offset": 259,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 167,
+                  "document_end_offset": 530,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 438,
+                  "evidence_id": "cev-c395dc3f4edf696f88ec8df266421b188068c7eece631a4af92bc9216b74107a",
+                  "exact_snippet": "3. After the meeting, the adviser or a support professional reviews and cleans up the notes.",
+                  "source_locator": "lines 9-12"
+                },
+                {
+                  "block_end_offset": 359,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 260,
+                  "document_end_offset": 630,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 531,
+                  "evidence_id": "cev-e11bce76e3a608e74bc6b15d5ed43683c68809c56d1b35f3b9374c3170a9067f",
+                  "exact_snippet": "4. The adviser or team prepares a meeting summary from the cleaned notes and recorded action items.",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "inferred",
+              "rationale": "The summary is prepared from cleaned notes, which result from the preceding review and cleanup step.",
+              "value": "Review and clean up the notes"
+            }
+          }
+        ],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 359,
+              "block_id": "t-b0005",
+              "block_start_offset": 260,
+              "document_end_offset": 630,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 531,
+              "evidence_id": "cev-e11bce76e3a608e74bc6b15d5ed43683c68809c56d1b35f3b9374c3170a9067f",
+              "exact_snippet": "4. The adviser or team prepares a meeting summary from the cleaned notes and recorded action items.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Directly stated step description.",
+          "value": "The adviser or team prepares a meeting summary from the cleaned notes and recorded action items."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 359,
+              "block_id": "t-b0005",
+              "block_start_offset": 260,
+              "document_end_offset": 630,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 531,
+              "evidence_id": "cev-e11bce76e3a608e74bc6b15d5ed43683c68809c56d1b35f3b9374c3170a9067f",
+              "exact_snippet": "4. The adviser or team prepares a meeting summary from the cleaned notes and recorded action items.",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Explicit numbered process step.",
+          "value": 4
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is specified for this step."
+        },
+        "inputs": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 358,
+              "block_id": "t-b0005",
+              "block_start_offset": 310,
+              "document_end_offset": 629,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 581,
+              "evidence_id": "cev-84904ffa3a322fd79872657112b7d5e31da3535b6ebe0835e505598fb3728cb9",
+              "exact_snippet": "from the cleaned notes and recorded action items",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 358,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 310,
+                  "document_end_offset": 629,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 581,
+                  "evidence_id": "cev-84904ffa3a322fd79872657112b7d5e31da3535b6ebe0835e505598fb3728cb9",
+                  "exact_snippet": "from the cleaned notes and recorded action items",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated source material.",
+              "value": "cleaned notes"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 358,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 310,
+                  "document_end_offset": 629,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 581,
+                  "evidence_id": "cev-84904ffa3a322fd79872657112b7d5e31da3535b6ebe0835e505598fb3728cb9",
+                  "exact_snippet": "from the cleaned notes and recorded action items",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated source material.",
+              "value": "recorded action items"
+            }
+          ],
+          "rationale": "The source explicitly identifies the materials from which the summary is prepared."
+        },
+        "operational_characteristics": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No step-specific operating characteristic is stated."
+        },
+        "order_basis": "explicit",
+        "outputs": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 309,
+              "block_id": "t-b0005",
+              "block_start_offset": 283,
+              "document_end_offset": 580,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 554,
+              "evidence_id": "cev-7bd7623e4b8cb5c417aaa883cf0781c207afff9ed5306649f238a3a4c4867579",
+              "exact_snippet": "prepares a meeting summary",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 309,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 283,
+                  "document_end_offset": 580,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 554,
+                  "evidence_id": "cev-7bd7623e4b8cb5c417aaa883cf0781c207afff9ed5306649f238a3a4c4867579",
+                  "exact_snippet": "prepares a meeting summary",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated output.",
+              "value": "meeting summary"
+            }
+          ],
+          "rationale": "The step explicitly prepares a meeting summary."
+        },
+        "responsible_roles": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 309,
+              "block_id": "t-b0005",
+              "block_start_offset": 263,
+              "document_end_offset": 580,
+              "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+              "document_start_offset": 534,
+              "evidence_id": "cev-a03423b9cd563defa7f4a0bfd958797f67c23e96793e31bf12f45ee115b69ff7",
+              "exact_snippet": "The adviser or team prepares a meeting summary",
+              "source_locator": "lines 9-12"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 309,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 263,
+                  "document_end_offset": 580,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 534,
+                  "evidence_id": "cev-a03423b9cd563defa7f4a0bfd958797f67c23e96793e31bf12f45ee115b69ff7",
+                  "exact_snippet": "The adviser or team prepares a meeting summary",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible performer.",
+              "value": "adviser"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 309,
+                  "block_id": "t-b0005",
+                  "block_start_offset": 263,
+                  "document_end_offset": 580,
+                  "document_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b",
+                  "document_start_offset": 534,
+                  "evidence_id": "cev-a03423b9cd563defa7f4a0bfd958797f67c23e96793e31bf12f45ee115b69ff7",
+                  "exact_snippet": "The adviser or team prepares a meeting summary",
+                  "source_locator": "lines 9-12"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "Directly stated possible performer.",
+              "value": "team"
+            }
+          ],
+          "rationale": "The step identifies the alternative performers."
+        },
+        "sequence": 4,
+        "systems": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No system is identified for this step."
+        }
+      }
+    ]
+  },
+  "issues": [],
+  "provider_invocations": [
+    {
+      "attempt": 1,
+      "chunk_id": "doc-79237f4d0164a2d6c3747fca3baf1e4f92613bc5c29b367eca0d8add7428441b-chunk-0001",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_089d68ecb06d4edf016a8064b6b08c819cae0e45a6bab91a44",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 3046,
+        "output_tokens": 8549
+      }
+    }
+  ],
+  "status": "success"
+}
