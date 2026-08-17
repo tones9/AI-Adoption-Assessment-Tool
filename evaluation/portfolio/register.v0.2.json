@@ -1,0 +1,101 @@
+{
+  "schema_version": "portfolio-register.v0.2",
+  "supersedes_register": "register.v0.1.json",
+  "supersedes_note": "register.v0.1.json is retained byte-identical and remains the record of the 2026-08-15 three-case freeze. This version adds PORT-004 and records the PORT-003 supersession. No PORT-001, PORT-002 or PORT-003 artefact was modified.",
+  "freeze_date": "2026-08-17",
+  "original_freeze_date": "2026-08-15",
+  "evaluation_type": "retrospective-before-after-portfolio-validation",
+  "cases": [
+    {
+      "case_id": "PORT-001",
+      "research_identity": "Nordic insurer claims-document processing",
+      "product_title": "Claims-document intake and recording",
+      "before_input_form": "ANONYMISED_RESEARCHER_DESCRIPTION",
+      "before_activity_count": 6,
+      "before_path": "product_inputs/port-001.before.txt",
+      "provenance_path": "provenance/port-001.manifest.json",
+      "after_path": "sealed_after/port-001.after.md",
+      "leakage_audit_path": "leakage_audits/port-001.audit.json",
+      "status": "FROZEN_BEFORE_AFTER_SEALED",
+      "portfolio_position": "Case 1",
+      "limitations_summary": "KEEP WITH LIMITATIONS"
+    },
+    {
+      "case_id": "PORT-002",
+      "research_identity": "Elisa customer-call routing and handling",
+      "product_title": "Customer-call routing and handling",
+      "before_input_form": "ANONYMISED_RESEARCHER_DESCRIPTION",
+      "before_activity_count": 6,
+      "before_path": "product_inputs/port-002.before.txt",
+      "provenance_path": "provenance/port-002.manifest.json",
+      "after_path": "sealed_after/port-002.after.md",
+      "leakage_audit_path": "leakage_audits/port-002.audit.json",
+      "status": "FROZEN_BEFORE_AFTER_SEALED",
+      "portfolio_position": "Case 2",
+      "limitations_summary": "KEEP WITH LIMITATIONS"
+    },
+    {
+      "case_id": "PORT-003",
+      "research_identity": "Morgan Stanley client-meeting documentation and follow-up planning",
+      "product_title": "Client-meeting documentation and follow-up planning",
+      "before_input_form": "ANONYMISED_RESEARCHER_DESCRIPTION",
+      "before_activity_count": 4,
+      "before_path": "product_inputs/port-003.before.txt",
+      "provenance_path": "provenance/port-003.manifest.json",
+      "after_path": "sealed_after/port-003.after.md",
+      "leakage_audit_path": "leakage_audits/port-003.audit.json",
+      "status": "SUPERSEDED_CONTAMINATED_BEFORE",
+      "portfolio_position": "excluded from forward analysis",
+      "superseded_by": "PORT-004",
+      "supersession_note_path": "port-003-supersession-note.v0.1.md",
+      "supersession_reason": "No independent pre-implementation source describes the BEFORE workflow. The prior process is knowable only from AFTER-dated material framed as what the AI replaced. Artefacts retained unchanged; original leakage audit already recorded residual_contamination_risk HIGH.",
+      "artefacts_modified": false
+    },
+    {
+      "case_id": "PORT-004",
+      "research_identity": "United States Patent and Trademark Office patent examiner prior-art search workflow",
+      "product_title": "Patent examiner prior-art search workflow",
+      "before_input_form": "VERBATIM_PRIMARY_SOURCE_EXTRACT",
+      "before_path": "product_inputs/port-004.before.txt",
+      "before_sha256": "7bc9242a67e9400392c590e181db4ec7ca81880b44e4a903a5c71446467e492d",
+      "source_document_path": "source_documents/port-004-mpep-0900-e9r10-2019.pdf",
+      "source_document_sha256": "a74b4a685afea1976d6e4b035e11ac14aa8850d97dbb006ec14eca9ba2ec29e7",
+      "provenance_path": "provenance/port-004.manifest.json",
+      "capture_path": "source_captures/port-004-s1-mpep-chapter-900.capture.md",
+      "leakage_audit_path": "leakage_audits/port-004.audit.json",
+      "freeze_record_path": "port-004.freeze-record.v0.1.md",
+      "hash_record_path": "port-004.hashes.sha256",
+      "after_path": null,
+      "status": "FROZEN_BEFORE_ONLY_AFTER_NOT_YET_COLLECTED",
+      "portfolio_position": "Case 3",
+      "supersedes": "PORT-003",
+      "residual_contamination_risk": "LOW"
+    }
+  ],
+  "excluded_from_portfolio": [
+    {
+      "case": "BMW maintenance",
+      "reason": "Historical evidence was insufficient for the approved three-case BEFORE-workflow portfolio."
+    },
+    {
+      "case": "Morgan Stanley Wealth Management (PORT-003)",
+      "reason": "Source audit on 2026-08-17 found no independent pre-implementation BEFORE evidence. Recorded as a successful exclusion. Artefacts retained unchanged."
+    },
+    {
+      "case": "SSA disability determination / claims adjudication",
+      "reason": "Audited 2026-08-17 and rejected as Case 3: the process already contained machine learning before the target implementation, the comparison point is ambiguous, and SSA OIG found no outcome metrics for Insight. Held as a reserve candidate, not permanently excluded."
+    }
+  ],
+  "reserve_candidates": [
+    {
+      "case": "NHS Trust radiology reporting and backlog management",
+      "audited": "2026-08-17",
+      "verdict": "ACCEPT, conditional on resolving a unit-of-analysis scoping decision",
+      "position": "Case 4 candidate"
+    }
+  ],
+  "pending_steps": [
+    "Regenerate the cross-case summary for the PORT-001 / PORT-002 / PORT-004 composition. cross_case_summary.v0.1 remains accurate for the superseded PORT-001/002/003 composition and has not been modified.",
+    "Collect and seal PORT-004 AFTER evidence. Not started; no AFTER material exists in this case."
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": "portfolio-leakage-audit.v0.2",
+  "variant": "VERBATIM_PRIMARY_SOURCE",
+  "variant_rationale": "PORT-001 to PORT-003 used anonymised researcher-authored BEFORE descriptions, so their audits asserted organisation_identity_absent and ai_vendor_product_names_absent. PORT-004 deliberately uploads an unmodified pre-AI operational document, so those two checks are not applicable by design and are replaced by source-integrity and AI-reference checks.",
+  "case_id": "PORT-004",
+  "before_path": "product_inputs/port-004.before.txt",
+  "before_sha256": "7bc9242a67e9400392c590e181db4ec7ca81880b44e4a903a5c71446467e492d",
+  "checks": {
+    "before_document_predates_target_ai_implementation": true,
+    "before_document_authored_independently_of_ai_adoption": true,
+    "ai_assisted_search_references_absent": true,
+    "after_outcomes_absent": true,
+    "after_intervention_description_absent": true,
+    "later_intervention_absent": true,
+    "researcher_paraphrase_absent": true,
+    "researcher_inference_absent": true,
+    "editorial_trimming_inside_corpus_absent": true,
+    "organisation_identity_absent": "NOT_APPLICABLE_BY_DESIGN",
+    "ai_vendor_product_names_absent": "NOT_APPLICABLE_BY_DESIGN"
+  },
+  "ai_term_scan": {
+    "scope": "all 58 pages of the source PDF plus OCR of both full-page graphics (900-39, 900-44); and the frozen 20-page product input",
+    "method": "case-insensitive regex over pdftotext output and tesseract OCR output",
+    "terms": {
+      "artificial intelligence": 0,
+      "machine learning": 0,
+      "neural": 0,
+      "deep learning": 0,
+      "predictive analytics": 0,
+      "SimSearch": 0,
+      "similarity search": 0,
+      "AI (word boundary)": 0,
+      "algorithm": 0
+    },
+    "automated_occurrences": 16,
+    "automated_disposition": "All 16 inspected. Every occurrence is either a proper product name (Examiner's Automated Search Tool / EAST, Web-based Examiner Search Tool / WEST, Foreign Patent Access System / FPAS) or a generic reference to electronic full-text and Boolean retrieval. No occurrence implies inference, ranking or model-based retrieval."
+  },
+  "ai_separation_timeline": {
+    "before_document_content_current_through": "2019-10",
+    "before_document_published": "2020-06",
+    "ai_for_pe2e_official_gazette_notice": "2021-12-20",
+    "simsearch_entered_examiner_use": "2022-09",
+    "margin_to_earliest_ai_event": "2 years 2 months from publication to the AI-for-PE2E notice",
+    "margin_to_implementation": "2 years 3 months from publication to SimSearch entering examiner use",
+    "next_mpep_revision_excluded": "E9R-07.2022, published February 2023, is post-implementation and was rejected as a BEFORE source"
+  },
+  "residual_contamination_risk": "LOW",
+  "residual_risk_basis": "The BEFORE document is an operational manual authored by the examining authority for examiner guidance, published years before the AI implementation, with its date independently corroborated by a Federal Register notice and by the PDF's own embedded creation timestamp. No AI-assisted search reference appears anywhere in the source. No researcher paraphrase or inference enters the product input.",
+  "passed": true
+}

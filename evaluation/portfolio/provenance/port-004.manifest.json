@@ -1,0 +1,106 @@
+{
+  "schema_version": "portfolio-provenance.v0.2",
+  "case_id": "PORT-004",
+  "supersedes": "PORT-003",
+  "research_identity": "United States Patent and Trademark Office patent examiner prior-art search workflow",
+  "product_identity": "Patent examiner prior-art search workflow",
+  "before_input_form": "VERBATIM_PRIMARY_SOURCE_EXTRACT",
+  "anonymisation_applied": false,
+  "before_path": "product_inputs/port-004.before.txt",
+  "after_path": null,
+  "after_status": "NOT_YET_COLLECTED_AFTER_SEALING_IS_A_SEPARATE_GATED_STEP",
+  "sources": [
+    {
+      "source_id": "PORT-004-S1",
+      "publisher": "United States Patent and Trademark Office",
+      "title": "Manual of Patent Examining Procedure, Ninth Edition, Revision 10.2019 (June 2020 publication), Chapter 900 - Prior Art, Classification, and Search",
+      "url": "https://www.uspto.gov/web/offices/pac/mpep/old/e9r10-2019/mpep-0900.pdf",
+      "archive_index_url": "https://www.uspto.gov/web/offices/pac/mpep/old/mpep_E9R10-2019.htm",
+      "independent_date_anchor": "https://www.federalregister.gov/documents/2020/07/10/2020-14931/manual-of-patent-examining-procedure-ninth-edition-revision-of-june-2020",
+      "local_path": "source_documents/port-004-mpep-0900-e9r10-2019.pdf",
+      "sha256": "a74b4a685afea1976d6e4b035e11ac14aa8850d97dbb006ec14eca9ba2ec29e7",
+      "file_size_bytes": 1885991,
+      "page_count": 58,
+      "printed_page_labels": "900-1 to 900-58",
+      "pdf_metadata": {
+        "format": "PDF 1.4",
+        "title": "MPEP - Chapter 0900 - Prior Art, Classification, and Search",
+        "subject": "MANUAL OF PATENT EXAMINING PROCEDURE",
+        "author": "United States Patent & Trademark Office",
+        "creator": "United States Patent & Trademark Office",
+        "producer": "XEP 4.19 build 20110414",
+        "creation_date": "2020-06-25T22:20:55",
+        "mod_date": "2020-06-26T20:21:59",
+        "encrypted": false,
+        "javascript": false,
+        "tagged": true,
+        "page_size_pts": "576 x 792"
+      },
+      "provenance": "examining-authority-authored operational procedure manual, published for examiner guidance",
+      "authored_independently_of_ai_adoption": true,
+      "quality": "HIGH",
+      "capture_path": "source_captures/port-004-s1-mpep-chapter-900.capture.md",
+      "accessed": "2026-08-17"
+    }
+  ],
+  "frozen_scope": {
+    "requested_sections": ["902", "903", "904", "904.01", "904.02", "904.03"],
+    "extraction_unit": "page-contiguous range, physical pages 27-46 (printed 900-27 to 900-46)",
+    "extraction_command": "pdftotext -f 27 -l 46 -layout",
+    "editorial_intervention_inside_frozen_corpus": "NONE",
+    "section_page_map": {
+      "902 Search Tools and Classification Information [R-07.2015]": "900-27",
+      "902.01 - 902.03(e)": "900-27 to 900-29",
+      "903 Classification in USPC [R-07.2015]": "900-30",
+      "903.01 - 903.07(a)": "900-30 to 900-33",
+      "903.08 family and 903.09 (administrative)": "900-34 to 900-40",
+      "904 How to Search [R-10.2019]": "900-40",
+      "904.01 - 904.01(c)": "900-40 to 900-41",
+      "904.02 General Search Guidelines [R-07.2015]": "900-41",
+      "904.02(a) Classified Search [R-08.2017]": "900-42",
+      "904.02(b) Search Tool Selection [R-07.2015]": "900-43 to 900-44",
+      "904.02(c) Internet Searching [R-10.2019]": "900-45",
+      "904.03 Conducting the Search [R-07.2015]": "900-46"
+    },
+    "boundary_spill_recorded": [
+      "Leading spill on 900-27: closing text of 901.08 (WIPO-CASE service description).",
+      "Trailing spill on 900-46: opening text of 905 / 905.01 (CPC scheme hierarchy)."
+    ],
+    "in_range_material_outside_the_search_workflow": [
+      "903.08(a)-903.08(e) and 903.09 application assignment, inspection, transfer procedure and classification order administration, pages 900-34 to 900-40."
+    ],
+    "excluded": [
+      "901 Prior Art and subsections (except the leading spill noted above)",
+      "905 Cooperative Patent Classification and subsections (except the trailing spill noted above)",
+      "all remaining Chapter 900 material on pages 900-1 to 900-26 and 900-47 to 900-58"
+    ]
+  },
+  "section_revision_stamps": {
+    "902": "R-07.2015",
+    "903": "R-07.2015",
+    "904": "R-10.2019",
+    "904.01": "R-08.2012",
+    "904.01(a)": "R-08.2012",
+    "904.01(b)": "R-08.2012",
+    "904.01(c)": "R-08.2012",
+    "904.02": "R-07.2015",
+    "904.02(a)": "R-08.2017",
+    "904.02(b)": "R-07.2015",
+    "904.02(c)": "R-10.2019",
+    "904.03": "R-07.2015",
+    "latest_substantive_revision_in_904_family": "R-10.2019"
+  },
+  "before_claims": [
+    {"field": "entire_before_document", "classification": "VERBATIM_PRIMARY_SOURCE", "sources": ["PORT-004-S1"]}
+  ],
+  "researcher_inference_in_product_input": false,
+  "researcher_paraphrase_in_product_input": false,
+  "limitations": [
+    "Section 904.02(b) decision tree exists as a graphic and is not visible to text-only ingestion.",
+    "OCR recovery was audit-only and must NOT be added to engine input.",
+    "MPEP is normative, not observational.",
+    "Actual examiner behaviour and time constraints are not represented.",
+    "Pages 900-34 to 900-40 within the frozen page-contiguous range contain classification administration material outside the prior-art search workflow.",
+    "The document cites USPTO intranet resources that are referenced but not reproduced, so the public document does not disclose the full internal procedure."
+  ]
+}
