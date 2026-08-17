@@ -1,0 +1,151 @@
+{
+  "schema_version": "phase9a-0c-case-prediction.v0.1",
+  "case_id": "C",
+  "status": "PRE_REGISTERED_BEFORE_RUN",
+  "recorded_at": "2026-08-17T14:03:17Z",
+  "governing_protocol": "docs/phase9a-0c-observation-plan-v0.1.md §5",
+  "document": {
+    "title": "Standard Operating Procedure: Recruitment and Selection",
+    "organisation": "New River Community and Technical College",
+    "path": "docs/observations/9a-0c/case-c/newriver-recruitment-selection-sop.pdf",
+    "captured_at": "2026-08-17T13:53:42Z",
+    "sha256": "2a8fba60b7264fb38dd6cd3e0308f6673245beffd47e82d855c423bb333a5f3f",
+    "document_id": "doc-2a8fba60b7264fb38dd6cd3e0308f6673245beffd47e82d855c423bb333a5f3f"
+  },
+  "scope": {
+    "predicts": "Evidence availability only: whether the frozen document states each criterion under the §5 criterion-determination rule.",
+    "does_not_predict": [
+      "any recommendation mode",
+      "any gate outcome",
+      "any priority score",
+      "the §7 threshold decision",
+      "whether further evidence-model work is required"
+    ],
+    "basis": "The frozen Case C document alone, read against the pre-registered criterion-determination rule. No comparison to any other case was used to form these predictions."
+  },
+  "criterion_determination_rule": "A criterion may be set only where a specific sentence of the document states the fact; the sentence is recorded. Where no sentence states it, the criterion remains unknown and is classified NOT_STATED. Where a sentence states it but no resolved evidence on that step exposes it, the criterion remains unknown and is classified STATED_BUT_UNCITABLE.",
+  "criteria": [
+    {
+      "criterion": "repetition",
+      "gate_material": false,
+      "predicted": "NOT_STATED",
+      "confidence": "high",
+      "basis": "Durations are stated (ERFs valid 90 days; postings open a minimum of 10 days) but no sentence states how frequently the process runs or how many positions are filled."
+    },
+    {
+      "criterion": "predictability",
+      "gate_material": false,
+      "predicted": "BORDERLINE",
+      "confidence": "low",
+      "basis": "PURPOSE states 'To establish a standardized set of procedures for recruiting and selecting a candidate for employment', and Step 1 D fixes a mandatory numbered DocuSign signing order. Whether either constitutes a statement of process predictability is a reviewer judgement under the §5 rule."
+    },
+    {
+      "criterion": "data_readiness",
+      "gate_material": true,
+      "predicted": "NOT_STATED",
+      "confidence": "high",
+      "basis": "Systems are named (DocuSign, applicant tracking system, Oasis payroll) and records retention is referenced, but no sentence states data availability, quality, representativeness or governance."
+    },
+    {
+      "criterion": "ai_capability_fit",
+      "gate_material": true,
+      "predicted": "NOT_STATED",
+      "confidence": "high",
+      "basis": "No sentence in the document addresses automation, technology fit or capability of any kind."
+    },
+    {
+      "criterion": "human_judgement_requirement",
+      "gate_material": true,
+      "predicted": "BORDERLINE",
+      "confidence": "low",
+      "basis": "Step 2 B states committee members 'should have a working knowledge and/or understanding of the duties and responsibilities of the position'. This states a knowledge requirement; whether it states a judgement requirement is a reviewer judgement under the §5 rule."
+    },
+    {
+      "criterion": "business_value",
+      "gate_material": true,
+      "predicted": "NOT_STATED",
+      "confidence": "high",
+      "basis": "No sentence states cost, effort, benefit, volume or value. Compensation benchmarking concerns the post being filled, not the value of the process."
+    },
+    {
+      "criterion": "risk_consequence",
+      "gate_material": true,
+      "predicted": "NOT_STATED",
+      "confidence": "medium",
+      "basis": "Nondiscrimination, equal employment practices and confidentiality are stated as obligations, and records retention is referenced, but no sentence states a consequence of error."
+    },
+    {
+      "criterion": "residual_risk_with_human_oversight",
+      "gate_material": true,
+      "predicted": "NOT_STATED",
+      "confidence": "high",
+      "basis": "Not addressed anywhere in the document."
+    },
+    {
+      "criterion": "implementation_complexity",
+      "gate_material": false,
+      "predicted": "NOT_STATED",
+      "confidence": "high",
+      "basis": "Not addressed anywhere in the document."
+    },
+    {
+      "criterion": "conventional_solution_fit",
+      "gate_material": false,
+      "predicted": "NOT_STATED",
+      "confidence": "high",
+      "basis": "Not addressed anywhere in the document."
+    }
+  ],
+  "human_accountability_required": {
+    "gate_material": true,
+    "predicted": "LIKELY_EVIDENCEABLE",
+    "confidence": "medium",
+    "basis": "Step 5 states 'The hiring manager is responsible for the effective onboarding of the new employee into the department.' Step 3 states 'The President or President's Designee will make the final decision on hiring the candidate.'"
+  },
+  "gate_material_summary": {
+    "gate_material_criteria": [
+      "ai_capability_fit",
+      "data_readiness",
+      "business_value",
+      "human_judgement_requirement",
+      "risk_consequence",
+      "residual_risk_with_human_oversight"
+    ],
+    "predicted_evidenceable": 0,
+    "predicted_borderline": 1,
+    "predicted_not_stated": 5,
+    "note": "human_accountability_required is separately gate-material and is predicted LIKELY_EVIDENCEABLE."
+  },
+  "blocked_criterion_classification_prediction": {
+    "predicted_dominant_class": "NOT_STATED",
+    "predicted_stated_but_uncitable": "few or zero",
+    "confidence": "low",
+    "basis": "Facts the document does state (90-day ERF validity, 10-day minimum posting, at least three voting committee members, 6-month introductory period) sit inside the numbered procedure text rather than in isolated blocks. Whether any is exposed as resolved evidence on the relevant activity cannot be determined before the run.",
+    "caveat": "This prediction concerns classification of blocked criteria only. It carries no implication for any threshold decision, which is made after the observation."
+  },
+  "structural_predictions": {
+    "marked": "STRUCTURAL_NOT_OUTCOME",
+    "note": "These describe expected document handling, not a desired result. They are recorded because they are checkable and would indicate a harness problem if badly wrong.",
+    "expected_activity_count_range": [5, 9],
+    "expected_activity_basis": "Five numbered Steps, several carrying lettered sub-activities A–F. Extraction may treat the numbered steps as activities, or promote some sub-activities.",
+    "expected_chunks": 2,
+    "expected_chunk_basis": "Measured: 31 non-empty blocks against a 30-block limit with 1-block overlap. The split is driven by the block limit, not the 40,000-character ceiling.",
+    "cross_chunk_merge_exercised": true,
+    "cross_chunk_merge_basis": "A two-chunk plan requires the chunk-merge path; the tail chunk carries 697 characters across two blocks, one of which is the overlap."
+  },
+  "known_document_limitations": [
+    "Word-space collapse in extraction, qualitative and unquantified. Observed examples: isreceived, HumanResources, willselect, individualsto, Grantsif, departmentsthat, ofinterviewers, notestaken, candidatesin, isfilled, willsubmit, Interviewsfor, thisstep. Characters are correct and no OCR substitution is present. Several collisions fall inside role names and verbs, which may bear on which blocks resolve as evidence.",
+    "A heuristic regex reported zero collisions. That result is a property of the pattern, which cannot match leading-capital or all-lowercase collisions, and is not evidence of absence."
+  ],
+  "integrity": {
+    "recorded_before_observation_run": true,
+    "recorded_before_provider_call": true,
+    "recorded_before_assessment_engine": true,
+    "recorded_before_review_flow": true,
+    "pre_run_format_ingestion_already_performed": true,
+    "pre_run_format_ingestion_note": "ingest_pdf_bytes() and plan_chunks() were executed on 2026-08-17 for exact C8 document-format characterisation. Both are pure functions; nothing was persisted, no workspace was created, no provider was contacted and no assessment, review or recommendation occurred. This prediction was recorded after that format probe and before any observation run.",
+    "prior_case_knowledge_used": false,
+    "production_fingerprint_at_prediction": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85",
+    "revision_after_engine_output_permitted": false
+  }
+}
