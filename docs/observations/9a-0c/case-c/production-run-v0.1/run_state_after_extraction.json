@@ -1,0 +1,189 @@
+{
+  "active_artifacts": {
+    "CANDIDATE_EXTRACTION_RESULT": {
+      "artifact_id": "artifact-ad12bf392cee424fbec3c9e86d0b2364",
+      "artifact_revision": 1,
+      "parent_artifact_id": "artifact-b62122ad5ec14a93a67565b08b6aa01d",
+      "payload_sha256": "f39933e5078d1b0385dcc84c001fdeb66d50215d96f8e0b8b748e62201d25d80"
+    },
+    "INGESTION_RESULT": {
+      "artifact_id": "artifact-b62122ad5ec14a93a67565b08b6aa01d",
+      "artifact_revision": 1,
+      "parent_artifact_id": null,
+      "payload_sha256": "628d7b459e547760e91e2183b95bd11579a67d2faca01c0394adb9e106294281"
+    }
+  },
+  "assessment_id": "assessment-2bf19b24e90f4a30a6deb8a5182a947f",
+  "candidate_present": true,
+  "candidate_step_count": 8,
+  "case_id": "C",
+  "document_id": "doc-2a8fba60b7264fb38dd6cd3e0308f6673245beffd47e82d855c423bb333a5f3f",
+  "document_sha256": "2a8fba60b7264fb38dd6cd3e0308f6673245beffd47e82d855c423bb333a5f3f",
+  "execution_mode": "live-provider",
+  "extraction_run_id": "extraction-631ddf7e-e1b3-45ab-b29b-18f840cdc3be",
+  "extraction_status": "partial",
+  "ingestion_status": "success",
+  "issues": [
+    {
+      "block_id": "p0004-b0010",
+      "chunk_id": "doc-2a8fba60b7264fb38dd6cd3e0308f6673245beffd47e82d855c423bb333a5f3f-chunk-0002",
+      "code": "ambiguous-snippet",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": "steps[1].outputs",
+      "http_status_code": null,
+      "message": "Collection evidence could not be resolved exactly.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "error"
+    },
+    {
+      "block_id": "p0004-b0010",
+      "chunk_id": "doc-2a8fba60b7264fb38dd6cd3e0308f6673245beffd47e82d855c423bb333a5f3f-chunk-0002",
+      "code": "ambiguous-snippet",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": "steps[1].outputs.items[0]",
+      "http_status_code": null,
+      "message": "Provider evidence could not be resolved exactly.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "error"
+    },
+    {
+      "block_id": "p0004-b0010",
+      "chunk_id": "doc-2a8fba60b7264fb38dd6cd3e0308f6673245beffd47e82d855c423bb333a5f3f-chunk-0002",
+      "code": "ambiguous-snippet",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": "steps[2].actors.items[1]",
+      "http_status_code": null,
+      "message": "Provider evidence could not be resolved exactly.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "error"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "ambiguous-dependency",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": null,
+      "http_status_code": null,
+      "message": "A candidate dependency could not be resolved uniquely.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "ambiguous-dependency",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": null,
+      "http_status_code": null,
+      "message": "A candidate dependency could not be resolved uniquely.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "ambiguous-dependency",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": null,
+      "http_status_code": null,
+      "message": "A candidate dependency could not be resolved uniquely.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "ambiguous-dependency",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": null,
+      "http_status_code": null,
+      "message": "A candidate dependency could not be resolved uniquely.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "ambiguous-dependency",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": null,
+      "http_status_code": null,
+      "message": "A candidate dependency could not be resolved uniquely.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    }
+  ],
+  "production_fingerprint": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85",
+  "provider_calls": 3,
+  "provider_invocations": [
+    {
+      "attempt": 1,
+      "chunk_id": "doc-2a8fba60b7264fb38dd6cd3e0308f6673245beffd47e82d855c423bb333a5f3f-chunk-0001",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_06cd08afa7580fbb016a8321ef53c081a28b849f85625b5e19",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 5552,
+        "output_tokens": 16382
+      }
+    },
+    {
+      "attempt": 1,
+      "chunk_id": "doc-2a8fba60b7264fb38dd6cd3e0308f6673245beffd47e82d855c423bb333a5f3f-chunk-0002",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_0f577df3ce7689ca016a8322596ebc87d2ab3c3cc3f3382179",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 2588,
+        "output_tokens": 6522
+      }
+    },
+    {
+      "attempt": 2,
+      "chunk_id": "doc-2a8fba60b7264fb38dd6cd3e0308f6673245beffd47e82d855c423bb333a5f3f-chunk-0002",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_0ad006d8343475f0016a83228c029c819d88e6f4007f9d8887",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 2616,
+        "output_tokens": 6212
+      }
+    }
+  ],
+  "workflow_stage": "candidate-ready"
+}
