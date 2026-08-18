@@ -1,0 +1,5 @@
+ffbefc0eef7ad68b90859576d60aa0c09606c1eb6fd267d4fe2dca13b2c8ad65  production-run-v0.1/candidate_extraction.json
+caaeb9534c827202fac910ba715e88ff93086dccfd9f637fb0919f364438eb58  production-run-v0.1/ingestion_result.json
+1f346ee7bf5911ad4e1e3e23fc57cf08962ed0dd54934a5246eb0b9d564f9a19  production-run-v0.1/run_state_after_extraction.json
+f4a5c97503ec9a7f3c989fec8a2d5048f0678f2994e9b93e52802af55d2ac49f  production-run-v0.1/workspace.db
+db6ecae125e415efe35a11656e73a17e1be752768dffe1e2ead38404b8b32cc1  stage1-observation-record.v0.1.md

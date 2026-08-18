@@ -1,0 +1,174 @@
+{
+  "active_artifacts": {
+    "CANDIDATE_EXTRACTION_RESULT": {
+      "artifact_id": "artifact-02a9895267cd4f3fa337c6ac4e08113a",
+      "artifact_revision": 1,
+      "parent_artifact_id": "artifact-5d130e2fe093433ead53cb505dbad871",
+      "payload_sha256": "fcaceb11aae15ffe4e62f39ee04695fc98beb9a5f01f518209d4600d8af6c290"
+    },
+    "INGESTION_RESULT": {
+      "artifact_id": "artifact-5d130e2fe093433ead53cb505dbad871",
+      "artifact_revision": 1,
+      "parent_artifact_id": null,
+      "payload_sha256": "7613d1745e63a7d5aea1bb609a8f371b114001869b6e7341b32fe66e3b936938"
+    }
+  },
+  "assessment_id": "assessment-088291801b5e4e208b0a1d6078aed1bc",
+  "before_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+  "candidate_present": true,
+  "candidate_step_count": 8,
+  "case_id": "PORT-004",
+  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+  "execution_mode": "live-provider",
+  "extraction_run_id": "extraction-e55a1dc6-8394-48ad-a8a2-7f0dafc3fe34",
+  "extraction_status": "partial",
+  "ingestion_status": "success",
+  "issues": [
+    {
+      "block_id": "t-b0032",
+      "chunk_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01-chunk-0002",
+      "code": "snippet-not-found",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": "multiple_processes_detected",
+      "http_status_code": null,
+      "message": "Provider evidence could not be resolved exactly.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "error"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "ambiguous-dependency",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": null,
+      "http_status_code": null,
+      "message": "A candidate dependency could not be resolved uniquely.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "ambiguous-dependency",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": null,
+      "http_status_code": null,
+      "message": "A candidate dependency could not be resolved uniquely.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "process-field-conflict",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": "process_name",
+      "http_status_code": null,
+      "message": "Conflicting supported process-level values require human review.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "process-field-conflict",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": "process_description",
+      "http_status_code": null,
+      "message": "Conflicting supported process-level values require human review.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "process-field-conflict",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": "process_objective",
+      "http_status_code": null,
+      "message": "Conflicting supported process-level values require human review.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    }
+  ],
+  "production_fingerprint": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85",
+  "production_fingerprint_baseline_drift": {
+    "phase8_portfolio_baseline": "4deca4251d4a9840d6948411544fdf506f1953c16a56eaca803099d2cf81be5a",
+    "port004_baseline": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85",
+    "status": "recorded_portfolio_comparability_limitation_not_reverted"
+  },
+  "provider_call_volume": {
+    "actual_calls": 3,
+    "chunk_count": 2,
+    "maximum_calls": 4,
+    "minimum_calls": 2,
+    "note": "minimum/maximum are descriptive bounds derived from extraction/service.py repair logic, not a gate. Actual is never compared for equality against chunk_count.",
+    "repair_attempts": 1,
+    "within_expected_range": true
+  },
+  "provider_calls": 3,
+  "provider_invocations": [
+    {
+      "attempt": 1,
+      "chunk_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01-chunk-0001",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_062eb6eb1312c9ce016a84aad81d90819f889b5f8945cf6dc9",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 6751,
+        "output_tokens": 8411
+      }
+    },
+    {
+      "attempt": 1,
+      "chunk_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01-chunk-0002",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_0fc07ad82aec400b016a84ab1927c487d2b18d53691ea93cc5",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 5625,
+        "output_tokens": 9347
+      }
+    },
+    {
+      "attempt": 2,
+      "chunk_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01-chunk-0002",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_0b2f8378b7e29f1b016a84ab5f18d087d2a7719b962410da51",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 5647,
+        "output_tokens": 10296
+      }
+    }
+  ],
+  "source_pdf_sha256": "a74b4a685afea1976d6e4b035e11ac14aa8850d97dbb006ec14eca9ba2ec29e7",
+  "workflow_stage": "candidate-ready"
+}

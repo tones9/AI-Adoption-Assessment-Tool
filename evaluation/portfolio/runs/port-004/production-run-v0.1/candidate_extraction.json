@@ -1,0 +1,4348 @@
+{
+  "candidate": {
+    "candidate_status": "CANDIDATE / UNCONFIRMED PROCESS EXTRACTION",
+    "extraction_run_id": "extraction-e55a1dc6-8394-48ad-a8a2-7f0dafc3fe34",
+    "process_description": {
+      "confidence": 0.95,
+      "evidence": [
+        {
+          "block_end_offset": 281,
+          "block_id": "t-b0006",
+          "block_start_offset": 30,
+          "document_end_offset": 582,
+          "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+          "document_start_offset": 331,
+          "evidence_id": "cev-212d5f8f26d317ca7b041035e1b96c240b5989f128052f4524eeed5d35278397",
+          "exact_snippet": "The examiner, after having obtained a thorough\nunderstanding of the invention disclosed and claimed\nin the nonprovisional application, then searches the\nprior art as disclosed in patents and other published\ndocuments, i.e., nonpatent literature (NPL).",
+          "source_locator": "lines 15-47"
+        },
+        {
+          "block_end_offset": 421,
+          "block_id": "t-b0018",
+          "block_start_offset": 155,
+          "document_end_offset": 6710,
+          "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+          "document_start_offset": 6444,
+          "evidence_id": "cev-2101fc3216a5311f301006ea49f8847a845a2fc33427e28fbd47377b5e37c808",
+          "exact_snippet": "Planning a thorough search of the prior art\nrequires three distinct steps by the examiner: (A)\nidentifying the field of search; (B) selecting the\nproper tool(s) to perform the search; and (C)\ndetermining the appropriate search strategy for each\nsearch tool selected.",
+          "source_locator": "lines 153-193"
+        }
+      ],
+      "knowledge_state": "inferred",
+      "rationale": "This synthesizes the stated examination search activity and the three explicitly named planning steps.",
+      "value": "An examiner plans and conducts a thorough prior-art search for a patent application through identifying the field of search, selecting search tools, and determining a search strategy."
+    },
+    "process_name": {
+      "confidence": null,
+      "evidence": [
+        {
+          "block_end_offset": 29,
+          "block_id": "t-b0006",
+          "block_start_offset": 0,
+          "document_end_offset": 330,
+          "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+          "document_start_offset": 301,
+          "evidence_id": "cev-6915c0b9d0439cd7bce10948efcf7471e95ab05d6b8f4adf025cc1abe7f65b42",
+          "exact_snippet": "904 How to Search [R-10.2019]",
+          "source_locator": "lines 15-47"
+        }
+      ],
+      "knowledge_state": "known",
+      "rationale": "Section heading names the documented process.",
+      "value": "How to Search"
+    },
+    "process_objective": {
+      "confidence": null,
+      "evidence": [
+        {
+          "block_end_offset": 154,
+          "block_id": "t-b0018",
+          "block_start_offset": 45,
+          "document_end_offset": 6443,
+          "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+          "document_start_offset": 6334,
+          "evidence_id": "cev-d6f85434e516384f82c4791c122a0e510e586417d4bd8d300dc2c3e1fbd28363",
+          "exact_snippet": "In the examination of an application for patent, an\nexaminer must conduct a thorough search of the\nprior art.",
+          "source_locator": "lines 153-193"
+        }
+      ],
+      "knowledge_state": "known",
+      "rationale": "The stated examination requirement specifies this objective.",
+      "value": "conduct a thorough search of the prior art"
+    },
+    "prompt_version": "process-extraction.v0.1",
+    "schema_version": "candidate-process.v0.1",
+    "source_document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+    "steps": [
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 281,
+              "block_id": "t-b0018",
+              "block_start_offset": 246,
+              "document_end_offset": 6570,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6535,
+              "evidence_id": "cev-67271175d3d1719a9554d6f0db88f0b91c6658fd28bb2b8d74563d37c1a6d03c",
+              "exact_snippet": "(A)\nidentifying the field of search",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "This is expressly identified as the first distinct planning step.",
+          "value": "identifying the field of search"
+        },
+        "actors": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 244,
+              "block_id": "t-b0018",
+              "block_start_offset": 155,
+              "document_end_offset": 6533,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6444,
+              "evidence_id": "cev-9481e105a011049537fd35b4ab75adf817d778739416b16e374dd75f7d7387d2",
+              "exact_snippet": "Planning a thorough search of the prior art\nrequires three distinct steps by the examiner",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 244,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 155,
+                  "document_end_offset": 6533,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6444,
+                  "evidence_id": "cev-9481e105a011049537fd35b4ab75adf817d778739416b16e374dd75f7d7387d2",
+                  "exact_snippet": "Planning a thorough search of the prior art\nrequires three distinct steps by the examiner",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The source assigns the three planning steps to the examiner.",
+              "value": "examiner"
+            }
+          ],
+          "rationale": "The examiner is expressly assigned the planning steps; the source also refers to consultation with others in later strategy determination."
+        },
+        "candidate_step_id": "candidate-step-8761540c3fb724d5",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [
+                  {
+                    "block_end_offset": 681,
+                    "block_id": "t-b0018",
+                    "block_start_offset": 655,
+                    "document_end_offset": 6970,
+                    "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                    "document_start_offset": 6944,
+                    "evidence_id": "cev-60a47a97670f0d12f33af0770948df1ab8bb74edfba04ad6b1e51f8f5bd328bd",
+                    "exact_snippet": "nonpatent literature (NPL)",
+                    "source_locator": "lines 153-193"
+                  }
+                ],
+                "knowledge_state": "known",
+                "rationale": "The examiner must consider nonpatent literature as a reference source.",
+                "value": true
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [
+                  {
+                    "block_end_offset": 560,
+                    "block_id": "t-b0018",
+                    "block_start_offset": 480,
+                    "document_end_offset": 6849,
+                    "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                    "document_start_offset": 6769,
+                    "evidence_id": "cev-2c67a5b63d409154f32a62f3aa8b1ef81615c8fa779ed482597533e3ab37f04c",
+                    "exact_snippet": "When determining the field of search, three reference\nsources must be considered",
+                    "source_locator": "lines 153-193"
+                  }
+                ],
+                "knowledge_state": "known",
+                "rationale": "The step identifies reference sources for a prior-art search.",
+                "value": true
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a repetition rating.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a predictability rating.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a data-readiness rating.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support an AI-capability-fit rating.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support an ordinal judgement-requirement rating.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a business-value rating.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a risk-consequence rating.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a residual-risk rating.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support an implementation-complexity rating.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a conventional-solution-fit rating.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "The source assigns work to an examiner but does not explicitly state the required accountability classification.",
+            "value": null
+          }
+        },
+        "decisions": [
+          {
+            "branches": {
+              "completeness": "complete",
+              "evidence": [
+                {
+                  "block_end_offset": 919,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 683,
+                  "document_end_offset": 7208,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6972,
+                  "evidence_id": "cev-e96d51c4c34bd7fb33f04e2a430d73d12f26013d5f1f11e2911e3f131b801683",
+                  "exact_snippet": "None of these sources can be eliminated from the\nsearch unless the examiner has and can justify a\nreasonable certainty that no references, more\npertinent than those already identified, are likely to\nbe found in the source(s) eliminated.",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "items": [
+                {
+                  "confidence": 0.85,
+                  "evidence": [
+                    {
+                      "block_end_offset": 919,
+                      "block_id": "t-b0018",
+                      "block_start_offset": 683,
+                      "document_end_offset": 7208,
+                      "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                      "document_start_offset": 6972,
+                      "evidence_id": "cev-e96d51c4c34bd7fb33f04e2a430d73d12f26013d5f1f11e2911e3f131b801683",
+                      "exact_snippet": "None of these sources can be eliminated from the\nsearch unless the examiner has and can justify a\nreasonable certainty that no references, more\npertinent than those already identified, are likely to\nbe found in the source(s) eliminated.",
+                      "source_locator": "lines 153-193"
+                    }
+                  ],
+                  "knowledge_state": "inferred",
+                  "rationale": "The stated exception permits elimination only when its condition is met.",
+                  "value": "A reference source can be eliminated from the search."
+                }
+              ],
+              "rationale": "The source states the resulting restriction on eliminating reference sources."
+            },
+            "condition": {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 918,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 739,
+                  "document_end_offset": 7207,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 7028,
+                  "evidence_id": "cev-bf673ccb2837bbb250fd932f0bc6b3aef9bab52a588341a4a875a4f5137c7f0c",
+                  "exact_snippet": "unless the examiner has and can justify a\nreasonable certainty that no references, more\npertinent than those already identified, are likely to\nbe found in the source(s) eliminated",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is the stated condition under which a reference source may be eliminated.",
+              "value": "the examiner has and can justify a reasonable certainty that no references, more pertinent than those already identified, are likely to be found in the source(s) eliminated"
+            }
+          }
+        ],
+        "dependencies": [],
+        "description": {
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "block_end_offset": 682,
+              "block_id": "t-b0018",
+              "block_start_offset": 480,
+              "document_end_offset": 6971,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6769,
+              "evidence_id": "cev-415e08b37e6f6534644f49e3c361029835e836c65a3d7b423c2d43b2ecf4e910",
+              "exact_snippet": "When determining the field of search, three reference\nsources must be considered - domestic patents\n(including patent application publications), foreign\npatent documents, and nonpatent literature (NPL).",
+              "source_locator": "lines 153-193"
+            },
+            {
+              "block_end_offset": 1199,
+              "block_id": "t-b0018",
+              "block_start_offset": 1066,
+              "document_end_offset": 7488,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 7355,
+              "evidence_id": "cev-8af541e6dafaf2e13c159d920f3815ed48f0faf64895e62c4194e0009acb01d5",
+              "exact_snippet": "The field of\nsearch should be prioritized, starting with the area(s)\nwhere the invention would most likely be found in\nthe prior art.",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "knowledge_state": "inferred",
+          "rationale": "This consolidates the stated sources to consider and field-prioritization instruction.",
+          "value": "Consider domestic patents (including patent application publications), foreign patent documents, and nonpatent literature; prioritize the field starting with areas where the invention would most likely be found in the prior art."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 281,
+              "block_id": "t-b0018",
+              "block_start_offset": 246,
+              "document_end_offset": 6570,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6535,
+              "evidence_id": "cev-67271175d3d1719a9554d6f0db88f0b91c6658fd28bb2b8d74563d37c1a6d03c",
+              "exact_snippet": "(A)\nidentifying the field of search",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The source expressly labels identifying the field of search as step (A).",
+          "value": 1
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception collection is separately documented for this step."
+        },
+        "inputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 682,
+              "block_id": "t-b0018",
+              "block_start_offset": 480,
+              "document_end_offset": 6971,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6769,
+              "evidence_id": "cev-415e08b37e6f6534644f49e3c361029835e836c65a3d7b423c2d43b2ecf4e910",
+              "exact_snippet": "When determining the field of search, three reference\nsources must be considered - domestic patents\n(including patent application publications), foreign\npatent documents, and nonpatent literature (NPL).",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 623,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 563,
+                  "document_end_offset": 6912,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6852,
+                  "evidence_id": "cev-ad100f712969b37a576d8c9a6abad6ad17032ed519457d7bf838bc7bcb791048",
+                  "exact_snippet": "domestic patents\n(including patent application publications)",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is one of the three reference sources that must be considered.",
+              "value": "domestic patents (including patent application publications)"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 649,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 625,
+                  "document_end_offset": 6938,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6914,
+                  "evidence_id": "cev-d011f68c3f4d585502a08a21bb366c3255abeda333288b3804507f037de01d9f",
+                  "exact_snippet": "foreign\npatent documents",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is one of the three reference sources that must be considered.",
+              "value": "foreign patent documents"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 681,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 655,
+                  "document_end_offset": 6970,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6944,
+                  "evidence_id": "cev-60a47a97670f0d12f33af0770948df1ab8bb74edfba04ad6b1e51f8f5bd328bd",
+                  "exact_snippet": "nonpatent literature (NPL)",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is one of the three reference sources that must be considered.",
+              "value": "nonpatent literature (NPL)"
+            }
+          ],
+          "rationale": "The source identifies reference sources and subject matter to be covered, but does not establish an exhaustive input list."
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 1065,
+              "block_id": "t-b0018",
+              "block_start_offset": 920,
+              "document_end_offset": 7354,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 7209,
+              "evidence_id": "cev-415a2dd11e7d6ac5bf704aa9fa0bd83866683b734ab5db4a2c12e780a423e429",
+              "exact_snippet": "The search\nshould cover the claimed subject matter and should\nalso cover the disclosed features which might\nreasonably be expected to be claimed.",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 1065,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 920,
+                  "document_end_offset": 7354,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 7209,
+                  "evidence_id": "cev-415a2dd11e7d6ac5bf704aa9fa0bd83866683b734ab5db4a2c12e780a423e429",
+                  "exact_snippet": "The search\nshould cover the claimed subject matter and should\nalso cover the disclosed features which might\nreasonably be expected to be claimed.",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is a stated search-coverage requirement.",
+              "value": "The search should cover the claimed subject matter and disclosed features which might reasonably be expected to be claimed."
+            }
+          ],
+          "rationale": "The source states required search coverage and prioritization behavior."
+        },
+        "order_basis": "source_position",
+        "outputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 1237,
+              "block_id": "t-b0018",
+              "block_start_offset": 1200,
+              "document_end_offset": 7526,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 7489,
+              "evidence_id": "cev-08b516894d50a1d4d2b10386f2759f9d489b8d41eb72e34eaab6378ad802f8fb",
+              "exact_snippet": "Having determined the field of search",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 1237,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 1200,
+                  "document_end_offset": 7526,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 7489,
+                  "evidence_id": "cev-08b516894d50a1d4d2b10386f2759f9d489b8d41eb72e34eaab6378ad802f8fb",
+                  "exact_snippet": "Having determined the field of search",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The next step begins after the field of search has been determined.",
+              "value": "field of search"
+            }
+          ],
+          "rationale": "The step explicitly produces a determined field of search, but no exhaustive output set is documented."
+        },
+        "responsible_roles": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 244,
+              "block_id": "t-b0018",
+              "block_start_offset": 155,
+              "document_end_offset": 6533,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6444,
+              "evidence_id": "cev-9481e105a011049537fd35b4ab75adf817d778739416b16e374dd75f7d7387d2",
+              "exact_snippet": "Planning a thorough search of the prior art\nrequires three distinct steps by the examiner",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 244,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 155,
+                  "document_end_offset": 6533,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6444,
+                  "evidence_id": "cev-9481e105a011049537fd35b4ab75adf817d778739416b16e374dd75f7d7387d2",
+                  "exact_snippet": "Planning a thorough search of the prior art\nrequires three distinct steps by the examiner",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The planning steps are performed by the examiner.",
+              "value": "examiner"
+            }
+          ],
+          "rationale": "The source expressly assigns this planning step to the examiner."
+        },
+        "sequence": 1,
+        "systems": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No specific system is stated for identifying the field of search."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 337,
+              "block_id": "t-b0018",
+              "block_start_offset": 283,
+              "document_end_offset": 6626,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6572,
+              "evidence_id": "cev-892048315c0fe7255c55040a41ddb90dfc19243c7e0c50369a36139702529dc0",
+              "exact_snippet": "(B) selecting the\nproper tool(s) to perform the search",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "This is expressly identified as the second distinct planning step.",
+          "value": "selecting the proper tool(s) to perform the search"
+        },
+        "actors": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 1310,
+              "block_id": "t-b0018",
+              "block_start_offset": 1239,
+              "document_end_offset": 7599,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 7528,
+              "evidence_id": "cev-ce50f6b18d463c2815aeafdc955f70b72c46f2117a5584022f5d9f873e800884",
+              "exact_snippet": "the examiner\nshould then determine what search tools should be\nemployed",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 1310,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 1239,
+                  "document_end_offset": 7599,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 7528,
+                  "evidence_id": "cev-ce50f6b18d463c2815aeafdc955f70b72c46f2117a5584022f5d9f873e800884",
+                  "exact_snippet": "the examiner\nshould then determine what search tools should be\nemployed",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The examiner determines what search tools should be employed.",
+              "value": "examiner"
+            }
+          ],
+          "rationale": "The examiner is expressly assigned this activity."
+        },
+        "candidate_step_id": "candidate-step-df4f0ee1970efb51",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported for selecting tools.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported for selecting tools.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a repetition rating.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a predictability rating.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a data-readiness rating.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support an AI-capability-fit rating.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support an ordinal judgement-requirement rating.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a business-value rating.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a risk-consequence rating.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a residual-risk rating.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support an implementation-complexity rating.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a conventional-solution-fit rating.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "The source does not explicitly state the required accountability classification.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [
+          {
+            "relationship": {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 1237,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 1200,
+                  "document_end_offset": 7526,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 7489,
+                  "evidence_id": "cev-08b516894d50a1d4d2b10386f2759f9d489b8d41eb72e34eaab6378ad802f8fb",
+                  "exact_snippet": "Having determined the field of search",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The sequence is explicitly introduced by 'Having determined the field of search'.",
+              "value": "follows"
+            },
+            "target_candidate_step_id": null,
+            "target_label": {
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "block_end_offset": 1310,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 1200,
+                  "document_end_offset": 7599,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 7489,
+                  "evidence_id": "cev-9f8a9e0432a9273d8b73d7853594521e6ce3112e704d8ea18d0d4d50c79b5b53",
+                  "exact_snippet": "Having determined the field of search, the examiner\nshould then determine what search tools should be\nemployed",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "inferred",
+              "rationale": "The source states that this activity follows determination of the field of search.",
+              "value": "step-1"
+            }
+          }
+        ],
+        "description": {
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "block_end_offset": 1336,
+              "block_id": "t-b0018",
+              "block_start_offset": 1200,
+              "document_end_offset": 7625,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 7489,
+              "evidence_id": "cev-54e1aa2cb89ae62cc1edb2a27c29658208761c743c48c758470ab642670db91b",
+              "exact_snippet": "Having determined the field of search, the examiner\nshould then determine what search tools should be\nemployed in conducting the search.",
+              "source_locator": "lines 153-193"
+            },
+            {
+              "block_end_offset": 1746,
+              "block_id": "t-b0018",
+              "block_start_offset": 1540,
+              "document_end_offset": 8035,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 7829,
+              "evidence_id": "cev-03c3e41186490b128fc25af1013e55b181d61ef44e85aa88973c02c1b36e9687",
+              "exact_snippet": "The choice of\nsearch tools to be used is based on the examiner\u2019s\nknowledge of the coverage, strengths and\nweaknesses of the available search tools that are\nappropriate for use in an examiner\u2019s assigned art.",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "knowledge_state": "inferred",
+          "rationale": "This combines the stated action with the stated basis for tool choice.",
+          "value": "Determine which search tools should be employed based on knowledge of their coverage, strengths, and weaknesses for the examiner's assigned art."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 337,
+              "block_id": "t-b0018",
+              "block_start_offset": 283,
+              "document_end_offset": 6626,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6572,
+              "evidence_id": "cev-892048315c0fe7255c55040a41ddb90dfc19243c7e0c50369a36139702529dc0",
+              "exact_snippet": "(B) selecting the\nproper tool(s) to perform the search",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The source expressly labels selection of tools as step (B).",
+          "value": 2
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception collection is separately documented for this step."
+        },
+        "inputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 1686,
+              "block_id": "t-b0018",
+              "block_start_offset": 1540,
+              "document_end_offset": 7975,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 7829,
+              "evidence_id": "cev-99e5beec50e90e6e7a5dfb92c39a30dab3cf778898282866f73a7d4ca2bc6ab6",
+              "exact_snippet": "The choice of\nsearch tools to be used is based on the examiner\u2019s\nknowledge of the coverage, strengths and\nweaknesses of the available search tools",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 1686,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 1540,
+                  "document_end_offset": 7975,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 7829,
+                  "evidence_id": "cev-99e5beec50e90e6e7a5dfb92c39a30dab3cf778898282866f73a7d4ca2bc6ab6",
+                  "exact_snippet": "The choice of\nsearch tools to be used is based on the examiner\u2019s\nknowledge of the coverage, strengths and\nweaknesses of the available search tools",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is the stated basis for tool selection.",
+              "value": "the examiner\u2019s knowledge of the coverage, strengths and weaknesses of the available search tools"
+            }
+          ],
+          "rationale": "The source states tool-selection considerations but does not provide an exhaustive input list."
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 1539,
+              "block_id": "t-b0018",
+              "block_start_offset": 1428,
+              "document_end_offset": 7828,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 7717,
+              "evidence_id": "cev-6b6bab2427db3d5b36012327b108a6c4e0ab9520f8f070d64b59a9c65f8306bc",
+              "exact_snippet": "Choice of search tools\nis a key factor in ensuring that the most relevant\nprior art is found during the search.",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 1539,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 1428,
+                  "document_end_offset": 7828,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 7717,
+                  "evidence_id": "cev-6b6bab2427db3d5b36012327b108a6c4e0ab9520f8f070d64b59a9c65f8306bc",
+                  "exact_snippet": "Choice of search tools\nis a key factor in ensuring that the most relevant\nprior art is found during the search.",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This operational significance is expressly stated.",
+              "value": "Choice of search tools is a key factor in ensuring that the most relevant prior art is found during the search."
+            }
+          ],
+          "rationale": "The source states that tool choice is a key factor in finding relevant prior art."
+        },
+        "order_basis": "source_position",
+        "outputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 420,
+              "block_id": "t-b0018",
+              "block_start_offset": 395,
+              "document_end_offset": 6709,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6684,
+              "evidence_id": "cev-0368e60c3328d8c7e4ec3410496470f0462f54f94b8468a66b925867e4f940a5",
+              "exact_snippet": "each\nsearch tool selected",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 420,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 395,
+                  "document_end_offset": 6709,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6684,
+                  "evidence_id": "cev-0368e60c3328d8c7e4ec3410496470f0462f54f94b8468a66b925867e4f940a5",
+                  "exact_snippet": "each\nsearch tool selected",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The subsequent step applies to each search tool selected.",
+              "value": "search tool(s)"
+            }
+          ],
+          "rationale": "The source establishes that search tools are determined, but does not state an exhaustive output list."
+        },
+        "responsible_roles": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 1310,
+              "block_id": "t-b0018",
+              "block_start_offset": 1239,
+              "document_end_offset": 7599,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 7528,
+              "evidence_id": "cev-ce50f6b18d463c2815aeafdc955f70b72c46f2117a5584022f5d9f873e800884",
+              "exact_snippet": "the examiner\nshould then determine what search tools should be\nemployed",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 1310,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 1239,
+                  "document_end_offset": 7599,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 7528,
+                  "evidence_id": "cev-ce50f6b18d463c2815aeafdc955f70b72c46f2117a5584022f5d9f873e800884",
+                  "exact_snippet": "the examiner\nshould then determine what search tools should be\nemployed",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The examiner performs the determination.",
+              "value": "examiner"
+            }
+          ],
+          "rationale": "The examiner is expressly responsible for determining the search tools."
+        },
+        "sequence": 2,
+        "systems": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 1427,
+              "block_id": "t-b0018",
+              "block_start_offset": 1337,
+              "document_end_offset": 7716,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 7626,
+              "evidence_id": "cev-9cbdf80a0564b877beb2978c1f4490bf3bea58f5cd998528d34ec42f4476ae9c",
+              "exact_snippet": "Examiners are\nprovided access to a wide variety of both manual\nand automated search tools.",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 1427,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 1337,
+                  "document_end_offset": 7716,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 7626,
+                  "evidence_id": "cev-9cbdf80a0564b877beb2978c1f4490bf3bea58f5cd998528d34ec42f4476ae9c",
+                  "exact_snippet": "Examiners are\nprovided access to a wide variety of both manual\nand automated search tools.",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The available types of search tools are explicitly stated.",
+              "value": "manual and automated search tools"
+            }
+          ],
+          "rationale": "The source identifies manual and automated search tools but does not name individual tools."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 421,
+              "block_id": "t-b0018",
+              "block_start_offset": 343,
+              "document_end_offset": 6710,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6632,
+              "evidence_id": "cev-494f3cbd5958e00942cb71d374e0ffc77a614cffed8582ea4900cc5539f41cf4",
+              "exact_snippet": "(C)\ndetermining the appropriate search strategy for each\nsearch tool selected.",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "This is expressly identified as the third distinct planning step.",
+          "value": "determining the appropriate search strategy for each search tool selected"
+        },
+        "actors": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 1060,
+              "block_id": "t-b0025",
+              "block_start_offset": 819,
+              "document_end_offset": 11458,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 11217,
+              "evidence_id": "cev-212ddd303ca4b8170a9419402cd6b8742674f5743e8cc325d02b6d4f1f8b8361",
+              "exact_snippet": "The appropriate search strategy\nshould be determined by the examiner on a\ncase-by-case basis along with consultation with other\nexaminers, supervisory patent examiners, and/or\ntrained professional on-line search personnel, where\nappropriate.",
+              "source_locator": "lines 250-280"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 887,
+                  "block_id": "t-b0025",
+                  "block_start_offset": 819,
+                  "document_end_offset": 11285,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 11217,
+                  "evidence_id": "cev-df85fe7806614a0b15ff29fe682c9755b74a5d3a6359871f71c4f16aea287aee",
+                  "exact_snippet": "The appropriate search strategy\nshould be determined by the examiner",
+                  "source_locator": "lines 250-280"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The strategy is determined by the examiner.",
+              "value": "examiner"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 956,
+                  "block_id": "t-b0025",
+                  "block_start_offset": 923,
+                  "document_end_offset": 11354,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 11321,
+                  "evidence_id": "cev-4d60cf615260b2f30057f85bd32c9ca7ea9b970ff1db7fc23251a9d53ec8a739",
+                  "exact_snippet": "consultation with other\nexaminers",
+                  "source_locator": "lines 250-280"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The source identifies other examiners as possible consultation participants.",
+              "value": "other examiners"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 986,
+                  "block_id": "t-b0025",
+                  "block_start_offset": 958,
+                  "document_end_offset": 11384,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 11356,
+                  "evidence_id": "cev-abcbcd004882f874616800075a397c1704575955227b7d32817ba9c8866372e3",
+                  "exact_snippet": "supervisory patent examiners",
+                  "source_locator": "lines 250-280"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The source identifies supervisory patent examiners as possible consultation participants.",
+              "value": "supervisory patent examiners"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 1040,
+                  "block_id": "t-b0025",
+                  "block_start_offset": 995,
+                  "document_end_offset": 11438,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 11393,
+                  "evidence_id": "cev-3fc428497e5e4527fc20d0a7d8d285a31b1a232c6b6636959fefa1ce89861c8f",
+                  "exact_snippet": "trained professional on-line search personnel",
+                  "source_locator": "lines 250-280"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The source identifies trained professional on-line search personnel as possible consultation participants.",
+              "value": "trained professional on-line search personnel"
+            }
+          ],
+          "rationale": "The examiner is responsible, with specified parties consulted where appropriate."
+        },
+        "candidate_step_id": "candidate-step-55d273f0f007cf1f",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported for strategy determination.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported for strategy determination.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "No compatible capability signal is explicitly supported.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a repetition rating.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a predictability rating.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a data-readiness rating.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support an AI-capability-fit rating.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support an ordinal judgement-requirement rating.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a business-value rating.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a risk-consequence rating.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a residual-risk rating.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support an implementation-complexity rating.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support a conventional-solution-fit rating.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "The source does not explicitly state the required accountability classification.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [
+          {
+            "relationship": {
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "block_end_offset": 421,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 347,
+                  "document_end_offset": 6710,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6636,
+                  "evidence_id": "cev-92f08c226d88c620589d2bf13f1f6f5abef6196dee65054db4a205fd9fdc4002",
+                  "exact_snippet": "determining the appropriate search strategy for each\nsearch tool selected.",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "inferred",
+              "rationale": "The selected search tools are the objects for which strategies are determined.",
+              "value": "uses output of"
+            },
+            "target_candidate_step_id": null,
+            "target_label": {
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "block_end_offset": 421,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 287,
+                  "document_end_offset": 6710,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6576,
+                  "evidence_id": "cev-6dfb5b66fcf5e24500eb1febf2ecfb16dbc12c0bb7291d1bdcbaaf8ddb48f78a",
+                  "exact_snippet": "selecting the\nproper tool(s) to perform the search; and (C)\ndetermining the appropriate search strategy for each\nsearch tool selected.",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "inferred",
+              "rationale": "The strategy is determined for each search tool selected in the preceding step.",
+              "value": "step-2"
+            }
+          }
+        ],
+        "description": {
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "block_end_offset": 1060,
+              "block_id": "t-b0025",
+              "block_start_offset": 819,
+              "document_end_offset": 11458,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 11217,
+              "evidence_id": "cev-212ddd303ca4b8170a9419402cd6b8742674f5743e8cc325d02b6d4f1f8b8361",
+              "exact_snippet": "The appropriate search strategy\nshould be determined by the examiner on a\ncase-by-case basis along with consultation with other\nexaminers, supervisory patent examiners, and/or\ntrained professional on-line search personnel, where\nappropriate.",
+              "source_locator": "lines 250-280"
+            }
+          ],
+          "knowledge_state": "inferred",
+          "rationale": "This combines the stated case-by-case determination and conditional consultation instruction.",
+          "value": "Determine the appropriate search strategy case-by-case, consulting other examiners, supervisory patent examiners, and/or trained professional on-line search personnel where appropriate."
+        },
+        "document_order": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 421,
+              "block_id": "t-b0018",
+              "block_start_offset": 343,
+              "document_end_offset": 6710,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6632,
+              "evidence_id": "cev-494f3cbd5958e00942cb71d374e0ffc77a614cffed8582ea4900cc5539f41cf4",
+              "exact_snippet": "(C)\ndetermining the appropriate search strategy for each\nsearch tool selected.",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The source expressly labels determination of a strategy as step (C).",
+          "value": 3
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception collection is separately documented for this step."
+        },
+        "inputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 421,
+              "block_id": "t-b0018",
+              "block_start_offset": 395,
+              "document_end_offset": 6710,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6684,
+              "evidence_id": "cev-25f60d8dc346a86bcbd2736d15b21ab56c1c7e681e4e07371ea2ccdc573c5262",
+              "exact_snippet": "each\nsearch tool selected.",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 421,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 395,
+                  "document_end_offset": 6710,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6684,
+                  "evidence_id": "cev-25f60d8dc346a86bcbd2736d15b21ab56c1c7e681e4e07371ea2ccdc573c5262",
+                  "exact_snippet": "each\nsearch tool selected.",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The strategy is determined for each selected tool.",
+              "value": "search tool(s) selected"
+            }
+          ],
+          "rationale": "The source identifies selected search tools as inputs to this step, but does not provide an exhaustive input list."
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 911,
+              "block_id": "t-b0025",
+              "block_start_offset": 893,
+              "document_end_offset": 11309,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 11291,
+              "evidence_id": "cev-a33e2049b641babb0b9e86ba11b9c6859ca9b5452be2447d79d131cc8c573f95",
+              "exact_snippet": "case-by-case basis",
+              "source_locator": "lines 250-280"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 911,
+                  "block_id": "t-b0025",
+                  "block_start_offset": 893,
+                  "document_end_offset": 11309,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 11291,
+                  "evidence_id": "cev-a33e2049b641babb0b9e86ba11b9c6859ca9b5452be2447d79d131cc8c573f95",
+                  "exact_snippet": "case-by-case basis",
+                  "source_locator": "lines 250-280"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is the expressly stated basis for determining strategy.",
+              "value": "case-by-case basis"
+            }
+          ],
+          "rationale": "The source requires case-by-case strategy determination and allows consultation where appropriate."
+        },
+        "order_basis": "source_position",
+        "outputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 390,
+              "block_id": "t-b0018",
+              "block_start_offset": 347,
+              "document_end_offset": 6679,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6636,
+              "evidence_id": "cev-487f8e8ef42598cd5f026028d591734544409e2da6cc5a871872bce194c8e47e",
+              "exact_snippet": "determining the appropriate search strategy",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 390,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 347,
+                  "document_end_offset": 6679,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6636,
+                  "evidence_id": "cev-487f8e8ef42598cd5f026028d591734544409e2da6cc5a871872bce194c8e47e",
+                  "exact_snippet": "determining the appropriate search strategy",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The activity explicitly determines this output.",
+              "value": "appropriate search strategy"
+            }
+          ],
+          "rationale": "The step explicitly produces an appropriate search strategy, but no exhaustive output set is documented."
+        },
+        "responsible_roles": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 887,
+              "block_id": "t-b0025",
+              "block_start_offset": 819,
+              "document_end_offset": 11285,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 11217,
+              "evidence_id": "cev-df85fe7806614a0b15ff29fe682c9755b74a5d3a6359871f71c4f16aea287aee",
+              "exact_snippet": "The appropriate search strategy\nshould be determined by the examiner",
+              "source_locator": "lines 250-280"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 887,
+                  "block_id": "t-b0025",
+                  "block_start_offset": 819,
+                  "document_end_offset": 11285,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 11217,
+                  "evidence_id": "cev-df85fe7806614a0b15ff29fe682c9755b74a5d3a6359871f71c4f16aea287aee",
+                  "exact_snippet": "The appropriate search strategy\nshould be determined by the examiner",
+                  "source_locator": "lines 250-280"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The strategy should be determined by the examiner.",
+              "value": "examiner"
+            }
+          ],
+          "rationale": "The source identifies the examiner as the party who determines the strategy; other roles are consulted rather than assigned responsibility."
+        },
+        "sequence": 3,
+        "systems": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 421,
+              "block_id": "t-b0018",
+              "block_start_offset": 395,
+              "document_end_offset": 6710,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 6684,
+              "evidence_id": "cev-25f60d8dc346a86bcbd2736d15b21ab56c1c7e681e4e07371ea2ccdc573c5262",
+              "exact_snippet": "each\nsearch tool selected.",
+              "source_locator": "lines 153-193"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 421,
+                  "block_id": "t-b0018",
+                  "block_start_offset": 395,
+                  "document_end_offset": 6710,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 6684,
+                  "evidence_id": "cev-25f60d8dc346a86bcbd2736d15b21ab56c1c7e681e4e07371ea2ccdc573c5262",
+                  "exact_snippet": "each\nsearch tool selected.",
+                  "source_locator": "lines 153-193"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "A strategy is determined for each selected search tool.",
+              "value": "search tool selected"
+            }
+          ],
+          "rationale": "The strategy applies to each selected search tool, but no specific system is named."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 235,
+              "block_id": "t-b0031",
+              "block_start_offset": 109,
+              "document_end_offset": 13753,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 13627,
+              "evidence_id": "cev-be2fb97725e7c1a4bf0bc164a7fadcd15652fa5de5c83a1320eefadb2c1533d7",
+              "exact_snippet": "The areas to be searched should be prioritized so\nthat the most likely areas of finding relevant prior\nart are searched first.",
+              "source_locator": "lines 326-333"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The document explicitly directs that search areas be prioritized.",
+          "value": "Prioritize areas to be searched"
+        },
+        "actors": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No actor is explicitly assigned to this prioritization activity."
+        },
+        "candidate_step_id": "candidate-step-56dffd383d81b62b",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not state task repetition.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not state task predictability.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not state data readiness.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not assess AI capability fit.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not support an ordinal judgement requirement.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not assess business value.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not assess risk consequence.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not assess residual risk.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not assess implementation complexity.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source does not assess conventional solution fit.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "The source does not state whether human accountability is required for this activity.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 235,
+              "block_id": "t-b0031",
+              "block_start_offset": 164,
+              "document_end_offset": 13753,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 13682,
+              "evidence_id": "cev-a2d53cfb32ff846076b9f89d42759a1ff67698cb5f8e2df210b4144cf9e6f79f",
+              "exact_snippet": "the most likely areas of finding relevant prior\nart are searched first.",
+              "source_locator": "lines 326-333"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "This is the stated prioritization method.",
+          "value": "Search the areas most likely to contain relevant prior art first."
+        },
+        "document_order": {
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "block_end_offset": 235,
+              "block_id": "t-b0031",
+              "block_start_offset": 109,
+              "document_end_offset": 13753,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 13627,
+              "evidence_id": "cev-be2fb97725e7c1a4bf0bc164a7fadcd15652fa5de5c83a1320eefadb2c1533d7",
+              "exact_snippet": "The areas to be searched should be prioritized so\nthat the most likely areas of finding relevant prior\nart are searched first.",
+              "source_locator": "lines 326-333"
+            }
+          ],
+          "knowledge_state": "inferred",
+          "rationale": "This activity appears before the later Internet-searching and search-conducting sections in the supplied chunk.",
+          "value": 1
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is stated for this activity."
+        },
+        "inputs": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "Inputs are not explicitly identified for this activity."
+        },
+        "operational_characteristics": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No additional operational characteristics are explicitly stated."
+        },
+        "order_basis": "source_position",
+        "outputs": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "Outputs are not explicitly identified for this activity."
+        },
+        "responsible_roles": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No responsible role is explicitly assigned to this prioritization activity."
+        },
+        "sequence": 4,
+        "systems": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No system is specified for this activity."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 43,
+              "block_id": "t-b0032",
+              "block_start_offset": 0,
+              "document_end_offset": 13928,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 13885,
+              "evidence_id": "cev-b4b3aeb73ed4985a452f01a2527d9f41088fb9b8d9b4f85a402446298c01953e",
+              "exact_snippet": "904.02(b) Search Tool Selection [R-07.2015]",
+              "source_locator": "lines 335-342"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The section is explicitly titled Search Tool Selection.",
+          "value": "Select search tools"
+        },
+        "actors": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No actor is explicitly assigned to search-tool selection."
+        },
+        "candidate_step_id": "candidate-step-77a07b30101d76fe",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 362,
+              "block_id": "t-b0032",
+              "block_start_offset": 44,
+              "document_end_offset": 14247,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 13929,
+              "evidence_id": "cev-f7fac5b15df5443c89029ca06f8a31564354177584f7e52472ed63947c275a14",
+              "exact_snippet": "Detailed guidance on the choice and use of specific\nsearch tools can be established only within the\ncontext of the special requirements of each\nTechnology Center (TC). However, a general\nmethodology following a \u201cdecision tree\u201d process,\nset forth below, for making broad decisions in search\ntool selection is suggested.",
+              "source_locator": "lines 335-342"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The document describes a general suggested methodology and its context.",
+          "value": "Make broad decisions in search-tool selection using a suggested decision-tree methodology, within the special requirements of each Technology Center."
+        },
+        "document_order": {
+          "confidence": 0.82,
+          "evidence": [
+            {
+              "block_end_offset": 43,
+              "block_id": "t-b0032",
+              "block_start_offset": 0,
+              "document_end_offset": 13928,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 13885,
+              "evidence_id": "cev-b4b3aeb73ed4985a452f01a2527d9f41088fb9b8d9b4f85a402446298c01953e",
+              "exact_snippet": "904.02(b) Search Tool Selection [R-07.2015]",
+              "source_locator": "lines 335-342"
+            }
+          ],
+          "knowledge_state": "inferred",
+          "rationale": "The search-tool selection section follows the prioritization guidance and precedes Internet-searching provisions.",
+          "value": 2
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is stated for search-tool selection."
+        },
+        "inputs": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "Inputs are not explicitly identified for search-tool selection."
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 211,
+              "block_id": "t-b0032",
+              "block_start_offset": 144,
+              "document_end_offset": 14096,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 14029,
+              "evidence_id": "cev-663530b1a05988bf34658c231e033c5a5fded0fa29b8c6e2a27db1fe09be5265",
+              "exact_snippet": "context of the special requirements of each\nTechnology Center (TC).",
+              "source_locator": "lines 335-342"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 211,
+                  "block_id": "t-b0032",
+                  "block_start_offset": 144,
+                  "document_end_offset": 14096,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 14029,
+                  "evidence_id": "cev-663530b1a05988bf34658c231e033c5a5fded0fa29b8c6e2a27db1fe09be5265",
+                  "exact_snippet": "context of the special requirements of each\nTechnology Center (TC).",
+                  "source_locator": "lines 335-342"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The stated context limits detailed guidance.",
+              "value": "special requirements of each Technology Center (TC)"
+            }
+          ],
+          "rationale": "The methodology is limited by the special requirements of each Technology Center."
+        },
+        "order_basis": "source_position",
+        "outputs": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "Outputs are not explicitly identified for search-tool selection."
+        },
+        "responsible_roles": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No responsible role is explicitly assigned to search-tool selection."
+        },
+        "sequence": 5,
+        "systems": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "Specific search tools are not identified in this chunk."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 168,
+              "block_id": "t-b0040",
+              "block_start_offset": 41,
+              "document_end_offset": 14575,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 14448,
+              "evidence_id": "cev-05f346901e323bc326381c0d3c2d78223b1287495b91457299d0e87ce4203696",
+              "exact_snippet": "The Internet is an Office-approved search tool that\nmay be considered when planning and conducting\na search for an application.",
+              "source_locator": "lines 358-403"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The document explicitly addresses Internet searching as an approved search tool.",
+          "value": "Conduct Internet searching"
+        },
+        "actors": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 2155,
+              "block_id": "t-b0040",
+              "block_start_offset": 2119,
+              "document_end_offset": 16562,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 16526,
+              "evidence_id": "cev-53880c754df6f48fcedc97c738cb5c19c68312b88d7527b20880bda4595c3a56",
+              "exact_snippet": "All use of the Internet by\nexaminers",
+              "source_locator": "lines 358-403"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 2155,
+                  "block_id": "t-b0040",
+                  "block_start_offset": 2119,
+                  "document_end_offset": 16562,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 16526,
+                  "evidence_id": "cev-53880c754df6f48fcedc97c738cb5c19c68312b88d7527b20880bda4595c3a56",
+                  "exact_snippet": "All use of the Internet by\nexaminers",
+                  "source_locator": "lines 358-403"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The stated confidentiality requirement applies to examiners.",
+              "value": "examiners"
+            }
+          ],
+          "rationale": "The Internet-use requirements explicitly refer to examiners."
+        },
+        "candidate_step_id": "candidate-step-2d9417a14cf0f937",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated as an ordinal criterion.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated as an ordinal criterion.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "The source assigns ultimate responsibility for formulating strategies but does not state this Boolean attribute for the activity.",
+            "value": null
+          }
+        },
+        "decisions": [
+          {
+            "branches": {
+              "completeness": "partial",
+              "evidence": [
+                {
+                  "block_end_offset": 675,
+                  "block_id": "t-b0043",
+                  "block_start_offset": 429,
+                  "document_end_offset": 18187,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 17941,
+                  "evidence_id": "cev-e5469a5e287c2c72b76d9b4a21f49ac5e1df9aa09e8f489af26157d3e65e352b",
+                  "exact_snippet": "Patent\nOrganization users MUST restrict search queries to\nthe general state of the art unless the Office has\nestablished a secure link over the Internet with a\nspecific vendor to maintain the confidentiality of the\nunpublished patent application.",
+                  "source_locator": "lines 426-449"
+                }
+              ],
+              "items": [
+                {
+                  "confidence": null,
+                  "evidence": [
+                    {
+                      "block_end_offset": 675,
+                      "block_id": "t-b0043",
+                      "block_start_offset": 429,
+                      "document_end_offset": 18187,
+                      "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                      "document_start_offset": 17941,
+                      "evidence_id": "cev-e5469a5e287c2c72b76d9b4a21f49ac5e1df9aa09e8f489af26157d3e65e352b",
+                      "exact_snippet": "Patent\nOrganization users MUST restrict search queries to\nthe general state of the art unless the Office has\nestablished a secure link over the Internet with a\nspecific vendor to maintain the confidentiality of the\nunpublished patent application.",
+                      "source_locator": "lines 426-449"
+                    }
+                  ],
+                  "knowledge_state": "known",
+                  "rationale": "This is the stated restriction and exception.",
+                  "value": "Patent Organization users MUST restrict search queries to the general state of the art unless the Office has established a secure link over the Internet with a specific vendor to maintain the confidentiality of the unpublished patent application."
+                }
+              ],
+              "rationale": "The policy specifies the required query restriction and secure-link condition."
+            },
+            "condition": {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 427,
+                  "block_id": "t-b0043",
+                  "block_start_offset": 235,
+                  "document_end_offset": 17939,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 17747,
+                  "evidence_id": "cev-697a41d7ec9b18552bdaa3742db817fac9c32e4077ea1ec4dc166960f3d4c039",
+                  "exact_snippet": "When the\nInternet is used to search, browse, or retrieve\ninformation relating to a patent application which\nhas not been published, other than a reissue\napplication or reexamination proceeding",
+                  "source_locator": "lines 426-449"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The policy specifies this condition for restricted queries.",
+              "value": "When the Internet is used to search, browse, or retrieve information relating to a patent application which has not been published, other than a reissue application or reexamination proceeding"
+            }
+          }
+        ],
+        "dependencies": [],
+        "description": {
+          "confidence": 0.88,
+          "evidence": [
+            {
+              "block_end_offset": 1229,
+              "block_id": "t-b0040",
+              "block_start_offset": 1081,
+              "document_end_offset": 15636,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 15488,
+              "evidence_id": "cev-ab8e67a42ddcc822ecc0d813f245c01ace97b8354b0ad28d407091c3260d9912",
+              "exact_snippet": "USPTO personnel may also use the Internet to\nsearch, browse, or retrieve information relating to\nthe claimed invention(s) of a published application",
+              "source_locator": "lines 358-403"
+            },
+            {
+              "block_end_offset": 2243,
+              "block_id": "t-b0040",
+              "block_start_offset": 2119,
+              "document_end_offset": 16650,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 16526,
+              "evidence_id": "cev-a8434a456c33ac4d41362cafc710cbda8db391043f5cb14888668027b8f18627",
+              "exact_snippet": "All use of the Internet by\nexaminers must be conducted in a manner that\nensures compliance with confidentiality requirements",
+              "source_locator": "lines 358-403"
+            }
+          ],
+          "knowledge_state": "inferred",
+          "rationale": "This combines the stated permitted Internet uses with the confidentiality requirement.",
+          "value": "Use the Internet to search, browse, or retrieve information relating to the application only as permitted and in compliance with confidentiality requirements."
+        },
+        "document_order": {
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "block_end_offset": 40,
+              "block_id": "t-b0040",
+              "block_start_offset": 0,
+              "document_end_offset": 14447,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 14407,
+              "evidence_id": "cev-2ba59e6f7666e7fcdf1a316704e3054e19b177536251601981344b8bc467bb5f",
+              "exact_snippet": "904.02(c) Internet Searching [R-10.2019]",
+              "source_locator": "lines 358-403"
+            }
+          ],
+          "knowledge_state": "inferred",
+          "rationale": "Internet-searching provisions follow search-tool selection and precede the search-conducting section.",
+          "value": 3
+        },
+        "exceptions": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 925,
+              "block_id": "t-b0043",
+              "block_start_offset": 676,
+              "document_end_offset": 18437,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 18188,
+              "evidence_id": "cev-3c8d9c475db863773e6cbde6061f6390428d5a80960d759445931edacce08bae",
+              "exact_snippet": "Non-secure Internet\nsearch, browse, or retrieval activities that could\ndisclose proprietary information directed to a specific\napplication which has not been published, other than\na reissue application or reexamination proceeding,\nare NOT permitted.",
+              "source_locator": "lines 426-449"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 925,
+                  "block_id": "t-b0043",
+                  "block_start_offset": 676,
+                  "document_end_offset": 18437,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 18188,
+                  "evidence_id": "cev-3c8d9c475db863773e6cbde6061f6390428d5a80960d759445931edacce08bae",
+                  "exact_snippet": "Non-secure Internet\nsearch, browse, or retrieval activities that could\ndisclose proprietary information directed to a specific\napplication which has not been published, other than\na reissue application or reexamination proceeding,\nare NOT permitted.",
+                  "source_locator": "lines 426-449"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is an explicit prohibition.",
+              "value": "Non-secure Internet search, browse, or retrieval activities that could disclose proprietary information directed to a specific application which has not been published, other than a reissue application or reexamination proceeding, are NOT permitted."
+            }
+          ],
+          "rationale": "Non-secure activities that could disclose proprietary information for a specific unpublished application are prohibited."
+        },
+        "inputs": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "Inputs are not fully identified for the activity."
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 717,
+              "block_id": "t-b0042",
+              "block_start_offset": 568,
+              "document_end_offset": 17382,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 17233,
+              "evidence_id": "cev-d31aab3c2b3359565f03c25ca7d9eff424e36d7a5dba52e91246b0de9a1f91ad",
+              "exact_snippet": "any Internet searching\nthat is conducted is to be limited to searching for the\ninformation necessary for examination of the\napplication or proceeding",
+              "source_locator": "lines 407-424"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 717,
+                  "block_id": "t-b0042",
+                  "block_start_offset": 568,
+                  "document_end_offset": 17382,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 17233,
+                  "evidence_id": "cev-d31aab3c2b3359565f03c25ca7d9eff424e36d7a5dba52e91246b0de9a1f91ad",
+                  "exact_snippet": "any Internet searching\nthat is conducted is to be limited to searching for the\ninformation necessary for examination of the\napplication or proceeding",
+                  "source_locator": "lines 407-424"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The document explicitly limits the scope of Internet searching.",
+              "value": "limited to searching for the information necessary for examination of the application or proceeding"
+            }
+          ],
+          "rationale": "Internet searching is limited to information necessary for examination."
+        },
+        "order_basis": "source_position",
+        "outputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 371,
+              "block_id": "t-b0040",
+              "block_start_offset": 284,
+              "document_end_offset": 14778,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 14691,
+              "evidence_id": "cev-d07e9afe9bf47add3ee96c7e4a98e500759625acd2989b7e27ab12c64c1caeee",
+              "exact_snippet": "locate and\nretrieve additional sources of information relating\nto a patent application.",
+              "source_locator": "lines 358-403"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 371,
+                  "block_id": "t-b0040",
+                  "block_start_offset": 284,
+                  "document_end_offset": 14778,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 14691,
+                  "evidence_id": "cev-d07e9afe9bf47add3ee96c7e4a98e500759625acd2989b7e27ab12c64c1caeee",
+                  "exact_snippet": "locate and\nretrieve additional sources of information relating\nto a patent application.",
+                  "source_locator": "lines 358-403"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is the stated information that Internet use can locate and retrieve.",
+              "value": "additional sources of information relating to a patent application"
+            }
+          ],
+          "rationale": "The Internet enables retrieval of additional information sources relating to a patent application."
+        },
+        "responsible_roles": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No responsible role is assigned for the activity as a whole."
+        },
+        "sequence": 6,
+        "systems": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 87,
+              "block_id": "t-b0040",
+              "block_start_offset": 41,
+              "document_end_offset": 14494,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 14448,
+              "evidence_id": "cev-ad34e107f121e1e274d914e2659bcb639c8a8d731be8c4e988462e13d9fcf2cf",
+              "exact_snippet": "The Internet is an Office-approved search tool",
+              "source_locator": "lines 358-403"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 87,
+                  "block_id": "t-b0040",
+                  "block_start_offset": 41,
+                  "document_end_offset": 14494,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 14448,
+                  "evidence_id": "cev-ad34e107f121e1e274d914e2659bcb639c8a8d731be8c4e988462e13d9fcf2cf",
+                  "exact_snippet": "The Internet is an Office-approved search tool",
+                  "source_locator": "lines 358-403"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The Internet is identified as an Office-approved search tool.",
+              "value": "Internet"
+            }
+          ],
+          "rationale": "The Internet is named as the search tool."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 115,
+              "block_id": "t-b0044",
+              "block_start_offset": 0,
+              "document_end_offset": 18721,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 18606,
+              "evidence_id": "cev-d4d7b0aed220ac894e9358a3d0ad062cf24c2bcca8a78e58b6b89227e2d167c2",
+              "exact_snippet": "All Patent Organization users of the Internet for\npatent application searches must document their\nsearch strategies",
+              "source_locator": "lines 451-453"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "Internet users conducting patent application searches must document their strategies.",
+          "value": "Document Internet search strategies"
+        },
+        "actors": {
+          "completeness": "complete",
+          "evidence": [
+            {
+              "block_end_offset": 77,
+              "block_id": "t-b0044",
+              "block_start_offset": 0,
+              "document_end_offset": 18683,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 18606,
+              "evidence_id": "cev-c8f76afdfff54c3cdb21a84a6f055f62ba693c6a4944a5694f8dfca3a4fc91be",
+              "exact_snippet": "All Patent Organization users of the Internet for\npatent application searches",
+              "source_locator": "lines 451-453"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 77,
+                  "block_id": "t-b0044",
+                  "block_start_offset": 0,
+                  "document_end_offset": 18683,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 18606,
+                  "evidence_id": "cev-c8f76afdfff54c3cdb21a84a6f055f62ba693c6a4944a5694f8dfca3a4fc91be",
+                  "exact_snippet": "All Patent Organization users of the Internet for\npatent application searches",
+                  "source_locator": "lines 451-453"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is the explicitly stated population subject to the requirement.",
+              "value": "All Patent Organization users of the Internet for patent application searches"
+            }
+          ],
+          "rationale": "The requirement identifies all Patent Organization Internet users conducting patent application searches."
+        },
+        "candidate_step_id": "candidate-step-69b86f080884cb5a",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "Not stated.",
+            "value": null
+          }
+        },
+        "decisions": [],
+        "dependencies": [
+          {
+            "relationship": {
+              "confidence": 0.92,
+              "evidence": [
+                {
+                  "block_end_offset": 115,
+                  "block_id": "t-b0044",
+                  "block_start_offset": 0,
+                  "document_end_offset": 18721,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 18606,
+                  "evidence_id": "cev-d4d7b0aed220ac894e9358a3d0ad062cf24c2bcca8a78e58b6b89227e2d167c2",
+                  "exact_snippet": "All Patent Organization users of the Internet for\npatent application searches must document their\nsearch strategies",
+                  "source_locator": "lines 451-453"
+                }
+              ],
+              "knowledge_state": "inferred",
+              "rationale": "The documentation requirement concerns strategies used for Internet patent application searches.",
+              "value": "documents the strategies used in"
+            },
+            "target_candidate_step_id": "candidate-step-2d9417a14cf0f937",
+            "target_label": {
+              "confidence": 0.92,
+              "evidence": [
+                {
+                  "block_end_offset": 115,
+                  "block_id": "t-b0044",
+                  "block_start_offset": 0,
+                  "document_end_offset": 18721,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 18606,
+                  "evidence_id": "cev-d4d7b0aed220ac894e9358a3d0ad062cf24c2bcca8a78e58b6b89227e2d167c2",
+                  "exact_snippet": "All Patent Organization users of the Internet for\npatent application searches must document their\nsearch strategies",
+                  "source_locator": "lines 451-453"
+                }
+              ],
+              "knowledge_state": "inferred",
+              "rationale": "The documentation requirement applies to users of the Internet for patent application searches.",
+              "value": "Conduct Internet searching"
+            }
+          }
+        ],
+        "description": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 58,
+              "block_id": "t-b0049",
+              "block_start_offset": 0,
+              "document_end_offset": 18894,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 18836,
+              "evidence_id": "cev-885ee2e8801ffaf0a28b4ac0eadd1827d73c3b9f22e9f455cd1e5bbf4046dae7",
+              "exact_snippet": "practices and procedures as set forth in MPEP \u00a7\n719.05 II.",
+              "source_locator": "lines 463-464"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The continuation identifies the applicable practices and procedures.",
+          "value": "Document search strategies in accordance with established practices and procedures set forth in MPEP \u00a7 719.05 II."
+        },
+        "document_order": {
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "block_end_offset": 115,
+              "block_id": "t-b0044",
+              "block_start_offset": 0,
+              "document_end_offset": 18721,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 18606,
+              "evidence_id": "cev-d4d7b0aed220ac894e9358a3d0ad062cf24c2bcca8a78e58b6b89227e2d167c2",
+              "exact_snippet": "All Patent Organization users of the Internet for\npatent application searches must document their\nsearch strategies",
+              "source_locator": "lines 451-453"
+            }
+          ],
+          "knowledge_state": "inferred",
+          "rationale": "The documentation requirement appears after the Internet-search policy and before the conducting-search section.",
+          "value": 4
+        },
+        "exceptions": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No exception is stated."
+        },
+        "inputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 115,
+              "block_id": "t-b0044",
+              "block_start_offset": 98,
+              "document_end_offset": 18721,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 18704,
+              "evidence_id": "cev-49147edc18047220c2ec8da23a2e35635178aee674380c61c7fff6c00f3919fc",
+              "exact_snippet": "search strategies",
+              "source_locator": "lines 451-453"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 115,
+                  "block_id": "t-b0044",
+                  "block_start_offset": 98,
+                  "document_end_offset": 18721,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 18704,
+                  "evidence_id": "cev-49147edc18047220c2ec8da23a2e35635178aee674380c61c7fff6c00f3919fc",
+                  "exact_snippet": "search strategies",
+                  "source_locator": "lines 451-453"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The requirement explicitly identifies search strategies as the documentation subject.",
+              "value": "search strategies"
+            }
+          ],
+          "rationale": "The item to be documented is the search strategy."
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 146,
+              "block_id": "t-b0044",
+              "block_start_offset": 78,
+              "document_end_offset": 18752,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 18684,
+              "evidence_id": "cev-e0c26d1568f9443a14139d84279f8ef3467dd2ba198d662dfaa77f7bbcf226f8",
+              "exact_snippet": "must document their\nsearch strategies in accordance with established",
+              "source_locator": "lines 451-453"
+            },
+            {
+              "block_end_offset": 58,
+              "block_id": "t-b0049",
+              "block_start_offset": 0,
+              "document_end_offset": 18894,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 18836,
+              "evidence_id": "cev-885ee2e8801ffaf0a28b4ac0eadd1827d73c3b9f22e9f455cd1e5bbf4046dae7",
+              "exact_snippet": "practices and procedures as set forth in MPEP \u00a7\n719.05 II.",
+              "source_locator": "lines 463-464"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 146,
+                  "block_id": "t-b0044",
+                  "block_start_offset": 78,
+                  "document_end_offset": 18752,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 18684,
+                  "evidence_id": "cev-e0c26d1568f9443a14139d84279f8ef3467dd2ba198d662dfaa77f7bbcf226f8",
+                  "exact_snippet": "must document their\nsearch strategies in accordance with established",
+                  "source_locator": "lines 451-453"
+                },
+                {
+                  "block_end_offset": 58,
+                  "block_id": "t-b0049",
+                  "block_start_offset": 0,
+                  "document_end_offset": 18894,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 18836,
+                  "evidence_id": "cev-885ee2e8801ffaf0a28b4ac0eadd1827d73c3b9f22e9f455cd1e5bbf4046dae7",
+                  "exact_snippet": "practices and procedures as set forth in MPEP \u00a7\n719.05 II.",
+                  "source_locator": "lines 463-464"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is the stated documentation standard.",
+              "value": "in accordance with established practices and procedures as set forth in MPEP \u00a7 719.05 II"
+            }
+          ],
+          "rationale": "Documentation must follow established practices and procedures."
+        },
+        "order_basis": "source_position",
+        "outputs": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No output artifact is explicitly named."
+        },
+        "responsible_roles": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No distinct responsible role is assigned."
+        },
+        "sequence": 7,
+        "systems": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 45,
+              "block_id": "t-b0044",
+              "block_start_offset": 0,
+              "document_end_offset": 18651,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 18606,
+              "evidence_id": "cev-2c423ba8a1adcf8077746f09ca6830cd8421ede7c074fe7f6e8d61179e0dcbde",
+              "exact_snippet": "All Patent Organization users of the Internet",
+              "source_locator": "lines 451-453"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 45,
+                  "block_id": "t-b0044",
+                  "block_start_offset": 0,
+                  "document_end_offset": 18651,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 18606,
+                  "evidence_id": "cev-2c423ba8a1adcf8077746f09ca6830cd8421ede7c074fe7f6e8d61179e0dcbde",
+                  "exact_snippet": "All Patent Organization users of the Internet",
+                  "source_locator": "lines 451-453"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The documented population is Internet users.",
+              "value": "Internet"
+            }
+          ],
+          "rationale": "The Internet is identified as the context for the documentation requirement."
+        }
+      },
+      {
+        "activity": {
+          "confidence": null,
+          "evidence": [
+            {
+              "block_end_offset": 334,
+              "block_id": "t-b0050",
+              "block_start_offset": 162,
+              "document_end_offset": 19230,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 19058,
+              "evidence_id": "cev-0718a77997f7e55d32d78e381e270945c04274bbd15f57492f2fab087b79e3f6",
+              "exact_snippet": "a careful and comprehensive search,\ncommensurate with the limitations appearing in the\nmost detailed claims in the case, be made in\npreparing the first action on the merits",
+              "source_locator": "lines 466-507"
+            }
+          ],
+          "knowledge_state": "known",
+          "rationale": "The document requires a careful and comprehensive search in preparing the first action on the merits.",
+          "value": "Conduct a careful and comprehensive search"
+        },
+        "actors": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 1084,
+              "block_id": "t-b0050",
+              "block_start_offset": 1040,
+              "document_end_offset": 19980,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 19936,
+              "evidence_id": "cev-6d76190493def7bb59b551282613491a0ea78ee129d3df1f497aeefd922b2f7b",
+              "exact_snippet": "the examiner should find\nand cite references",
+              "source_locator": "lines 466-507"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 1084,
+                  "block_id": "t-b0050",
+                  "block_start_offset": 1040,
+                  "document_end_offset": 19980,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 19936,
+                  "evidence_id": "cev-6d76190493def7bb59b551282613491a0ea78ee129d3df1f497aeefd922b2f7b",
+                  "exact_snippet": "the examiner should find\nand cite references",
+                  "source_locator": "lines 466-507"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The requirements repeatedly identify the examiner as the actor.",
+              "value": "examiner"
+            }
+          ],
+          "rationale": "The activity is explicitly assigned to the examiner in the search requirements."
+        },
+        "candidate_step_id": "candidate-step-a154c8ee145a50f9",
+        "characteristics": {
+          "capability_signals": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "reads_unstructured_documents"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "categorises_items"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "predicts_future_outcomes"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "detects_anomalies_or_patterns"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "creates_new_content"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "searches_reference_knowledge"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "ranks_or_suggests_options"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "supports_complex_decisions"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "interprets_images_or_video"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "routes_or_orchestrates_work"
+            }
+          ],
+          "criteria": [
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "repetition"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "predictability"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "data_readiness"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "ai_capability_fit"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "The source describes examiner actions but does not provide a compatible ordinal value.",
+                "value": null
+              },
+              "name": "human_judgement_requirement"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "business_value"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "risk_consequence"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "residual_risk_with_human_oversight"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "implementation_complexity"
+            },
+            {
+              "assertion": {
+                "confidence": null,
+                "evidence": [],
+                "knowledge_state": "unknown",
+                "rationale": "Not stated.",
+                "value": null
+              },
+              "name": "conventional_solution_fit"
+            }
+          ],
+          "human_accountability_required": {
+            "confidence": null,
+            "evidence": [],
+            "knowledge_state": "unknown",
+            "rationale": "The source does not explicitly state whether human accountability is required as a Boolean attribute.",
+            "value": null
+          }
+        },
+        "decisions": [
+          {
+            "branches": {
+              "completeness": "partial",
+              "evidence": [
+                {
+                  "block_end_offset": 451,
+                  "block_id": "t-b0052",
+                  "block_start_offset": 400,
+                  "document_end_offset": 21420,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 21369,
+                  "evidence_id": "cev-a190e3bd577b45283be665858b6f5fbfd30901cf4aaa5cbe010ac4ac241a528e",
+                  "exact_snippet": "the claims\nshould be additionally rejected thereon.",
+                  "source_locator": "lines 511-524"
+                }
+              ],
+              "items": [
+                {
+                  "confidence": null,
+                  "evidence": [
+                    {
+                      "block_end_offset": 451,
+                      "block_id": "t-b0052",
+                      "block_start_offset": 400,
+                      "document_end_offset": 21420,
+                      "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                      "document_start_offset": 21369,
+                      "evidence_id": "cev-a190e3bd577b45283be665858b6f5fbfd30901cf4aaa5cbe010ac4ac241a528e",
+                      "exact_snippet": "the claims\nshould be additionally rejected thereon.",
+                      "source_locator": "lines 511-524"
+                    }
+                  ],
+                  "knowledge_state": "known",
+                  "rationale": "This is the stated action when the condition applies.",
+                  "value": "the claims should be additionally rejected thereon"
+                }
+              ],
+              "rationale": "The prescribed result is an additional rejection based on the second reference."
+            },
+            "condition": {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 398,
+                  "block_id": "t-b0052",
+                  "block_start_offset": 279,
+                  "document_end_offset": 21367,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 21248,
+                  "evidence_id": "cev-b81ec17aed097aecf54049262900f3af3388231b0717870cf3b26fd491036466",
+                  "exact_snippet": "if a second reference exists\nwhich cannot be so overcome and which, though\ninferior, is an adequate basis for rejection",
+                  "source_locator": "lines 511-524"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The document states the condition for an additional rejection.",
+              "value": "if a second reference exists which cannot be so overcome and which, though inferior, is an adequate basis for rejection"
+            }
+          }
+        ],
+        "dependencies": [],
+        "description": {
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "block_end_offset": 798,
+              "block_id": "t-b0050",
+              "block_start_offset": 637,
+              "document_end_offset": 19694,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 19533,
+              "evidence_id": "cev-422354d5ee40d8e90e3a464ca68e9d68081286ed6e105d7097ac2c2421ff9c1e",
+              "exact_snippet": "the search should, insofar\nas possible, also cover all subject matter which the\nexaminer reasonably anticipates might be\nincorporated into applicant\u2019s amendment.",
+              "source_locator": "lines 466-507"
+            },
+            {
+              "block_end_offset": 1948,
+              "block_id": "t-b0050",
+              "block_start_offset": 1862,
+              "document_end_offset": 20844,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 20758,
+              "evidence_id": "cev-9103475b9a9c3b557d39a676ed772c0b78eb0a6f84d504fefe690206437665b8",
+              "exact_snippet": "The examiner must fully\nconsider all the prior art references cited in the\napplication",
+              "source_locator": "lines 466-507"
+            },
+            {
+              "block_end_offset": 73,
+              "block_id": "t-b0052",
+              "block_start_offset": 0,
+              "document_end_offset": 21042,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 20969,
+              "evidence_id": "cev-d9fa5d91445ca6702f4a7925409c38a8bf7517808e2e33fdaedf8dae3ba623d1",
+              "exact_snippet": "The best reference should always be the one used in\nrejecting the claims.",
+              "source_locator": "lines 511-524"
+            }
+          ],
+          "knowledge_state": "inferred",
+          "rationale": "This consolidates the documented requirements for a complete search and reference selection.",
+          "value": "Search beyond claim terms where possible, consider prior-art references cited in the application, compare references with each other and the applicant's disclosure, and use the best reference for rejection."
+        },
+        "document_order": {
+          "confidence": 0.94,
+          "evidence": [
+            {
+              "block_end_offset": 40,
+              "block_id": "t-b0050",
+              "block_start_offset": 0,
+              "document_end_offset": 18936,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 18896,
+              "evidence_id": "cev-b4f04d6832758102d5cf7e30660c9e207a0c51a1783af97328a4e9e2776b9aa7",
+              "exact_snippet": "904.03 Conducting the Search [R-07.2015]",
+              "source_locator": "lines 466-507"
+            }
+          ],
+          "knowledge_state": "inferred",
+          "rationale": "The Conducting the Search section appears last among the process sections in this chunk.",
+          "value": 5
+        },
+        "exceptions": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 487,
+              "block_id": "t-b0050",
+              "block_start_offset": 420,
+              "document_end_offset": 19383,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 19316,
+              "evidence_id": "cev-5214962f3f7e8a327457636c5e5db377f1bde45b23b9606d48df55eda9823136",
+              "exact_snippet": "with no further searching other\nthan to update the original search.",
+              "source_locator": "lines 466-507"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 487,
+                  "block_id": "t-b0050",
+                  "block_start_offset": 420,
+                  "document_end_offset": 19383,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 19316,
+                  "evidence_id": "cev-5214962f3f7e8a327457636c5e5db377f1bde45b23b9606d48df55eda9823136",
+                  "exact_snippet": "with no further searching other\nthan to update the original search.",
+                  "source_locator": "lines 466-507"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The document identifies updating the original search as the permitted further search activity following allowance or a final second action.",
+              "value": "to update the original search"
+            }
+          ],
+          "rationale": "The search may be updated after the first search without further searching otherwise."
+        },
+        "inputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 281,
+              "block_id": "t-b0050",
+              "block_start_offset": 220,
+              "document_end_offset": 19177,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 19116,
+              "evidence_id": "cev-8ca4682e1cfb43ad0233cf4e6e51f6229d61c3fcd98a80f19f224a4531b32925",
+              "exact_snippet": "limitations appearing in the\nmost detailed claims in the case",
+              "source_locator": "lines 466-507"
+            },
+            {
+              "block_end_offset": 1948,
+              "block_id": "t-b0050",
+              "block_start_offset": 1895,
+              "document_end_offset": 20844,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 20791,
+              "evidence_id": "cev-c28af66b5ece41a4868ad01a7bc10cf3527980afeab8ebf28f23a03692f48f80",
+              "exact_snippet": "all the prior art references cited in the\napplication",
+              "source_locator": "lines 466-507"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 281,
+                  "block_id": "t-b0050",
+                  "block_start_offset": 220,
+                  "document_end_offset": 19177,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 19116,
+                  "evidence_id": "cev-8ca4682e1cfb43ad0233cf4e6e51f6229d61c3fcd98a80f19f224a4531b32925",
+                  "exact_snippet": "limitations appearing in the\nmost detailed claims in the case",
+                  "source_locator": "lines 466-507"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The search must be commensurate with these limitations.",
+              "value": "limitations appearing in the most detailed claims in the case"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 1948,
+                  "block_id": "t-b0050",
+                  "block_start_offset": 1895,
+                  "document_end_offset": 20844,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 20791,
+                  "evidence_id": "cev-c28af66b5ece41a4868ad01a7bc10cf3527980afeab8ebf28f23a03692f48f80",
+                  "exact_snippet": "all the prior art references cited in the\napplication",
+                  "source_locator": "lines 466-507"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The examiner must fully consider these references.",
+              "value": "all the prior art references cited in the application"
+            }
+          ],
+          "rationale": "The requirements identify detailed claims, applicant disclosure, and prior-art references cited in the application."
+        },
+        "operational_characteristics": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 281,
+              "block_id": "t-b0050",
+              "block_start_offset": 198,
+              "document_end_offset": 19177,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 19094,
+              "evidence_id": "cev-3605c65f21340945a28764703154352e568ef51730c49475a6207f58eeb7b6dc",
+              "exact_snippet": "commensurate with the limitations appearing in the\nmost detailed claims in the case",
+              "source_locator": "lines 466-507"
+            },
+            {
+              "block_end_offset": 334,
+              "block_id": "t-b0050",
+              "block_start_offset": 291,
+              "document_end_offset": 19230,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 19187,
+              "evidence_id": "cev-d0561506432a5bba453ba10bde5a1e7eb4169e2ec064e64707b48ffc42204362",
+              "exact_snippet": "in\npreparing the first action on the merits",
+              "source_locator": "lines 466-507"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 281,
+                  "block_id": "t-b0050",
+                  "block_start_offset": 198,
+                  "document_end_offset": 19177,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 19094,
+                  "evidence_id": "cev-3605c65f21340945a28764703154352e568ef51730c49475a6207f58eeb7b6dc",
+                  "exact_snippet": "commensurate with the limitations appearing in the\nmost detailed claims in the case",
+                  "source_locator": "lines 466-507"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is the stated scope standard for the search.",
+              "value": "commensurate with the limitations appearing in the most detailed claims in the case"
+            },
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 334,
+                  "block_id": "t-b0050",
+                  "block_start_offset": 291,
+                  "document_end_offset": 19230,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 19187,
+                  "evidence_id": "cev-d0561506432a5bba453ba10bde5a1e7eb4169e2ec064e64707b48ffc42204362",
+                  "exact_snippet": "in\npreparing the first action on the merits",
+                  "source_locator": "lines 466-507"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "This is the stated timing context.",
+              "value": "in preparing the first action on the merits"
+            }
+          ],
+          "rationale": "The search must be commensurate with limitations in the most detailed claims and be performed in preparing the first action on the merits."
+        },
+        "order_basis": "source_position",
+        "outputs": {
+          "completeness": "partial",
+          "evidence": [
+            {
+              "block_end_offset": 73,
+              "block_id": "t-b0052",
+              "block_start_offset": 0,
+              "document_end_offset": 21042,
+              "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+              "document_start_offset": 20969,
+              "evidence_id": "cev-d9fa5d91445ca6702f4a7925409c38a8bf7517808e2e33fdaedf8dae3ba623d1",
+              "exact_snippet": "The best reference should always be the one used in\nrejecting the claims.",
+              "source_locator": "lines 511-524"
+            }
+          ],
+          "items": [
+            {
+              "confidence": null,
+              "evidence": [
+                {
+                  "block_end_offset": 73,
+                  "block_id": "t-b0052",
+                  "block_start_offset": 0,
+                  "document_end_offset": 21042,
+                  "document_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+                  "document_start_offset": 20969,
+                  "evidence_id": "cev-d9fa5d91445ca6702f4a7925409c38a8bf7517808e2e33fdaedf8dae3ba623d1",
+                  "exact_snippet": "The best reference should always be the one used in\nrejecting the claims.",
+                  "source_locator": "lines 511-524"
+                }
+              ],
+              "knowledge_state": "known",
+              "rationale": "The document specifies use of the best reference in claim rejection.",
+              "value": "references used in rejecting the claims"
+            }
+          ],
+          "rationale": "The stated outcomes include cited references and references used in rejecting claims."
+        },
+        "responsible_roles": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No distinct responsible role is named beyond the examiner actor."
+        },
+        "sequence": 8,
+        "systems": {
+          "completeness": "unknown",
+          "evidence": [],
+          "items": [],
+          "rationale": "No system is specified for conducting the search."
+        }
+      }
+    ]
+  },
+  "issues": [
+    {
+      "block_id": "t-b0032",
+      "chunk_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01-chunk-0002",
+      "code": "snippet-not-found",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": "multiple_processes_detected",
+      "http_status_code": null,
+      "message": "Provider evidence could not be resolved exactly.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "error"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "ambiguous-dependency",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": null,
+      "http_status_code": null,
+      "message": "A candidate dependency could not be resolved uniquely.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "ambiguous-dependency",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": null,
+      "http_status_code": null,
+      "message": "A candidate dependency could not be resolved uniquely.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "process-field-conflict",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": "process_name",
+      "http_status_code": null,
+      "message": "Conflicting supported process-level values require human review.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "process-field-conflict",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": "process_description",
+      "http_status_code": null,
+      "message": "Conflicting supported process-level values require human review.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    },
+    {
+      "block_id": null,
+      "chunk_id": null,
+      "code": "process-field-conflict",
+      "error_category": null,
+      "failure_stage": null,
+      "field_path": "process_objective",
+      "http_status_code": null,
+      "message": "Conflicting supported process-level values require human review.",
+      "provider_name": null,
+      "request_id": null,
+      "requested_model": null,
+      "sdk_retries_exhausted": null,
+      "severity": "warning"
+    }
+  ],
+  "provider_invocations": [
+    {
+      "attempt": 1,
+      "chunk_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01-chunk-0001",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_062eb6eb1312c9ce016a84aad81d90819f889b5f8945cf6dc9",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 6751,
+        "output_tokens": 8411
+      }
+    },
+    {
+      "attempt": 1,
+      "chunk_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01-chunk-0002",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_0fc07ad82aec400b016a84ab1927c487d2b18d53691ea93cc5",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 5625,
+        "output_tokens": 9347
+      }
+    },
+    {
+      "attempt": 2,
+      "chunk_id": "doc-98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01-chunk-0002",
+      "effective_model": "gpt-5.6-terra",
+      "provider_name": "openai",
+      "request_id": "resp_0b2f8378b7e29f1b016a84ab5f18d087d2a7719b962410da51",
+      "requested_model": "gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 5647,
+        "output_tokens": 10296
+      }
+    }
+  ],
+  "status": "partial"
+}
