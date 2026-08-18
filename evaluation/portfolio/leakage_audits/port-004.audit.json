@@ -3,8 +3,10 @@
   "variant": "VERBATIM_PRIMARY_SOURCE",
   "variant_rationale": "PORT-001 to PORT-003 used anonymised researcher-authored BEFORE descriptions, so their audits asserted organisation_identity_absent and ai_vendor_product_names_absent. PORT-004 deliberately uploads an unmodified pre-AI operational document, so those two checks are not applicable by design and are replaced by source-integrity and AI-reference checks.",
   "case_id": "PORT-004",
+  "corpus_revision": 2,
   "before_path": "product_inputs/port-004.before.txt",
-  "before_sha256": "7bc9242a67e9400392c590e181db4ec7ca81880b44e4a903a5c71446467e492d",
+  "before_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+  "superseded_before_sha256": "7bc9242a67e9400392c590e181db4ec7ca81880b44e4a903a5c71446467e492d",
   "checks": {
     "before_document_predates_target_ai_implementation": true,
     "before_document_authored_independently_of_ai_adoption": true,
@@ -15,11 +17,18 @@
     "researcher_paraphrase_absent": true,
     "researcher_inference_absent": true,
     "editorial_trimming_inside_corpus_absent": true,
+    "reading_order_preserved": true,
+    "ocr_derived_text_absent": true,
     "organisation_identity_absent": "NOT_APPLICABLE_BY_DESIGN",
     "ai_vendor_product_names_absent": "NOT_APPLICABLE_BY_DESIGN"
   },
+  "reading_order_check": {
+    "method": "Chapter 900 is two-column. Raw-mode pdftotext output was inspected at the 904.02 three-step passage to confirm sentences run continuously within a single column and are not spliced across columns.",
+    "revision_1_defect": "pdftotext -layout concatenated left-column and right-column text onto shared lines, splicing unrelated sections. Detected before any extraction run; no provider call was ever made against the defective corpus.",
+    "revision_2_result": "PASS"
+  },
   "ai_term_scan": {
-    "scope": "all 58 pages of the source PDF plus OCR of both full-page graphics (900-39, 900-44); and the frozen 20-page product input",
+    "scope": "all 58 pages of the source PDF plus OCR of both full-page graphics (900-39, 900-44); and the frozen 7-page product input",
     "method": "case-insensitive regex over pdftotext output and tesseract OCR output",
     "terms": {
       "artificial intelligence": 0,
@@ -32,7 +41,7 @@
       "AI (word boundary)": 0,
       "algorithm": 0
     },
-    "automated_occurrences": 16,
+    "automated_occurrences_full_chapter": 16,
     "automated_disposition": "All 16 inspected. Every occurrence is either a proper product name (Examiner's Automated Search Tool / EAST, Web-based Examiner Search Tool / WEST, Foreign Patent Access System / FPAS) or a generic reference to electronic full-text and Boolean retrieval. No occurrence implies inference, ranking or model-based retrieval."
   },
   "ai_separation_timeline": {

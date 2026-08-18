@@ -1,1050 +1,557 @@
-                                        PRIOR ART, CLASSIFICATION, AND SEARCH                                    § 902.01
+§ 903.09
 
+MANUAL OF PATENT EXAMINING PROCEDURE
 
+II. PATENT FILE WRAPPER
 
+SPEs and examiners must use the Patent Transfer
+Inquiry (PTI) system, which creates a record of the
+transfer inquiry history of each application and
+facilitates tracking of applications.
 
-Office Actions (along with machine translations),            characters. A complete identification of a subclass
-citations, and classification data for those                 requires both the class and subclass number and any
-applications. This service also provides Office              alpha or decimal designations; e.g., 417/161.1A
-Action Indicators to help examiners identify                 identifies Class 417, Subclass 161.1A.
-applications that contain office actions, a Collections
-View for saving documents and applications for               The Manual of Classification for the USPC system
-review later on in the session, and the ability to           contains ordered arrangements of all class and
-download the documents in an application. See                subclass titles, the ordered arrangements are referred
-www.wipo.int/case/en/ for additional information             to as class schedules. The class and subclass titles
-regarding WIPO-CASE.                                         are brief and are as suggestive as possible of the
-                                                             subject matter included. Therefore, it is best not to
-902 Search Tools and Classification                          depend exclusively upon titles to explain the subject
-Information [R-07.2015]                                      matter encompassed by a class and subclass but to
-                                                             refer also to the respective definitions and notes. If
-There are multiple classification systems used               a search is to be expeditious, accurate, and complete,
-throughout the international patent system. These            the Manual of Classification should be used only as
-include the Cooperative Patent Classification System         a key to the class or subclass definition and appended
-(CPC), U.S. Patent Classification System (USPC),             notes.
-the International Patent Classification System (IPC),
-and the Locarno International Classification                 The Manual of Classification for the USPC system
-(Locarno). All U.S. patents and U.S. Patent                  has the following parts:
-Application Publications published after December
-31, 2014 will no longer receive classifications within          (A) Overview of the U.S. Patent Classification
-the USPC. The USPC will, at that time, become a              System.
-static searchable database.                                      (B) Classes Within the U.S. Classification
-                                                             System Arranged by Related Subject Matter: A
-902.01 Classification Manual for the U.S.                    hierarchical arrangement of class titles organized
-Patent Classification System [R-07.2015]                     into four main groups by related subject matter. Only
-                                                             as a last resort should this hierarchical arrangement
-The United States Patent Office (the Office)                 of class titles, be used to determine document
-maintains an electronic classification manual for the        placement, i.e., when none of the other classification
-U.S. Patent Classification System (USPC). The                criteria, such as comprehensiveness, etc., allow
-complete manual is available to USPTO personnel              placement. This part also includes an exact
-from      the     Classification     Home       Page         hierarchical listing of the synthetic resin and
-(http://ptoweb:8081/), which is accessible from the          chemical compound classes.
-desktop via the Patent Examiner’s Toolkit. The                    (C) Classes Arranged by Art Unit (CAAU): A
-Manual of Classification is also available via the           list, in numerical order, by art unit indicating the
-Internet      at     www.uspto.gov/web/patents/              classification(s) assigned to each.
-classification, however it will no longer be updated
-                                                                 (D) Classes Arranged Numerically With Art
-after December 31, 2014. See MPEP § 905 et seq.
-                                                             Unit and Search Room Locations (CAN): A list of
-for information regarding the Cooperative Patent
-                                                             classifications in numerical order by class number
-Classification System.
-                                                             giving the class title, the art unit to which the art is
-                                                             assigned, and the examiner search room in which
-Each class has a title descriptive of its subject matter,
-                                                             the art can be found.
-is identified by a class number, and is subdivided
-into a number of subclasses. Each subclass also has               (E) Classes Arranged in Alphabetical Order
-a descriptive title, is identified by a subclass number,     (CAA): A list of classes in alphabetical order by class
-and the subclass number is an integral number that           title with associated class numbers.
-may contain a decimal portion and/or alpha                      (F) Class Schedules: Class schedules for utility
-                                                             patent, design, and plant classes.
+903.09 [Reserved]
+903.09(a) [Reserved]
 
-                                                        900-27                                    Rev. 10.2019, June 2020
-§ 902.01(a)                           MANUAL OF PATENT EXAMINING PROCEDURE
-
-
-
-
-902.01(a) Index to the U.S. Patent                          formats (PDFs) to CD-ROM every June and
-Classification System [R-08.2012]                           December.
-
-The Index to the U.S. Patent Classification System          It should be noted that classification orders
-(USPC) is an alphabetic listing of technical and            frequently affect existing definitions. Personal sets
-common terms referring to specific classes and              of definitions used by examiners should be
-subclasses of the USPC. The index is used as an             periodically revised to reflect these changes.
-initial entry into the system and should not be             Classification Orders are available online to USPTO
-considered exhaustive. All appropriate class                personnel from the Classification Home Page under
-schedules should be scanned for specifically related        the heading Classification Reports. The
-subclasses, and the definitions and associated notes        Classification Home Page is accessible from the
-of the pertinent classifications should also be             desktop via the Patent Examiner’s Toolkit.
-reviewed, even when the citation found in the Index
-appears to be restricted to a specific subject matter       902.02(a) Definition Notes in USPC
-area.                                                       [R-07.2015]
-
-The Index is regularly updated. Suggestions or              Many of the definitions have accompanying
-changes to the Index are encouraged and should be           notes. These notes are of two types: (A) notes that
-directed to the Technology Center (TC) classification       supplement definitions by explaining terms or giving
-contact in the TCs.                                         examples, and (B) notes referring to related
-                                                            disclosures located in other classes or subclasses.
-The Index is available online to USPTO personnel
-from the Classification Home Page – USPC                    The latter notes are termed “See or Search” notes
-Index.     The    Classification     Home      Page         and are helpful in explaining the limits of a class or
-(http://ptoweb:8081/) is accessible from the desktop        subclass. They generally state the relationship to,
-via the Patent Examiner’s Toolkit.                          and difference from, other identified subject matter
-                                                            collections. Each “See or Search” note helps a user
-902.02 Class and Subclass Definitions in                    reach a decision either to include or exclude an area
-USPC [R-07.2015]                                            containing relevant subject matter.
-
-All of the utility classes (i.e., classes devoted to        Search notes are not exhaustive and do not limit the
-technology), and the plant class have definitions. All      search but suggest additional fields of search.
-design classes will eventually have definitions.            Additionally, since a search note that applies to a
-                                                            particular subclass is rarely repeated for subclasses
-Definitions state the subject matter of the classes         indented thereunder, it is advisable to review the
-and subclasses in much more detail than it is possible      search notes of all parent subclasses.
-to state in the brief class and subclass titles. A study
-of the definitions is essential to determine the proper     902.02(b) [Reserved]
-classification of subject matter within the U.S. Patent
-Classification System (USPC).
-                                                            902.03 Classification Information
-All classes and subclasses (class definitions) in the       [R-07.2015]
-USPC are available online to USPTO personnel from
-the Classification Home Page under the heading              The majority of U.S. Patents and U.S. Patent
-Search Classification Data. The Classification Home         Application Publications published after December
-Page (http://ptoweb:8081/) is accessible from the           31, 2014, will no longer receive a designated U.S.
-desktop via the Patent Examiner’s Toolkit. The class        patent classification. Current classification
-definitions are archived in portable document               information for U.S. patents is available from the
-                                                            sources indicated below.
-
-
-Rev. 10.2019, June 2020                                900-28
-                                        PRIOR ART, CLASSIFICATION, AND SEARCH                                  § 902.03(e)
-
-
-
-
-902.03(a) Patent Classification Home Page                     The Intranet Classification Home Page site also
-on the Internet [R-08.2017]                                   includes links to international information such as
-                                                              IPC Concordance, IPC Schedules, IPC Catchword
-The Office of Patent Classification Home Page                 Index, WIPO Handbook on Industrial Property
-address on the Internet is www.uspto.gov/                     Information and Documentation, and to national
-patents-application-process/patent-search/                    (U.S.) information such as Overview of the
-classification-standards-and-development. The                 Classification System, Classification Guides and
-site is the clearinghouse for classification                  Bulletins, and the Patent Classification Search Page.
-information published in hyper-text mark-up
-language (HTML) and Adobe Acrobat portable                    The Patent Classification Retrieval System (PCRS)
-document format (PDF) by the U.S. Patent and                  provides Original (OR) and Cross-Reference (XR)
-Trademark Office (USPTO). The site includes the               classification information for individual patents and
-following in HTML and PDF: (A) the Index to the               listings of patents contained in subclasses. This data
-U.S. Patent Classification system (USPC) (linked              is updated bimonthly with new issues, withdrawn
-from “Classification Index, Patents”); (B) class              patents and reclassifications.
-definitions (linked from “Classification Definitions,
-Patents”); and (C) class schedules (linked from               902.03(c) [Reserved]
-“Classification Manual, Patents”). The site integrates
-with the USPTO Patent Full-Text and Image
-Database site by allowing a search of a subclass by           902.03(d) [Reserved]
-clicking on a patent icon in the classification
-schedules and definitions which generates a search
-result in the USPTO Patent Full-Text and Image
-                                                              902.03(e) Automated Search Tools: EAST
-Database. The USPTO Patent Full-Text and Image
-Database provides full-text of all US patents issued          and WEST [R-08.2012]
-since January 1, 1976, and full-page images of each
-page of every US patent issued since 1790.                    The automated search tools on examiners’ desktop
-Therefore, it is possible to see every patent in a            computers include the Examiner’s Automated Search
-subclass by browsing the classification schedules             Tool (EAST), the Web-Based Examiner Search Tool
-using the Classification Home Page in combination             (WEST), and the Foreign Patent Access System
-with the USPTO Patent Full-Text and Image                     (FPAS). EAST and WEST provide examiners with
-Database.                                                     access to the: (A) full text of U.S. published
-                                                              applications since 2001; (B) full text of U.S. patents
-                                                              granted since 1970; and (C) optically scanned full
-902.03(b) Patent Classification Home Page
-                                                              text of U.S. patents granted 1920-1970. Additionally,
-on the USPTO Intranet [R-10.2019]
-                                                              EAST and WEST each provide current classification
-                                                              information and images for all U.S. published
-The address for the Patent Classification Home Page           applications and patents. Images are available for
-on        the      USPTO            intranet           is     foreign patent documents, and English language
-http://ptoweb.uspto.gov/patents/classification-resources/.    abstracts are available for many foreign patent
-The Classification Home Page is also accessible               documents published since 1978 using the automated
-from the desktop via the Patent Examiner’s Toolkit.           search tools. Specific instructions for gaining access
-The site is the clearinghouse for classification              to the various documents available using the
-information published in hyper-text mark-up                   automated search tools can be found in the “Patent
-language (HTML) and Adobe Acrobat portable                    Automation” folder in Microsoft Outlook and on the
-document format (PDF) by the U.S. Patent and                  EAST, WEST, and BRS Search Strategy webpages
-Trademark Office (USPTO). Examiners and the                   on the intranet, available on the examiners’ desktop
-public are provided with access to identical                  computers.
-information for the Index, schedules, and definitions.
-
-
-
-
-                                                         900-29                                   Rev. 10.2019, June 2020
-§ 903                                     MANUAL OF PATENT EXAMINING PROCEDURE
-
-
-
-
-The EAST and WEST products are also available                     (manufacture, art, apparatus, or stock material) are
-to users in the Patent Search Room at the USPTO.                  contained in the class being considered.
-
-903 Classification in USPC [R-07.2015]                            Further, relative to each type of subject matter, it is
-                                                                  necessary to consider each of the various
-903.01 Statutory Authority [R-08.2012]                            combinations and subcombinations set out below:
-
-The statutory authority for establishing and                       Basic Subject Matter Combined with Feature for
-maintaining a classification system is given in the               Some Additional Purpose. The added purpose is in
-following statute, which states:                                  excess of the scope of the subject matter for the class,
-                                                                  as defined in the class definition; e.g., adding a sifter
-35 U.S.C. 8 Classification of patents.                            to a stone crusher which gives the added function of
-The Director may revise and maintain the classification by
-                                                                  separating the crushed stone.
-subject matter of United States letters patent, and such other
-patents and printed publications as may be necessary or            Basic Subject Matter Combined with Perfecting
-practicable, for the purpose of determining with readiness and    Feature. Features may be added to the basic subject
-accuracy the novelty of inventions for which applications for
-patent are filed.
-                                                                  matter which do not change the character thereof,
-                                                                  but do perfect it for its intended purpose; e.g., an
-                                                                  overload release means tends to perfect a
-903.02 Basis and Principles of Classification
-                                                                  stonecrusher by providing means to stop it on
-[R-10.2019]                                                       overload and thus prevent ruining the machine.
-                                                                  However, this perfecting combined feature adds
-Many of the principles that form the basis of                     nothing to the basic character of the machine.
-classification used in the U.S. Patent and Trademark
-Office are set forth in the “Examiner Handbook to
-                                                                   Basic Subject Matter. The combination of features
-the U.S. Patent Classification System” which can be
-                                                                  necessary and essential to the fundamental character
-accessed from either the intranet on the Classification
-                                                                  of the subject matter treated; e.g., a stonecrusher
-Home Page (http://ptoweb.uspto.gov/patents/
-                                                                  requires a minimum number of features as essential
-classification-resources/) or the internet on the
-                                                                  before it can function as such.
-Office of Patent Classification home page
-(www.uspto.gov/patents-application-process/patent-search/
-                                                                    Subcombinations Specialized to Basic Subject
-classification-standards-and-development). Any
-                                                                  Matter. Each type of basic subject matter may have
-questions not covered in this handbook can be
-                                                                  subcombinations specialized to use therewith; e.g.,
-directed to the Office of Patent Classification.
-                                                                  the crushing element of a stonecrusher.
-903.02(a) [Reserved]                                               Subcombinations of General Utility. Each type of
-                                                                  basic subject matter may have subcombinations
-                                                                  which have utility with other and different types of
-                                                                  subject matter; e.g., the machine elements of a
-903.02(b) Scope of a Class in the USPC                            stonecrusher. Subcombinations of this character
-[R-07.2015]                                                       usually are provided for in some general class so
-                                                                  that the examiner should determine in each instance
-In using any classification system, it is necessary to            where they are classified.
-analyze the organization of the class or classes to be
-included in the search.                                           903.03 Availability of Foreign Patents
-                                                                  [R-07.2015]
-The initial analysis should determine which one or
-ones of the several types of subject matter                       Many foreign patent documents received in the
-                                                                  Office before October 1, 1995 were placed in the
-
-
-
-Rev. 10.2019, June 2020                                      900-30
-                                      PRIOR ART, CLASSIFICATION, AND SEARCH                                    § 903.05
-
-
-
-
-shoes in the Technology Center (TCs), according to         there may be only one primary classification for a
-either the United States Patent Classification System      single patent application publication, there may be
-(USPC) or, in relatively few instances, the                any number of secondary classifications. The
-International Patent Classification (IPC) system.          selection of a primary classification of a patent
-Foreign patents received by the Office after October       application publication is based on the application’s
-1, 1995 are available on the USPTO’s automated             main inventive concept using the claims as a guide.
-search systems, the Foreign Patent Access System           A primary classification could be any U.S.
-(FPAS), Internet sites, and the Scientific and             class/subclass (except cross reference art collections,
-Technical Information Center (STIC) collections.           digests and foreign art collection subclasses). A
-                                                           secondary classification is based on other inventive
-If the examiner desires to update the classification       concepts (mandatory) or valuable disclosure
-of a foreign patent by changing, canceling, or adding      (discretionary), and may be any U.S. class/subclass
-copies, he or she should forward the patent (or            (including cross reference collections and digests,
-bibliographic information) to his or her supervisory       but excluding foreign art collection subclasses). The
-patent classifier with a request for the desired           classification of a patent application publication is
-transaction attached.                                      printed on the front page of the publication.
-
-The Foreign Patents Service Center manages Main            At least 9 weeks prior to the projected publication
-STIC. STIC’s collections are international in scope        date, applications are classified using programs
-and include foreign patents, non-patent literature,        designed to enable entry of certain data required for
-designs, trademarks, and legal information. There          publication of patent applications. Applications are
-is an assortment of resources which reflect the            classified by giving each application at least a
-information needs of examiners and researchers             primary classification and an international
-working in various fields of science and technology.       classification. The suggested international
-The staff is experienced in foreign patent data            classification(s) corresponding to each assigned U.S.
-retrieval, patent family searches, and document            classification is provided. In addition, if a figure is
-retrieval services for non-patent literature in the        to be published, the figure is selected at the time of
-STIC collections.                                          classification.
-
-Examiners confronted with language problems in             903.05 Addition, Deletion, or Transfer of
-classifying foreign-language patents may call upon         U.S. Patents and U.S. Patent Application
-the Translations Service Center of STIC for                Publications [R-08.2012]
-assistance (see MPEP § 901.06(a)). In addition, the
-Translations Service Center retains copies of              Requests for addition, deletion, or transfer of official
-translated foreign patents in the database.                copies of U.S. patents and U.S. patent application
-                                                           publications may be carried out by using the Patent
-903.04 Classifying Applications for                        Post Publication Classification Manager and the
-Publication as a Patent Application                        PGPub Post Publication Classification Manager,
-Publication in USPC [R-07.2015]                            which are available online from the Classification
-                                                           Home Page under the heading Patents, their
-Patent applications filed on or after November 29,         Classifications and Locations. The Classification
-2000, are published as a patent application                Home Page is accessible from the desktop via the
-publication pursuant to 35 U.S.C. 122(b), unless           Patent Examiner’s Toolkit.
-certain exceptions apply. See MPEP § 1120.
-                                                           Using these tools, examiners can request the
-Patent application publications are given a primary        following transactions:
-classification (equivalent to an original
-classification), and may also be given a secondary            (A) Add any classification(s) from the U.S.
-classification (equivalent to a cross reference). While    Patent Classification system as a cross-reference
-
-
-
-                                                      900-31                                    Rev. 10.2019, June 2020
-§ 903.06                             MANUAL OF PATENT EXAMINING PROCEDURE
-
-
-
-
-(XR) classification to a patent or a secondary                 The procedure for determining the classification of
-classification to a patent application publication.            an issuing application is as follows: every claim,
-    (B) Delete XR classification(s) or secondary               whether independent or dependent, must be
-classification assigned to the Technology Center               considered separately for classification. A separate
-(TC) of the person requesting the deletion.                    mandatory classification is required for each claim
-                                                               which is classifiable in a different class or subclass;
-    (C) Change original classifications (ORs) or               some claims, particularly in chemical areas, may
-primary patent application publication classification          require plural classifications. After all mandatory
-to a classification in the TC of the person requesting         classifications have been determined, the
-the change.                                                    classification to be designated as the original (OR)
-   (D) Add or delete any International Patent                  is determined. If all mandatory classifications are in
-Classification system (IPC) classification to a patent.        the same class, the original classification is the
-                                                               mandatory classification that, looking at the schedule
-903.06 Harmonized Subclasses [R-07.2015]                       from the top down, is the most indented subclass
-                                                               array in which any classifications are assigned, in
-The U.S. Patent Classification System (USPC)                   certain circumstances (e.g., the genus-species array),
-includes subclasses that have been harmonized with             however, modifications of this rule may apply. See
-subclasses from the European Patent Office (EPO)               the “Examiner Handbook to the U.S. Patent
-and the Japan Patent Office (JPO). Subclasses that             Classification System” for an explanation of
-have been harmonized have a designation of “EPO,”              genus-species classification.
-“JPO,” or “EPO/JPO” in parentheses following the
-subclass title to indicate if the subclass has been            If the mandatory classifications are in different
-harmonized with the EPO or JPO or with both                    classes, the original classification is determined by
-systems.                                                       considering, in turn, the following criteria:
-
-903.07 Classifying and Cross-Referencing at                        (A) selection based on the most comprehensive
-Allowance [R-10.2019]                                          claim,
-                                                                  (B) selection based on priority of statutory
-When an application is passed to issue, it is the duty         category of invention,
-of each primary examiner to personally review the
-original classification and cross-referencing made                (C) selection based on superiority of types of
-by his or her assistants in the issuing classification         subject matter, and
-boxes on the Image File Wrapper (IFW) issue                        (D) selection among classes in the “related
-classification form. This form provides space for the          subject” listing at the front of the manual of
-full name of the “Primary Examiner” to show that               classification.
-the review has been made. An examiner with full
-signatory authority who acts personally on an                  It should be noted that the criteria, supra, may be
-application and sends it to issue should stamp and             superseded by
-sign his or her name on the IFW issue classification
-                                                                  (A) special circumstances, e.g., superconductor
-form ONLY in the “Primary Examiner” space.
-                                                               technology and biotechnology are superior to all
-                                                               other subject matter,
-An application, properly classified at the start of
-examination, may be classified differently when it                (B) prior placement of patents for a particular
-is ready for allowance. The allowed claims should              body of art, or
-be reviewed in order to determine the subject matter               (C) particular class lines and class notes.
-covered thereby. It is the disclosed subject matter
-covered by the allowed claims that determines the              Once the controlling class is determined, the original
-original and any mandatory cross-reference                     classification, looking at the schedule from the top
-classification of U.S. patents.                                down, is the mandatory classification that is the most
-
-
-
-
-Rev. 10.2019, June 2020                                   900-32
-                                         PRIOR ART, CLASSIFICATION, AND SEARCH                                § 903.07(a)
-
-
-
-
-indented subclass of the first subclass array in which         cross-reference art collection. The indication for a
-any classifications are assigned.                              copy of a patent in a digest or cross-reference art
-                                                               collection must be in the cross-reference area of the
-For a more complete discussion of this subject, see            issuing classification boxes. A digest must be
-the “Examiner Handbook to Classification” which                identified by class number, alpha characters DIG,
-is available online to USPTO personnel from the                and appropriate digest number.
-Classification Home Page under the heading
-"General Training". The Classification Home Page               U.S. patents cannot be classified in subclasses
-(http://ptoweb.uspto.gov/patents/classification-resources/)    beginning with “FOR,” since these are exclusively
-is accessible from the desktop via the Patent                  for foreign patents.
-Examiner’s Toolkit.
-                                                               APPLICATIONS IN ISSUE
-Once the original classification is determined, all
-remaining mandatory classifications are designated             Where an official classification order affects an
-as cross-references, as are any additional                     application already passed to issue, the Office of
-discretionary classifications that the examiner wishes         Patent Classification oversees any necessary
-to apply to the patent.                                        changes. Patents issuing from applications which
-                                                               already have been sent to the printer will be
-The examiner must complete the IFW issue                       reclassified.
-classification form to indicate the class and subclass
-in which the patent should be classified as an original        903.07(a) Cross-Referencing — Keep
-and also the classifications in which it should appear         Systematic Notes During Prosecution
-as a cross-reference. The examiner should be certain           [R-08.2012]
-that all subclasses into which cross-references are
-placed are still valid.                                        Throughout the examination of an application,
-                                                               systematic notes should be kept as to
-All examiners must include alpha subclass                      cross-references needed either due to claimed or
-designators in the issuing classification boxes on the         unclaimed disclosure. Examiners handling related
-IFW issue classification form at the time of issue             subject matter should be consulted during
-when appropriate. This applies to both the original            prosecution (whether they handle larger unclaimed
-classification and the cross-reference classification.         combinations or claimed or unclaimed, but disclosed,
-Any time that a patent is being issued in or                   subcombinations), and asked if cross-references are
-cross-referenced to a subclass containing alpha                needed.
-subclasses, the alpha designation for the proper alpha
-subclass must be included. No other designation is             Each consultation involving a question of the
-permissible. Inclusion of only the numeric                     propriety of the classification of subject matter
-designation of a subclass which includes an alpha              and/or the need for a cross-reference must be
-subclass designation is an incomplete and improper             recorded in the SEARCH NOTES box on the file
-entry. A numeric subclass from which alpha                     wrapper and must include: the name of each
-subclasses have been created is designated with an             examiner consulted, the date that the consultation
-“R” (denoting residual), and if the patent does not            took place, and the results of the consultation
-fit an indented alpha subclass, the “R” designation            including the consulted examiners’ or examiner’s
-must be included. It is permissible to place multiple          indication of where claimed subject matter is
-copies of a patent into a single set of alpha                  properly classified and where subject matter
-subclasses.                                                    disclosed but unclaimed is properly classified and
-                                                               whether or not a cross-reference is needed.
-Digests and cross-reference art collections should
-also be included in the issuing classification boxes
-on the IFW issue classification form, but the original
-classification must never be a digest or
-
-
-                                                          900-33                                  Rev. 10.2019, June 2020
-§ 903.08                              MANUAL OF PATENT EXAMINING PROCEDURE
-
-
-
-
-A cross-reference MUST be provided for all                   normally assigns the application to an examiner.
-CLAIMED disclosure where possible and inserted               Provisional applications are not classified or assigned
-in the issuing classification boxes at time of issue.        since they are not examined.
-
-903.08 Applications: Assignment and                          If an examiner other than the supervisory patent
-Transfer [R-07.2015]                                         examiner is given the responsibility of assigning
-                                                             applications, time so spent may, at the TC Director’s
-The titles “supervisory patent examiner” and                 discretion, be charged to “Assisting SPE.”
-“primary examiner,” as used in this Chapter 900,
-include in their definition any person designated by         903.08(c) Immediate Inspection of
-them to act on their behalf. It is recognized that           Amendments [R-08.2012]
-authority to accept or refuse the transfer of an
-application may be delegated when such authority             Upon the receipt of an amendment which makes a
-is deserved.                                                 transfer proper, steps should be taken promptly in
-                                                             accordance with the transfer procedure outlined in
-The Technology Center (TC) to which an application           MPEP § 903.08(d).
-is assigned is responsible for its examination until
-such time as the application is officially transferred       903.08(d) Transfer Procedure [R-10.2019]
-to another TC.
-                                                             I. TRANSFER BETWEEN ART UNITS WITHIN
-The primary examiners have full authority to accept          THE SAME TECHNOLOGY CENTER
-any application submitted to them that they believe
-is properly classifiable in a class in their art unit.       Each Technology Center (TC) has developed internal
-                                                             procedures for transferring application between art
-903.08(a) New Applications [R-07.2015]                       units and resolving application assignment disputes.
-
-New nonprovisional applications are assigned to the          II. TRANSFERS BETWEEN DIFFERENT
-various Technology Centers (TCs) in the first                TECHNOLOGY CENTERS
-instance by the Office of Patent Application
-Processing (OPAP).                                           Where a supervisory patent examiner (SPE) believes
-                                                             an application, either new or amended, does not
-When a new application is received which, in the             belong in their art unit, they may request transfer of
-opinion of the primary examiner, does not belong             the application from their art unit (the “originating”
-to his or her TC, he or she may request transfer of          art unit) to another art unit of a different TC (the
-it to another TC. See MPEP § 903.08(d).                      “receiving” art unit).
-
-If the search in connection with the first action            The decision as to the classification resolution and
-develops art showing proper classification elsewhere,        assignment of an application is made by agreement
-the transfer is usually initiated before the first action    between the SPEs involved in the transfer. If no
-is prepared and mailed.                                      agreement can be reached between the SPEs, the
-                                                             application may be forwarded to the classification
-                                                             dispute TC representative panel of the TC where the
-903.08(b) Classification and Assignment to
-                                                             application was originally assigned for a final
-Examiner [R-07.2015]
-                                                             decision. The classification dispute TC representative
-                                                             panel consists of designated representatives from
-Every nonprovisional application, new or amended,            each TC.
-and including the drawings, if any, when first
-assigned to a Technology Center (TC) must be
-                                                             Before an application is sent to a receiving art unit
-classified and assigned to an examiner for
-                                                             of a different TC, the application must be fully
-examination. The supervisory patent examiner
-
-
-Rev. 10.2019, June 2020                                 900-34
-                                      PRIOR ART, CLASSIFICATION, AND SEARCH                                 § 903.08(d)
-
-
-
-
-reviewed to ensure that all appropriate areas in the       the TCs except the TC that examines design
-originating TC have been considered with respect           applications (TC 2900).
-to the classification of the application. In all cases
-when a transfer is initiated, the application must be      If the receiving SPE or primary examiner agrees to
-sent on transfer inquiry to a receiving art unit. Even     accept the application, they classify and assign the
-if the application is confusing or contains unfamiliar     application. The transfer is effected by accepting the
-subject matter, the SPE of the originating art unit        application in PTI.
-must make his or her best judgment as to where the
-application should be classified and attempt to            If the receiving SPE or primary examiner refuses to
-transfer it there.                                         accept the application, the reasons for refusal must
-                                                           be entered in PTI. The refusal must be recorded in
-Where an application’s claims include a combination        PTI. Where the application is an application (other
-of limitations for plural disciplines (chemical,           than a PCT application) that has not been docketed
-electrical, or mechanical), an SPE or primary              to an examiner, the originating art unit may then
-examiner may request transfer to another discipline,       either accept the application for examination or send
-notwithstanding the fact that the controlling claims       the disputed transfer application to the classification
-are properly classified in his or her art unit, on the     dispute TC representative panel for final resolution.
-ground that the application is “best examinable” in        The panel considers the statements and evidence of
-the other discipline. In this instance, the SPE or         both the originating and receiving art units and
-primary examiner requesting transfer should cite art       assigns the application to the art unit that has
-showing the limitations classifiable in his or her         jurisdiction over the art in which the controlling
-discipline. For discussion of the situations in which      claims of the application are properly classified.
-assignment of an application on a “best examinable”
-basis may be proper, see MPEP § 903.08(e).                 Under certain circumstances, the classification
-                                                           dispute TC representative panel, contrary to
-III. PROCESS FOR TRANSFER                                  controlling classification rules, may assign an
-                                                           application to a class or art unit which the panel
-When the SPE or primary examiner of the                    deems is better equipped to examine the application.
-originating art unit determines that a transfer is         See MPEP § 903.08(e).
-appropriate, they must initiate a request through the
-Patent      Transfer     Inquiry     (PTI)     system      Every application, no matter how peculiar or
-(https://ptiweb.uspto.gov/PTIUI/#/resources/8)             confusing, must be assigned somewhere for
-and provide a full explanation of the reasons for          examination. Thus, in contesting the assignment of
-classification in the receiving art unit. At least one     an application, the SPE or primary examiner should
-of the following should be included in the form in         indicate another class that is a better class in which
-the space provided:                                        to classify the application, rather than simply arguing
-                                                           that the application does not fit the examiner’s class.
-   (A) Identification of the controlling claim;
-    (B) Identification of any existing informal            If an application contains both classification issues
-transfer agreement; or                                     and issues unrelated to classification, e.g., a dispute
-   (C) Other reasons – with full explanation.              both as to the classification of claims and the
-                                                           propriety of restriction, the issues unrelated to
-If the SPE or examiner of the originating art unit         classification should be resolved first. If, thereafter,
-believes an application has been improperly assigned       classification issues still need to be addressed,
-to their art unit, but is unable to determine an           application transfer may be appropriate. For the
-appropriate place to send the application, a               procedure in the classification groups for
-“gatekeeper” or search assistant should be consulted.      applications which contain examining corps issues,
-A listing of examiners who function in this role may       see MPEP § 903.08(e).
-be found at http://ptoweb/patents/tsa/. It is noted
-that “gatekeepers” or search assistants exist in all of
-
-
-                                                      900-35                                    Rev. 10.2019, June 2020
-§ 903.08(e)                         MANUAL OF PATENT EXAMINING PROCEDURE
-
-
-
-
-The question of need for a restriction requirement            disclosure). Any attempt to go behind the record and
-does not influence the determination of transfer.             decide the case upon what is deemed the “real
-                                                              invention” would, it is believed, introduce more
-If an application has been assigned a class/subclass          errors than such action would cure. Supervisory
-by the Office of Patent Application Processing                patent examiners (SPEs) cannot possess the specific
-(OPAP) and the application is routed to an art unit           knowledge of the state of the art in all the classes
-that does not examine applications assigned to that           that the patent examiners collectively possess.
-class/subclass, an IFW message to the                         Further, such questions are matters of merit for the
-“OIPEClass/GAUMismatch” IFW mailbox should                    examiners to determine and are often open to
-be sent.                                                      argument and are subject for appeal.
-                                                                  (D) Within a class, looking down from the top
-903.08(e) General Guidelines Governing the                    of the schedule, the OR subclass is chosen from
-Assignment of Nonprovisional Applications                     among the classifications of the claimed disclosure
-for Examination [R-10.2019]                                   according to whichever one is the most indented
-                                                              subclass of the first subclass array.
-This section applies only to nonprovisional                       (E) As stated in MPEP § 903.07, the location of
-applications. It does not apply to provisional                the United States patents constituting the prior art is
-applications since such applications are not                  generally controlling over all else. (Note: Where
-examined.                                                     time permits, obvious misplacements of the patents
-                                                              constituting the prior art are corrected, but to
-The following are only general guides, and                    straighten all lines as the cases come up for
-exceptions frequently arise because of some unusual           assignment would require the time of several
-condition. Patent examiners are confronted with an            people.)
-already existing classification made up of newly                  (F) Ordinarily, an application cannot be assigned
-revised classes, those revised years ago and which            to a class which includes one element or part only
-have somewhat outgrown their definitions and limits,          of several claimed in combination. The claim is
-and still others made a generation ago and never              treated in its entirety.
-changed. Also, these classes are based on different
-theories and plans, some on art, some on structure,               (G) The classification dispute TC representative
-some on functions, and some on the material worked            panel is authorized in all cases, where they evaluate
-upon. The patent examiners cannot change this                 the facts as warranting it, to assign applications for
-existing condition as each application comes up for           examination to the TC best able to examine the same.
-assignment, but must seek to place the cases where            Since assignment for examination on this basis will
-they are appropriately assigned. An application will          at times be contrary to classification of patents
-be assigned as follows:                                       containing the same character of claims, the
-                                                              classification dispute TC representative panel will
-    (A) The assignment of nonprovisional                      indicate the proper classification of the patent, if
-applications follows, as far as possible, the rules or        such claims are allowed.
-principles governing the classification of patents.                   Thus, in cases where there is a claim drawn
-Applications are generally assigned on the basis of           to hybrid or mixed subject matter and the SPE in
-where the application would have an original                  one discipline determines that the application
-classification, if the claims it contains were in a           requires consideration by, or may be best examined
-patent.                                                       by, a TC in one of the other technical disciplines,
-    (B) The criteria by which the original                    chemical, electrical, or mechanical, he or she may
-classification is determined are set forth in MPEP §          request a transfer of the application on a “best
-903.07.                                                       examinable” basis, in accordance with this
-                                                              subsection.
-    (C) The claims and statement of invention are
-generally taken as they read; however, claims must                    Some examples of applications which may
-be read in light of the disclosure (claimed                   be thus submitted include the following:
-
-
-Rev. 10.2019, June 2020                                  900-36
-                                      PRIOR ART, CLASSIFICATION, AND SEARCH                                  § 903.08(e)
-
-
-
-
-       (1) An application containing a hybrid claim            (I) Ordinarily, where all the claims of an
-wherein, for instance, a product is defined merely         application are for an article made of a specific
-in terms of the process for producing it. See MPEP         composition or alloy with no other structure of the
-§ 705.01(e), situation (A).                                article recited, the application will be assigned to
-                                                           the composition or alloy class.
-        (2) Where an application properly assigned
-to a mechanical or electrical class contains at least          (J) A class of cases exists in which either no art
-one claim to mixed subject matter, a part of which         or a divided art is found and in which no rule or
-is chemical, the application may be assigned to the        principle is involved. Such cases are placed where,
-appropriate chemical art unit for examination; or          in the judgment of the classification TC
-where the application is properly assigned to a            representative panel, they will be best searched and
-mechanical class and a claim therein contains              adjudicated. It is often impossible to so explain a
-electrical subject matter, the application may be          decision in this class of cases as to satisfy, or in any
-assigned to the appropriate electrical art unit for        way aid, the examiners interested. Indeed, the
-examination.                                               reasons for or against sending such cases one place
-As indicated earlier, when an application which had        or another may be so evenly balanced that no reason
-been assigned for examination in accordance with           of any value can be given.
-this subsection ultimately is allowed, it will be              (K) An examiner seeking the transfer of a case
-classified according to the controlling claim. In          may make a search, both of his or her own class and
-effect, assignment for examination may be on a “best       the class to which he or she thinks the case should
-examinable” basis, but the patent will issue and be        be transferred, and the examiner in charge of the art
-classified according to the rules of superiority in        unit should ensure the record includes the result of
-classification; thus, the search file will have a          the search.
-constant set of rules governing placement of patents           (L) When an application is received by the
-therein.                                                   classification dispute TC representative panel in
-                                                           which there is a matter under dispute which is not
-Where an application is being reassigned from one          related to the classification of a claim but which is
-examining discipline to another, under the provisions      in the purview of the TCs, e.g., propriety of a
-of the “best examinable” practice, the person              restriction requirement, timeliness of submission for
-requesting the transfer is ordinarily required to          transfer, etc., as well as a dispute over the
-cite references pertinent to the claimed features          classification of claims, the application will be
-falling under the jurisdiction of the art within his or    returned to the originating TC for resolution on the
-her discipline. In those cases wherein the application     issues unrelated to the classification.
-of the reference(s) is not evident or clear, the
-transferring examiner should include a brief               It is important that newly received applications be
-statement explaining the relation and possible             immediately screened for these situations so that, if
-application of the reference(s) to the claim(s); in        necessary, the applications may be promptly returned
-case of dispute as to the necessity of this procedure,     to the originating TC.
-the classification dispute TC representative panel
-has power to require the statement.                        If after resolution of the issues unrelated to the
-                                                           classification, there is still a dispute as to which TC
-    (H) When an application has been taken up by
-                                                           should examine the application, the originating
-an examiner for action and a requirement to restrict
-                                                           application may be returned to the classification
-is found necessary, a part of the claims being
-                                                           dispute TC representative panel for assignment.
-directed to matter classifiable in the TC where the
-case is being examined, an action requiring
-                                                           I. ROUTING OF APPLICATIONS TRANSFERRED
-restriction should be made without seeking a transfer
-                                                           BETWEEN TCs
-of the case to another TC. The action of the applicant
-in reply to the requirement for restriction may result
-                                                           The flowchart below shows the routing of an
-in making a transfer of the application unnecessary.
-                                                           application between TCs. (For routing of applications
-                                                           between art units within the same TC, see MPEP
-
-
-                                                      900-37                                    Rev. 10.2019, June 2020
-§ 903.08(e)                          MANUAL OF PATENT EXAMINING PROCEDURE
-
-
-
-
-§ 903.08(d).) The application should be considered         If an art unit in TC2 or TC3 declines to accept the
-by the receiving art unit in the TC (TC1), which will      application and the application is returned to the SPE
-accept the application and assign it to an examiner,       of the originating art unit in TC1, the SPE of the art
-or forward it to an art unit in another TC (TC2) for       unit in TC1 may forward the application to a
-consideration. An art unit in TC2 will classify and        classification dispute TC representative panel for
-assign the application to an examiner, return the          resolution. The SPE of the art unit in TC1 may
-application to the SPE of the originating art unit, or     contact a TC classification panel representative
-forward it to an art unit in another TC (TC3). If the      within his or her TC. The application will be given
-art unit in TC2 is not aware of any other likely           to the TC classification panel representative and the
-classification, the application may be returned            representative will contact either the TC2 or TC3
-directly to the SPE of the originating art unit in TC1.    representative (forming a classification dispute TC
-In any of these scenarios, the decisions concerning        representative panel) to set up a conference. The
-the transfer must be recorded in the Patent Transfer       classification dispute TC representative panel will
-Inquiry (PTI) system.                                      evaluate any evidence presented by the disputing
-                                                           TCs, and make a decision on the proper classification
-Where the application is forwarded to an art unit in       and assignment of the application. The decision of
-TC3 and the art unit in TC3 declines to accept the         the classification dispute TC representative panel
-application, the application should be returned to the     will be final and binding.
-SPE of the originating art unit in TC1.
-
-
-
-
-Rev. 10.2019, June 2020                               900-38
-PRIOR ART, CLASSIFICATION, AND SEARCH                § 903.08(e)
-
-
-
-
-                900-39                  Rev. 10.2019, June 2020
-§ 903.09                             MANUAL OF PATENT EXAMINING PROCEDURE
-
-
-
-
-                                                           Following the first Office action, the examiner need
-II. PATENT FILE WRAPPER                                    not ordinarily make a second search of the prior art,
-                                                           unless necessitated by amendments to the claims by
-SPEs and examiners must use the Patent Transfer            the applicant in a reply to the first Office action,
-Inquiry (PTI) system, which creates a record of the        except to check to determine whether any reference
-transfer inquiry history of each application and           which would appear to be substantially more
-facilitates tracking of applications.                      pertinent than the prior art cited in the first Office
-                                                           action has become available subsequent to the initial
-903.09 [Reserved]                                          prior art search.
-
-903.09(a) [Reserved]                                       In the first action on the merits of an application, the
-                                                           examiner must complete the Image File Wrapper
-                                                           (IFW) search notes form to include the classification
-                                                           locations of domestic and foreign patents, abstract
-904 How to Search [R-10.2019]                              collections, and publications in which the search for
-                                                           prior art was made. Other information collections
-The examiner, after having obtained a thorough             and sources in which the search for prior art was
-understanding of the invention disclosed and claimed       made must also be identified by the examiner. The
-in the nonprovisional application, then searches the       examiner must also indicate the date(s) on which the
-prior art as disclosed in patents and other published      search was conducted. Note MPEP § 719.05.
+904 How to Search [R-10.2019]
+The examiner, after having obtained a thorough
+understanding of the invention disclosed and claimed
+in the nonprovisional application, then searches the
+prior art as disclosed in patents and other published
 documents, i.e., nonpatent literature (NPL). Any
-document used in the rejection of a claim is called        In subsequent actions, where the search is brought
-a reference. An inventor name search should be made        up-to-date and/or where a further search is made,
-to identify other applications and/or patents which        the examiner must indicate on the IFW search notes
-may be applicable as references for double patenting       form that the search has been updated and/or identify
-rejections. See MPEP § 804.                                the additional field(s) of search. See MPEP § 719.05.
-                                                           Any search updates should include all of the relevant
-In all continuing applications, the parent applications    or pertinent databases and the search queries and
-must be reviewed by the examiner for pertinent prior       classifications employed in the original search.
+document used in the rejection of a claim is called
+a reference. An inventor name search should be made
+to identify other applications and/or patents which
+may be applicable as references for double patenting
+rejections. See MPEP § 804.
+In all continuing applications, the parent applications
+must be reviewed by the examiner for pertinent prior
 art. The examiner must consider prior art which was
 cited and considered in the parent application. See
-                                                           904.01 Analysis of Claims [R-08.2012]
 MPEP §§ 609.02 and 2001.06(b). Where the cited
 prior art of a parent application has been reviewed,
-                                                           The breadth of the claims in the application should
 this fact should be made of record in accordance
-                                                           always be carefully noted; that is, the examiner
 with the procedure set forth at paragraph (J) of
-                                                           should be fully aware of what the claims do not call
 MPEP § 719.05, subsection II.A. For national stage
-                                                           for, as well as what they do require. During patent
 applications filed under 35 U.S.C. 371, the examiner
-                                                           examination and reexamination, the claims are given
 will consider the documents cited in an international
-                                                           the broadest reasonable interpretation consistent with
 search report when the Form PCT/DO/EO/903
-                                                           the specification. See In re Morris, 127 F.3d 1048,
 indicates that both the international search report
-                                                           44 USPQ2d 1023 (Fed. Cir. 1997) and In re NTP
 and the copies of the documents are present in the
-                                                           Inc., 654 F3d 1279, 99 USPQ 1481 (Fed. Cir. 2011).
 national stage application file. See MPEP § 609.03.
-                                                           See MPEP § 2111 - § 2116.01 for case law pertinent
 The first search should cover the invention as
-                                                           to claim analysis.
 described and claimed, including the inventive
 concepts toward which the claims appear to be
-directed. It should not be extended merely to add          904.01(a) Variant Embodiments Within
-immaterial variants. The examiner’s first Office           Scope of Claim [R-08.2012]
+directed. It should not be extended merely to add
+immaterial variants. The examiner’s first Office
 action on the merits of an application relies on
-references identified in this initial search.              Frequently, a claim includes within its breadth or
-                                                           scope one or more variant embodiments that are not
+references identified in this initial search.
 
+Rev. 10.2019, June 2020
 
+Following the first Office action, the examiner need
+not ordinarily make a second search of the prior art,
+unless necessitated by amendments to the claims by
+the applicant in a reply to the first Office action,
+except to check to determine whether any reference
+which would appear to be substantially more
+pertinent than the prior art cited in the first Office
+action has become available subsequent to the initial
+prior art search.
+In the first action on the merits of an application, the
+examiner must complete the Image File Wrapper
+(IFW) search notes form to include the classification
+locations of domestic and foreign patents, abstract
+collections, and publications in which the search for
+prior art was made. Other information collections
+and sources in which the search for prior art was
+made must also be identified by the examiner. The
+examiner must also indicate the date(s) on which the
+search was conducted. Note MPEP § 719.05.
+In subsequent actions, where the search is brought
+up-to-date and/or where a further search is made,
+the examiner must indicate on the IFW search notes
+form that the search has been updated and/or identify
+the additional field(s) of search. See MPEP § 719.05.
+Any search updates should include all of the relevant
+or pertinent databases and the search queries and
+classifications employed in the original search.
 
-Rev. 10.2019, June 2020                               900-40
-                                       PRIOR ART, CLASSIFICATION, AND SEARCH                                   § 904.02
+904.01 Analysis of Claims [R-08.2012]
+The breadth of the claims in the application should
+always be carefully noted; that is, the examiner
+should be fully aware of what the claims do not call
+for, as well as what they do require. During patent
+examination and reexamination, the claims are given
+the broadest reasonable interpretation consistent with
+the specification. See In re Morris, 127 F.3d 1048,
+44 USPQ2d 1023 (Fed. Cir. 1997) and In re NTP
+Inc., 654 F3d 1279, 99 USPQ 1481 (Fed. Cir. 2011).
+See MPEP § 2111 - § 2116.01 for case law pertinent
+to claim analysis.
 
+904.01(a) Variant Embodiments Within
+Scope of Claim [R-08.2012]
+Frequently, a claim includes within its breadth or
+scope one or more variant embodiments that are not
 
+900-40
 
+PRIOR ART, CLASSIFICATION, AND SEARCH
 
-disclosed in the application, but which would               in the context of establishing a prima facie case of
-anticipate the claimed invention if found in a              obviousness under 35 U.S.C. 103. See MPEP §
-reference. The claim must be so analyzed and any            2131.05 for a discussion of analogous and
-such variant encountered during the search should           nonanalogous art in the context of 35 U.S.C. 102.
+disclosed in the application, but which would
+anticipate the claimed invention if found in a
+reference. The claim must be so analyzed and any
+such variant encountered during the search should
 be recognized.
-                                                            904.02 General Search Guidelines
-For any claim capable of such treatment (e.g., a            [R-07.2015]
+For any claim capable of such treatment (e.g., a
 machine or other apparatus), the subject matter as
-defined by the claim may be sketched or diagrammed          In the examination of an application for patent, an
-in order to clearly delineate the limitations of the        examiner must conduct a thorough search of the
-claim. Two or more sketches, each of which is as            prior art. Planning a thorough search of the prior art
-divergent from the disclosure as is permitted by the        requires three distinct steps by the examiner: (A)
-claim, will assist the examiner in determining the          identifying the field of search; (B) selecting the
-claim’s actual breadth or scope. However, an                proper tool(s) to perform the search; and (C)
-applicant will not be required to submit such               determining the appropriate search strategy for each
-sketches of claim structure. In re Application filed        search tool selected. Each step is critical for a
-November 16, 1945, 89 USPQ 280, 1951 C.D. 1,                complete and thorough search.
+defined by the claim may be sketched or diagrammed
+in order to clearly delineate the limitations of the
+claim. Two or more sketches, each of which is as
+divergent from the disclosure as is permitted by the
+claim, will assist the examiner in determining the
+claim’s actual breadth or scope. However, an
+applicant will not be required to submit such
+sketches of claim structure. In re Application filed
+November 16, 1945, 89 USPQ 280, 1951 C.D. 1,
 646 O.G. 5 (Comm’r Pat. 1951).
-                                                            When determining the field of search, three reference
-904.01(b) Equivalents [R-08.2012]                           sources must be considered - domestic patents
-                                                            (including patent application publications), foreign
-All subject matter that is the equivalent of the subject    patent documents, and nonpatent literature (NPL).
-matter as defined in the claim, even though different       None of these sources can be eliminated from the
-from the definition in the claim, must be considered        search unless the examiner has and can justify a
-unless expressly excluded by the claimed subject            reasonable certainty that no references, more
-matter. See MPEP § 2181 - § 2184 for a discussion           pertinent than those already identified, are likely to
-of equivalents when a claim employs means or step           be found in the source(s) eliminated. The search
-plus function terminology.                                  should cover the claimed subject matter and should
-                                                            also cover the disclosed features which might
-904.01(c) Analogous Arts [R-08.2012]                        reasonably be expected to be claimed. The field of
-                                                            search should be prioritized, starting with the area(s)
-Not only must the art be searched within which the          where the invention would most likely be found in
-invention claimed is classifiable, but also all             the prior art.
+
+904.01(b) Equivalents [R-08.2012]
+All subject matter that is the equivalent of the subject
+matter as defined in the claim, even though different
+from the definition in the claim, must be considered
+unless expressly excluded by the claimed subject
+matter. See MPEP § 2181 - § 2184 for a discussion
+of equivalents when a claim employs means or step
+plus function terminology.
+
+904.01(c) Analogous Arts [R-08.2012]
+Not only must the art be searched within which the
+invention claimed is classifiable, but also all
 analogous arts must be searched regardless of where
-the claimed invention is classified.                        Having determined the field of search, the examiner
-                                                            should then determine what search tools should be
-The determination of what arts are analogous to a           employed in conducting the search. Examiners are
-particular claimed invention is at times difficult. It      provided access to a wide variety of both manual
-depends upon the necessary essential function or            and automated search tools. Choice of search tools
-utility of the subject matter covered by the claims,        is a key factor in ensuring that the most relevant
-and not upon what it is called by the applicant.            prior art is found during the search. The choice of
-                                                            search tools to be used is based on the examiner’s
-For example, for search purposes, a tea mixer and a         knowledge of the coverage, strengths and
-concrete mixer may both be regarded as relating to          weaknesses of the available search tools that are
-the mixing art, this being the necessary function of        appropriate for use in an examiner’s assigned art.
-each. Similarly a brick-cutting machine and a biscuit       For example, a search tool may cover foreign patent
-cutting machine may be considered as having the             documents; but, if that coverage does not meet the
-same necessary function. See MPEP § 2141.01(a)              examiner’s current search needs, this should be taken
-for a discussion of analogous and nonanalogous art          into consideration by the examiner who may choose
+the claimed invention is classified.
+The determination of what arts are analogous to a
+particular claimed invention is at times difficult. It
+depends upon the necessary essential function or
+utility of the subject matter covered by the claims,
+and not upon what it is called by the applicant.
+For example, for search purposes, a tea mixer and a
+concrete mixer may both be regarded as relating to
+the mixing art, this being the necessary function of
+each. Similarly a brick-cutting machine and a biscuit
+cutting machine may be considered as having the
+same necessary function. See MPEP § 2141.01(a)
+for a discussion of analogous and nonanalogous art
 
+§ 904.02
 
+in the context of establishing a prima facie case of
+obviousness under 35 U.S.C. 103. See MPEP §
+2131.05 for a discussion of analogous and
+nonanalogous art in the context of 35 U.S.C. 102.
 
-                                                       900-41                                   Rev. 10.2019, June 2020
-§ 904.02(a)                           MANUAL OF PATENT EXAMINING PROCEDURE
+904.02 General Search Guidelines
+[R-07.2015]
+In the examination of an application for patent, an
+examiner must conduct a thorough search of the
+prior art. Planning a thorough search of the prior art
+requires three distinct steps by the examiner: (A)
+identifying the field of search; (B) selecting the
+proper tool(s) to perform the search; and (C)
+determining the appropriate search strategy for each
+search tool selected. Each step is critical for a
+complete and thorough search.
+When determining the field of search, three reference
+sources must be considered - domestic patents
+(including patent application publications), foreign
+patent documents, and nonpatent literature (NPL).
+None of these sources can be eliminated from the
+search unless the examiner has and can justify a
+reasonable certainty that no references, more
+pertinent than those already identified, are likely to
+be found in the source(s) eliminated. The search
+should cover the claimed subject matter and should
+also cover the disclosed features which might
+reasonably be expected to be claimed. The field of
+search should be prioritized, starting with the area(s)
+where the invention would most likely be found in
+the prior art.
+Having determined the field of search, the examiner
+should then determine what search tools should be
+employed in conducting the search. Examiners are
+provided access to a wide variety of both manual
+and automated search tools. Choice of search tools
+is a key factor in ensuring that the most relevant
+prior art is found during the search. The choice of
+search tools to be used is based on the examiner’s
+knowledge of the coverage, strengths and
+weaknesses of the available search tools that are
+appropriate for use in an examiner’s assigned art.
+For example, a search tool may cover foreign patent
+documents; but, if that coverage does not meet the
+examiner’s current search needs, this should be taken
+into consideration by the examiner who may choose
 
+900-41
 
+Rev. 10.2019, June 2020
 
+§ 904.02(a)
 
-to employ other search tools in order to remedy the         Examiners will recognize that it is sometimes
-deficiency.                                                 difficult to express search needs accurately in textual
-                                                            terms. This occurs often, though not exclusively, in
-Search tool knowledge is particularly important for         mechanical arts where, for example, spatial
-examiners in arts (e.g., very active, high technology)      relationships or shapes of mechanical components
-where patent documents may seriously lag behind             constitute important aspects of the claimed invention.
-invention and, consequently, represent a reference          In such situations, text searching can still be useful
-source of limited value. These examiners must take          by employing broader text terms, with or without
-special care to ensure that their searches include          classification parameters. The traditional method of
-consideration of NPL and employ the effective use           browsing all patent documents in one or more
-of tools specialized to cover NPL pertinent to their        classifications will continue to be an important part
-search needs.                                               of the search strategy when it is difficult to express
-                                                            search needs in textual terms.
+MANUAL OF PATENT EXAMINING PROCEDURE
+
+to employ other search tools in order to remedy the
+deficiency.
+Search tool knowledge is particularly important for
+examiners in arts (e.g., very active, high technology)
+where patent documents may seriously lag behind
+invention and, consequently, represent a reference
+source of limited value. These examiners must take
+special care to ensure that their searches include
+consideration of NPL and employ the effective use
+of tools specialized to cover NPL pertinent to their
+search needs.
 Search needs in some technologies, e.g., chemical
-structures, DNA sequences, are very specialized and         Having determined what search tool(s) should be
-can only be met through additional use of specific          used to conduct the search, the examiner should then
-search tools specially constructed and maintained to        determine the appropriate search strategy for each
-respond to those needs. These tools cover all three         search tool selected. The appropriate search strategy
-reference sources - domestic patents (including             should be determined by the examiner on a
-patent application publications), foreign patent            case-by-case basis along with consultation with other
-documents, and NPL.                                         examiners, supervisory patent examiners, and/or
-                                                            trained professional on-line search personnel, where
-In recognition that there are many available NPL            appropriate.
+structures, DNA sequences, are very specialized and
+can only be met through additional use of specific
+search tools specially constructed and maintained to
+respond to those needs. These tools cover all three
+reference sources - domestic patents (including
+patent application publications), foreign patent
+documents, and NPL.
+In recognition that there are many available NPL
 search tools and their use is often complex,
-examiners have been provided and are encouraged             In order for examiners to acquire specialized skills
-to use the services of trained professional on-line         needed to determine an appropriate field of search
-search personnel located in the Technology Centers’         in their specific arts, each Technology Center may
-EICs for NPL searching. See MPEP § 901.06(a) for            develop specific supplemental guidance and training
-services available in STIC.                                 for its examiners. This training will augment general
-                                                            training and information on search tools that is
-In crowded, highly developed arts where most                normally provided through the Office of Patent
-claimed inventions are directed to improvements,            Training and Search and Information Resources
-patent documents, including patent application              Administration.
+examiners have been provided and are encouraged
+to use the services of trained professional on-line
+search personnel located in the Technology Centers’
+EICs for NPL searching. See MPEP § 901.06(a) for
+services available in STIC.
+In crowded, highly developed arts where most
+claimed inventions are directed to improvements,
+patent documents, including patent application
 publications, may serve as the primary reference
-source. Search tool selection in such arts may focus        904.02(a) Classified Search [R-08.2017]
+source. Search tool selection in such arts may focus
 heavily on those providing patent document
-coverage.                                                   A proper field of search normally includes the
-                                                            classification locations in which the claimed subject
-Automated search tools covering patent documents            matter of an application would be properly classified
-usually provide both a classified and text search           at the time of the application's classification or grant
-capability. Text search can be powerful, especially         of a patent. However, if the above proper
-where the art includes well-established terminology         classification does not correspond to the subject
-and the search need can be expressed with reasonable        matter found in the claims (e.g., a situation where
-accuracy in textual terms. However, it is rare that a       the proper classification corresponds to a disclosed,
-text search alone will constitute a thorough search         but unclaimed, embodiment), it is not necessary to
-of patent documents. Some combination of text               search areas in which it could reasonably have been
-search with other search criteria (e.g., classification,    determined that there was a low probability of
-chemical structure, or molecular sequence) would            finding the best reference(s).
+coverage.
+Automated search tools covering patent documents
+usually provide both a classified and text search
+capability. Text search can be powerful, especially
+where the art includes well-established terminology
+and the search need can be expressed with reasonable
+accuracy in textual terms. However, it is rare that a
+text search alone will constitute a thorough search
+of patent documents. Some combination of text
+search with other search criteria (e.g., classification,
+chemical structure, or molecular sequence) would
 be a normal expectation in most technologies.
 
+Rev. 10.2019, June 2020
 
+Examiners will recognize that it is sometimes
+difficult to express search needs accurately in textual
+terms. This occurs often, though not exclusively, in
+mechanical arts where, for example, spatial
+relationships or shapes of mechanical components
+constitute important aspects of the claimed invention.
+In such situations, text searching can still be useful
+by employing broader text terms, with or without
+classification parameters. The traditional method of
+browsing all patent documents in one or more
+classifications will continue to be an important part
+of the search strategy when it is difficult to express
+search needs in textual terms.
+Having determined what search tool(s) should be
+used to conduct the search, the examiner should then
+determine the appropriate search strategy for each
+search tool selected. The appropriate search strategy
+should be determined by the examiner on a
+case-by-case basis along with consultation with other
+examiners, supervisory patent examiners, and/or
+trained professional on-line search personnel, where
+appropriate.
+In order for examiners to acquire specialized skills
+needed to determine an appropriate field of search
+in their specific arts, each Technology Center may
+develop specific supplemental guidance and training
+for its examiners. This training will augment general
+training and information on search tools that is
+normally provided through the Office of Patent
+Training and Search and Information Resources
+Administration.
 
-Rev. 10.2019, June 2020                                900-42
-                                      PRIOR ART, CLASSIFICATION, AND SEARCH                                § 904.02(b)
+904.02(a) Classified Search [R-08.2017]
+A proper field of search normally includes the
+classification locations in which the claimed subject
+matter of an application would be properly classified
+at the time of the application's classification or grant
+of a patent. However, if the above proper
+classification does not correspond to the subject
+matter found in the claims (e.g., a situation where
+the proper classification corresponds to a disclosed,
+but unclaimed, embodiment), it is not necessary to
+search areas in which it could reasonably have been
+determined that there was a low probability of
+finding the best reference(s).
 
+900-42
 
+PRIOR ART, CLASSIFICATION, AND SEARCH
 
-
-In outlining a field of search, the examiner should        patent examiners, especially with regard to
-note     every     classification    location    (i.e.     applications covering subject matter unfamiliar to
-group/subgroup of the Cooperative Patent                   the examiner.
+In outlining a field of search, the examiner should
+note
+every
+classification
+location
+(i.e.
+group/subgroup of the Cooperative Patent
 Classification or class/subclass of the U.S. Patent
-Classification) under the utilized classification          The areas to be searched should be prioritized so
-system and other organized systems of literature that      that the most likely areas of finding relevant prior
-may have material pertinent to the subject matter as       art are searched first. For documenting the field of
-claimed, including those which have been assigned          search see MPEP § 719.05. See MPEP § 1302.10
-by a foreign Office, another USPTO examiner, or            for search information printed on the face of a patent.
+Classification) under the utilized classification
+system and other organized systems of literature that
+may have material pertinent to the subject matter as
+claimed, including those which have been assigned
+by a foreign Office, another USPTO examiner, or
 by the classification contractor. Every subclass,
-digest, and cross-reference art collection pertinent       904.02(b) Search Tool Selection [R-07.2015]
+digest, and cross-reference art collection pertinent
 to each type of invention claimed should be included,
-from the largest combination through the various           Detailed guidance on the choice and use of specific
-subcombinations to the most elementary part. The           search tools can be established only within the
-field of search should extend to all probable areas        context of the special requirements of each
-relevant to the claimed subject matter and should          Technology Center (TC). However, a general
-cover the disclosed features which might reasonably        methodology following a “decision tree” process,
-be expected to be claimed. The examiner should             set forth below, for making broad decisions in search
-consult with other examiners and/or supervisory            tool selection is suggested.
+from the largest combination through the various
+subcombinations to the most elementary part. The
+field of search should extend to all probable areas
+relevant to the claimed subject matter and should
+cover the disclosed features which might reasonably
+be expected to be claimed. The examiner should
+consult with other examiners and/or supervisory
 
+§ 904.02(b)
 
+patent examiners, especially with regard to
+applications covering subject matter unfamiliar to
+the examiner.
+The areas to be searched should be prioritized so
+that the most likely areas of finding relevant prior
+art are searched first. For documenting the field of
+search see MPEP § 719.05. See MPEP § 1302.10
+for search information printed on the face of a patent.
 
+904.02(b) Search Tool Selection [R-07.2015]
+Detailed guidance on the choice and use of specific
+search tools can be established only within the
+context of the special requirements of each
+Technology Center (TC). However, a general
+methodology following a “decision tree” process,
+set forth below, for making broad decisions in search
+tool selection is suggested.
 
-                                                      900-43                                   Rev. 10.2019, June 2020
-§ 904.02(b)               MANUAL OF PATENT EXAMINING PROCEDURE
+900-43
 
+Rev. 10.2019, June 2020
 
+§ 904.02(b)
 
+Rev. 10.2019, June 2020
 
-Rev. 10.2019, June 2020                  900-44
-                                     PRIOR ART, CLASSIFICATION, AND SEARCH                                 § 904.02(c)
+MANUAL OF PATENT EXAMINING PROCEDURE
 
+900-44
 
+PRIOR ART, CLASSIFICATION, AND SEARCH
 
-
-904.02(c) Internet Searching [R-10.2019]                  in the statutes, including 35 U.S.C. § 122, and
-                                                          regulations. As part of an Internet search, examiners
-The Internet is an Office-approved search tool that       may visit social media websites that provide for
-may be considered when planning and conducting            public interactions, but are not authorized to
-a search for an application. The Internet provides        participate on these websites or otherwise solicit
-the Office the opportunity to enhance operations by       assistance with patent examination even for
-enabling patent examiners to efficiently locate and       published applications. For example, an examiner
-retrieve additional sources of information relating       is not authorized to request users of a website to
-to a patent application.                                  provide additional information not found on the
-                                                          website, elaborate further on information already
-The Office published a Patent Internet Usage Policy       posted on the website, or post new information on
-to establish a policy for use of the Internet by the      the website. Additionally, any Internet searching
-patent examining corps and other organizations            that is conducted is to be limited to searching for the
-within the USPTO. See Internet Usage Policy, 64           information necessary for examination of the
-F.R. 33056 (June 21, 1999). Articles 9 and 10 of the      application or proceeding, such as the state of the
-Patent Internet Usage Policy, which are pertinent to      art or the presence or absence of technical features
-Internet searching and documenting search strategies,     in the prior art.
+904.02(c) Internet Searching [R-10.2019]
+The Internet is an Office-approved search tool that
+may be considered when planning and conducting
+a search for an application. The Internet provides
+the Office the opportunity to enhance operations by
+enabling patent examiners to efficiently locate and
+retrieve additional sources of information relating
+to a patent application.
+The Office published a Patent Internet Usage Policy
+to establish a policy for use of the Internet by the
+patent examining corps and other organizations
+within the USPTO. See Internet Usage Policy, 64
+F.R. 33056 (June 21, 1999). Articles 9 and 10 of the
+Patent Internet Usage Policy, which are pertinent to
+Internet searching and documenting search strategies,
 are reproduced below. Article 9 primarily addresses
-using the Internet for unpublished application            INTERNET SEARCHING (ARTICLE 9)
+using the Internet for unpublished application
 searches. As mentioned therein, it is necessary that
-Internet searches related to unpublished applications     The ultimate responsibility for formulating individual
-MUST be limited to the general state of the art and       search strategies lies with individual Patent
-formulated in such a way that protects the                Examiners, Scientific and Technical Information
-confidential proprietary intellectual property.           Center (STIC) staff, and anyone charged with
-                                                          protecting proprietary application data. When the
-USPTO personnel may also use the Internet to              Internet is used to search, browse, or retrieve
-search, browse, or retrieve information relating to       information relating to a patent application which
-the claimed invention(s) of a published application       has not been published, other than a reissue
-or proceeding including an application published          application or reexamination proceeding, Patent
-pursuant to 35 U.S.C. 122(b), a reissue application,      Organization users MUST restrict search queries to
-or a reexamination proceeding. These applications         the general state of the art unless the Office has
-need not be kept in confidence; therefore, the            established a secure link over the Internet with a
-restriction on the search queries used when               specific vendor to maintain the confidentiality of the
-performing an Internet search referenced in Article       unpublished patent application. Non-secure Internet
-9 below would not apply to these applications and         search, browse, or retrieval activities that could
-proceedings. Any search query may include                 disclose proprietary information directed to a specific
-terminology related to the general state of the           application which has not been published, other than
-relevant technology, disclosed features from              a reissue application or reexamination proceeding,
-applicant’s disclosure and claim terminology. See         are NOT permitted.
+Internet searches related to unpublished applications
+MUST be limited to the general state of the art and
+formulated in such a way that protects the
+confidential proprietary intellectual property.
+USPTO personnel may also use the Internet to
+search, browse, or retrieve information relating to
+the claimed invention(s) of a published application
+or proceeding including an application published
+pursuant to 35 U.S.C. 122(b), a reissue application,
+or a reexamination proceeding. These applications
+need not be kept in confidence; therefore, the
+restriction on the search queries used when
+performing an Internet search referenced in Article
+9 below would not apply to these applications and
+proceedings. Any search query may include
+terminology related to the general state of the
+relevant technology, disclosed features from
+applicant’s disclosure and claim terminology. See
 MPEP § 707.05(e) for information pertaining to the
-citation of electronic documents, MPEP § 719.05,          This policy also applies to use of the Internet as a
-subsection II for documenting an Internet search,         communications medium for connecting to
-and MPEP § 502.03 for information pertaining to           commercial database providers.
+citation of electronic documents, MPEP § 719.05,
+subsection II for documenting an Internet search,
+and MPEP § 502.03 for information pertaining to
 communications via electronic mail.
-                                                          DOCUMENTING SEARCH STRATEGIES
-The Internet is generally a public forum and most         (ARTICLE 10)
+The Internet is generally a public forum and most
 communications made over the Internet are neither
-confidential nor secure. All use of the Internet by       All Patent Organization users of the Internet for
-examiners must be conducted in a manner that              patent application searches must document their
-ensures compliance with confidentiality requirements      search strategies in accordance with established
+confidential nor secure. All use of the Internet by
+examiners must be conducted in a manner that
+ensures compliance with confidentiality requirements
 
+§ 904.02(c)
 
-                                                     900-45                                   Rev. 10.2019, June 2020
-§ 904.03                             MANUAL OF PATENT EXAMINING PROCEDURE
+in the statutes, including 35 U.S.C. § 122, and
+regulations. As part of an Internet search, examiners
+may visit social media websites that provide for
+public interactions, but are not authorized to
+participate on these websites or otherwise solicit
+assistance with patent examination even for
+published applications. For example, an examiner
+is not authorized to request users of a website to
+provide additional information not found on the
+website, elaborate further on information already
+posted on the website, or post new information on
+the website. Additionally, any Internet searching
+that is conducted is to be limited to searching for the
+information necessary for examination of the
+application or proceeding, such as the state of the
+art or the presence or absence of technical features
+in the prior art.
+INTERNET SEARCHING (ARTICLE 9)
 
+The ultimate responsibility for formulating individual
+search strategies lies with individual Patent
+Examiners, Scientific and Technical Information
+Center (STIC) staff, and anyone charged with
+protecting proprietary application data. When the
+Internet is used to search, browse, or retrieve
+information relating to a patent application which
+has not been published, other than a reissue
+application or reexamination proceeding, Patent
+Organization users MUST restrict search queries to
+the general state of the art unless the Office has
+established a secure link over the Internet with a
+specific vendor to maintain the confidentiality of the
+unpublished patent application. Non-secure Internet
+search, browse, or retrieval activities that could
+disclose proprietary information directed to a specific
+application which has not been published, other than
+a reissue application or reexamination proceeding,
+are NOT permitted.
+This policy also applies to use of the Internet as a
+communications medium for connecting to
+commercial database providers.
+DOCUMENTING SEARCH STRATEGIES
+(ARTICLE 10)
 
+All Patent Organization users of the Internet for
+patent application searches must document their
+search strategies in accordance with established
 
+900-45
 
-practices and procedures as set forth in MPEP §            The best reference should always be the one used in
-719.05 II.                                                 rejecting the claims. Sometimes the best reference
-                                                           will have a publication date less than a year prior to
-904.03 Conducting the Search [R-07.2015]                   the application filing date, hence it will be open to
-                                                           being overcome under 37 CFR 1.130 or 1.131. In
-It is a prerequisite to a speedy and just determination    such circumstances, if a second reference exists
-of the issues involved in the examination of an            which cannot be so overcome and which, though
-application that a careful and comprehensive search,       inferior, is an adequate basis for rejection, the claims
-commensurate with the limitations appearing in the         should be additionally rejected thereon.
+Rev. 10.2019, June 2020
+
+§ 904.03
+
+MANUAL OF PATENT EXAMINING PROCEDURE
+
+practices and procedures as set forth in MPEP §
+719.05 II.
+
+904.03 Conducting the Search [R-07.2015]
+It is a prerequisite to a speedy and just determination
+of the issues involved in the examination of an
+application that a careful and comprehensive search,
+commensurate with the limitations appearing in the
 most detailed claims in the case, be made in
-preparing the first action on the merits so that the       In all references considered, including NPL, foreign
-second action on the merits can be made final or the       patents, and domestic patents, the examiner should
-application allowed with no further searching other        study the specification or description sufficiently to
-than to update the original search. It is normally not     determine the full value of the reference disclosure
-enough that references be selected to meet only the        relative to the claimed or claimable subject matter.
+preparing the first action on the merits so that the
+second action on the merits can be made final or the
+application allowed with no further searching other
+than to update the original search. It is normally not
+enough that references be selected to meet only the
 terms of the claims alone, especially if only broad
-claims are presented; but the search should, insofar       905 Cooperative Patent Classification
-as possible, also cover all subject matter which the       [R-07.2015]
+claims are presented; but the search should, insofar
+as possible, also cover all subject matter which the
 examiner reasonably anticipates might be
-incorporated into applicant’s amendment. Applicants        Cooperative Patent Classification (CPC) is a bilateral
-can facilitate a complete search by including, at the      classification system jointly developed by the United
-time of filing, claims varying from the broadest to        States Patent and Trademark Office (USPTO) and
-which they believe they are entitled to the most           the European Patent Office (EPO). CPC is jointly
-detailed that they would be willing to accept.             managed and maintained by both offices and is
-                                                           available for public search for classification.
+incorporated into applicant’s amendment. Applicants
+can facilitate a complete search by including, at the
+time of filing, claims varying from the broadest to
+which they believe they are entitled to the most
+detailed that they would be willing to accept.
 In doing a complete search, the examiner should find
-and cite references that, while not needed for             905.01 Classification Scheme for CPC
-rejecting the claims, would be useful for forestalling     [R-07.2015]
+and cite references that, while not needed for
+rejecting the claims, would be useful for forestalling
 the presentation of claims to other disclosed subject
 matter regarded by applicant as his or her invention,
-                                                           The CPC classification system arranges subject
 by showing that this other subject matter is old or
-                                                           matter into hierarchical arrays.
 obvious.
-                                                               (A) The highest array or level is the Section.
 In selecting the references to be used in rejecting the
-claims, the examiner should carefully compare the              (B) Each section is subdivided into Classes.
-references with one another and with the applicant’s          (C) Each class is subdivided into one or more
-disclosure to avoid an unnecessary number of               subclasses.
+claims, the examiner should carefully compare the
+references with one another and with the applicant’s
+disclosure to avoid an unnecessary number of
 rejections over similar references. The examiner is
-                                                              (D) Each subclass is broken down into Groups
 not called upon to cite all references that may be
-                                                           (main groups and subgroups).
 available, but only the “best.” (See 37 CFR
-1.104(c).) Multiplying references, any one of which        Each part of this hierarchical structure is identified
-is as good as, but no better than, the others, adds to     by classification symbols. Specifics about each
-the burden and cost of prosecution and should              element of the classification symbol are described
-therefore be avoided. The examiner must fully              below.
+1.104(c).) Multiplying references, any one of which
+is as good as, but no better than, the others, adds to
+the burden and cost of prosecution and should
+therefore be avoided. The examiner must fully
 consider all the prior art references cited in the
-application, including those cited by the applicant        (A) Section Symbol – Each section is designated by
-in a properly submitted Information Disclosure             one of the capital letters A through H and has an
-Statement.                                                 associated section title. There are nine sections, eight
-                                                           of which correlate to the sections of the International
-                                                           Patent Classification (IPC). The ninth section is used
+application, including those cited by the applicant
+in a properly submitted Information Disclosure
+Statement.
 
+Rev. 10.2019, June 2020
 
-Rev. 10.2019, June 2020                               900-46
+The best reference should always be the one used in
+rejecting the claims. Sometimes the best reference
+will have a publication date less than a year prior to
+the application filing date, hence it will be open to
+being overcome under 37 CFR 1.130 or 1.131. In
+such circumstances, if a second reference exists
+which cannot be so overcome and which, though
+inferior, is an adequate basis for rejection, the claims
+should be additionally rejected thereon.
+In all references considered, including NPL, foreign
+patents, and domestic patents, the examiner should
+study the specification or description sufficiently to
+determine the full value of the reference disclosure
+relative to the claimed or claimable subject matter.
+
+905 Cooperative Patent Classification
+[R-07.2015]
+Cooperative Patent Classification (CPC) is a bilateral
+classification system jointly developed by the United
+States Patent and Trademark Office (USPTO) and
+the European Patent Office (EPO). CPC is jointly
+managed and maintained by both offices and is
+available for public search for classification.
+
+905.01 Classification Scheme for CPC
+[R-07.2015]
+The CPC classification system arranges subject
+matter into hierarchical arrays.
+(A) The highest array or level is the Section.
+(B) Each section is subdivided into Classes.
+(C) Each class is subdivided into one or more
+subclasses.
+(D) Each subclass is broken down into Groups
+(main groups and subgroups).
+Each part of this hierarchical structure is identified
+by classification symbols. Specifics about each
+element of the classification symbol are described
+below.
+(A) Section Symbol – Each section is designated by
+one of the capital letters A through H and has an
+associated section title. There are nine sections, eight
+of which correlate to the sections of the International
+Patent Classification (IPC). The ninth section is used
+
+900-46
+
 

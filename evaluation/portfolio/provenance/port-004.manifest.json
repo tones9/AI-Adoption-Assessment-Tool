@@ -2,11 +2,18 @@
   "schema_version": "portfolio-provenance.v0.2",
   "case_id": "PORT-004",
   "supersedes": "PORT-003",
+  "corpus_revision": 2,
+  "corpus_revision_note": "Revision 1 (commit e24e495) is superseded. It extracted pages 900-27 to 900-46 with pdftotext -layout, which interleaved the two MPEP columns line by line and destroyed reading order. Revision 2 narrows the scope to pages 900-40 to 900-46 and extracts in raw mode, restoring correct reading order. See port-004.correction-note.v0.1.md.",
   "research_identity": "United States Patent and Trademark Office patent examiner prior-art search workflow",
   "product_identity": "Patent examiner prior-art search workflow",
   "before_input_form": "VERBATIM_PRIMARY_SOURCE_EXTRACT",
   "anonymisation_applied": false,
   "before_path": "product_inputs/port-004.before.txt",
+  "before_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+  "before_characters": 22888,
+  "before_lines": 556,
+  "before_non_empty_lines": 501,
+  "before_words": 3514,
   "after_path": null,
   "after_status": "NOT_YET_COLLECTED_AFTER_SEALING_IS_A_SEPARATE_GATED_STEP",
   "sources": [
@@ -44,40 +51,43 @@
     }
   ],
   "frozen_scope": {
-    "requested_sections": ["902", "903", "904", "904.01", "904.02", "904.03"],
-    "extraction_unit": "page-contiguous range, physical pages 27-46 (printed 900-27 to 900-46)",
-    "extraction_command": "pdftotext -f 27 -l 46 -layout",
+    "sections": ["904", "904.01", "904.01(a)", "904.01(b)", "904.01(c)", "904.02", "904.02(a)", "904.02(b)", "904.02(c)", "904.03"],
+    "extraction_unit": "page-contiguous range, physical pages 40-46 (printed 900-40 to 900-46)",
+    "extraction_command": "pdftotext -f 40 -l 46",
+    "extraction_mode": "raw (reading order preserved; -layout is NOT used because Chapter 900 is two-column)",
     "editorial_intervention_inside_frozen_corpus": "NONE",
     "section_page_map": {
-      "902 Search Tools and Classification Information [R-07.2015]": "900-27",
-      "902.01 - 902.03(e)": "900-27 to 900-29",
-      "903 Classification in USPC [R-07.2015]": "900-30",
-      "903.01 - 903.07(a)": "900-30 to 900-33",
-      "903.08 family and 903.09 (administrative)": "900-34 to 900-40",
       "904 How to Search [R-10.2019]": "900-40",
-      "904.01 - 904.01(c)": "900-40 to 900-41",
+      "904.01 Analysis of Claims [R-08.2012]": "900-40",
+      "904.01(a) Variant Embodiments Within Scope of Claim [R-08.2012]": "900-40",
+      "904.01(b) Equivalents [R-08.2012]": "900-41",
+      "904.01(c) Analogous Arts [R-08.2012]": "900-41",
       "904.02 General Search Guidelines [R-07.2015]": "900-41",
       "904.02(a) Classified Search [R-08.2017]": "900-42",
       "904.02(b) Search Tool Selection [R-07.2015]": "900-43 to 900-44",
       "904.02(c) Internet Searching [R-10.2019]": "900-45",
       "904.03 Conducting the Search [R-07.2015]": "900-46"
     },
-    "boundary_spill_recorded": [
-      "Leading spill on 900-27: closing text of 901.08 (WIPO-CASE service description).",
-      "Trailing spill on 900-46: opening text of 905 / 905.01 (CPC scheme hierarchy)."
-    ],
-    "in_range_material_outside_the_search_workflow": [
-      "903.08(a)-903.08(e) and 903.09 application assignment, inspection, transfer procedure and classification order administration, pages 900-34 to 900-40."
-    ],
+    "composition": {
+      "target_904_body_characters": 21385,
+      "target_904_body_share": "93.4%",
+      "leading_spill_characters": 300,
+      "leading_spill_share": "1.3%",
+      "leading_spill_content": "Closing text of 903.09 at the top of 900-40: Patent Transfer Inquiry (PTI) system and patent file wrapper handling.",
+      "trailing_spill_characters": 1143,
+      "trailing_spill_share": "5.0%",
+      "trailing_spill_content": "Opening text of 905 / 905.01 at the foot of 900-46: CPC classification scheme hierarchy and section symbols."
+    },
     "excluded": [
-      "901 Prior Art and subsections (except the leading spill noted above)",
+      "902 Search Tools and Classification Information and subsections",
+      "903 Classification in USPC and subsections, including the 903.08 family application assignment, inspection and transfer procedure material (except the 903.09 leading spill noted above)",
+      "901 Prior Art and subsections",
       "905 Cooperative Patent Classification and subsections (except the trailing spill noted above)",
-      "all remaining Chapter 900 material on pages 900-1 to 900-26 and 900-47 to 900-58"
-    ]
+      "all remaining Chapter 900 material on pages 900-1 to 900-39 and 900-47 to 900-58"
+    ],
+    "exclusion_rationale": "Narrowed from revision 1 to keep the frozen input as close as possible to a single bounded operational workflow, to avoid unrelated classification administration material, to avoid the 901.08 spill present in revision 1, and to avoid an artificial multi-range assembly step."
   },
   "section_revision_stamps": {
-    "902": "R-07.2015",
-    "903": "R-07.2015",
     "904": "R-10.2019",
     "904.01": "R-08.2012",
     "904.01(a)": "R-08.2012",
@@ -100,7 +110,7 @@
     "OCR recovery was audit-only and must NOT be added to engine input.",
     "MPEP is normative, not observational.",
     "Actual examiner behaviour and time constraints are not represented.",
-    "Pages 900-34 to 900-40 within the frozen page-contiguous range contain classification administration material outside the prior-art search workflow.",
+    "Boundary spill is present and unedited: 300 characters of 903.09 at the start and 1,143 characters of 905/905.01 at the end. Page-contiguity was preserved in preference to trimming, so that no editorial decision enters the frozen corpus.",
     "The document cites USPTO intranet resources that are referenced but not reproduced, so the public document does not disclose the full internal procedure."
   ]
 }
