@@ -1,0 +1,319 @@
+{
+  "accountability_unknown": 8,
+  "approved_review_artifact_id": "artifact-5d7e6631ce3042e1871e19a9d8d39010",
+  "approved_review_payload_sha256": "c886848bba58ab762410e950083a497977b579157eeba6ac08728aee5368f960",
+  "assessed_at": "2026-08-19T14:38:30.168538+00:00",
+  "assessment_id": "assessment-088291801b5e4e208b0a1d6078aed1bc",
+  "assessment_run_id": "assessment-485eee54ece54f46aba333b6e72e4307",
+  "before_corpus_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+  "case_id": "PORT-004",
+  "criteria_unknown": 80,
+  "decision_package_result_present": false,
+  "decision_policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66",
+  "execution_identity": {
+    "git_head": "84b7772cb6539bffa192befef46f087fa5f48fa6",
+    "operator_blob_in_head": "9c8ee85616d4fd25245ac912bb5bc8aa0b3a5f7e",
+    "operator_blob_working": "9c8ee85616d4fd25245ac912bb5bc8aa0b3a5f7e",
+    "operator_matches_head": true,
+    "operator_path": "evaluation/portfolio/_run_port004_stage4_assessment.py",
+    "operator_sha256": "353fb280a8a0504d02640e8dae2913d2138a46b1c3582fff207decde11eaeb53",
+    "operator_tracked": true
+  },
+  "frozen_source_hashes_after_assessment": {
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/candidate_extraction.json": "ffbefc0eef7ad68b90859576d60aa0c09606c1eb6fd267d4fe2dca13b2c8ad65",
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/ingestion_result.json": "caaeb9534c827202fac910ba715e88ff93086dccfd9f637fb0919f364438eb58",
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/run_state_after_extraction.json": "1f346ee7bf5911ad4e1e3e23fc57cf08962ed0dd54934a5246eb0b9d564f9a19",
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/workspace.db": "f4a5c97503ec9a7f3c989fec8a2d5048f0678f2994e9b93e52802af55d2ac49f",
+    "evaluation/portfolio/runs/port-004/production-run-v0.2-review/stage2-execution-record.v0.1.json": "1c33e51a56ea4482d77ab930cccb5319dccaea92e1d1e4541301ba52505ef51b",
+    "evaluation/portfolio/runs/port-004/production-run-v0.2-review/workspace.db": "0fc81b4a14f2336dc672148fcd91a77db86fb92ac518144cf4ace1718ef82612",
+    "evaluation/portfolio/runs/port-004/production-run-v0.3-approved/stage3-approval-record.v0.1.json": "3cab058cbdf590ab73e45031a9921fd081ea85bfee44fc0dd71c51c97cb4fe7e",
+    "evaluation/portfolio/runs/port-004/production-run-v0.3-approved/workspace.db": "09b4399987814a32b9bc48b01bcd246daee319180ae4d6a2d208932d0ca33e46",
+    "evaluation/portfolio/runs/port-004/stage1-observation-record.v0.1.md": "db6ecae125e415efe35a11656e73a17e1be752768dffe1e2ead38404b8b32cc1",
+    "evaluation/portfolio/runs/port-004/stage2-observation-record.v0.1.md": "19f3457d135c53609acf3e1ecf173633516794c299396df79395ba7afd611d58",
+    "evaluation/portfolio/runs/port-004/stage3-observation-record.v0.1.md": "341bf6c083e64e9264d96e0256b08b4bcb6c97f0bcd76ff24f1c1588dff44a1b"
+  },
+  "human_supplied_assertions": 0,
+  "integrated_assessment_artifact_id": "artifact-61ee88e2be40437598864e7f634b2243",
+  "integrated_assessment_parent_artifact_id": "artifact-5d7e6631ce3042e1871e19a9d8d39010",
+  "integrated_assessment_payload_sha256": "eedf5c3a70b0144987d1d7af5fc4ccbdafd5895f0baddd6555b398724700820b",
+  "integrated_assessment_revision": 1,
+  "integration_schema_version": "phase5-v0.1",
+  "newly_minted_evidence_count": 0,
+  "observed_step_assessments": [
+    {
+      "activity": "identifying the field of search",
+      "capabilities": [
+        "DOCUMENT_INFORMATION_EXTRACTION",
+        "KNOWLEDGE_RETRIEVAL"
+      ],
+      "gate_results": [
+        {
+          "gate": "evidence_sufficiency",
+          "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "status": "passed"
+        },
+        {
+          "gate": "technical_fit",
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "status": "failed"
+        },
+        {
+          "gate": "business_value",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        },
+        {
+          "gate": "risk_and_autonomy",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        }
+      ],
+      "priority": null,
+      "priority_missing_criteria": [],
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-8761540c3fb724d5"
+    },
+    {
+      "activity": "selecting the proper tool(s) to perform the search",
+      "capabilities": [],
+      "gate_results": [
+        {
+          "gate": "evidence_sufficiency",
+          "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "status": "passed"
+        },
+        {
+          "gate": "technical_fit",
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "status": "failed"
+        },
+        {
+          "gate": "business_value",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        },
+        {
+          "gate": "risk_and_autonomy",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        }
+      ],
+      "priority": null,
+      "priority_missing_criteria": [],
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-df4f0ee1970efb51"
+    },
+    {
+      "activity": "determining the appropriate search strategy for each search tool selected",
+      "capabilities": [],
+      "gate_results": [
+        {
+          "gate": "evidence_sufficiency",
+          "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "status": "passed"
+        },
+        {
+          "gate": "technical_fit",
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "status": "failed"
+        },
+        {
+          "gate": "business_value",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        },
+        {
+          "gate": "risk_and_autonomy",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        }
+      ],
+      "priority": null,
+      "priority_missing_criteria": [],
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-55d273f0f007cf1f"
+    },
+    {
+      "activity": "Prioritize areas to be searched",
+      "capabilities": [],
+      "gate_results": [
+        {
+          "gate": "evidence_sufficiency",
+          "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "status": "passed"
+        },
+        {
+          "gate": "technical_fit",
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "status": "failed"
+        },
+        {
+          "gate": "business_value",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        },
+        {
+          "gate": "risk_and_autonomy",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        }
+      ],
+      "priority": null,
+      "priority_missing_criteria": [],
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-56dffd383d81b62b"
+    },
+    {
+      "activity": "Select search tools",
+      "capabilities": [],
+      "gate_results": [
+        {
+          "gate": "evidence_sufficiency",
+          "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "status": "passed"
+        },
+        {
+          "gate": "technical_fit",
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "status": "failed"
+        },
+        {
+          "gate": "business_value",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        },
+        {
+          "gate": "risk_and_autonomy",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        }
+      ],
+      "priority": null,
+      "priority_missing_criteria": [],
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-77a07b30101d76fe"
+    },
+    {
+      "activity": "Conduct Internet searching",
+      "capabilities": [],
+      "gate_results": [
+        {
+          "gate": "evidence_sufficiency",
+          "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "status": "passed"
+        },
+        {
+          "gate": "technical_fit",
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "status": "failed"
+        },
+        {
+          "gate": "business_value",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        },
+        {
+          "gate": "risk_and_autonomy",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        }
+      ],
+      "priority": null,
+      "priority_missing_criteria": [],
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-2d9417a14cf0f937"
+    },
+    {
+      "activity": "Document Internet search strategies",
+      "capabilities": [],
+      "gate_results": [
+        {
+          "gate": "evidence_sufficiency",
+          "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "status": "passed"
+        },
+        {
+          "gate": "technical_fit",
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "status": "failed"
+        },
+        {
+          "gate": "business_value",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        },
+        {
+          "gate": "risk_and_autonomy",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        }
+      ],
+      "priority": null,
+      "priority_missing_criteria": [],
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-69b86f080884cb5a"
+    },
+    {
+      "activity": "Conduct a careful and comprehensive search",
+      "capabilities": [],
+      "gate_results": [
+        {
+          "gate": "evidence_sufficiency",
+          "rationale": "The activity is source-backed. Criterion sufficiency is evaluated only when a criterion becomes material to the current gate.",
+          "status": "passed"
+        },
+        {
+          "gate": "technical_fit",
+          "rationale": "Material evidence is insufficient: ai_capability_fit is unknown.",
+          "status": "failed"
+        },
+        {
+          "gate": "business_value",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        },
+        {
+          "gate": "risk_and_autonomy",
+          "rationale": "Not evaluated because an earlier gate determined the outcome.",
+          "status": "not_evaluated"
+        }
+      ],
+      "priority": null,
+      "priority_missing_criteria": [],
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "step_id": "candidate-step-a154c8ee145a50f9"
+    }
+  ],
+  "outcome_gating_note": "This operator asserts no expected recommendation mode, gate status or priority. Engine output above is recorded exactly as produced.",
+  "package_operation_present": false,
+  "phase1_contract_version": "phase1-v0.3",
+  "policy_id": "decision_policy.v0.2",
+  "policy_status": "PROVISIONAL \u2014 NOT YET ACADEMICALLY VALIDATED",
+  "policy_version": "0.2.0",
+  "production_fingerprint": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85",
+  "recorded_operations": [
+    "assess",
+    "extract",
+    "ingest"
+  ],
+  "review_id": "review-8f199803fc07467e95dba9950d5ed399",
+  "review_session_artifact_id": "artifact-ffc7fe4a9f6540eabd5683fcf50c550b",
+  "review_session_payload_sha256": "0bd62671726c9a3f6cebfc3359b09a5bfcc0c2016bac6c7d158c80e4eb7af522",
+  "review_session_status_after_assessment": "in-review",
+  "run_manifest_sha256_at_assessment": "4462b37f2832123db34b075cfefba96ac22766130bdcc4790506e3c923653597",
+  "source_stage3_approval_record_sha256": "3cab058cbdf590ab73e45031a9921fd081ea85bfee44fc0dd71c51c97cb4fe7e",
+  "source_stage3_database_sha256": "09b4399987814a32b9bc48b01bcd246daee319180ae4d6a2d208932d0ca33e46",
+  "source_stage3_observation_record_sha256": "341bf6c083e64e9264d96e0256b08b4bcb6c97f0bcd76ff24f1c1588dff44a1b",
+  "stage": "stage-4-phase-5-deterministic-assessment",
+  "stage4_database_sha256": "9c144be8b2ca2d8fa3f0cf88a6d4ea4e344371afc13fc856a4a52bc94148cce3",
+  "stop_boundary_note": "The deterministic assessment result is persisted. No decision package, recommendation document, executive report, roadmap, governance output or implementation artefact was generated. The frozen Stage 1, Stage 2 and Stage 3 artefacts remain immutable, the APPROVED_REVIEW artefact is unchanged, and no AFTER evidence was accessed.",
+  "workflow_stage": "assessed"
+}
