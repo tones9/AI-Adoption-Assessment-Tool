@@ -1,0 +1,120 @@
+{
+  "accountability_unknown": 8,
+  "action_plan_version": "v1.1",
+  "approval_rationale": "PORT-004 explicit Phase 4 approval after frozen ready-but-unapproved checkpoint; action plan v1.1 and Stage 2 checkpoint verified.",
+  "approval_statement": "APPROVE CURRENT-STATE PROCESS",
+  "approved_at": "2026-08-19T14:04:02.249428+00:00",
+  "approved_review_artifact_id": "artifact-5d7e6631ce3042e1871e19a9d8d39010",
+  "approved_review_parent_artifact_id": "artifact-ffc7fe4a9f6540eabd5683fcf50c550b",
+  "approved_review_payload_sha256": "c886848bba58ab762410e950083a497977b579157eeba6ac08728aee5368f960",
+  "approved_review_revision": 1,
+  "assess_operation_present": false,
+  "assessment_id": "assessment-088291801b5e4e208b0a1d6078aed1bc",
+  "before_corpus_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+  "capability_signals_finding": "Capability signals were copied field-for-field by the Phase 1 projection and were neither modified nor recomputed during approval; the pre-approval and post-approval signal states are identical.",
+  "case_id": "PORT-004",
+  "criteria_unknown": 80,
+  "decision_package_result_present": false,
+  "dependency_targets": {
+    "candidate-step-55d273f0f007cf1f": "candidate-step-df4f0ee1970efb51",
+    "candidate-step-69b86f080884cb5a": "candidate-step-2d9417a14cf0f937",
+    "candidate-step-df4f0ee1970efb51": "candidate-step-8761540c3fb724d5"
+  },
+  "execution_identity": {
+    "git_head": "08d8941db76ac3d923ee11a8b1225f13450bfaa8",
+    "operator_blob_in_head": "768b174be21070ee24f9b55b5f942f18a5e80dff",
+    "operator_blob_working": "768b174be21070ee24f9b55b5f942f18a5e80dff",
+    "operator_matches_head": true,
+    "operator_path": "evaluation/portfolio/_run_port004_stage3_approval.py",
+    "operator_sha256": "a6ae0111226e80e6e55a9ccb493f92911a3cd9c0d9d4e2e4fabbfac202f898fe",
+    "operator_tracked": true
+  },
+  "frozen_source_hashes_after_approval": {
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/candidate_extraction.json": "ffbefc0eef7ad68b90859576d60aa0c09606c1eb6fd267d4fe2dca13b2c8ad65",
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/ingestion_result.json": "caaeb9534c827202fac910ba715e88ff93086dccfd9f637fb0919f364438eb58",
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/run_state_after_extraction.json": "1f346ee7bf5911ad4e1e3e23fc57cf08962ed0dd54934a5246eb0b9d564f9a19",
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/workspace.db": "f4a5c97503ec9a7f3c989fec8a2d5048f0678f2994e9b93e52802af55d2ac49f",
+    "evaluation/portfolio/runs/port-004/production-run-v0.2-review/stage2-execution-record.v0.1.json": "1c33e51a56ea4482d77ab930cccb5319dccaea92e1d1e4541301ba52505ef51b",
+    "evaluation/portfolio/runs/port-004/production-run-v0.2-review/workspace.db": "0fc81b4a14f2336dc672148fcd91a77db86fb92ac518144cf4ace1718ef82612",
+    "evaluation/portfolio/runs/port-004/stage2-observation-record.v0.1.md": "19f3457d135c53609acf3e1ecf173633516794c299396df79395ba7afd611d58"
+  },
+  "human_supplied_assertions": 0,
+  "integrated_assessment_result_present": false,
+  "newly_minted_evidence_count": 0,
+  "package_operation_present": false,
+  "production_fingerprint": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85",
+  "projected_process": {
+    "evidence_reference_count": 71,
+    "name": "How to Search",
+    "process_id": "validated-extraction-e55a1dc6-8394-48ad-a8a2-7f0dafc3fe34",
+    "step_count": 8,
+    "steps": [
+      {
+        "activity": "identifying the field of search",
+        "dependencies": [],
+        "sequence": 1,
+        "step_id": "candidate-step-8761540c3fb724d5"
+      },
+      {
+        "activity": "selecting the proper tool(s) to perform the search",
+        "dependencies": [
+          "candidate-step-8761540c3fb724d5"
+        ],
+        "sequence": 2,
+        "step_id": "candidate-step-df4f0ee1970efb51"
+      },
+      {
+        "activity": "determining the appropriate search strategy for each search tool selected",
+        "dependencies": [
+          "candidate-step-df4f0ee1970efb51"
+        ],
+        "sequence": 3,
+        "step_id": "candidate-step-55d273f0f007cf1f"
+      },
+      {
+        "activity": "Prioritize areas to be searched",
+        "dependencies": [],
+        "sequence": 4,
+        "step_id": "candidate-step-56dffd383d81b62b"
+      },
+      {
+        "activity": "Select search tools",
+        "dependencies": [],
+        "sequence": 5,
+        "step_id": "candidate-step-77a07b30101d76fe"
+      },
+      {
+        "activity": "Conduct Internet searching",
+        "dependencies": [],
+        "sequence": 6,
+        "step_id": "candidate-step-2d9417a14cf0f937"
+      },
+      {
+        "activity": "Document Internet search strategies",
+        "dependencies": [
+          "candidate-step-2d9417a14cf0f937"
+        ],
+        "sequence": 7,
+        "step_id": "candidate-step-69b86f080884cb5a"
+      },
+      {
+        "activity": "Conduct a careful and comprehensive search",
+        "dependencies": [],
+        "sequence": 8,
+        "step_id": "candidate-step-a154c8ee145a50f9"
+      }
+    ]
+  },
+  "review_id": "review-8f199803fc07467e95dba9950d5ed399",
+  "review_session_artifact_id": "artifact-ffc7fe4a9f6540eabd5683fcf50c550b",
+  "review_session_payload_sha256": "0bd62671726c9a3f6cebfc3359b09a5bfcc0c2016bac6c7d158c80e4eb7af522",
+  "review_session_status_after_approval": "in-review",
+  "run_manifest_sha256_at_approval": "f550977f43556e89d1a3f1588e5b77579157b4887430b8c18187f19631c74e8b",
+  "source_stage2_database_sha256": "0fc81b4a14f2336dc672148fcd91a77db86fb92ac518144cf4ace1718ef82612",
+  "source_stage2_execution_record_sha256": "1c33e51a56ea4482d77ab930cccb5319dccaea92e1d1e4541301ba52505ef51b",
+  "source_stage2_observation_record_sha256": "19f3457d135c53609acf3e1ecf173633516794c299396df79395ba7afd611d58",
+  "stage": "stage-3-phase-4-explicit-approval",
+  "stage3_database_sha256": "09b4399987814a32b9bc48b01bcd246daee319180ae4d6a2d208932d0ca33e46",
+  "stop_boundary_note": "The frozen Stage 2 ready-but-unapproved database remains immutable. The standalone REVIEW_SESSION artefact still reads in-review; the approved snapshot lives inside the separate APPROVED_REVIEW artefact. The workflow stage is approved. No deterministic assessment, recommendation or decision package was produced, and no AFTER evidence was accessed.",
+  "workflow_stage": "approved"
+}

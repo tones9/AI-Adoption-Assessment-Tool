@@ -6,3 +6,6 @@ db6ecae125e415efe35a11656e73a17e1be752768dffe1e2ead38404b8b32cc1  stage1-observa
 1c33e51a56ea4482d77ab930cccb5319dccaea92e1d1e4541301ba52505ef51b  production-run-v0.2-review/stage2-execution-record.v0.1.json
 0fc81b4a14f2336dc672148fcd91a77db86fb92ac518144cf4ace1718ef82612  production-run-v0.2-review/workspace.db
 19f3457d135c53609acf3e1ecf173633516794c299396df79395ba7afd611d58  stage2-observation-record.v0.1.md
+3cab058cbdf590ab73e45031a9921fd081ea85bfee44fc0dd71c51c97cb4fe7e  production-run-v0.3-approved/stage3-approval-record.v0.1.json
+09b4399987814a32b9bc48b01bcd246daee319180ae4d6a2d208932d0ca33e46  production-run-v0.3-approved/workspace.db
+341bf6c083e64e9264d96e0256b08b4bcb6c97f0bcd76ff24f1c1588dff44a1b  stage3-observation-record.v0.1.md
