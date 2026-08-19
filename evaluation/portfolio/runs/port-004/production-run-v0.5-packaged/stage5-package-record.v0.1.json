@@ -1,0 +1,162 @@
+{
+  "approved_review_artifact_id": "artifact-5d7e6631ce3042e1871e19a9d8d39010",
+  "approved_review_payload_sha256": "c886848bba58ab762410e950083a497977b579157eeba6ac08728aee5368f960",
+  "assessment_id": "assessment-088291801b5e4e208b0a1d6078aed1bc",
+  "assessment_run_id": "assessment-485eee54ece54f46aba333b6e72e4307",
+  "before_corpus_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+  "case_id": "PORT-004",
+  "completeness": "COMPLETE_WITH_INFORMATION_GAPS",
+  "decision_package_artifact_id": "artifact-7d8a9331af1449fea8c5ea905ace1a3b",
+  "decision_package_parent_artifact_id": "artifact-61ee88e2be40437598864e7f634b2243",
+  "decision_package_payload_sha256": "4c717926f4fd21bd1cecfbd6516553d63be3470e383de2a1a28388a136938862",
+  "decision_package_revision": 1,
+  "decision_policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66",
+  "evidence_appendix_count": 10,
+  "execution_identity": {
+    "git_head": "2453d8c960c7dc86bc90c22f77ada0279250aaab",
+    "operator_blob_in_head": "4ea8c76fcbf08f229634403fee8a534c6abefcec",
+    "operator_blob_working": "4ea8c76fcbf08f229634403fee8a534c6abefcec",
+    "operator_matches_head": true,
+    "operator_path": "evaluation/portfolio/_run_port004_stage5_package.py",
+    "operator_sha256": "2dfc3aef9727b57db0cbd94ae96980ecf677fa5622435cc56e32ffe7cd678137",
+    "operator_tracked": true
+  },
+  "frozen_source_hashes_after_generation": {
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/candidate_extraction.json": "ffbefc0eef7ad68b90859576d60aa0c09606c1eb6fd267d4fe2dca13b2c8ad65",
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/ingestion_result.json": "caaeb9534c827202fac910ba715e88ff93086dccfd9f637fb0919f364438eb58",
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/run_state_after_extraction.json": "1f346ee7bf5911ad4e1e3e23fc57cf08962ed0dd54934a5246eb0b9d564f9a19",
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/workspace.db": "f4a5c97503ec9a7f3c989fec8a2d5048f0678f2994e9b93e52802af55d2ac49f",
+    "evaluation/portfolio/runs/port-004/production-run-v0.2-review/stage2-execution-record.v0.1.json": "1c33e51a56ea4482d77ab930cccb5319dccaea92e1d1e4541301ba52505ef51b",
+    "evaluation/portfolio/runs/port-004/production-run-v0.2-review/workspace.db": "0fc81b4a14f2336dc672148fcd91a77db86fb92ac518144cf4ace1718ef82612",
+    "evaluation/portfolio/runs/port-004/production-run-v0.3-approved/stage3-approval-record.v0.1.json": "3cab058cbdf590ab73e45031a9921fd081ea85bfee44fc0dd71c51c97cb4fe7e",
+    "evaluation/portfolio/runs/port-004/production-run-v0.3-approved/workspace.db": "09b4399987814a32b9bc48b01bcd246daee319180ae4d6a2d208932d0ca33e46",
+    "evaluation/portfolio/runs/port-004/production-run-v0.4-assessed/stage4-assessment-record.v0.1.json": "42f399ac5bc0c8f86ff9dcda58b9c5c2cd5af2240a284606eedd94e6cd4df32e",
+    "evaluation/portfolio/runs/port-004/production-run-v0.4-assessed/workspace.db": "9c144be8b2ca2d8fa3f0cf88a6d4ea4e344371afc13fc856a4a52bc94148cce3",
+    "evaluation/portfolio/runs/port-004/stage1-observation-record.v0.1.md": "db6ecae125e415efe35a11656e73a17e1be752768dffe1e2ead38404b8b32cc1",
+    "evaluation/portfolio/runs/port-004/stage2-observation-record.v0.1.md": "19f3457d135c53609acf3e1ecf173633516794c299396df79395ba7afd611d58",
+    "evaluation/portfolio/runs/port-004/stage3-observation-record.v0.1.md": "341bf6c083e64e9264d96e0256b08b4bcb6c97f0bcd76ff24f1c1588dff44a1b",
+    "evaluation/portfolio/runs/port-004/stage4-observation-record.v0.1.md": "996889149324d0ecd45659706142785815cb0c0cd77e014102211e1b5330d375"
+  },
+  "future_state_step_count": 8,
+  "generate_package_operation_status": [
+    "completed"
+  ],
+  "human_supplied_assertions": 0,
+  "integrated_assessment_artifact_id": "artifact-61ee88e2be40437598864e7f634b2243",
+  "integrated_assessment_payload_sha256": "eedf5c3a70b0144987d1d7af5fc4ccbdafd5895f0baddd6555b398724700820b",
+  "missing_information_count": 174,
+  "newly_minted_evidence_count": 0,
+  "observed_portfolio_items": [
+    {
+      "capabilities": [
+        "DOCUMENT_INFORMATION_EXTRACTION",
+        "KNOWLEDGE_RETRIEVAL"
+      ],
+      "missing_information_count": 20,
+      "priority": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "sequence": 1,
+      "step_id": "candidate-step-8761540c3fb724d5"
+    },
+    {
+      "capabilities": [],
+      "missing_information_count": 22,
+      "priority": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "sequence": 2,
+      "step_id": "candidate-step-df4f0ee1970efb51"
+    },
+    {
+      "capabilities": [],
+      "missing_information_count": 22,
+      "priority": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "sequence": 3,
+      "step_id": "candidate-step-55d273f0f007cf1f"
+    },
+    {
+      "capabilities": [],
+      "missing_information_count": 22,
+      "priority": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "sequence": 4,
+      "step_id": "candidate-step-56dffd383d81b62b"
+    },
+    {
+      "capabilities": [],
+      "missing_information_count": 22,
+      "priority": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "sequence": 5,
+      "step_id": "candidate-step-77a07b30101d76fe"
+    },
+    {
+      "capabilities": [],
+      "missing_information_count": 22,
+      "priority": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "sequence": 6,
+      "step_id": "candidate-step-2d9417a14cf0f937"
+    },
+    {
+      "capabilities": [],
+      "missing_information_count": 22,
+      "priority": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "sequence": 7,
+      "step_id": "candidate-step-69b86f080884cb5a"
+    },
+    {
+      "capabilities": [],
+      "missing_information_count": 22,
+      "priority": null,
+      "priority_status": "not_applicable",
+      "recommendation_mode": "INVESTIGATE_FURTHER",
+      "sequence": 8,
+      "step_id": "candidate-step-a154c8ee145a50f9"
+    }
+  ],
+  "ordered_step_ids": [
+    "candidate-step-8761540c3fb724d5",
+    "candidate-step-df4f0ee1970efb51",
+    "candidate-step-55d273f0f007cf1f",
+    "candidate-step-56dffd383d81b62b",
+    "candidate-step-77a07b30101d76fe",
+    "candidate-step-2d9417a14cf0f937",
+    "candidate-step-69b86f080884cb5a",
+    "candidate-step-a154c8ee145a50f9"
+  ],
+  "outcome_gating_note": "This operator asserts no expected completeness, intervention type, roadmap shape or package narrative. Package content above is recorded exactly as produced.",
+  "package_id": "decision-package-3ab92e05e25e14ba40552b255c4961867c25a293c057ec9c784fe168cc5366c6",
+  "package_schema_version": "phase6-v0.1",
+  "policy_id": "decision_policy.v0.2",
+  "policy_status": "PROVISIONAL \u2014 NOT YET ACADEMICALLY VALIDATED",
+  "policy_version": "0.2.0",
+  "production_fingerprint": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85",
+  "recorded_operations": [
+    "assess",
+    "extract",
+    "generate-package",
+    "ingest"
+  ],
+  "review_id": "review-8f199803fc07467e95dba9950d5ed399",
+  "review_session_artifact_id": "artifact-ffc7fe4a9f6540eabd5683fcf50c550b",
+  "review_session_payload_sha256": "0bd62671726c9a3f6cebfc3359b09a5bfcc0c2016bac6c7d158c80e4eb7af522",
+  "review_session_status_after_generation": "in-review",
+  "roi_statement": "ROI / quantified benefit unavailable with current evidence.",
+  "run_manifest_sha256_at_generation": "fb9aa99f2b5c8f1a12729b839b4f2ad1a5fc6e1aba5c158127e6907e1945fd37",
+  "source_stage4_assessment_record_sha256": "42f399ac5bc0c8f86ff9dcda58b9c5c2cd5af2240a284606eedd94e6cd4df32e",
+  "source_stage4_database_sha256": "9c144be8b2ca2d8fa3f0cf88a6d4ea4e344371afc13fc856a4a52bc94148cce3",
+  "source_stage4_observation_record_sha256": "996889149324d0ecd45659706142785815cb0c0cd77e014102211e1b5330d375",
+  "stage": "stage-5-phase-6-decision-package",
+  "stage5_database_sha256": "adc91a82f5672e0acb693a72ae2d96120de11e2310f5aad4abc56e22dfdfa2a7",
+  "stop_boundary_note": "The deterministic decision package is persisted. This is the terminal product stage: no implementation, deployment or rollout artefact was produced, and no AFTER evidence was generated or accessed. The frozen Stage 1 to Stage 4 artefacts remain immutable, and the INTEGRATED_ASSESSMENT_RESULT, APPROVED_REVIEW and REVIEW_SESSION artefacts are unchanged.",
+  "workflow_stage": "package-ready"
+}

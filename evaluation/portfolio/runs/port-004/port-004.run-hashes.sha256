@@ -12,3 +12,6 @@ db6ecae125e415efe35a11656e73a17e1be752768dffe1e2ead38404b8b32cc1  stage1-observa
 42f399ac5bc0c8f86ff9dcda58b9c5c2cd5af2240a284606eedd94e6cd4df32e  production-run-v0.4-assessed/stage4-assessment-record.v0.1.json
 9c144be8b2ca2d8fa3f0cf88a6d4ea4e344371afc13fc856a4a52bc94148cce3  production-run-v0.4-assessed/workspace.db
 996889149324d0ecd45659706142785815cb0c0cd77e014102211e1b5330d375  stage4-observation-record.v0.1.md
+f987e4dd7e849977342cbf85e4816fa5bfcdc33406d65332e88eabf1e40a4507  production-run-v0.5-packaged/stage5-package-record.v0.1.json
+adc91a82f5672e0acb693a72ae2d96120de11e2310f5aad4abc56e22dfdfa2a7  production-run-v0.5-packaged/workspace.db
+25f76d245dd1267d66907b7f5b18e2a48c0c592404bf66ef5e270b69ef9cfeeb  stage5-observation-record.v0.1.md
