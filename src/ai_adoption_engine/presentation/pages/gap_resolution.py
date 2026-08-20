@@ -9,6 +9,7 @@ from ai_adoption_engine.presentation.components.status import guard
 from ai_adoption_engine.presentation.context import (
     hydrate_workspace,
     refresh_workspace,
+    switch_to_registered_page,
     workspace_service,
 )
 from ai_adoption_engine.workspace.models import ArtifactType
@@ -59,6 +60,13 @@ def render() -> None:
     if snapshot is None:
         guard("Create or open an assessment first.")
     st.title("Gap resolution")
+    if st.button(
+        "Return to decision continuation",
+        key="grw-m1-return-dcw",
+        icon=":material/arrow_back:",
+    ):
+        if not switch_to_registered_page("decision-continuation"):
+            st.info("Open Decision continuation from the sidebar to return.")
     package_artifact = snapshot.active_artifacts.get(ArtifactType.DECISION_PACKAGE_RESULT)
     if package_artifact is None:
         guard("Generate a Decision Package before opening optional Gap resolution.")

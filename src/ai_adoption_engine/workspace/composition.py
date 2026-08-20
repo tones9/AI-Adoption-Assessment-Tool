@@ -20,6 +20,7 @@ from ai_adoption_engine.persistence.reassessment import (
     assert_m2_write_target_allowed,
 )
 from ai_adoption_engine.grw.m2.service import M2ReassessmentService
+from ai_adoption_engine.application.decision_continuation import DecisionContinuationService
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -69,3 +70,21 @@ def build_m2_reassessment_service(
     baseline = SQLiteAssessmentRepository(path)
     reassessment = SQLiteReassessmentRepository(path)
     return M2ReassessmentService(baseline, reassessment)
+
+
+def build_decision_continuation_service(
+    database_path: str | Path | None = None,
+) -> DecisionContinuationService:
+    """Compose the read-only DCW view for an ordinary local workspace.
+
+    The same frozen-workspace guard applies before either M2 collaborator is
+    constructed.  DCW intentionally receives existing services rather than
+    creating a new persistence model or lifecycle write path.
+    """
+
+    path = database_path or DEFAULT_DATABASE_PATH
+    assert_m2_write_target_allowed(path)
+    workspace = build_workspace_service(path)
+    reassessment = SQLiteReassessmentRepository(path)
+    m2 = M2ReassessmentService(workspace.repository, reassessment)
+    return DecisionContinuationService(workspace, m2)

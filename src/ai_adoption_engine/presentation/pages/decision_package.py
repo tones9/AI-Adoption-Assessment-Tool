@@ -11,6 +11,7 @@ from ai_adoption_engine.presentation.components.status import guard
 from ai_adoption_engine.presentation.context import (
     hydrate_workspace,
     refresh_workspace,
+    switch_to_registered_page,
     workspace_service,
 )
 from ai_adoption_engine.presentation.report_html import render_report_html
@@ -56,6 +57,13 @@ def render() -> None:
         f"Package {package.package_id} · {package.completeness.value} · "
         f"Policy {package.source.policy.policy_id} {package.source.policy.policy_version}"
     )
+    if st.button(
+        "Continue decision",
+        key="decision-package-continue",
+        icon=":material/route:",
+    ):
+        if not switch_to_registered_page("decision-continuation"):
+            st.info("Open Decision continuation from the sidebar to continue.")
     tabs = st.tabs(["Future state", "Roadmap", "Risk & governance", "Report"])
     with tabs[0]:
         render_future_state(package.future_state)

@@ -15,6 +15,7 @@ from ai_adoption_engine.presentation.components.status import (
 from ai_adoption_engine.presentation.context import hydrate_workspace
 from ai_adoption_engine.presentation.pages import (
     assessments,
+    decision_continuation,
     decision_package,
     gap_resolution,
     reassessment,
@@ -63,6 +64,7 @@ pages = [
     st.Page(review.render, title="Process Review", icon=":material/fact_check:", url_path="review"),
     st.Page(results.render, title="Assessment Results", icon=":material/analytics:", url_path="results"),
     st.Page(decision_package.render, title="Decision Package", icon=":material/account_tree:", url_path="decision-package"),
+    st.Page(decision_continuation.render, title="Decision continuation", icon=":material/route:", url_path="decision-continuation"),
     st.Page(gap_resolution.render, title="Gap resolution", icon=":material/help_center:", url_path="gap-resolution"),
     st.Page(reassessment.render, title="Reassessment", icon=":material/restart_alt:", url_path="reassessment"),
 ]

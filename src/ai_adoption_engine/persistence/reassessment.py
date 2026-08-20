@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import sqlite3
 from contextlib import contextmanager
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Iterator
@@ -17,6 +18,7 @@ from ai_adoption_engine.grw.m2.models import (
     M2EvidenceClass,
     M2EvidencePermission,
     M2RunStage,
+    M2StepGapReference,
 )
 from ai_adoption_engine.persistence.base import ArtifactNotFoundError, PersistenceError
 from ai_adoption_engine.persistence.reassessment_serialization import (
@@ -46,6 +48,25 @@ class M2PersistenceError(PersistenceError):
     pass
 
 
+@dataclass(frozen=True)
+class M2RunListing:
+    """Read-only, manifest-validated summary for DCW run discovery.
+
+    This is not a persisted artefact or a new M2 lifecycle contract.  It is a
+    compact projection of existing immutable run state, intentionally excluding
+    supporting-document bytes and any unreviewed evidence content.
+    """
+
+    run_id: str
+    stage: M2RunStage
+    created_at: datetime
+    updated_at: datetime
+    baseline: M2BaselineReference
+    gap: M2StepGapReference
+    successor_package_artifact: M2ArtifactReference | None
+    comparison_artifact: M2ArtifactReference | None
+
+
 _PARENTS: dict[M2ArtifactType, M2ArtifactType | None] = {
     M2ArtifactType.RUN_MANIFEST: None,
     M2ArtifactType.DOCUMENT_SUBMISSION: M2ArtifactType.RUN_MANIFEST,
@@ -70,6 +91,27 @@ _EXPECTED_PRIOR_STAGES: dict[M2ArtifactType, M2RunStage] = {
     M2ArtifactType.SUCCESSOR_INTEGRATED_ASSESSMENT: M2RunStage.SUCCESSOR_REVIEW_READY,
     M2ArtifactType.SUCCESSOR_DECISION_PACKAGE: M2RunStage.ASSESSED,
     M2ArtifactType.BASELINE_SUCCESSOR_COMPARISON: M2RunStage.PACKAGE_READY,
+}
+
+
+# Every deterministic lifecycle state below exposes exactly the immutable
+# prefix it reached.  ``STALE``, ``WITHDRAWN`` and ``FAILED`` can legitimately
+# stop after different prefixes, so they remain inspection-only once their
+# lineage is valid.
+_STAGE_LATEST_ARTIFACT: dict[M2RunStage, M2ArtifactType] = {
+    M2RunStage.OPEN: M2ArtifactType.RUN_MANIFEST,
+    M2RunStage.DOCUMENT_SUBMITTED: M2ArtifactType.DOCUMENT_SUBMISSION,
+    M2RunStage.EVIDENCE_REVIEWED: M2ArtifactType.EVIDENCE_REVIEW,
+    M2RunStage.RESOLUTION_PROPOSED: M2ArtifactType.DATA_READINESS_RESOLUTION,
+    M2RunStage.REQUESTED: M2ArtifactType.REASSESSMENT_REQUEST,
+    M2RunStage.APPROVED: M2ArtifactType.REASSESSMENT_APPROVAL,
+    M2RunStage.SUCCESSOR_REVIEW_READY: M2ArtifactType.SUCCESSOR_APPROVED_REVIEW,
+    M2RunStage.ASSESSED: M2ArtifactType.SUCCESSOR_INTEGRATED_ASSESSMENT,
+    M2RunStage.PACKAGE_READY: M2ArtifactType.SUCCESSOR_DECISION_PACKAGE,
+    M2RunStage.COMPARED: M2ArtifactType.BASELINE_SUCCESSOR_COMPARISON,
+    M2RunStage.EVIDENCE_REJECTED: M2ArtifactType.EVIDENCE_REVIEW,
+    M2RunStage.INSUFFICIENT: M2ArtifactType.EVIDENCE_REVIEW,
+    M2RunStage.BLOCKED_CONFLICT: M2ArtifactType.EVIDENCE_REVIEW,
 }
 
 
@@ -208,6 +250,81 @@ class SQLiteReassessmentRepository:
                 raise ArtifactNotFoundError("Reassessment run does not exist")
             self._validate_parent_chain_in_tx(c, run_id)
             return dict(row)
+
+    def list_runs_for_baseline(
+        self,
+        assessment_id: str,
+        package_artifact_id: str,
+        package_payload_sha256: str,
+        *,
+        expected_baseline: M2BaselineReference | None = None,
+    ) -> tuple[M2RunListing, ...]:
+        """Return only hash-validated M2 runs rooted in one exact baseline.
+
+        The database predicate is deliberately not treated as sufficient proof
+        of ownership.  Every candidate also has to possess a valid immutable
+        manifest whose pinned baseline agrees with the query roots.  Corrupt or
+        inconsistent data fails closed rather than being silently hidden or
+        repaired by a presentation read.
+        """
+
+        with self._read() as c:
+            rows = c.execute(
+                """SELECT * FROM reassessment_runs
+                   WHERE assessment_id=? AND baseline_package_artifact_id=?
+                     AND baseline_package_sha256=?
+                   ORDER BY updated_at DESC, run_id ASC""",
+                (assessment_id, package_artifact_id, package_payload_sha256),
+            ).fetchall()
+            listings: list[M2RunListing] = []
+            for row in rows:
+                run_id = str(row["run_id"])
+                self._validate_parent_chain_in_tx(c, run_id)
+                manifest_ref = self._active_ref_in_tx(c, run_id, M2ArtifactType.RUN_MANIFEST)
+                manifest = self._load_artifact_in_tx(c, manifest_ref)
+                if not isinstance(manifest, dict):
+                    raise M2PersistenceError("M2 run manifest is not a mapping")
+                try:
+                    baseline = M2BaselineReference.model_validate(manifest["baseline"])
+                    gap = M2StepGapReference.model_validate(manifest["gap"])
+                    stage = M2RunStage(str(row["stage"]))
+                    created_at = datetime.fromisoformat(str(row["created_at"]))
+                    updated_at = datetime.fromisoformat(str(row["updated_at"]))
+                except (KeyError, ValueError) as exc:
+                    raise M2PersistenceError(
+                        "M2 run manifest or stage failed validation"
+                    ) from exc
+                self._validate_listing_stage_in_tx(c, run_id, stage)
+                if (
+                    baseline.assessment_id != assessment_id
+                    or baseline.decision_package.artifact_id != package_artifact_id
+                    or baseline.decision_package.payload_sha256 != package_payload_sha256
+                    or gap.package_id != baseline.package_id
+                    or (
+                        expected_baseline is not None
+                        and baseline != expected_baseline
+                    )
+                ):
+                    raise M2PersistenceError(
+                        "M2 run manifest does not match its pinned baseline"
+                    )
+                listings.append(
+                    M2RunListing(
+                        run_id=run_id,
+                        stage=stage,
+                        created_at=created_at,
+                        updated_at=updated_at,
+                        baseline=baseline,
+                        gap=gap,
+                        successor_package_artifact=self._active_ref_in_tx(
+                            c, run_id, M2ArtifactType.SUCCESSOR_DECISION_PACKAGE
+                        ),
+                        comparison_artifact=self._active_ref_in_tx(
+                            c, run_id, M2ArtifactType.BASELINE_SUCCESSOR_COMPARISON
+                        ),
+                    )
+                )
+            return tuple(listings)
 
     def begin_operation(
         self, run_id: str, operation_kind: str, idempotency_key: str
@@ -400,14 +517,54 @@ class SQLiteReassessmentRepository:
                 request = self._load_artifact_in_tx(c, refs[M2ArtifactType.REASSESSMENT_REQUEST])
                 approval = self._load_artifact_in_tx(c, refs[M2ArtifactType.REASSESSMENT_APPROVAL])
                 ordered = (
-                    (successor_ref, refs[M2ArtifactType.REASSESSMENT_APPROVAL]),
-                    (refs[M2ArtifactType.REASSESSMENT_APPROVAL], refs[M2ArtifactType.REASSESSMENT_REQUEST]),
-                    (refs[M2ArtifactType.REASSESSMENT_REQUEST], refs[M2ArtifactType.DATA_READINESS_RESOLUTION]),
-                    (refs[M2ArtifactType.DATA_READINESS_RESOLUTION], refs[M2ArtifactType.EVIDENCE_REVIEW]),
-                    (refs[M2ArtifactType.EVIDENCE_REVIEW], refs[M2ArtifactType.DOCUMENT_SUBMISSION]),
-                    (refs[M2ArtifactType.DOCUMENT_SUBMISSION], refs[M2ArtifactType.RUN_MANIFEST]),
+                    (
+                        successor_ref,
+                        M2ArtifactType.SUCCESSOR_APPROVED_REVIEW,
+                        refs[M2ArtifactType.REASSESSMENT_APPROVAL],
+                        M2ArtifactType.REASSESSMENT_APPROVAL,
+                    ),
+                    (
+                        refs[M2ArtifactType.REASSESSMENT_APPROVAL],
+                        M2ArtifactType.REASSESSMENT_APPROVAL,
+                        refs[M2ArtifactType.REASSESSMENT_REQUEST],
+                        M2ArtifactType.REASSESSMENT_REQUEST,
+                    ),
+                    (
+                        refs[M2ArtifactType.REASSESSMENT_REQUEST],
+                        M2ArtifactType.REASSESSMENT_REQUEST,
+                        refs[M2ArtifactType.DATA_READINESS_RESOLUTION],
+                        M2ArtifactType.DATA_READINESS_RESOLUTION,
+                    ),
+                    (
+                        refs[M2ArtifactType.DATA_READINESS_RESOLUTION],
+                        M2ArtifactType.DATA_READINESS_RESOLUTION,
+                        refs[M2ArtifactType.EVIDENCE_REVIEW],
+                        M2ArtifactType.EVIDENCE_REVIEW,
+                    ),
+                    (
+                        refs[M2ArtifactType.EVIDENCE_REVIEW],
+                        M2ArtifactType.EVIDENCE_REVIEW,
+                        refs[M2ArtifactType.DOCUMENT_SUBMISSION],
+                        M2ArtifactType.DOCUMENT_SUBMISSION,
+                    ),
+                    (
+                        refs[M2ArtifactType.DOCUMENT_SUBMISSION],
+                        M2ArtifactType.DOCUMENT_SUBMISSION,
+                        refs[M2ArtifactType.RUN_MANIFEST],
+                        M2ArtifactType.RUN_MANIFEST,
+                    ),
                 )
-                if any(not self._parent_is(c, child.artifact_id, parent.artifact_id) for child, parent in ordered):
+                if any(
+                    not self._has_expected_parent_in_tx(
+                        c,
+                        run_id=run_id,
+                        child_type=child_type,
+                        child_id=child.artifact_id,
+                        parent_type=parent_type,
+                        parent_id=parent.artifact_id,
+                    )
+                    for child, child_type, parent, parent_type in ordered
+                ):
                     return False
                 if successor.baseline_approved_review != manifest_baseline.approved_review:
                     return False
@@ -569,26 +726,101 @@ class SQLiteReassessmentRepository:
         )
 
     def _validate_parent_chain_in_tx(self, c: sqlite3.Connection, run_id: str) -> None:
-        previous: M2ArtifactReference | None = None
+        """Validate the complete active M2 lineage for one exact run.
+
+        ``active_reassessment_artifacts`` does not have a composite foreign key
+        tying its ``run_id`` to the referenced artifact.  Treating its rows as
+        trustworthy would let a corrupted or foreign pointer masquerade as an
+        artifact of this run.  Validate both ownership and each immediate
+        parent explicitly before any caller can use the reference.
+        """
+
+        references = {
+            artifact_type: self._active_ref_in_tx(c, run_id, artifact_type)
+            for artifact_type in M2ArtifactType
+        }
+        manifest = references[M2ArtifactType.RUN_MANIFEST]
+        if manifest is None:
+            raise M2PersistenceError("M2 run is missing its immutable manifest")
+        if not self._has_expected_parent_in_tx(
+            c,
+            run_id=run_id,
+            child_type=M2ArtifactType.RUN_MANIFEST,
+            child_id=manifest.artifact_id,
+            parent_type=None,
+            parent_id=None,
+        ):
+            raise M2PersistenceError("M2 manifest lineage is corrupted")
+
+        for artifact_type, reference in references.items():
+            if artifact_type is M2ArtifactType.RUN_MANIFEST or reference is None:
+                continue
+            parent_type = _PARENTS[artifact_type]
+            assert parent_type is not None
+            parent = references[parent_type]
+            if parent is None or not self._has_expected_parent_in_tx(
+                c,
+                run_id=run_id,
+                child_type=artifact_type,
+                child_id=reference.artifact_id,
+                parent_type=parent_type,
+                parent_id=parent.artifact_id,
+            ):
+                raise M2PersistenceError(
+                    "M2 active artefact chain is incomplete, foreign, or corrupted"
+                )
+
+    def _validate_listing_stage_in_tx(
+        self, c: sqlite3.Connection, run_id: str, stage: M2RunStage
+    ) -> None:
+        """Reject listings whose required active prefix contradicts stage."""
+
+        latest = _STAGE_LATEST_ARTIFACT.get(stage)
+        if latest is None:
+            return
+        if self._active_ref_in_tx(c, run_id, latest) is None:
+            raise M2PersistenceError("M2 run is missing its required stage artifact")
+        seen_latest = False
         for artifact_type in M2ArtifactType:
-            reference = self._active_ref_in_tx(c, run_id, artifact_type)
-            if reference is None:
+            if artifact_type is latest:
+                seen_latest = True
                 continue
-            expected = _PARENTS[artifact_type]
-            if expected is None:
-                previous = reference
-                continue
-            if previous is None or not self._parent_is(c, reference.artifact_id, previous.artifact_id):
-                raise M2PersistenceError("M2 active artefact chain is incomplete or corrupted")
-            previous = reference
+            if seen_latest and self._active_ref_in_tx(c, run_id, artifact_type) is not None:
+                raise M2PersistenceError(
+                    "M2 run has artifacts beyond its persisted stage"
+                )
 
     @staticmethod
-    def _parent_is(c: sqlite3.Connection, child_id: str, parent_id: str) -> bool:
+    def _has_expected_parent_in_tx(
+        c: sqlite3.Connection,
+        *,
+        run_id: str,
+        child_type: M2ArtifactType,
+        child_id: str,
+        parent_type: M2ArtifactType | None,
+        parent_id: str | None,
+    ) -> bool:
         row = c.execute(
-            "SELECT parent_artifact_id FROM reassessment_artifacts WHERE artifact_id=?",
+            """SELECT child.run_id AS child_run_id,
+                      child.artifact_type AS child_type,
+                      child.parent_artifact_id AS actual_parent_id,
+                      parent.run_id AS parent_run_id,
+                      parent.artifact_type AS parent_type
+               FROM reassessment_artifacts child
+               LEFT JOIN reassessment_artifacts parent
+                 ON parent.artifact_id=child.parent_artifact_id
+               WHERE child.artifact_id=?""",
             (child_id,),
         ).fetchone()
-        return row is not None and row["parent_artifact_id"] == parent_id
+        if row is None or row["child_run_id"] != run_id or row["child_type"] != child_type.value:
+            return False
+        if parent_type is None:
+            return row["actual_parent_id"] is None
+        return (
+            row["actual_parent_id"] == parent_id
+            and row["parent_run_id"] == run_id
+            and row["parent_type"] == parent_type.value
+        )
 
     @staticmethod
     def _require_run(c: sqlite3.Connection, run_id: str) -> sqlite3.Row:
@@ -612,13 +844,27 @@ class SQLiteReassessmentRepository:
         c: sqlite3.Connection, run_id: str, artifact_type: M2ArtifactType
     ) -> M2ArtifactReference | None:
         row = c.execute(
-            """SELECT a.* FROM active_reassessment_artifacts aa
-               JOIN reassessment_artifacts a ON a.artifact_id=aa.artifact_id
+            """SELECT aa.artifact_id AS pointer_artifact_id,
+                      a.artifact_id,
+                      a.run_id AS artifact_run_id,
+                      a.artifact_type AS actual_artifact_type,
+                      a.artifact_revision,
+                      a.payload_sha256
+               FROM active_reassessment_artifacts aa
+               LEFT JOIN reassessment_artifacts a ON a.artifact_id=aa.artifact_id
                WHERE aa.run_id=? AND aa.artifact_type=?""",
             (run_id, artifact_type.value),
         ).fetchone()
         if row is None:
             return None
+        if (
+            row["artifact_id"] is None
+            or row["artifact_run_id"] != run_id
+            or row["actual_artifact_type"] != artifact_type.value
+        ):
+            raise M2PersistenceError(
+                "M2 active artifact pointer does not belong to its declared run and type"
+            )
         return M2ArtifactReference(
             artifact_id=row["artifact_id"],
             artifact_revision=row["artifact_revision"],

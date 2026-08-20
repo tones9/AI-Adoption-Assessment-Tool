@@ -8,11 +8,16 @@ import streamlit as st
 
 from ai_adoption_engine.workspace.composition import (
     DEFAULT_DATABASE_PATH,
+    build_decision_continuation_service,
     build_m2_reassessment_service,
     build_workspace_service,
 )
 from ai_adoption_engine.workspace.models import ArtifactType
 from ai_adoption_engine.persistence.base import PersistenceError
+from ai_adoption_engine.persistence.reassessment import (
+    M2FrozenWorkspaceError,
+    assert_m2_write_target_allowed,
+)
 
 
 @st.cache_resource
@@ -25,6 +30,11 @@ def get_m2_reassessment_service(database_path: str):
     return build_m2_reassessment_service(database_path)
 
 
+@st.cache_resource
+def get_decision_continuation_service(database_path: str):
+    return build_decision_continuation_service(database_path)
+
+
 def workspace_service():
     path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
     return get_workspace_service(path)
@@ -33,6 +43,22 @@ def workspace_service():
 def m2_reassessment_service():
     path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
     return get_m2_reassessment_service(path)
+
+
+def grw_continuation_available() -> bool:
+    """Return whether GRW continuation may be composed for this database path."""
+
+    path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
+    try:
+        assert_m2_write_target_allowed(path)
+    except M2FrozenWorkspaceError:
+        return False
+    return True
+
+
+def decision_continuation_service():
+    path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
+    return get_decision_continuation_service(path)
 
 
 def clear_workspace_state() -> None:
@@ -46,8 +72,47 @@ def clear_workspace_state() -> None:
         "integrated_assessment_result",
         "decision_package_result",
         "selected_step_id",
+        "grw_m2_run_id",
+        "dcw_selected_m2_run_id",
+        "dcw_return_page",
     ):
         st.session_state.pop(key, None)
+
+
+def switch_to_registered_page(page_key: str) -> bool:
+    """Switch through a Page definition matching the app's native navigation."""
+
+    if page_key == "decision-continuation":
+        from ai_adoption_engine.presentation.pages import decision_continuation
+
+        page = st.Page(
+            decision_continuation.render,
+            title="Decision continuation",
+            icon=":material/route:",
+            url_path="decision-continuation",
+        )
+    elif page_key == "gap-resolution":
+        from ai_adoption_engine.presentation.pages import gap_resolution
+
+        page = st.Page(
+            gap_resolution.render,
+            title="Gap resolution",
+            icon=":material/help_center:",
+            url_path="gap-resolution",
+        )
+    elif page_key == "reassessment":
+        from ai_adoption_engine.presentation.pages import reassessment
+
+        page = st.Page(
+            reassessment.render,
+            title="Reassessment",
+            icon=":material/restart_alt:",
+            url_path="reassessment",
+        )
+    else:
+        return False
+    st.switch_page(page)
+    return True
 
 
 def select_assessment(assessment_id: str) -> None:

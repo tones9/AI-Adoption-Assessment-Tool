@@ -13,11 +13,15 @@ from ai_adoption_engine.grw.m2.models import (
     M2DocumentLocator,
     M2EvidencePermission,
 )
+from ai_adoption_engine.persistence.base import PersistenceError
+from ai_adoption_engine.persistence.reassessment import M2FrozenWorkspaceError
 from ai_adoption_engine.models.enums import KnowledgeState
 from ai_adoption_engine.presentation.context import (
+    decision_continuation_service,
     hydrate_workspace,
     m2_reassessment_service,
     refresh_workspace,
+    switch_to_registered_page,
 )
 from ai_adoption_engine.workspace.models import ArtifactType
 
@@ -33,11 +37,25 @@ def _actor(label: str, role: str) -> M2ActorDeclaration:
 
 def render() -> None:
     st.title("Reassess with supporting document")
+    if st.button(
+        "Return to decision continuation",
+        key="grw-m2-return-dcw",
+        icon=":material/arrow_back:",
+    ):
+        if not switch_to_registered_page("decision-continuation"):
+            st.info("Open Decision continuation from the sidebar to return.")
     snapshot = hydrate_workspace()
     if snapshot is None:
         st.info("Open a package-ready assessment first.")
         return
-    service = m2_reassessment_service()
+    try:
+        service = m2_reassessment_service()
+    except M2FrozenWorkspaceError:
+        st.warning(
+            "Reassessment is unavailable for protected evaluation workspaces. "
+            "The baseline remains immutable."
+        )
+        return
     context = service.open_m2_m1_context(snapshot.assessment.assessment_id)
     if context is None:
         st.info("No eligible UNKNOWN data-readiness question is available for this Decision Package.")
@@ -53,7 +71,32 @@ def render() -> None:
         st.write("What information is documented about the data available for this activity? You may provide one current plain-text system description, data dictionary, or procedure that identifies relevant fields and limits.")
         st.caption("Do not include credentials, secrets, or unnecessary personal data. A .txt document is the only M2 M1 intake type.")
 
-    run_id = st.session_state.get("grw_m2_run_id")
+    run_id = st.session_state.get("dcw_selected_m2_run_id") or st.session_state.get(
+        "grw_m2_run_id"
+    )
+    unavailable_selection = False
+    if run_id is not None:
+        try:
+            resumable = decision_continuation_service().resumable_run(
+                snapshot.assessment.assessment_id, run_id
+            )
+        except (PersistenceError, ValueError):
+            resumable = None
+        if resumable is None:
+            st.session_state.pop("dcw_selected_m2_run_id", None)
+            st.session_state.pop("grw_m2_run_id", None)
+            st.warning(
+                "The selected reassessment is unavailable for lifecycle actions. "
+                "It is complete or stopped and can be inspected in Decision continuation."
+            )
+            run_id = None
+            unavailable_selection = True
+        else:
+            st.session_state.grw_m2_run_id = resumable.run_id
+            st.session_state.dcw_selected_m2_run_id = resumable.run_id
+            run_id = resumable.run_id
+    if unavailable_selection:
+        return
     if run_id is None:
         with st.form("grw-m2-open-run"):
             opened = st.form_submit_button("Open reassessment", type="primary")

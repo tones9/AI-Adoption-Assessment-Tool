@@ -106,7 +106,16 @@ class M2ReassessmentService:
     def _ref(artifact: StoredArtifact) -> M2ArtifactReference:
         return M2ArtifactReference(artifact_id=artifact.artifact_id, artifact_revision=artifact.artifact_revision, payload_sha256=artifact.payload_sha256)
 
-    def open_m2_m1_context(self, assessment_id: str) -> tuple[M2BaselineReference, M2StepGapReference] | None:
+    def load_m2_baseline_reference(
+        self, assessment_id: str
+    ) -> M2BaselineReference | None:
+        """Load the hash-pinned package-ready baseline without selecting a gap.
+
+        Discovery callers need this historical identity even when the narrowly
+        eligible data-readiness route is no longer actionable.  It is a read
+        helper only; it introduces no new evidence or reassessment semantics.
+        """
+
         workspace = self.baseline_repository.load_workspace(assessment_id)
         approved = workspace.active_artifacts.get(ArtifactType.APPROVED_REVIEW)
         integrated = workspace.active_artifacts.get(ArtifactType.INTEGRATED_ASSESSMENT_RESULT)
@@ -115,7 +124,7 @@ class M2ReassessmentService:
             return None
         if not isinstance(integrated.payload, IntegratedAssessmentSuccess) or not isinstance(package.payload, DecisionPackageSuccess):
             return None
-        baseline = M2BaselineReference(
+        return M2BaselineReference(
             assessment_id=assessment_id,
             execution_mode=workspace.assessment.execution_mode.value,
             source_document_id=integrated.payload.lineage.source_document_id,
@@ -127,6 +136,15 @@ class M2ReassessmentService:
             decision_policy_status=integrated.payload.policy.policy_status,
             decision_policy_fingerprint=integrated.payload.policy.decision_policy_fingerprint,
         )
+
+    def open_m2_m1_context(self, assessment_id: str) -> tuple[M2BaselineReference, M2StepGapReference] | None:
+        baseline = self.load_m2_baseline_reference(assessment_id)
+        if baseline is None:
+            return None
+        workspace = self.baseline_repository.load_workspace(assessment_id)
+        approved = workspace.active_artifacts[ArtifactType.APPROVED_REVIEW]
+        integrated = workspace.active_artifacts[ArtifactType.INTEGRATED_ASSESSMENT_RESULT]
+        package = workspace.active_artifacts[ArtifactType.DECISION_PACKAGE_RESULT]
         for item in package.payload.package.portfolio.items:
             for gap in item.missing_information:
                 if gap.kind is InformationGapKind.UNKNOWN_INPUT and gap.field_name == CriterionName.DATA_READINESS.value and gap.knowledge_state is KnowledgeState.UNKNOWN:
