@@ -1,0 +1,271 @@
+{
+  "schema_version": "portfolio-cross-case-summary.v0.2",
+  "produced_at": "2026-08-20T12:23:58Z",
+  "status": "COMPOSED_AWAITING_REVIEW_AND_FREEZE",
+  "evaluation_type": "retrospective-before-after-portfolio-validation",
+  "composition_note": "A new descriptive composition for PORT-001, PORT-002 and PORT-004. Historical cross_case_summary.v0.1 remains unchanged as the record of its original PORT-001/PORT-002/PORT-003 composition.",
+  "forward_analysis_case_ids": ["PORT-001", "PORT-002", "PORT-004"],
+  "historically_retained_but_excluded": [
+    {
+      "case_id": "PORT-003",
+      "status": "SUPERSEDED_CONTAMINATED_BEFORE",
+      "exclusion_reason": "No independent pre-implementation source describes the BEFORE workflow; the prior process is knowable only from AFTER-dated material framed as what the AI replaced.",
+      "effect": "Retained unchanged as historical metadata. Excluded from every v0.2 forward count, aggregate and conclusion."
+    }
+  ],
+  "derived_from": [
+    {
+      "case_id": "PORT-001",
+      "comparison_path": "evaluation/portfolio/runs/port-001/production-run-v0.1/comparison/retrospective_comparison.v0.1.json",
+      "product_output_path": "evaluation/portfolio/runs/port-001/production-run-v0.1/output_freeze_manifest.v0.1.json",
+      "production_fingerprint_cohort": "HISTORICAL_PHASE8_BASELINE"
+    },
+    {
+      "case_id": "PORT-002",
+      "comparison_path": "evaluation/portfolio/runs/port-002/production-run-v0.1/comparison/retrospective_comparison.v0.1.json",
+      "product_output_path": "evaluation/portfolio/runs/port-002/production-run-v0.1/output_freeze_manifest.v0.1.json",
+      "production_fingerprint_cohort": "HISTORICAL_PHASE8_BASELINE"
+    },
+    {
+      "case_id": "PORT-004",
+      "comparison_path": "evaluation/portfolio/runs/port-004/comparison/retrospective_comparison.v0.1.json",
+      "product_output_path": "evaluation/portfolio/runs/port-004/production-run-v0.5-packaged/stage5-package-record.v0.1.json",
+      "production_fingerprint_cohort": "PORT004_LATER_PRODUCTION"
+    }
+  ],
+  "production_fingerprint_cohorts": {
+    "HISTORICAL_PHASE8_BASELINE": {
+      "case_ids": ["PORT-001", "PORT-002"],
+      "production_fingerprint": "4deca4251d4a9840d6948411544fdf506f1953c16a56eaca803099d2cf81be5a",
+      "decision_policy": {
+        "policy_id": "decision_policy.v0.2",
+        "policy_version": "0.2.0",
+        "policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66"
+      },
+      "phase1_contract_version": "phase1-v0.3",
+      "extraction_model": "gpt-5.6-terra"
+    },
+    "PORT004_LATER_PRODUCTION": {
+      "case_ids": ["PORT-004"],
+      "production_fingerprint": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85",
+      "decision_policy": {
+        "policy_id": "decision_policy.v0.2",
+        "policy_version": "0.2.0",
+        "policy_fingerprint": "b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66"
+      },
+      "phase1_contract_version": "phase1-v0.3",
+      "extraction_model": "gpt-5.6-terra"
+    }
+  },
+  "production_fingerprint_cohort_limitation": "PORT-001 and PORT-002 share the historical Phase 8 production-fingerprint cohort. PORT-004 used a later production fingerprint. The three cases are described together, but this is not one identical frozen-production-baseline cohort and must not be represented as such.",
+  "per_case": [
+    {
+      "case_id": "PORT-001",
+      "domain": "Insurance claims-document processing",
+      "production_fingerprint_cohort": "HISTORICAL_PHASE8_BASELINE",
+      "activities": 6,
+      "intervention_themes": 5,
+      "alignment": {
+        "STRONG_ALIGNMENT": 0,
+        "PARTIAL_ALIGNMENT": 3,
+        "NO_DOCUMENTED_ALIGNMENT": 2,
+        "CONTRADICTION": 0
+      },
+      "recommendations": {
+        "AUTOMATE": 0,
+        "AUGMENT": 0,
+        "INVESTIGATE_FURTHER": 6,
+        "DO_NOT_RECOMMEND": 0
+      },
+      "appropriate_uncertainty_findings": 2,
+      "capabilities_identified": [
+        "DOCUMENT_INFORMATION_EXTRACTION",
+        "COMPUTER_VISION",
+        "CLASSIFICATION"
+      ],
+      "capability_bearing_activities": 3,
+      "unsupported_activities_added": 0,
+      "review_profile": {
+        "type": "SUPPRESSION_AND_EVIDENCE_CORRECTION",
+        "detail": "Review rejected four unsupported positive capability assertions, corrected one input from document evidence, and retained 117 assertions as unknown."
+      }
+    },
+    {
+      "case_id": "PORT-002",
+      "domain": "Telecommunications customer-call routing",
+      "production_fingerprint_cohort": "HISTORICAL_PHASE8_BASELINE",
+      "activities": 6,
+      "intervention_themes": 5,
+      "alignment": {
+        "STRONG_ALIGNMENT": 0,
+        "PARTIAL_ALIGNMENT": 3,
+        "NO_DOCUMENTED_ALIGNMENT": 2,
+        "CONTRADICTION": 0
+      },
+      "recommendations": {
+        "AUTOMATE": 0,
+        "AUGMENT": 0,
+        "INVESTIGATE_FURTHER": 6,
+        "DO_NOT_RECOMMEND": 0
+      },
+      "appropriate_uncertainty_findings": 2,
+      "capabilities_identified": ["CLASSIFICATION", "WORKFLOW_AUTOMATION"],
+      "capability_bearing_activities": 3,
+      "unsupported_activities_added": 0,
+      "review_profile": {
+        "type": "RECOVERY_AND_STRUCTURAL_CORRECTION",
+        "detail": "Review corrected three explicit capability signals the extraction had left unknown, rejected an incorrect forward dependency, resolved the blocking conflict, and retained 123 assertions as unknown."
+      }
+    },
+    {
+      "case_id": "PORT-004",
+      "domain": "Patent-examiner prior-art search",
+      "production_fingerprint_cohort": "PORT004_LATER_PRODUCTION",
+      "activities": 8,
+      "intervention_themes": 3,
+      "alignment": {
+        "STRONG_ALIGNMENT": 0,
+        "PARTIAL_ALIGNMENT": 1,
+        "NO_DOCUMENTED_ALIGNMENT": 2,
+        "CONTRADICTION": 0
+      },
+      "recommendations": {
+        "AUTOMATE": 0,
+        "AUGMENT": 0,
+        "INVESTIGATE_FURTHER": 8,
+        "DO_NOT_RECOMMEND": 0
+      },
+      "appropriate_uncertainty_findings": 2,
+      "capabilities_identified": [
+        "DOCUMENT_INFORMATION_EXTRACTION",
+        "KNOWLEDGE_RETRIEVAL"
+      ],
+      "capability_bearing_activities": 1,
+      "unsupported_activities_added": 0,
+      "review_profile": {
+        "type": "STRUCTURAL_INTEGRITY_AND_UNKNOWN_PRESERVATION",
+        "detail": "Review resolved two planning dependencies, made no capability-signal edit, and retained 80 material criteria plus 8 accountability fields as unknown."
+      }
+    }
+  ],
+  "aggregates": {
+    "total_activities_assessed": 20,
+    "total_intervention_themes": 13,
+    "alignment": {
+      "STRONG_ALIGNMENT": 0,
+      "PARTIAL_ALIGNMENT": 7,
+      "NO_DOCUMENTED_ALIGNMENT": 6,
+      "CONTRADICTION": 0
+    },
+    "recommendations": {
+      "AUTOMATE": 0,
+      "AUGMENT": 0,
+      "INVESTIGATE_FURTHER": 20,
+      "DO_NOT_RECOMMEND": 0
+    },
+    "appropriate_uncertainty_findings": 6,
+    "total_unsupported_activities_added": 0,
+    "capability_bearing_activities": 7,
+    "distinct_capabilities_exercised": [
+      "DOCUMENT_INFORMATION_EXTRACTION",
+      "COMPUTER_VISION",
+      "CLASSIFICATION",
+      "WORKFLOW_AUTOMATION",
+      "KNOWLEDGE_RETRIEVAL"
+    ],
+    "capabilities_not_exercised_in_forward_cases": [
+      "GENERATIVE_AI",
+      "PREDICTION_FORECASTING",
+      "ANOMALY_PATTERN_DETECTION",
+      "RECOMMENDATION",
+      "DECISION_SUPPORT"
+    ],
+    "reviewed_unknown_retention_events": 328,
+    "source_bounded_corrections": 6,
+    "review_rejections": 5
+  },
+  "deterministic_policy_observation": {
+    "policy_id": "decision_policy.v0.2",
+    "policy_status": "PROVISIONAL — NOT YET ACADEMICALLY VALIDATED",
+    "observed_real_case_gate_behaviour": "All 20 source-backed activities passed evidence sufficiency and stopped at technical fit because ai_capability_fit was unknown. No business-value or risk-and-autonomy gate was evaluated, and no priority score was produced.",
+    "what_this_descriptively_supports": "The portfolio demonstrates cautious stopping behaviour and preservation of an evidence gap on these inputs.",
+    "what_this_does_not_validate": "It does not validate threshold choices, weights, later scoring bands, recommendation accuracy, predictive performance, or real-world adoption outcomes. Unit tests may exercise policy branches synthetically, but no included portfolio case reached later gates or scoring bands."
+  },
+  "findings": [
+    {
+      "finding_id": "V02-XC-1",
+      "title": "Source-bounded process reconstruction held across the three included cases",
+      "strength": "DESCRIPTIVE_ACROSS_INCLUDED_CASES",
+      "detail": "The 20 retained activities were all source-backed within their frozen inputs, and no unsupported activity was added. This supports evidence-bounded reconstruction of the submitted documents, not independent proof that every activity is a complete operational workflow description."
+    },
+    {
+      "finding_id": "V02-XC-2",
+      "title": "Human review contributed different non-ceremonial controls in every included case",
+      "strength": "DESCRIPTIVE_ACROSS_INCLUDED_CASES",
+      "detail": "PORT-001 suppressed unsupported capability claims; PORT-002 recovered source-supported signals and corrected structure; PORT-004 resolved dependencies and preserved unknowns without adding a capability. Across the cases, review was neither a rubber stamp nor a uniform rewrite."
+    },
+    {
+      "finding_id": "V02-XC-3",
+      "title": "Capability recognition was relevant but incomplete and generally broad",
+      "strength": "DESCRIPTIVE_ACROSS_INCLUDED_CASES",
+      "detail": "The product exercised five capabilities across seven activities and achieved seven partial alignments. It recognised document extraction, vision, classification, workflow automation and broad knowledge retrieval, but did not identify later-specific mechanisms such as system transfer, speech and natural-language handling, self-service answering, similarity search, AI-use recordation or explicit control design."
+    },
+    {
+      "finding_id": "V02-XC-4",
+      "title": "Human-control and governance design remained absent from the frozen product findings",
+      "strength": "DESCRIPTIVE_ACROSS_INCLUDED_CASES",
+      "detail": "Each included AFTER packet documented a human or organisational control boundary. The corresponding themes were all classified NO_DOCUMENTED_ALIGNMENT. Cautious non-deployment is not credited as identifying a control design."
+    },
+    {
+      "finding_id": "V02-XC-5",
+      "title": "The deterministic policy showed cautious gate behaviour but was not validated on later decision bands",
+      "strength": "MATERIAL_LIMITATION",
+      "detail": "All 20 recommendations were INVESTIGATE_FURTHER because ai_capability_fit was unknown at technical fit. The portfolio observes the same conservative gate behaviour in real case inputs, but zero included activities reached business value, risk/autonomy or priority scoring, and no activity received AUTOMATE, AUGMENT or DO_NOT_RECOMMEND. This is not real-world validation of policy judgement or scoring."
+    },
+    {
+      "finding_id": "V02-XC-6",
+      "title": "Zero contradictions does not establish decision accuracy",
+      "strength": "MATERIAL_LIMITATION",
+      "detail": "No theme was classified CONTRADICTION, but the product made no deployment or rejection recommendation in any included case. A consistent INVESTIGATE_FURTHER result avoids conflict with a later intervention without demonstrating predictive or recommendation accuracy."
+    },
+    {
+      "finding_id": "V02-XC-7",
+      "title": "Portfolio evidence is descriptive and has substantial documentation limits",
+      "strength": "MATERIAL_LIMITATION",
+      "detail": "The cases are selected public adoption stories, the AFTER sources are mainly organisation or implementation-partner accounts, outcomes are incomplete or non-comparable, and PORT-004 has no measured outcome in its sealed packet. There is no negative case, true-negative evidence, or basis for statistical, causal, precision/recall, predictive or cross-industry claims."
+    },
+    {
+      "finding_id": "V02-XC-8",
+      "title": "Two production-fingerprint cohorts limit direct comparability",
+      "strength": "MATERIAL_LIMITATION",
+      "detail": "PORT-001 and PORT-002 share fingerprint 4deca425…, while PORT-004 used 3c5c86bd…. The cases can be described in one portfolio but not represented as an identical frozen-baseline cohort."
+    }
+  ],
+  "product_learning_from_portfolio_validation": {
+    "original_phase1_to_phase7_product": [
+      "Decision intake, document ingestion, evidence-bounded extraction, human review and approval, deterministic assessment, decision-package generation, and presentation/output were the product under evaluation.",
+      "The evaluated product preserved UNKNOWN values, kept AFTER material out of the frozen production inputs, and returned a decision package even when evidence was insufficient."
+    ],
+    "limitations_revealed_by_validation": [
+      "Thin process documents often support process reconstruction and broad capability signals but not fit, controls, operational metrics, risk or quantified value needed for a stronger adoption decision.",
+      "The product can identify missing information but the historical evaluated workflow had no controlled, customer-friendly mechanism for strengthening selected gaps and requesting reassessment.",
+      "Specific intervention mechanisms and governance/control designs were not established from the frozen BEFORE evidence."
+    ],
+    "post_validation_proposed_extensions": [
+      "Gap Resolution Workspace (GRW) is a discovered, post-validation extension. It responds to the identified need for optional, prioritised evidence strengthening and reassessment after an initial useful Decision Package. GRW was not part of the original Phase 1-7 architecture and was not implemented or tested in PORT-001, PORT-002 or PORT-004.",
+      "The Adoption Execution Layer (AEL) remains future and out of scope. It would govern pilot, implementation, deployment and measured outcomes after an organisation chooses to proceed; it was not part of this evaluation."
+    ]
+  },
+  "evaluation_integrity": {
+    "before_product_after_protocol_preserved_for_included_cases": true,
+    "after_opened_only_after_frozen_product_output": true,
+    "frozen_case_artifacts_modified_for_v02": false,
+    "production_code_modified_for_v02_composition": false,
+    "policy_modified_for_v02_composition": false,
+    "reviewer_blindness_claimed_for_any_included_case": false,
+    "production_fingerprint_identical_across_included_cases": false,
+    "cohort_distinction_explicit": true,
+    "port003_counted_in_forward_aggregates": false
+  },
+  "honest_headline": "Across three valid but two-cohort retrospective cases, the engine reconstructed source-backed process activities, found some broad opportunity overlap, and consistently preserved uncertainty. The portfolio does not validate real-world recommendation accuracy, scoring performance or generalisation."
+}

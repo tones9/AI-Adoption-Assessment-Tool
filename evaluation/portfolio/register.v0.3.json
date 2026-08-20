@@ -1,0 +1,130 @@
+{
+  "schema_version": "portfolio-register.v0.3",
+  "supersedes_register": "register.v0.2.json",
+  "historical_registers_retained": ["register.v0.1.json", "register.v0.2.json"],
+  "version_note": "This version records the completed PORT-004 AFTER comparison and the new PORT-001/PORT-002/PORT-004 forward-analysis composition. It does not rewrite historical registers, cross-case summary v0.1, or frozen case artefacts.",
+  "evaluation_type": "retrospective-before-after-portfolio-validation",
+  "composition_status": "COMPOSED_AWAITING_REVIEW_AND_FREEZE",
+  "forward_analysis": {
+    "included_case_ids": ["PORT-001", "PORT-002", "PORT-004"],
+    "excluded_case_ids": ["PORT-003"],
+    "exclusion_rule": "A case whose BEFORE workflow is knowable only from AFTER-dated material is retained historically but excluded from forward aggregate counts and conclusions.",
+    "cross_case_summary_path": "cross_case_summary.v0.2.json"
+  },
+  "production_fingerprint_cohorts": [
+    {
+      "cohort_id": "HISTORICAL_PHASE8_BASELINE",
+      "case_ids": ["PORT-001", "PORT-002"],
+      "production_fingerprint": "4deca4251d4a9840d6948411544fdf506f1953c16a56eaca803099d2cf81be5a",
+      "basis": "Phase 8 production baseline recorded in freeze_manifest.v0.1.json and the historical v0.1 cross-case summary.",
+      "comparability_note": "These two cases share the historical frozen production cohort."
+    },
+    {
+      "cohort_id": "PORT004_LATER_PRODUCTION",
+      "case_ids": ["PORT-004"],
+      "production_fingerprint": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85",
+      "basis": "Recorded in the frozen PORT-004 Stage 1-5 records and comparison basis.",
+      "comparability_note": "PORT-004 did not run on the historical Phase 8 baseline. Its descriptive results must not be represented as an identical-baseline replication."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "PORT-001",
+      "research_identity": "Nordic insurer claims-document processing",
+      "product_title": "Claims-document intake and recording",
+      "before_input_form": "ANONYMISED_RESEARCHER_DESCRIPTION",
+      "before_activity_count": 6,
+      "before_path": "product_inputs/port-001.before.txt",
+      "provenance_path": "provenance/port-001.manifest.json",
+      "after_path": "sealed_after/port-001.after.md",
+      "leakage_audit_path": "leakage_audits/port-001.audit.json",
+      "comparison_path": "runs/port-001/production-run-v0.1/comparison/retrospective_comparison.v0.1.json",
+      "output_freeze_manifest_path": "runs/port-001/production-run-v0.1/output_freeze_manifest.v0.1.json",
+      "status": "FROZEN_BEFORE_AFTER_COMPARED",
+      "forward_analysis_included": true,
+      "production_fingerprint_cohort": "HISTORICAL_PHASE8_BASELINE",
+      "limitations_summary": "KEEP WITH LIMITATIONS"
+    },
+    {
+      "case_id": "PORT-002",
+      "research_identity": "Elisa customer-call routing and handling",
+      "product_title": "Customer-call routing and handling",
+      "before_input_form": "ANONYMISED_RESEARCHER_DESCRIPTION",
+      "before_activity_count": 6,
+      "before_path": "product_inputs/port-002.before.txt",
+      "provenance_path": "provenance/port-002.manifest.json",
+      "after_path": "sealed_after/port-002.after.md",
+      "leakage_audit_path": "leakage_audits/port-002.audit.json",
+      "comparison_path": "runs/port-002/production-run-v0.1/comparison/retrospective_comparison.v0.1.json",
+      "output_freeze_manifest_path": "runs/port-002/production-run-v0.1/output_freeze_manifest.v0.1.json",
+      "status": "FROZEN_BEFORE_AFTER_COMPARED",
+      "forward_analysis_included": true,
+      "production_fingerprint_cohort": "HISTORICAL_PHASE8_BASELINE",
+      "limitations_summary": "KEEP WITH LIMITATIONS"
+    },
+    {
+      "case_id": "PORT-003",
+      "research_identity": "Morgan Stanley client-meeting documentation and follow-up planning",
+      "product_title": "Client-meeting documentation and follow-up planning",
+      "before_input_form": "ANONYMISED_RESEARCHER_DESCRIPTION",
+      "before_activity_count": 4,
+      "before_path": "product_inputs/port-003.before.txt",
+      "provenance_path": "provenance/port-003.manifest.json",
+      "after_path": "sealed_after/port-003.after.md",
+      "leakage_audit_path": "leakage_audits/port-003.audit.json",
+      "status": "SUPERSEDED_CONTAMINATED_BEFORE",
+      "forward_analysis_included": false,
+      "portfolio_position": "historical record; excluded from forward analysis",
+      "superseded_by": "PORT-004",
+      "supersession_note_path": "port-003-supersession-note.v0.1.md",
+      "supersession_reason": "No independent pre-implementation source describes the BEFORE workflow. The prior process is knowable only from AFTER-dated material framed as what the AI replaced. Artefacts remain unchanged and byte-identical; original leakage audit recorded residual contamination risk HIGH.",
+      "artefacts_modified": false
+    },
+    {
+      "case_id": "PORT-004",
+      "research_identity": "United States Patent and Trademark Office patent examiner prior-art search workflow",
+      "product_title": "Patent examiner prior-art search workflow",
+      "before_input_form": "VERBATIM_PRIMARY_SOURCE_EXTRACT",
+      "before_activity_count": 8,
+      "before_path": "product_inputs/port-004.before.txt",
+      "before_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+      "before_scope": "MPEP Ninth Edition Rev. 10.2019, Chapter 900, pages 900-40 to 900-46, sections 904-904.03",
+      "corpus_revision": 2,
+      "correction_note_path": "port-004.correction-note.v0.1.md",
+      "provenance_path": "provenance/port-004.manifest.json",
+      "leakage_audit_path": "leakage_audits/port-004.audit.json",
+      "after_path": "sealed_after/port-004.after.md",
+      "pre_reveal_hashes_path": "sealed_after/port-004.pre-reveal-hashes.sha256",
+      "comparison_path": "runs/port-004/comparison/retrospective_comparison.v0.1.json",
+      "comparison_hashes_path": "runs/port-004/comparison/hashes.sha256",
+      "comparison_freeze_commit": "f7e5d5feac7c2a23c27d7e6d447ac67ba5507612",
+      "status": "FROZEN_BEFORE_AFTER_COMPARED",
+      "forward_analysis_included": true,
+      "production_fingerprint_cohort": "PORT004_LATER_PRODUCTION",
+      "supersedes": "PORT-003",
+      "residual_contamination_risk": "LOW",
+      "cohort_limitation": "Included descriptively, but not as an identical production-baseline replication of PORT-001/002."
+    }
+  ],
+  "historical_exclusions": [
+    {
+      "case_id": "PORT-003",
+      "status": "SUPERSEDED_CONTAMINATED_BEFORE",
+      "forward_analysis_included": false,
+      "reason": "The supersession note records the lack of independent BEFORE evidence. PORT-003-specific counts and conclusions are not carried into v0.2."
+    },
+    {
+      "case": "BMW maintenance",
+      "reason": "Historical evidence was insufficient for the approved BEFORE-workflow portfolio."
+    },
+    {
+      "case": "SSA disability determination / claims adjudication",
+      "reason": "The process already contained machine learning before the target implementation, the comparison point is ambiguous, and no outcome metrics for Insight were found."
+    }
+  ],
+  "future_work_out_of_scope": [
+    "Gap Resolution Workspace is a proposed post-validation extension, not a historical component of the evaluated Phase 1-7 product.",
+    "Adoption Execution Layer is future work and is not implemented or evaluated by this portfolio."
+  ],
+  "next_step": "Review and, if accepted, freeze the v0.2 PORT-001/PORT-002/PORT-004 cross-case composition in a separate commit."
+}
