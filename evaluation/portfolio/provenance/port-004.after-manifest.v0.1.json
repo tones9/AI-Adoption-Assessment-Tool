@@ -1,0 +1,96 @@
+{
+  "schema_version": "portfolio-after-provenance.v0.1",
+  "case_id": "PORT-004",
+  "status": "SEALED_NOT_OPENED_FOR_COMPARISON",
+  "created_at": "2026-08-20T11:17:24Z",
+  "collection_question": "What later, real USPTO interventions affected patent-examiner prior-art search in the workflow bounded by the frozen BEFORE corpus?",
+  "neutral_search_queries": [
+    "site:uspto.gov patent examiner prior-art search artificial intelligence",
+    "site:uspto.gov patent examiners AI prior art search",
+    "site:uspto.gov \"prior art search\" \"machine learning\" patent examiner",
+    "site:uspto.gov \"AI for PE2E\" patent examiners"
+  ],
+  "prohibited_search_terms": [
+    "frozen capability names",
+    "recommendation modes",
+    "product step IDs",
+    "information-gap terms",
+    "product-output wording"
+  ],
+  "before_boundary": {
+    "before_path": "evaluation/portfolio/product_inputs/port-004.before.txt",
+    "before_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+    "stage1_to_stage5_manifest_path": "evaluation/portfolio/runs/port-004/port-004.run-hashes.sha256",
+    "stage1_to_stage5_manifest_sha256": "5bba8177f25ccfb77aea6a4849af175b8916ebe6b6fcdecc02d38422118e9594",
+    "production_fingerprint": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85",
+    "decision_package_artifact_id": "artifact-7d8a9331af1449fea8c5ea905ace1a3b",
+    "decision_package_payload_sha256": "4c717926f4fd21bd1cecfbd6516553d63be3470e383de2a1a28388a136938862"
+  },
+  "after_packet_path": "evaluation/portfolio/sealed_after/port-004.after.md",
+  "after_sources": [
+    {
+      "source_id": "PORT-004-S2",
+      "publisher": "United States Patent and Trademark Office",
+      "title": "New PE2E Search Tool Using AI Search Features",
+      "source_type": "Official Gazette consolidated notice",
+      "published": "2022-12-27",
+      "url": "https://www.uspto.gov/web/offices/com/sol/og/2022/week52/TOCCN/item-259.htm",
+      "capture_path": "evaluation/portfolio/source_captures/port-004-s2-pe2e-ai-search-features.capture.md",
+      "quality": "HIGH",
+      "use": "implementation and search-recordation context"
+    },
+    {
+      "source_id": "PORT-004-S3",
+      "publisher": "United States Patent and Trademark Office, Director's Blog",
+      "title": "Quality U.S. patents drive our economy and solve world problems",
+      "source_type": "official blog",
+      "published": "2024-12-09",
+      "url": "https://www.uspto.gov/blog/quality-us-patents-drive-our-economy-and-solve-world-problems",
+      "capture_path": "evaluation/portfolio/source_captures/port-004-s3-uspto-quality-ai-search-usage.capture.md",
+      "quality": "HIGH",
+      "use": "reported examiner uptake and aggregate use context"
+    },
+    {
+      "source_id": "PORT-004-S4",
+      "publisher": "United States Patent and Trademark Office",
+      "title": "Another USPTO AI-assisted examination tool ready for prime time",
+      "source_type": "official news item",
+      "published": "2025-08-14",
+      "url": "https://www.uspto.gov/about-us/news-updates/another-uspto-ai-assisted-examination-tool-ready-prime-time",
+      "capture_path": "evaluation/portfolio/source_captures/port-004-s4-simsearch-prime-time.capture.md",
+      "quality": "HIGH",
+      "use": "direct later intervention description and retained examiner discretion"
+    },
+    {
+      "source_id": "PORT-004-S5",
+      "publisher": "Patent Public Advisory Committee, hosted by the United States Patent and Trademark Office",
+      "title": "2023 PPAC Annual Report",
+      "source_type": "statutory advisory report",
+      "published": "2023",
+      "url": "https://www.uspto.gov/web/offices/com/sol/og/2023/week48/2023PPACAnnualReport.pdf",
+      "capture_path": "evaluation/portfolio/source_captures/port-004-s5-ppac-ai-search-advisory.capture.md",
+      "quality": "MEDIUM",
+      "use": "advisory corroboration and human-judgement context"
+    }
+  ],
+  "source_selection": {
+    "direct_intervention_source_id": "PORT-004-S4",
+    "excluded_scope_categories": [
+      "applicant-facing pre-examination AI search pilots",
+      "design-patent-only AI image search",
+      "non-AI related-art citation initiatives",
+      "public patent-search tools"
+    ],
+    "selection_ambiguity": "Qualifying sources describe related AI search capabilities at different dates and levels of detail. The packet does not merge their usage claims or infer a common outcome measure."
+  },
+  "ground_truth_status": "RETROSPECTIVE_REFERENCE_EVIDENCE_NOT_PERFECT_GROUND_TRUTH",
+  "exposure_disclosure": {
+    "curator_opened_after_sources": true,
+    "curator_blindness_claimed": false,
+    "production_pipeline_received_after_material": false,
+    "recorded_port004_after_packet_or_source_existed_during_stage1_to_stage5": false,
+    "production_reviewer_blindness_claimed": false,
+    "note": "The Stage 1–5 records establish product-input separation, not individual blindness to public information."
+  },
+  "comparison_status": "NOT_OPENED_NOT_COMPARED_NO_THEME_CLASSIFICATIONS"
+}

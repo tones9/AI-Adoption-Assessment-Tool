@@ -1,0 +1,53 @@
+{
+  "schema_version": "portfolio-after-seal.v0.1",
+  "case_id": "PORT-004",
+  "sealed_at": "2026-08-20T11:17:24Z",
+  "previous_status": "NOT_YET_COLLECTED_AFTER_SEALING_IS_A_SEPARATE_GATED_STEP",
+  "current_status": "SEALED_NOT_OPENED_FOR_COMPARISON",
+  "preconditions": {
+    "head": "a8118c3c5f9b0d431635ea59702159501715bb0c",
+    "before_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+    "stage1_to_stage5_manifest_path": "evaluation/portfolio/runs/port-004/port-004.run-hashes.sha256",
+    "stage1_to_stage5_manifest_sha256": "5bba8177f25ccfb77aea6a4849af175b8916ebe6b6fcdecc02d38422118e9594",
+    "stage1_to_stage5_manifest_verified": true,
+    "stage5_package_record_sha256": "f987e4dd7e849977342cbf85e4816fa5bfcdc33406d65332e88eabf1e40a4507",
+    "decision_package_payload_sha256": "4c717926f4fd21bd1cecfbd6516553d63be3470e383de2a1a28388a136938862",
+    "production_fingerprint": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85"
+  },
+  "sealed_materials": {
+    "protocol_path": "evaluation/portfolio/runs/port-004/pre_reveal_protocol.v0.1.md",
+    "after_manifest_path": "evaluation/portfolio/provenance/port-004.after-manifest.v0.1.json",
+    "after_packet_path": "evaluation/portfolio/sealed_after/port-004.after.md",
+    "source_capture_paths": [
+      "evaluation/portfolio/source_captures/port-004-s2-pe2e-ai-search-features.capture.md",
+      "evaluation/portfolio/source_captures/port-004-s3-uspto-quality-ai-search-usage.capture.md",
+      "evaluation/portfolio/source_captures/port-004-s4-simsearch-prime-time.capture.md",
+      "evaluation/portfolio/source_captures/port-004-s5-ppac-ai-search-advisory.capture.md"
+    ],
+    "hash_listing_path": "evaluation/portfolio/sealed_after/port-004.pre-reveal-hashes.sha256"
+  },
+  "source_selection": {
+    "used_neutral_workflow_queries": true,
+    "used_product_output_shaped_terms": false,
+    "direct_intervention_source_id": "PORT-004-S4",
+    "selection_ambiguity_disclosed": true
+  },
+  "exposure_disclosure": {
+    "curator_opened_after_sources": true,
+    "curator_blindness_claimed": false,
+    "production_pipeline_received_after_material": false,
+    "recorded_port004_after_packet_or_source_existed_during_stage1_to_stage5": false,
+    "production_reviewer_blindness_claimed": false
+  },
+  "frozen_product_actions": {
+    "extraction_rerun": false,
+    "review_modified_after_freeze": false,
+    "approval_rerun": false,
+    "assessment_rerun": false,
+    "decision_package_regenerated": false,
+    "policy_modified": false,
+    "prompt_or_schema_modified": false,
+    "production_code_modified": false
+  },
+  "comparison_status": "NOT_OPENED_NOT_COMPARED_NO_THEME_CLASSIFICATIONS"
+}
