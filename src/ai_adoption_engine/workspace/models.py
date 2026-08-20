@@ -31,6 +31,8 @@ class ArtifactType(StrEnum):
     APPROVED_REVIEW = "APPROVED_REVIEW"
     INTEGRATED_ASSESSMENT_RESULT = "INTEGRATED_ASSESSMENT_RESULT"
     DECISION_PACKAGE_RESULT = "DECISION_PACKAGE_RESULT"
+    GRW_EVIDENCE_SUBMISSION = "GRW_EVIDENCE_SUBMISSION"
+    GRW_EVIDENCE_REVIEW = "GRW_EVIDENCE_REVIEW"
 
 
 IMMUTABLE_ARTIFACT_TYPES = frozenset(
@@ -40,6 +42,8 @@ IMMUTABLE_ARTIFACT_TYPES = frozenset(
         ArtifactType.APPROVED_REVIEW,
         ArtifactType.INTEGRATED_ASSESSMENT_RESULT,
         ArtifactType.DECISION_PACKAGE_RESULT,
+        ArtifactType.GRW_EVIDENCE_SUBMISSION,
+        ArtifactType.GRW_EVIDENCE_REVIEW,
     }
 )
 
@@ -50,6 +54,8 @@ class OperationKind(StrEnum):
     APPROVE = "approve"
     ASSESS = "assess"
     GENERATE_PACKAGE = "generate-package"
+    GRW_SUBMIT = "grw-submit"
+    GRW_REVIEW = "grw-review"
 
 
 class OperationStatus(StrEnum):

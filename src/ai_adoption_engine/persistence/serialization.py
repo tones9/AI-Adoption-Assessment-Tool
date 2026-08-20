@@ -8,6 +8,7 @@ from typing import Any
 from pydantic import BaseModel, TypeAdapter, ValidationError
 
 from ai_adoption_engine.workspace.models import ArtifactType
+from ai_adoption_engine.grw.models import GrwEvidenceReview, GrwEvidenceSubmission
 from ai_adoption_engine.models.decision_support import DecisionPackageGenerationResult
 from ai_adoption_engine.models.document import IngestionResult
 from ai_adoption_engine.models.extraction import CandidateExtractionResult
@@ -23,6 +24,8 @@ _ADAPTERS: dict[ArtifactType, TypeAdapter[Any]] = {
     ArtifactType.APPROVED_REVIEW: TypeAdapter(ApprovedProcessReview),
     ArtifactType.INTEGRATED_ASSESSMENT_RESULT: TypeAdapter(IntegratedAssessmentResult),
     ArtifactType.DECISION_PACKAGE_RESULT: TypeAdapter(DecisionPackageGenerationResult),
+    ArtifactType.GRW_EVIDENCE_SUBMISSION: TypeAdapter(GrwEvidenceSubmission),
+    ArtifactType.GRW_EVIDENCE_REVIEW: TypeAdapter(GrwEvidenceReview),
 }
 
 _SUPPORTED_SCHEMA_VERSIONS = {
@@ -32,6 +35,8 @@ _SUPPORTED_SCHEMA_VERSIONS = {
     ArtifactType.APPROVED_REVIEW: {"phase4-v0.1"},
     ArtifactType.INTEGRATED_ASSESSMENT_RESULT: {"phase5-v0.1"},
     ArtifactType.DECISION_PACKAGE_RESULT: {"phase6-v0.1"},
+    ArtifactType.GRW_EVIDENCE_SUBMISSION: {"grw-m1-v0.1"},
+    ArtifactType.GRW_EVIDENCE_REVIEW: {"grw-m1-v0.1"},
 }
 
 

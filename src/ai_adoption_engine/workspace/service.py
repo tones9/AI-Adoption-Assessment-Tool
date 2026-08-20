@@ -6,6 +6,15 @@ import hashlib
 from datetime import UTC, datetime
 
 from ai_adoption_engine.application.assessment import IntegratedAssessmentService
+from ai_adoption_engine.grw.models import (
+    GrwBaselineReference,
+    GrwEvidenceReview,
+    GrwEvidenceSubmission,
+    GrwM1Context,
+    GrwM1Status,
+    GrwReviewDecision,
+)
+from ai_adoption_engine.grw.service import GrwM1Service
 from ai_adoption_engine.workspace.models import (
     ArtifactReference,
     ArtifactType,
@@ -45,12 +54,54 @@ class AssessmentWorkspaceService:
         assessment_service: IntegratedAssessmentService | None = None,
         package_service: DecisionSupportPackageService | None = None,
         review_service: ProcessReviewService | None = None,
+        grw_m1_service: GrwM1Service | None = None,
     ) -> None:
         self.repository = repository
         self.extraction_service_factory = extraction_service_factory
         self.assessment_service = assessment_service or IntegratedAssessmentService()
         self.package_service = package_service or DecisionSupportPackageService()
         self.review_service = review_service or ProcessReviewService()
+        self.grw_m1_service = grw_m1_service or GrwM1Service(repository)
+
+    def open_grw_m1_context(self, assessment_id: str) -> GrwM1Context | None:
+        return self.grw_m1_service.open_m1_context(assessment_id)
+
+    def load_grw_m1_status(self, assessment_id: str) -> GrwM1Status:
+        return self.grw_m1_service.load_m1_status(assessment_id)
+
+    def submit_grw_m1_response(
+        self,
+        assessment_id: str,
+        *,
+        baseline: GrwBaselineReference,
+        gap_id: str,
+        answer_text: str,
+        explicit_unknown: bool = False,
+    ) -> GrwEvidenceSubmission:
+        return self.grw_m1_service.submit_response(
+            assessment_id,
+            baseline=baseline,
+            gap_id=gap_id,
+            answer_text=answer_text,
+            explicit_unknown=explicit_unknown,
+        )
+
+    def review_grw_m1_submission(
+        self,
+        assessment_id: str,
+        *,
+        submission_artifact_id: str,
+        decision: GrwReviewDecision,
+        reviewer_label: str,
+        rationale: str,
+    ) -> GrwEvidenceReview:
+        return self.grw_m1_service.review_submission(
+            assessment_id,
+            submission_artifact_id=submission_artifact_id,
+            decision=decision,
+            reviewer_label=reviewer_label,
+            rationale=rationale,
+        )
 
     def ingest_upload(
         self,
@@ -115,6 +166,8 @@ class AssessmentWorkspaceService:
                         ArtifactType.APPROVED_REVIEW,
                         ArtifactType.INTEGRATED_ASSESSMENT_RESULT,
                         ArtifactType.DECISION_PACKAGE_RESULT,
+                        ArtifactType.GRW_EVIDENCE_SUBMISSION,
+                        ArtifactType.GRW_EVIDENCE_REVIEW,
                     ],
                     source_filename=(document.source.original_filename if document else None),
                     source_input_type=(document.source.input_type.value if document else None),
@@ -149,6 +202,8 @@ class AssessmentWorkspaceService:
                         ArtifactType.APPROVED_REVIEW,
                         ArtifactType.INTEGRATED_ASSESSMENT_RESULT,
                         ArtifactType.DECISION_PACKAGE_RESULT,
+                        ArtifactType.GRW_EVIDENCE_SUBMISSION,
+                        ArtifactType.GRW_EVIDENCE_REVIEW,
                     ]
                     if replace_existing
                     else []
@@ -198,6 +253,8 @@ class AssessmentWorkspaceService:
                         ArtifactType.APPROVED_REVIEW,
                         ArtifactType.INTEGRATED_ASSESSMENT_RESULT,
                         ArtifactType.DECISION_PACKAGE_RESULT,
+                        ArtifactType.GRW_EVIDENCE_SUBMISSION,
+                        ArtifactType.GRW_EVIDENCE_REVIEW,
                     ],
                 )
             return stored.payload
@@ -372,6 +429,8 @@ class AssessmentWorkspaceService:
                 ArtifactType.APPROVED_REVIEW,
                 ArtifactType.INTEGRATED_ASSESSMENT_RESULT,
                 ArtifactType.DECISION_PACKAGE_RESULT,
+                ArtifactType.GRW_EVIDENCE_SUBMISSION,
+                ArtifactType.GRW_EVIDENCE_REVIEW,
             ],
             stage=WorkflowStage.IN_REVIEW,
         )

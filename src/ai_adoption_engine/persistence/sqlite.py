@@ -46,10 +46,14 @@ _EXPECTED_PARENT_TYPE = {
     ArtifactType.APPROVED_REVIEW: ArtifactType.REVIEW_SESSION,
     ArtifactType.INTEGRATED_ASSESSMENT_RESULT: ArtifactType.APPROVED_REVIEW,
     ArtifactType.DECISION_PACKAGE_RESULT: ArtifactType.INTEGRATED_ASSESSMENT_RESULT,
+    ArtifactType.GRW_EVIDENCE_SUBMISSION: ArtifactType.DECISION_PACKAGE_RESULT,
+    ArtifactType.GRW_EVIDENCE_REVIEW: ArtifactType.GRW_EVIDENCE_SUBMISSION,
 }
 _REQUIRED_PARENT_TYPES = {
     ArtifactType.INTEGRATED_ASSESSMENT_RESULT,
     ArtifactType.DECISION_PACKAGE_RESULT,
+    ArtifactType.GRW_EVIDENCE_SUBMISSION,
+    ArtifactType.GRW_EVIDENCE_REVIEW,
 }
 
 
@@ -480,10 +484,21 @@ class SQLiteAssessmentRepository:
         integrated = active.get(ArtifactType.INTEGRATED_ASSESSMENT_RESULT)
         approved = active.get(ArtifactType.APPROVED_REVIEW)
         package = active.get(ArtifactType.DECISION_PACKAGE_RESULT)
+        grw_submission = active.get(ArtifactType.GRW_EVIDENCE_SUBMISSION)
+        grw_review = active.get(ArtifactType.GRW_EVIDENCE_REVIEW)
         if integrated and (approved is None or integrated.parent_artifact_id != approved.artifact_id):
             raise PersistenceError("Active assessment is not linked to the active approval")
         if package and (integrated is None or package.parent_artifact_id != integrated.artifact_id):
             raise PersistenceError("Active package is not linked to the active assessment")
+        if grw_submission and (
+            package is None or grw_submission.parent_artifact_id != package.artifact_id
+        ):
+            raise PersistenceError("Active GRW submission is not linked to the active package")
+        if grw_review and (
+            grw_submission is None
+            or grw_review.parent_artifact_id != grw_submission.artifact_id
+        ):
+            raise PersistenceError("Active GRW review is not linked to the active submission")
         requirements = {
             WorkflowStage.INGESTED: ArtifactType.INGESTION_RESULT,
             WorkflowStage.CANDIDATE_READY: ArtifactType.CANDIDATE_EXTRACTION_RESULT,

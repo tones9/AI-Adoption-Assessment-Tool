@@ -16,6 +16,7 @@ from ai_adoption_engine.presentation.context import hydrate_workspace
 from ai_adoption_engine.presentation.pages import (
     assessments,
     decision_package,
+    gap_resolution,
     results,
     review,
     source,
@@ -61,6 +62,7 @@ pages = [
     st.Page(review.render, title="Process Review", icon=":material/fact_check:", url_path="review"),
     st.Page(results.render, title="Assessment Results", icon=":material/analytics:", url_path="results"),
     st.Page(decision_package.render, title="Decision Package", icon=":material/account_tree:", url_path="decision-package"),
+    st.Page(gap_resolution.render, title="Gap resolution", icon=":material/help_center:", url_path="gap-resolution"),
 ]
 page = st.navigation(pages, position="sidebar", expanded=True)
 page.run()
