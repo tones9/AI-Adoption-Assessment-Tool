@@ -1,0 +1,279 @@
+{
+  "schema_version": "portfolio-retrospective-comparison.v0.1",
+  "case_id": "PORT-004",
+  "comparison_question": "Given only the frozen BEFORE procedure for patent-examiner prior-art search, did the AI Adoption Engine identify opportunity areas that align with the later sealed USPTO AI-assisted search intervention, while behaving responsibly where BEFORE evidence was insufficient?",
+  "comparison_basis": {
+    "before_path": "evaluation/portfolio/product_inputs/port-004.before.txt",
+    "before_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+    "stage1_to_stage5_manifest_path": "evaluation/portfolio/runs/port-004/port-004.run-hashes.sha256",
+    "stage1_to_stage5_manifest_sha256": "5bba8177f25ccfb77aea6a4849af175b8916ebe6b6fcdecc02d38422118e9594",
+    "stage1_to_stage5_manifest_entry_count": 17,
+    "production_fingerprint": "3c5c86bd132d25745ee7fcba2e40c3e3d796a9ff404a36a93aecce60cbaf1a85",
+    "decision_package_artifact_id": "artifact-7d8a9331af1449fea8c5ea905ace1a3b",
+    "decision_package_payload_sha256": "4c717926f4fd21bd1cecfbd6516553d63be3470e383de2a1a28388a136938862",
+    "after_path": "evaluation/portfolio/sealed_after/port-004.after.md",
+    "after_sha256": "70fa799c065b74cbf81d8c0aaa12b583db9085683144ef11722494f89502fd86",
+    "after_opened_at": "2026-08-20T11:27:10Z",
+    "sealed_source_captures": {
+      "PORT-004-S2": {
+        "path": "evaluation/portfolio/source_captures/port-004-s2-pe2e-ai-search-features.capture.md",
+        "sha256": "94a618730899c1be503262ec0bdd697dd2b23b2f5b8182b1f018d4549b014022"
+      },
+      "PORT-004-S3": {
+        "path": "evaluation/portfolio/source_captures/port-004-s3-uspto-quality-ai-search-usage.capture.md",
+        "sha256": "53178b1c8aa64ca4f1387c995e7534c8408ce41452114ce968761458f43060ab"
+      },
+      "PORT-004-S4": {
+        "path": "evaluation/portfolio/source_captures/port-004-s4-simsearch-prime-time.capture.md",
+        "sha256": "616da07f8c02db860e99c57a3c44f9be0fb4ba19e6ad7f4018aaae78a5f60780"
+      },
+      "PORT-004-S5": {
+        "path": "evaluation/portfolio/source_captures/port-004-s5-ppac-ai-search-advisory.capture.md",
+        "sha256": "d33b3f3e28e4ba06f1d65e124191831819c49647e891706e1fb67c18cead0bbc"
+      }
+    }
+  },
+  "after_evidence_categories": {
+    "intervention_existence": {
+      "source_ids": ["PORT-004-S2", "PORT-004-S4"],
+      "bounded_claim": "Official USPTO sources state that AI-assisted search capabilities were made available in PE2E Search and that utility patent examiners began conducting prior-art searches with Similarity Search in September 2022. SimSearch uses application text to generate a query and returns ranked similar documents."
+    },
+    "reported_use": {
+      "source_ids": ["PORT-004-S3"],
+      "bounded_claim": "A USPTO Director's Blog post reports that more than half of patent examiners regularly use PE2E AI search features and that the features have been used for more than 1.5 million queries since September 2022.",
+      "interpretation_control": "This is organisation-reported uptake and aggregate-query context. It is neither a retrieval-quality measure nor a causal impact result, and it is not counted as a separate capability alignment."
+    },
+    "human_control_statements": {
+      "source_ids": ["PORT-004-S4", "PORT-004-S5"],
+      "bounded_claim": "The USPTO says SimSearch augments other search tools and examiners retain discretion over whether to use results. PPAC separately recommends supplementary use alongside examiner expertise and judgement.",
+      "interpretation_control": "The S4 discretion statement describes the later tool boundary. The S5 statement is advisory context, not proof that every recommended control was implemented."
+    },
+    "measured_outcomes": {
+      "source_ids": [],
+      "reported_outcome_count": 0,
+      "status": "NO_MEASURED_RETRIEVAL_QUALITY_TIME_SAVING_OR_CAUSAL_OUTCOME_IN_SEALED_PACKET",
+      "interpretation_control": "Deployment and reported usage are not treated as evidence of effectiveness."
+    }
+  },
+  "themes": [
+    {
+      "theme_id": "PORT-004-T1",
+      "after_intervention_theme": "AI-assisted similarity retrieval for examiner prior-art search",
+      "after_evidence": {
+        "source_ids": ["PORT-004-S2", "PORT-004-S4", "PORT-004-S5"],
+        "evidence_category": "INTERVENTION_EXISTENCE",
+        "bounded_claim": "AI search capabilities were introduced into examiner-side PE2E Search. SimSearch later used application text to return ranked similar documents for utility-patent prior-art searches; PPAC says AI search capabilities assisted in finding potential prior art early in examination."
+      },
+      "relevant_frozen_steps": [
+        {
+          "step_id": "candidate-step-8761540c3fb724d5",
+          "activity": "identifying the field of search"
+        },
+        {
+          "step_id": "candidate-step-df4f0ee1970efb51",
+          "activity": "selecting the proper tool(s) to perform the search"
+        },
+        {
+          "step_id": "candidate-step-55d273f0f007cf1f",
+          "activity": "determining the appropriate search strategy for each search tool selected"
+        },
+        {
+          "step_id": "candidate-step-77a07b30101d76fe",
+          "activity": "Select search tools"
+        },
+        {
+          "step_id": "candidate-step-a154c8ee145a50f9",
+          "activity": "Conduct a careful and comprehensive search"
+        }
+      ],
+      "frozen_capability_mapping": [
+        {
+          "step_id": "candidate-step-8761540c3fb724d5",
+          "capability": "KNOWLEDGE_RETRIEVAL",
+          "relevance": "Broadly compatible with using a query to retrieve ranked reference documents; it does not specify similarity search."
+        },
+        {
+          "step_id": "candidate-step-8761540c3fb724d5",
+          "capability": "DOCUMENT_INFORMATION_EXTRACTION",
+          "relevance": "Frozen mapping present for the planning step, but it is not credited as a direct match for SimSearch's query-and-ranking mechanism."
+        }
+      ],
+      "frozen_recommendations": [
+        {
+          "step_id": "candidate-step-8761540c3fb724d5",
+          "recommendation": "INVESTIGATE_FURTHER"
+        },
+        {
+          "step_id": "candidate-step-df4f0ee1970efb51",
+          "recommendation": "INVESTIGATE_FURTHER"
+        },
+        {
+          "step_id": "candidate-step-55d273f0f007cf1f",
+          "recommendation": "INVESTIGATE_FURTHER"
+        },
+        {
+          "step_id": "candidate-step-77a07b30101d76fe",
+          "recommendation": "INVESTIGATE_FURTHER"
+        },
+        {
+          "step_id": "candidate-step-a154c8ee145a50f9",
+          "recommendation": "INVESTIGATE_FURTHER"
+        }
+      ],
+      "relevant_phase4_provenance": "All eight source-backed activities were accepted. Phase 4 did not modify any capability signal. The two true signals carried by step 1 were retained from Phase 3 and map to DOCUMENT_INFORMATION_EXTRACTION and KNOWLEDGE_RETRIEVAL; the other relevant planning and search steps had no true signal and no emitted capability. The review retained all material criteria as UNKNOWN rather than supplying fit evidence.",
+      "alignment_classification": "PARTIAL_ALIGNMENT",
+      "rationale": "The frozen output recognised a broad retrieval capability at the planning boundary and reconstructed the adjoining tool-selection, strategy and search activities. That is compatible with the later AI-assisted retrieval intervention. The frozen output did not identify similarity search as a distinct mechanism, did not map a capability to the actual search-execution step, and did not recommend adoption; it is therefore not strong alignment.",
+      "limitations_uncertainty": "The official sources establish later intervention existence, not that the exact eight frozen activities describe all real examiner practice or that SimSearch replaced any listed step. The sources provide no retrieval-quality, time-saving, cost, error or causal outcome measure."
+    },
+    {
+      "theme_id": "PORT-004-T2",
+      "after_intervention_theme": "Recording AI-search use in examiner search history",
+      "after_evidence": {
+        "source_ids": ["PORT-004-S2"],
+        "evidence_category": "IMPLEMENTATION_RECORDATION",
+        "bounded_claim": "The USPTO's implementation notice says use of AI search capabilities would be recorded in search history consistently with MPEP requirements."
+      },
+      "relevant_frozen_steps": [
+        {
+          "step_id": "candidate-step-69b86f080884cb5a",
+          "activity": "Document Internet search strategies"
+        }
+      ],
+      "frozen_capability_mapping": [],
+      "frozen_recommendations": [
+        {
+          "step_id": "candidate-step-69b86f080884cb5a",
+          "recommendation": "INVESTIGATE_FURTHER"
+        }
+      ],
+      "relevant_phase4_provenance": "The source-backed documentation activity and its dependency on Internet searching were accepted. No capability signal was changed or validated as true for this step. Its human-accountability field was retained UNKNOWN: the reviewer distinguished a present human documentation duty from a future-model accountability classification.",
+      "alignment_classification": "NO_DOCUMENTED_ALIGNMENT",
+      "rationale": "The frozen process contains a related documentation activity, but it neither identified AI-search recordation as a traceability/control design nor mapped an integration, workflow or governance capability to it. A generic INVESTIGATE_FURTHER result is not credited as identifying the later recordation mechanism.",
+      "limitations_uncertainty": "The frozen activity concerns Internet-search strategies, whereas the AFTER notice concerns AI-search use in PE2E search history. The sealed source does not establish the exact record fields, implementation coverage or effect of recordation."
+    },
+    {
+      "theme_id": "PORT-004-T3",
+      "after_intervention_theme": "AI-assisted search retained examiner discretion and supplementary human judgement",
+      "after_evidence": {
+        "source_ids": ["PORT-004-S4", "PORT-004-S5"],
+        "evidence_category": "HUMAN_CONTROL_STATEMENT",
+        "bounded_claim": "The USPTO states that SimSearch augments other tools and examiners retain discretion over results. PPAC separately recommends that AI search remain supplementary to examiner expertise and judgement."
+      },
+      "relevant_frozen_steps": [
+        {
+          "step_id": "candidate-step-55d273f0f007cf1f",
+          "activity": "determining the appropriate search strategy for each search tool selected"
+        },
+        {
+          "step_id": "candidate-step-a154c8ee145a50f9",
+          "activity": "Conduct a careful and comprehensive search"
+        }
+      ],
+      "frozen_capability_mapping": [],
+      "frozen_recommendations": [
+        {
+          "step_id": "candidate-step-55d273f0f007cf1f",
+          "recommendation": "INVESTIGATE_FURTHER"
+        },
+        {
+          "step_id": "candidate-step-a154c8ee145a50f9",
+          "recommendation": "INVESTIGATE_FURTHER"
+        }
+      ],
+      "relevant_phase4_provenance": "The two source-backed activities were accepted, but all eight human-accountability fields and all material risk, judgement and residual-risk criteria were deliberately retained UNKNOWN. No external control design or AFTER fact was added during review or approval.",
+      "alignment_classification": "NO_DOCUMENTED_ALIGNMENT",
+      "rationale": "The engine preserved the human search activities and withheld a deployment recommendation, but it did not identify or represent the later retained-discretion boundary as a specific adoption/control design. The cautious recommendation is recorded separately as appropriate uncertainty, not as a capability or governance match.",
+      "limitations_uncertainty": "S4 is an official product-boundary statement, but S5 is advisory rather than proof of implementation. Neither source defines assurance thresholds, review procedures, accountability allocation, exception handling or measured human-versus-tool performance."
+    }
+  ],
+  "alignment_counts": {
+    "STRONG_ALIGNMENT": 0,
+    "PARTIAL_ALIGNMENT": 1,
+    "NO_DOCUMENTED_ALIGNMENT": 2,
+    "CONTRADICTION": 0
+  },
+  "reported_outcomes": [],
+  "appropriate_uncertainty": [
+    {
+      "finding_id": "PORT-004-U1",
+      "scope": "all-eight-steps",
+      "actual_gate": "technical_fit",
+      "material_missing_information": ["ai_capability_fit"],
+      "gate_trace": "For every source-backed activity, evidence sufficiency passed and technical fit then failed because ai_capability_fit was UNKNOWN. Business-value and risk-and-autonomy gates were not evaluated after that stopping result.",
+      "assessment": "APPROPRIATE_UNCERTAINTY",
+      "explanation": "The BEFORE corpus was a procedural manual and did not provide an evidence-backed ordinal AI-capability-fit value. The later existence and use of an AI search feature do not retroactively supply that value to the frozen input, so INVESTIGATE_FURTHER is not a contradiction."
+    },
+    {
+      "finding_id": "PORT-004-U2",
+      "scope": "adoption-controls-and-outcomes",
+      "actual_gate": null,
+      "material_missing_information": [
+        "retrieval quality and acceptable error or omission risk",
+        "time, cost or workload effect",
+        "data readiness and implementation complexity",
+        "human-accountability and assurance design",
+        "risk consequences and residual risk with oversight",
+        "quantified business value"
+      ],
+      "gate_trace": "These values remained unknown but were not the recorded stopping reason because technical fit had already failed on ai_capability_fit.",
+      "assessment": "APPROPRIATE_UNCERTAINTY",
+      "explanation": "The sealed AFTER sources document intervention existence, uptake context and retained discretion, but no measured efficacy or complete control design. The engine correctly did not turn a procedural description into a deployment decision or ROI assertion."
+    }
+  ],
+  "additional_plausible_recommendations": [],
+  "process_reconstruction": {
+    "assessment": "SOURCE_FAITHFUL_WITH_SCOPE_LIMITS",
+    "extracted_step_count": 8,
+    "retained_step_count": 8,
+    "unsupported_steps_added": 0,
+    "ordering": "All eight documented activities were retained. The first three planning steps have explicit dependencies after review; the remaining activities preserve source-position order, which is not claimed to prove operational sequence.",
+    "evidence_resolution": "The frozen run records 71 evidence references, all within the corrected BEFORE corpus; no AFTER reference entered the validated process.",
+    "limitations": "The AFTER sources describe a later tool in the same broad examiner prior-art-search workflow, not direct observation or independent validation of each frozen manual step."
+  },
+  "capability_recognition": {
+    "assessment": "LIMITED_BUT_RELEVANT",
+    "recognized_later_themes": [
+      "KNOWLEDGE_RETRIEVAL at the field-of-search planning boundary, broadly compatible with later AI-assisted reference retrieval"
+    ],
+    "missed_later_themes": [
+      "Similarity Search as a distinct application-text-to-ranked-documents mechanism",
+      "explicit AI-search-use recordation and traceability design",
+      "explicit retained-examiner-discretion and assurance boundary"
+    ],
+    "review_dependency": "Unlike PORT-002, the relevant positive signals were not supplied by Phase 4: review made no capability-signal edits. Review did preserve the UNKNOWN evidence needed to avoid overclaiming fit or governance."
+  },
+  "deterministic_recommendation": {
+    "assessment": "CAUTIOUS_AND_POLICY_CONSISTENT",
+    "recommendation_distribution": {
+      "AUTOMATE": 0,
+      "AUGMENT": 0,
+      "INVESTIGATE_FURTHER": 8,
+      "DO_NOT_RECOMMEND": 0
+    },
+    "explanation": "The engine did not recommend deployment. All eight source-backed activities stopped at technical fit because ai_capability_fit was unknown. The later intervention and reported use do not make that frozen evidence gap disappear, and the sealed packet does not establish effectiveness."
+  },
+  "human_review_contribution": {
+    "assessment": "STRUCTURAL_INTEGRITY_AND_UNKNOWN_PRESERVATION",
+    "demonstrated_effects": [
+      "Accepted the process name and all eight source-backed activities without rewriting, adding or deleting an activity.",
+      "Resolved two ambiguous planning dependencies using existing BEFORE evidence.",
+      "Retained 80 material criteria and 8 human-accountability fields as UNKNOWN.",
+      "Made no capability-signal edit and introduced no HUMAN_SUPPLIED assertion or newly minted evidence.",
+      "Kept AFTER material outside the production process, review, approval, assessment and package."
+    ],
+    "limitation": "The comparison curator opened public AFTER sources during the pre-reveal collection and does not claim blindness. The Stage 1-5 records establish input separation, not individual reviewer blindness to all public information."
+  },
+  "case_conclusion": "The frozen product reconstructed a source-faithful eight-activity prior-art-search process and identified a broad KNOWLEDGE_RETRIEVAL capability at its planning boundary. That is partial alignment with the later AI-assisted Similarity Search intervention, but it is not a prediction of the feature, a deployment recommendation, or evidence of effectiveness. The product did not identify the later AI-search recordation mechanism or the retained-examiner-discretion design. All eight recommendations remained INVESTIGATE_FURTHER because the BEFORE evidence left AI capability fit unknown; that caution is appropriate rather than contradictory.",
+  "recruiter_friendly_conclusion": "The unchanged engine was tested on a frozen patent-examiner search procedure. It preserved eight documented activities, identified a broad retrieval opportunity compatible with a later USPTO AI search tool, and refused to recommend deployment when the procedural source contained no fit, control or outcome evidence. The comparison also names the missed specifics: similarity search, recordation and the human-control boundary.",
+  "limitations": [
+    "The AFTER evidence is retrospective reference evidence, not independently established ground truth or an efficacy study.",
+    "Three of four sources are USPTO-authored. They are authoritative for official tool description and reported use but are not independent effectiveness evaluations.",
+    "The PPAC report is advisory context, not proof that a recommended control was uniformly implemented.",
+    "No retrieval-quality, time-saving, cost, error, harm or causal outcome measure appears in the sealed packet.",
+    "The later sources concern a broader examiner environment and do not directly observe every frozen BEFORE activity or establish that the tool replaced it.",
+    "The curator opened AFTER sources during collection; reviewer blindness is not claimed.",
+    "The public-source input and later public intervention create residual model-memorisation and publication-selection risk.",
+    "PORT-004 uses production fingerprint 3c5c86bd rather than the Phase 8 baseline fingerprint used by PORT-001/002; no cross-case inference is made here.",
+    "One case cannot support statistical or cross-case conclusions."
+  ]
+}

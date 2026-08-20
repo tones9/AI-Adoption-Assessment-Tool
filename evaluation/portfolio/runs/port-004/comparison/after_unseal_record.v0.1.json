@@ -1,0 +1,61 @@
+{
+  "schema_version": "portfolio-after-unseal.v0.1",
+  "case_id": "PORT-004",
+  "previous_status": "SEALED_NOT_OPENED_FOR_COMPARISON",
+  "current_status": "OPENED_FOR_PORT004_RETROSPECTIVE_COMPARISON",
+  "opened_at": "2026-08-20T11:27:10Z",
+  "authorisation": {
+    "authority": "Explicit user authorisation in the active project thread",
+    "scope": "PORT-004 retrospective comparison only; no cross-case summary"
+  },
+  "preconditions": {
+    "seal_commit": "4585c18ae60d9ea3e9f8ffe45135f0ea5c503043",
+    "seal_commit_verified_as_ancestor_of_head": true,
+    "before_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+    "stage1_to_stage5_manifest_path": "evaluation/portfolio/runs/port-004/port-004.run-hashes.sha256",
+    "stage1_to_stage5_manifest_sha256": "5bba8177f25ccfb77aea6a4849af175b8916ebe6b6fcdecc02d38422118e9594",
+    "stage1_to_stage5_manifest_entry_count": 17,
+    "stage1_to_stage5_manifest_verified_before_open": true,
+    "sealed_hash_listing_path": "evaluation/portfolio/sealed_after/port-004.pre-reveal-hashes.sha256",
+    "sealed_hash_listing_sha256": "4e0dcaaaeb7073f45642546bbfe4e7ca26a93b72cc322d5ff567f6a08a6e6e73",
+    "sealed_hash_listing_entry_count": 8,
+    "sealed_hash_listing_verified_before_open": true,
+    "seal_record_verified_before_open": true,
+    "after_provenance_manifest_verified_before_open": true,
+    "decision_package_payload_sha256": "4c717926f4fd21bd1cecfbd6516553d63be3470e383de2a1a28388a136938862"
+  },
+  "opened_materials": {
+    "after_packet_path": "evaluation/portfolio/sealed_after/port-004.after.md",
+    "after_packet_sha256": "70fa799c065b74cbf81d8c0aaa12b583db9085683144ef11722494f89502fd86",
+    "source_capture_paths": [
+      "evaluation/portfolio/source_captures/port-004-s2-pe2e-ai-search-features.capture.md",
+      "evaluation/portfolio/source_captures/port-004-s3-uspto-quality-ai-search-usage.capture.md",
+      "evaluation/portfolio/source_captures/port-004-s4-simsearch-prime-time.capture.md",
+      "evaluation/portfolio/source_captures/port-004-s5-ppac-ai-search-advisory.capture.md"
+    ],
+    "source_ids": ["PORT-004-S2", "PORT-004-S3", "PORT-004-S4", "PORT-004-S5"]
+  },
+  "scope_controls": {
+    "new_after_sources_permitted": false,
+    "on_material_defect": "STOP_AND_REPORT",
+    "comparison_materials_limited_to": "sealed packet, sealed captures, provenance and seal records, and frozen PORT-004 Stage 1-5 outputs",
+    "cross_case_summary_permitted": false
+  },
+  "frozen_product_actions": {
+    "extraction_rerun": false,
+    "review_modified": false,
+    "approval_rerun": false,
+    "criterion_values_changed": false,
+    "assessment_rerun": false,
+    "decision_package_regenerated": false,
+    "production_code_modified": false
+  },
+  "exposure_disclosure": {
+    "curator_opened_after_sources_during_collection": true,
+    "curator_blindness_claimed": false,
+    "production_pipeline_received_after_material": false,
+    "production_reviewer_blindness_claimed": false
+  },
+  "product_outputs_changed_before_or_at_unseal": false,
+  "comparison_conclusions_present_at_record_creation": false
+}

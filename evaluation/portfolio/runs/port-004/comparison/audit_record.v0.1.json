@@ -1,0 +1,88 @@
+{
+  "schema_version": "portfolio-comparison-audit.v0.1",
+  "case_id": "PORT-004",
+  "comparison_started_at": "2026-08-20T11:27:10Z",
+  "comparison_completed_at": "2026-08-20T11:29:27Z",
+  "preconditions": {
+    "head_descends_from_accepted_seal_commit": true,
+    "stage1_to_stage5_manifest_verified_before_reveal": true,
+    "stage1_to_stage5_manifest_verified_after_comparison": true,
+    "sealed_after_hash_listing_verified_before_reveal": true,
+    "sealed_after_hash_listing_verified_after_comparison": true,
+    "seal_record_verified_before_reveal": true,
+    "after_provenance_manifest_verified_before_reveal": true,
+    "after_unseal_record_created_before_analysis": true,
+    "product_output_frozen_before_after_open": true,
+    "production_pipeline_received_before_only": true,
+    "sealed_source_set_extended": false,
+    "material_packet_defect_found": false,
+    "curator_blind_to_after_evidence": false,
+    "production_reviewer_blindness_claimed": false
+  },
+  "verified_hashes": {
+    "before_sha256": "98fd4ecece92f0bec27664241013677af1bd67e15816d3f8ba2291b23e017c01",
+    "stage1_to_stage5_manifest_sha256": "5bba8177f25ccfb77aea6a4849af175b8916ebe6b6fcdecc02d38422118e9594",
+    "decision_package_payload_sha256": "4c717926f4fd21bd1cecfbd6516553d63be3470e383de2a1a28388a136938862",
+    "after_sha256": "70fa799c065b74cbf81d8c0aaa12b583db9085683144ef11722494f89502fd86",
+    "sealed_hash_listing_sha256": "4e0dcaaaeb7073f45642546bbfe4e7ca26a93b72cc322d5ff567f6a08a6e6e73",
+    "source_capture_sha256": {
+      "PORT-004-S2": "94a618730899c1be503262ec0bdd697dd2b23b2f5b8182b1f018d4549b014022",
+      "PORT-004-S3": "53178b1c8aa64ca4f1387c995e7534c8408ce41452114ce968761458f43060ab",
+      "PORT-004-S4": "616da07f8c02db860e99c57a3c44f9be0fb4ba19e6ad7f4018aaae78a5f60780",
+      "PORT-004-S5": "d33b3f3e28e4ba06f1d65e124191831819c49647e891706e1fb67c18cead0bbc"
+    }
+  },
+  "materials_opened_for_comparison": [
+    "evaluation/portfolio/product_inputs/port-004.before.txt",
+    "evaluation/portfolio/provenance/port-004.after-manifest.v0.1.json",
+    "evaluation/portfolio/sealed_after/port-004.seal-record.v0.1.json",
+    "evaluation/portfolio/sealed_after/port-004.after.md",
+    "evaluation/portfolio/source_captures/port-004-s2-pe2e-ai-search-features.capture.md",
+    "evaluation/portfolio/source_captures/port-004-s3-uspto-quality-ai-search-usage.capture.md",
+    "evaluation/portfolio/source_captures/port-004-s4-simsearch-prime-time.capture.md",
+    "evaluation/portfolio/source_captures/port-004-s5-ppac-ai-search-advisory.capture.md",
+    "evaluation/portfolio/runs/port-004/production-run-v0.1/candidate_extraction.json",
+    "evaluation/portfolio/runs/port-004/production-run-v0.3-approved/stage3-approval-record.v0.1.json",
+    "evaluation/portfolio/runs/port-004/production-run-v0.4-assessed/stage4-assessment-record.v0.1.json",
+    "evaluation/portfolio/runs/port-004/production-run-v0.5-packaged/stage5-package-record.v0.1.json",
+    "evaluation/portfolio/runs/port-004/stage2-observation-record.v0.1.md",
+    "evaluation/portfolio/runs/port-004/stage4-observation-record.v0.1.md",
+    "evaluation/portfolio/runs/port-004/stage5-observation-record.v0.1.md"
+  ],
+  "materials_explicitly_not_opened": [
+    "evaluation/portfolio/sealed_after/port-001.after.md",
+    "evaluation/portfolio/sealed_after/port-002.after.md",
+    "evaluation/portfolio/sealed_after/port-003.after.md"
+  ],
+  "frozen_product_actions": {
+    "extraction_rerun": false,
+    "review_modified_after_freeze": false,
+    "approval_rerun": false,
+    "criterion_values_changed": false,
+    "assessment_rerun": false,
+    "decision_package_regenerated": false,
+    "policy_modified": false,
+    "prompt_or_schema_modified": false,
+    "production_code_modified": false
+  },
+  "classification_counts": {
+    "STRONG_ALIGNMENT": 0,
+    "PARTIAL_ALIGNMENT": 1,
+    "NO_DOCUMENTED_ALIGNMENT": 2,
+    "CONTRADICTION": 0,
+    "APPROPRIATE_UNCERTAINTY_FINDINGS": 2,
+    "ADDITIONAL_PLAUSIBLE_RECOMMENDATIONS": 0
+  },
+  "interpretive_controls": [
+    "No source was added after unseal. A material sealed-packet defect was not found.",
+    "Later intervention existence was assessed separately from reported use, human-control statements and measured outcomes.",
+    "The reported uptake figure was not converted into a retrieval-quality, efficiency, cost or causal-outcome claim.",
+    "The sealed packet contains no measured outcome; deployment or usage was not treated as proof of effectiveness.",
+    "A later real intervention was not treated as proof that adoption should have been recommended from incomplete BEFORE evidence.",
+    "INVESTIGATE_FURTHER was not counted as an error or as strong implementation alignment.",
+    "Capabilities absent from the frozen output were not credited, and a broad frozen capability was not credited with a more specific implementation mechanism.",
+    "Appropriate uncertainty is recorded separately from the four alignment classifications.",
+    "Curator exposure to AFTER sources and the absence of a reviewer-blindness claim are disclosed rather than hidden.",
+    "The comparison is PORT-004 only and makes no cross-case conclusion."
+  ]
+}
