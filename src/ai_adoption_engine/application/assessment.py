@@ -48,6 +48,7 @@ from ai_adoption_engine.models.review import (
     ReviewedAssertion,
     ReviewedCollection,
     ReviewedProcessStep,
+    ReviewDisposition,
     ReviewStatus,
 )
 
@@ -162,6 +163,94 @@ class IntegratedAssessmentService:
                 "The approval artifact does not contain valid lineage metadata.",
             )
         try:
+            traceability = _build_traceability(approved_review, None)
+        except Exception:
+            return self._failure(
+                metadata,
+                IntegrationFailureCode.TRACEABILITY_BUILD_FAILED,
+                "Traceability could not be constructed for every assessed step.",
+                lineage=lineage,
+            )
+        return self._assess_validated_input(metadata, process, lineage, traceability)
+
+    def assess_successor(
+        self, successor, *, reassessment_repository=None
+    ) -> IntegratedAssessmentResult:
+        """Assess the sole approved M2 successor shape through the normal engine.
+
+        This deliberately bypasses neither Phase 5 validation nor policy loading.  It
+        accepts only the M2 projection type, validates its one-field contract, then
+        reuses the same deterministic execution helper as ordinary assessment.
+        """
+
+        from ai_adoption_engine.grw.m2.models import M2SuccessorApprovedReview
+
+        metadata = AssessmentRunMetadata(
+            assessment_run_id=self.run_id_factory(),
+            assessed_at=self.clock(),
+            integration_schema_version=INTEGRATION_SCHEMA_VERSION,
+            phase1_contract_version=PHASE1_CONTRACT_VERSION,
+        )
+        if not isinstance(successor, M2SuccessorApprovedReview):
+            return self._failure(
+                metadata,
+                IntegrationFailureCode.APPROVAL_REQUIRED,
+                "Successor assessment requires an M2SuccessorApprovedReview.",
+            )
+        if reassessment_repository is None or not reassessment_repository.verify_successor_for_phase5(successor):
+            return self._failure(
+                metadata,
+                IntegrationFailureCode.APPROVAL_REQUIRED,
+                "Successor assessment requires a persisted, verified M2 approval lineage.",
+            )
+        process = successor.successor_process
+        if fingerprint_business_process(process) != successor.successor_process_fingerprint:
+            return self._failure(
+                metadata,
+                IntegrationFailureCode.INVALID_APPROVAL_ARTIFACT,
+                "The M2 successor process fingerprint does not match its payload.",
+            )
+        if successor.changed_field_path != f"steps.{successor.target_step_id}.characteristics.data_readiness":
+            return self._failure(
+                metadata,
+                IntegrationFailureCode.INVALID_APPROVAL_ARTIFACT,
+                "M2 successor may change data_readiness only.",
+            )
+        if not _valid_m2_successor_projection(successor):
+            return self._failure(
+                metadata,
+                IntegrationFailureCode.INVALID_APPROVAL_ARTIFACT,
+                "The M2 successor does not preserve the hash-pinned baseline except for the approved data-readiness patch.",
+            )
+        try:
+            baseline_traceability = _build_traceability(successor.baseline_approved, None)
+            lineage = _lineage(successor.baseline_approved, successor.baseline_approved.business_process).model_copy(
+                update={
+                    "review_id": successor.successor_review_id,
+                    "approval_event_id": successor.successor_approval_event_id,
+                    "approved_at": metadata.assessed_at,
+                    "validated_process_id": process.process_id,
+                    "validated_process_fingerprint": successor.successor_process_fingerprint,
+                }
+            )
+            traceability = _m2_successor_traceability(successor, baseline_traceability)
+        except Exception:
+            return self._failure(
+                metadata,
+                IntegrationFailureCode.TRACEABILITY_BUILD_FAILED,
+                "M2 successor traceability could not be constructed.",
+                lineage=None,
+            )
+        return self._assess_validated_input(metadata, process, lineage, traceability)
+
+    def _assess_validated_input(
+        self,
+        metadata: AssessmentRunMetadata,
+        process: BusinessProcess,
+        lineage: AssessmentLineage,
+        traceability_template: list[StepAssessmentTrace],
+    ) -> IntegratedAssessmentResult:
+        try:
             loaded_policy = self.policy_loader()
             policy_payload = (
                 loaded_policy.model_dump(mode="json")
@@ -249,7 +338,7 @@ class IntegratedAssessmentService:
             )
 
         try:
-            traceability = _build_traceability(approved_review, assessment)
+            traceability = _apply_assessment_paths(traceability_template, assessment)
         except Exception:
             return self._failure(
                 metadata,
@@ -680,7 +769,7 @@ def _validate_engine_step_contracts(
 
 def _build_traceability(
     approved: ApprovedProcessReview,
-    assessment: ProcessAssessment,
+    assessment: ProcessAssessment | None,
 ) -> list[StepAssessmentTrace]:
     reviewed_by_id = {
         step.candidate_step_id: step
@@ -688,7 +777,8 @@ def _build_traceability(
         if step.retained
     }
     traces: list[StepAssessmentTrace] = []
-    for assessed in assessment.step_assessments:
+    iterated_steps = assessment.step_assessments if assessment is not None else approved.business_process.steps
+    for assessed in iterated_steps:
         reviewed = reviewed_by_id[assessed.step_id]
         assessed_base = (
             f"process_assessment.step_assessments[step_id={assessed.step_id}]"
@@ -698,16 +788,16 @@ def _build_traceability(
         criterion_by_name = {item.name: item.assertion for item in reviewed.criteria}
         criteria = [
             _value_trace(
-                criterion_by_name[item.criterion],
+                criterion_by_name[item.criterion if assessment is not None else item],
                 validated_path=(
-                    f"{process_base}.characteristics.{item.criterion.value}"
+                    f"{process_base}.characteristics.{(item.criterion if assessment is not None else item).value}"
                 ),
-                review_path=f"{review_base}.criteria[name={item.criterion.value}]",
+                review_path=f"{review_base}.criteria[name={(item.criterion if assessment is not None else item).value}]",
                 assessment_path=(
-                    f"{assessed_base}.criteria[criterion={item.criterion.value}]"
+                    f"{assessed_base}.criteria[criterion={(item.criterion if assessment is not None else item).value}]"
                 ),
             )
-            for item in assessed.criteria
+            for item in (assessed.criteria if assessment is not None else list(CriterionName))
         ]
         signal_traces = [
             _value_trace(
@@ -749,6 +839,92 @@ def _build_traceability(
             )
         )
     return traces
+
+
+def _apply_assessment_paths(
+    template: list[StepAssessmentTrace], assessment: ProcessAssessment
+) -> list[StepAssessmentTrace]:
+    """The template already contains stable paths; check complete ordered coverage."""
+    if [item.step_id for item in template] != [item.step_id for item in assessment.step_assessments]:
+        raise ValueError("Traceability template does not match assessed step order")
+    return template
+
+
+def _m2_successor_traceability(successor, baseline: list[StepAssessmentTrace]) -> list[StepAssessmentTrace]:
+    """Replace only the target data-readiness trace with supplemental M2 evidence."""
+    evidence_id = f"m2-doc-evidence-{successor.supporting_document.content_sha256}"
+    result: list[StepAssessmentTrace] = []
+    for step in baseline:
+        if step.step_id != successor.target_step_id:
+            result.append(step)
+            continue
+        criteria: list[ReviewedValueTrace] = []
+        for item in step.criteria:
+            if not item.validated_process_field_path.endswith(".data_readiness"):
+                criteria.append(item)
+                continue
+            criteria.append(
+                ReviewedValueTrace(
+                    validated_process_field_path=item.validated_process_field_path,
+                    review_field_path=(
+                        f"m2.successor_review[{successor.successor_review_id}]."
+                        f"criteria[name=data_readiness]"
+                    ),
+                    assessment_field_path=item.assessment_field_path,
+                    origin=InformationOrigin.DOCUMENT_SUPPORTED,
+                    knowledge_state=KnowledgeState.KNOWN,
+                    review_disposition=ReviewDisposition.CORRECTED,
+                    evidence=[
+                        EvidenceTraceReference(
+                            evidence_id=evidence_id,
+                            document_id=successor.supporting_document.document_id,
+                            block_id=f"m2-doc-{successor.supporting_document.content_sha256[:12]}",
+                            block_start_offset=successor.locator.start_offset,
+                            block_end_offset=successor.locator.end_offset,
+                            source_locator=(
+                                f"lines {successor.locator.line_start}-{successor.locator.line_end}; "
+                                f"chars {successor.locator.start_offset}-{successor.locator.end_offset}"
+                            ),
+                        )
+                    ],
+                )
+            )
+        result.append(step.model_copy(update={"criteria": criteria}))
+    return result
+
+
+def _valid_m2_successor_projection(successor) -> bool:
+    """Validate M2's one-field patch even if a caller bypassed its projector."""
+    baseline = successor.baseline_approved.business_process.model_dump(mode="json")
+    projected = successor.successor_process.model_dump(mode="json")
+    evidence_id = f"m2-doc-evidence-{successor.supporting_document.content_sha256}"
+    if len(projected["evidence"]) != len(baseline["evidence"]) + 1:
+        return False
+    supplemental = projected["evidence"][-1]
+    if (
+        supplemental.get("evidence_id") != evidence_id
+        or supplemental.get("source_id") != successor.supporting_document.document_id
+        or "not original Phase 3 extraction evidence" not in supplemental.get("provenance", "")
+    ):
+        return False
+    if projected["evidence"][:-1] != baseline["evidence"]:
+        return False
+    projected["evidence"].pop()
+    try:
+        base_step = next(item for item in baseline["steps"] if item["step_id"] == successor.target_step_id)
+        new_step = next(item for item in projected["steps"] if item["step_id"] == successor.target_step_id)
+    except StopIteration:
+        return False
+    new_data = new_step["characteristics"]["data_readiness"]
+    if (
+        new_data.get("knowledge_state") != KnowledgeState.KNOWN.value
+        or new_data.get("value") not in {0, 1, 2, 3, 4}
+        or new_data.get("evidence_ids") != [evidence_id]
+    ):
+        return False
+    base_step["characteristics"].pop("data_readiness", None)
+    new_step["characteristics"].pop("data_readiness", None)
+    return baseline == projected
 
 
 def _value_trace(

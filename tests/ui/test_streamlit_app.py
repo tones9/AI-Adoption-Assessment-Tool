@@ -32,7 +32,7 @@ from tests.fakes.review import approved_review
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def test_app_starts_with_six_page_navigation(tmp_path, monkeypatch) -> None:
+def test_app_starts_with_seven_page_navigation(tmp_path, monkeypatch) -> None:
     monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(tmp_path / "ui.db"))
     app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=10).run()
     assert not app.exception
@@ -45,6 +45,7 @@ def test_app_starts_with_six_page_navigation(tmp_path, monkeypatch) -> None:
         "Assessment Results",
         "Decision Package",
         "Gap resolution",
+        "Reassessment",
     ):
         assert f'title="{label}"' in entrypoint
 

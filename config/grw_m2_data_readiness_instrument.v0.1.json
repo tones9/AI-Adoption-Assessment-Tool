@@ -1,0 +1,14 @@
+{
+  "instrument_id": "grw_m2_m1_data_readiness_document_instrument",
+  "version": "0.1.0",
+  "criterion": "data_readiness",
+  "allowed_values": [0, 1, 2, 3, 4],
+  "value_5": "prohibited; a measured profile is required in a future milestone",
+  "anchors": {
+    "0": "The document establishes that required data is absent or inaccessible for the target activity.",
+    "1": "The document identifies only a claim or isolated example; required fields, scope or access/control are not established.",
+    "2": "The document identifies some relevant fields and a usable limited source, with material coverage, access/control or quality limitations retained.",
+    "3": "The document identifies relevant fields, target-step scope and an available source, while retaining stated coverage, quality or control limitations.",
+    "4": "The document identifies relevant fields, target-step scope, available access, ownership or control and material limitations sufficient for the stated assessment use; it does not prove measured quality or deployment readiness."
+  }
+}

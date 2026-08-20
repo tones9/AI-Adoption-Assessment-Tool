@@ -15,6 +15,11 @@ from ai_adoption_engine.extraction.errors import ExtractionProviderConfiguration
 from ai_adoption_engine.extraction.service import ProcessExtractionService
 from ai_adoption_engine.models.document import IngestedDocument
 from ai_adoption_engine.persistence.sqlite import SQLiteAssessmentRepository
+from ai_adoption_engine.persistence.reassessment import (
+    SQLiteReassessmentRepository,
+    assert_m2_write_target_allowed,
+)
+from ai_adoption_engine.grw.m2.service import M2ReassessmentService
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -53,3 +58,14 @@ def build_workspace_service(
         repository,
         extraction_service_factory=extraction_service_for,
     )
+
+
+def build_m2_reassessment_service(
+    database_path: str | Path | None = None,
+) -> M2ReassessmentService:
+    """Compose M2 separately; protect frozen targets before any database open."""
+    path = database_path or DEFAULT_DATABASE_PATH
+    assert_m2_write_target_allowed(path)
+    baseline = SQLiteAssessmentRepository(path)
+    reassessment = SQLiteReassessmentRepository(path)
+    return M2ReassessmentService(baseline, reassessment)

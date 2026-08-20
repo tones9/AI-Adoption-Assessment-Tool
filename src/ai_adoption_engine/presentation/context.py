@@ -8,6 +8,7 @@ import streamlit as st
 
 from ai_adoption_engine.workspace.composition import (
     DEFAULT_DATABASE_PATH,
+    build_m2_reassessment_service,
     build_workspace_service,
 )
 from ai_adoption_engine.workspace.models import ArtifactType
@@ -19,9 +20,19 @@ def get_workspace_service(database_path: str):
     return build_workspace_service(database_path)
 
 
+@st.cache_resource
+def get_m2_reassessment_service(database_path: str):
+    return build_m2_reassessment_service(database_path)
+
+
 def workspace_service():
     path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
     return get_workspace_service(path)
+
+
+def m2_reassessment_service():
+    path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
+    return get_m2_reassessment_service(path)
 
 
 def clear_workspace_state() -> None:

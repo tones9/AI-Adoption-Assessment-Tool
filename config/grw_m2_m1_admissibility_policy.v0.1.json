@@ -1,0 +1,33 @@
+{
+  "policy_id": "grw_m2_m1_data_readiness_admissibility",
+  "version": "0.1.0",
+  "allowed_evidence_class": "DOCUMENT_SUPPORTED",
+  "allowed_criterion": "data_readiness",
+  "allowed_gate": "technical_fit",
+  "required": [
+    "document_hash",
+    "exact_locator",
+    "same_step_scope",
+    "period_or_explicit_limitation",
+    "semantic_review",
+    "declared_data_owner",
+    "criterion_reviewer",
+    "reassessment_approver",
+    "no_unresolved_material_conflict"
+  ],
+  "permitted_effects": [
+    "CRITERION_RESOLUTION",
+    "GATE_ADMISSIBLE_WITH_APPROVAL"
+  ],
+  "prohibited": [
+    "operator_estimate",
+    "free_text_answer",
+    "m1_sidecar",
+    "structured_attestation",
+    "dataset",
+    "measured",
+    "derived",
+    "direct_criterion_mutation",
+    "policy_change"
+  ]
+}

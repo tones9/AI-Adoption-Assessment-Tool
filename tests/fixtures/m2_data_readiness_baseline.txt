@@ -1,0 +1,5 @@
+Synthetic fixture: categorise incoming service requests.
+The intake team categorises each incoming service request every working day using documented routing rules; the work is repeated and predictable.
+The documented task is suitable for AI classification of request categories, while a conventional rules-only solution is not sufficient for the varied request text.
+The organisation assigns high business value to accurate routing, requires human judgement for exceptions, retains human accountability, and assesses consequence as low with human oversight.
+The organisation records moderate implementation complexity. The original process document does not state whether usable operational data is available for this activity.
