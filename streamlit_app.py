@@ -12,7 +12,10 @@ from ai_adoption_engine.presentation.components.status import (
     render_mode_banner,
     render_progress,
 )
-from ai_adoption_engine.presentation.context import hydrate_workspace
+from ai_adoption_engine.presentation.context import (
+    frozen_evaluation_workspace_selected,
+    hydrate_workspace,
+)
 from ai_adoption_engine.presentation.pages import (
     assessments,
     decision_continuation,
@@ -45,7 +48,22 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-snapshot = hydrate_workspace()
+pages = [
+    st.Page(assessments.render, title="Assessments", icon=":material/home:", url_path="assessments", default=True),
+    st.Page(source.render, title="Source & Extraction", icon=":material/description:", url_path="source"),
+    st.Page(review.render, title="Validate process", icon=":material/fact_check:", url_path="review"),
+    st.Page(results.render, title="Assessment Results", icon=":material/analytics:", url_path="results"),
+    st.Page(decision_package.render, title="Decision Package", icon=":material/account_tree:", url_path="decision-package"),
+    st.Page(decision_continuation.render, title="Decision continuation", icon=":material/route:", url_path="decision-continuation"),
+    st.Page(gap_resolution.render, title="Gap resolution", icon=":material/help_center:", url_path="gap-resolution"),
+    st.Page(reassessment.render, title="Reassessment", icon=":material/restart_alt:", url_path="reassessment"),
+]
+page = st.navigation(pages, position="sidebar", expanded=True)
+protected_p2_page = (
+    frozen_evaluation_workspace_selected()
+    and page.url_path in {"source", "review"}
+)
+snapshot = None if protected_p2_page else hydrate_workspace()
 if st.session_state.get("workspace_load_error"):
     st.error(st.session_state.workspace_load_error)
 with st.sidebar:
@@ -55,18 +73,8 @@ with st.sidebar:
         st.caption(snapshot.assessment.assessment_id)
         render_mode_banner(snapshot.assessment.execution_mode)
         render_progress(snapshot.assessment.current_stage)
+    elif protected_p2_page:
+        st.caption("Frozen evaluation record — ordinary workspace access is disabled.")
     else:
         st.caption("Create or open an assessment to begin.")
-
-pages = [
-    st.Page(assessments.render, title="Assessments", icon=":material/home:", url_path="assessments", default=True),
-    st.Page(source.render, title="Source & Extraction", icon=":material/description:", url_path="source"),
-    st.Page(review.render, title="Process Review", icon=":material/fact_check:", url_path="review"),
-    st.Page(results.render, title="Assessment Results", icon=":material/analytics:", url_path="results"),
-    st.Page(decision_package.render, title="Decision Package", icon=":material/account_tree:", url_path="decision-package"),
-    st.Page(decision_continuation.render, title="Decision continuation", icon=":material/route:", url_path="decision-continuation"),
-    st.Page(gap_resolution.render, title="Gap resolution", icon=":material/help_center:", url_path="gap-resolution"),
-    st.Page(reassessment.render, title="Reassessment", icon=":material/restart_alt:", url_path="reassessment"),
-]
-page = st.navigation(pages, position="sidebar", expanded=True)
 page.run()

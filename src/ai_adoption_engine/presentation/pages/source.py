@@ -10,7 +10,9 @@ from ai_adoption_engine.models.document import IngestionStatus
 from ai_adoption_engine.models.extraction import ExtractionStatus
 from ai_adoption_engine.presentation.components.status import guard
 from ai_adoption_engine.presentation.context import (
+    frozen_evaluation_workspace_selected,
     hydrate_workspace,
+    phase4_review_writes_available,
     refresh_workspace,
     workspace_service,
 )
@@ -25,17 +27,22 @@ def _process_review_page():
     """Recreate the registered callable page used by ``st.navigation``."""
     return st.Page(
         review.render,
-        title="Process Review",
+        title="Validate process",
         icon=":material/fact_check:",
         url_path="review",
     )
 
 
 def render() -> None:
+    st.title("Source & Extraction")
+    if frozen_evaluation_workspace_selected():
+        st.info(
+            "This is a frozen evaluation record. Source and process-validation changes are unavailable, and the ordinary workspace will not be opened."
+        )
+        return
     snapshot = hydrate_workspace()
     if snapshot is None:
         guard("Create or open an assessment first.")
-    st.title("Source & Extraction")
     st.write("Supply one text-native process document, inspect ingestion, then explicitly start extraction.")
     mode = snapshot.assessment.execution_mode
     current_ingestion = st.session_state.get("ingestion_result")
@@ -174,7 +181,7 @@ def render() -> None:
                     if result.status is ExtractionStatus.FAILED:
                         st.error("Candidate extraction failed.")
                     else:
-                        st.success("Candidate extraction completed. Human review is required.")
+                        st.success("Candidate extraction completed. Process validation is required.")
                     st.rerun()
                 except Exception as exc:
                     st.error(str(exc))
@@ -195,21 +202,22 @@ def render() -> None:
                 )
                 review_session = st.session_state.get("review_session")
                 if review_session is None:
-                    if st.button("Start human review", type="primary"):
+                    if not phase4_review_writes_available():
+                        st.info(
+                            "Process validation changes are unavailable because this is a frozen evaluation record."
+                        )
+                    elif st.button("Start process validation", type="primary"):
                         try:
                             workspace_service().start_review(
                                 snapshot.assessment.assessment_id
                             )
                             refresh_workspace()
                         except Exception as exc:
-                            st.error(
-                                "Human review could not start: "
-                                f"{type(exc).__name__}"
-                            )
+                            st.error("Process validation could not start. Refresh and try again.")
                             return
                         st.switch_page(_process_review_page())
                 else:
-                    st.success("Human review is in progress and saved.")
+                    st.success("Process validation is in progress and saved.")
                     st.caption(f"Review session: {review_session.review_id}")
-                    if st.button("Open Process Review", type="primary"):
+                    if st.button("Open process validation", type="primary"):
                         st.switch_page(_process_review_page())

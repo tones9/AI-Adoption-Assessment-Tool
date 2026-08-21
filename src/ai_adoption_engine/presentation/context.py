@@ -18,6 +18,11 @@ from ai_adoption_engine.persistence.reassessment import (
     M2FrozenWorkspaceError,
     assert_m2_write_target_allowed,
 )
+from ai_adoption_engine.persistence.workspace_protection import (
+    Phase4FrozenWorkspaceError,
+    assert_phase4_write_target_allowed,
+    is_frozen_evaluation_portfolio_path,
+)
 
 
 @st.cache_resource
@@ -56,6 +61,33 @@ def grw_continuation_available() -> bool:
     return True
 
 
+def phase4_review_writes_available() -> bool:
+    """Return whether the four Phase 4 lifecycle writes may be offered in the UI.
+
+    The service-level check remains authoritative.  This exists only to avoid
+    presenting actions that are known to be unavailable on a frozen portfolio
+    workspace.
+    """
+
+    path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
+    try:
+        assert_phase4_write_target_allowed(path)
+    except Phase4FrozenWorkspaceError:
+        return False
+    return True
+
+
+def frozen_evaluation_workspace_selected() -> bool:
+    """Return whether this Streamlit session points at a frozen portfolio DB.
+
+    This is only a presentation/composition boundary.  The underlying Phase 4
+    service guards remain the authority for all lifecycle writes.
+    """
+
+    path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
+    return is_frozen_evaluation_portfolio_path(path)
+
+
 def decision_continuation_service():
     path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
     return get_decision_continuation_service(path)
@@ -75,6 +107,9 @@ def clear_workspace_state() -> None:
         "grw_m2_run_id",
         "dcw_selected_m2_run_id",
         "dcw_return_page",
+        "guided_review_selected_item",
+        "selected-review-step",
+        "review_focus_path",
     ):
         st.session_state.pop(key, None)
 
@@ -108,6 +143,15 @@ def switch_to_registered_page(page_key: str) -> bool:
             title="Reassessment",
             icon=":material/restart_alt:",
             url_path="reassessment",
+        )
+    elif page_key == "results":
+        from ai_adoption_engine.presentation.pages import results
+
+        page = st.Page(
+            results.render,
+            title="Assessment Results",
+            icon=":material/analytics:",
+            url_path="results",
         )
     else:
         return False

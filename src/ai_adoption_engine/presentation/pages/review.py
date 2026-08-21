@@ -21,9 +21,16 @@ from ai_adoption_engine.presentation.components.evidence import render_reviewed_
 from ai_adoption_engine.presentation.components.process_flow import render_current_state
 from ai_adoption_engine.presentation.components.status import guard
 from ai_adoption_engine.presentation.context import (
+    frozen_evaluation_workspace_selected,
     hydrate_workspace,
+    phase4_review_writes_available,
     refresh_workspace,
+    switch_to_registered_page,
     workspace_service,
+)
+from ai_adoption_engine.presentation.review_journey import (
+    ReviewJourneyView,
+    build_review_journey,
 )
 from ai_adoption_engine.presentation.review_progress import (
     AssertionTarget,
@@ -57,9 +64,11 @@ def _apply(
         workspace_service().save_review(
             st.session_state.selected_assessment_id, working
         )
-    except Exception as exc:
+    except Exception:
         refresh_workspace()
-        st.error(f"Review action could not be saved: {exc}")
+        st.error(
+            "This change was not saved. Provide the required value, rationale, and—when you cite the document—an existing source reference."
+        )
         return
     st.session_state.review_feedback = success_message
     st.session_state.pop("review_focus_path", None)
@@ -383,6 +392,7 @@ def _step_status(step, progress: ReviewProgress) -> str:
 
 
 def _open_outstanding(item) -> None:
+    st.session_state["guided_review_selected_item"] = item.item_id
     if item.step_id is not None:
         st.session_state["selected-review-step"] = item.step_id
     st.session_state["review_focus_path"] = item.field_path
@@ -550,14 +560,6 @@ def _render_step(
         st.warning(
             "Opened from Review progress. The outstanding or recommended field is shown in this activity editor."
         )
-
-    _render_document_confirmation_group(
-        session,
-        targets=iter_step_assertions(session, step_id),
-        key=f"step-{step_id}",
-        scope_label=f"Step {step.sequence}",
-        step_id=step_id,
-    )
 
     _assertion_editor(
         session,
@@ -772,6 +774,212 @@ def _render_step(
                 )
 
 
+def _sync_guided_focus(journey: ReviewJourneyView) -> None:
+    """Keep an optional UI bookmark aligned to the persisted preflight queue."""
+
+    selected = journey.default_focus_item_id
+    if selected is None:
+        st.session_state.pop("guided_review_selected_item", None)
+        st.session_state.pop("review_focus_path", None)
+        return
+    st.session_state["guided_review_selected_item"] = selected
+    item = next(
+        candidate for candidate in journey.required_items if candidate.item_id == selected
+    )
+    if item.step_id is not None:
+        st.session_state["selected-review-step"] = item.step_id
+    if item.field_path is not None:
+        st.session_state["review_focus_path"] = item.field_path
+
+
+def _render_review_summary(journey: ReviewJourneyView) -> None:
+    st.header("Review summary")
+    with st.container(border=True):
+        st.warning("CANDIDATE PROCESS — NEEDS VALIDATION")
+        st.markdown(
+            f"**Originally extracted:** {journey.candidate_process_name or 'Unknown process name'}"
+        )
+        st.write(
+            "Activities: "
+            + (" → ".join(journey.candidate_activities) or "No activities extracted")
+        )
+        if journey.extraction_issue_messages:
+            st.caption("Extraction warnings are retained for review.")
+            for message in journey.extraction_issue_messages:
+                st.write(f"- {message}")
+        st.caption(
+            "This is a candidate representation, not an approved process, AI recommendation, or deployment decision."
+        )
+
+
+def _render_needs_your_decision(journey: ReviewJourneyView) -> None:
+    st.header("Needs your decision")
+    with st.container(border=True):
+        _render_review_progress(journey.progress)
+        st.caption(
+            "This queue is the existing Phase 4 approval readiness check. It does not count optional fields as approval requirements."
+        )
+
+
+def _render_document_says(
+    session: ProcessReviewSession, journey: ReviewJourneyView
+) -> None:
+    st.header("What the document says")
+    st.caption(
+        "These are directly documented extraction assertions with their existing source locators. Confirming one records an individual review event; it does not create new evidence."
+    )
+    if not journey.document_groups:
+        st.success("No directly documented unreviewed facts remain.")
+        return
+    for group in journey.document_groups:
+        with st.expander(
+            f"{group.scope_label} — {len(group.field_paths)} directly documented fact"
+            f"{'s' if len(group.field_paths) != 1 else ''}",
+            expanded=group.step_id is None,
+        ):
+            targets = (
+                iter_process_assertions(session)
+                if group.step_id is None
+                else iter_step_assertions(session, group.step_id)
+            )
+            _render_document_confirmation_group(
+                session,
+                targets=targets,
+                key="process" if group.step_id is None else f"step-{group.step_id}",
+                scope_label=group.scope_label,
+                step_id=group.step_id,
+            )
+
+
+def _render_unknowns(journey: ReviewJourneyView) -> None:
+    st.header("Unknown or not provided")
+    with st.container(border=True):
+        if not journey.unknown_groups:
+            st.success("No currently unreviewed unknown values are recorded.")
+        else:
+            st.write(
+                "Unknown values remain explicitly unknown. Keep them as unknown unless legitimate information supports an existing Phase 4 review action."
+            )
+            for group in journey.unknown_groups:
+                st.write(
+                    f"- {group.step_label}: {group.count} unknown value"
+                    f"{'s' if group.count != 1 else ''}"
+                )
+        st.caption(
+            "Unknown values do not automatically become zero, false, or complete evidence. They only block approval when the real approval readiness check identifies a required field."
+        )
+
+
+def _render_recommended_checks(journey: ReviewJourneyView) -> None:
+    st.header("Recommended checks")
+    with st.container(border=True):
+        if journey.inferred_field_paths:
+            st.warning(
+                f"{len(journey.inferred_field_paths)} extraction suggestion"
+                f"{'s' if len(journey.inferred_field_paths) != 1 else ''} remain unreviewed."
+            )
+            st.caption(
+                "These are suggested by extraction, not directly documented. Review is recommended but they are not presented as approval blockers unless the authoritative preflight says so."
+            )
+        else:
+            st.success("No unreviewed extraction suggestions remain.")
+
+
+def _render_dependencies_and_structure(
+    session: ProcessReviewSession, journey: ReviewJourneyView
+) -> None:
+    st.header("Dependencies and structural issues")
+    with st.container(border=True):
+        if journey.invalid_dependency_field_paths:
+            st.warning(
+                "A retained dependency needs a valid target or must be rejected. Use the activity details below to make the existing correction."
+            )
+        if journey.open_blocking_conflict_ids:
+            st.warning(
+                "A process structure issue must be resolved before approval."
+            )
+        if not journey.invalid_dependency_field_paths and not journey.open_blocking_conflict_ids:
+            st.success("No currently blocking dependencies or structural issues.")
+        for conflict in session.conflicts:
+            st.write(f"{conflict.code}: {conflict.message} ({conflict.status.value})")
+
+
+def _render_approval_summary(journey: ReviewJourneyView) -> None:
+    st.subheader("Approval summary")
+    st.write(
+        f"**Original extraction:** {journey.candidate_process_name or 'Unknown'}"
+    )
+    st.write(
+        "**Current reviewed process:** "
+        + (journey.reviewed_process_name or "Unknown")
+    )
+    st.write(
+        "**Retained activity order:** "
+        + (" → ".join(journey.reviewed_activities) or "No retained activities")
+    )
+    audit = journey.audit
+    st.caption(
+        "Review record: "
+        f"{len(audit.corrections)} correction(s), "
+        f"{len(audit.rejections_or_removals)} rejection/removal action(s), "
+        f"{len(audit.structural_changes)} dependency/order/structure action(s), and "
+        f"{len(audit.accepted_documented)} documented confirmation(s)."
+    )
+    if audit.human_supplied_fields:
+        st.caption(
+            "Added by the reviewer — no document evidence claimed: "
+            + ", ".join(audit.human_supplied_fields)
+        )
+    if audit.retained_unknowns:
+        st.caption(
+            "Explicitly retained unknown values: " + ", ".join(audit.retained_unknowns)
+        )
+    unknown_total = sum(group.count for group in journey.unknown_groups)
+    if unknown_total:
+        st.caption(
+            f"Unknown / not provided values still visible in this review: {unknown_total}. They remain unknown unless a reviewer takes an existing permitted action."
+        )
+    with st.expander("Review action trace"):
+        categories = (
+            ("Corrections", audit.corrections),
+            ("Rejections or removals", audit.rejections_or_removals),
+            ("Dependency, order, or structural decisions", audit.structural_changes),
+            ("Directly documented confirmations", audit.accepted_documented),
+            ("Retained unknowns", audit.retained_unknowns),
+        )
+        for label, fields in categories:
+            st.markdown(f"**{label}**")
+            if fields:
+                for field_path in fields:
+                    st.write(f"- {field_path}")
+            else:
+                st.caption("None recorded.")
+    st.caption(
+        "Provenance remains distinct: directly documented values retain source evidence; reviewer-supplied values do not claim document evidence; extraction suggestions remain suggestions; unknown values remain unknown."
+    )
+
+
+def _render_technical_traceability(session: ProcessReviewSession) -> None:
+    """Keep existing field paths and document locators inspectable without new evidence logic."""
+
+    with st.expander("Technical traceability"):
+        st.caption(f"Persisted review ID: {session.review_id}")
+        targets = iter_process_assertions(session)
+        for step in session.steps:
+            targets.extend(iter_step_assertions(session, step.candidate_step_id))
+        documented = [
+            target
+            for target in targets
+            if target.assertion.origin is InformationOrigin.DOCUMENT_SUPPORTED
+            and target.assertion.evidence
+        ]
+        for target in documented:
+            st.markdown(f"**{target.field_path}**")
+            for evidence in target.assertion.evidence:
+                st.caption(evidence.source_locator)
+                st.code(evidence.exact_snippet, language=None, wrap_lines=True)
+
+
 def _render_approved(approved) -> None:
     st.success("Current-state process explicitly approved.")
     st.caption(
@@ -782,57 +990,77 @@ def _render_approved(approved) -> None:
         st.write(f"Review events: {len(approved.review.events)}")
         for event in approved.review.events:
             st.caption(f"{event.sequence}. {event.action.value} — {event.field_path}")
-    with st.expander("Reopen for editing"):
-        confirmed = st.checkbox(
-            "I understand this will make the active approval, assessment and decision package non-current. Historical milestone revisions will be retained."
-        )
-        if st.button("Reset active workspace to review", disabled=not confirmed):
-            workspace_service().reset_to_review(st.session_state.selected_assessment_id)
-            refresh_workspace()
-            st.rerun()
+    st.caption(
+        "This approves the current-state process representation. It does not approve AI adoption, ROI, deployment readiness, or completion of all unknown information."
+    )
+    if st.button("Open assessment results", type="primary"):
+        switch_to_registered_page("results")
 
 
 def render() -> None:
+    st.title("Validate process")
+    if frozen_evaluation_workspace_selected():
+        st.info(
+            "This is a frozen evaluation record. Process-validation changes are unavailable, and the ordinary workspace will not be opened."
+        )
+        return
     snapshot = hydrate_workspace()
     if snapshot is None:
         guard("Create or open an assessment first.")
-    st.title("Process Review")
+    writes_available = phase4_review_writes_available()
+    if not writes_available:
+        st.info(
+            "Review changes are unavailable because this is a frozen evaluation record. You can inspect any safely loaded current state, but it cannot be changed here."
+        )
     approved = st.session_state.get("approved_review")
     if approved is not None:
         _render_approved(approved)
         return
     candidate = st.session_state.get("candidate_extraction_result")
     if candidate is None or candidate.candidate is None:
-        guard("Complete candidate extraction before starting human review.")
-    st.warning("CANDIDATE / UNCONFIRMED PROCESS EXTRACTION")
+        guard("Complete candidate extraction before starting process validation.")
     session = st.session_state.get("review_session")
     if session is None:
-        if st.button("Start human review", type="primary"):
-            workspace_service().start_review(snapshot.assessment.assessment_id)
+        st.warning("CANDIDATE PROCESS — NEEDS VALIDATION")
+        st.write(
+            "A candidate process was extracted from the document. Start validation to confirm or correct it before assessment."
+        )
+        if writes_available and st.button("Start process validation", type="primary"):
+            try:
+                workspace_service().start_review(snapshot.assessment.assessment_id)
+            except Exception:
+                st.error("Process validation could not start. Refresh and try again.")
+                return
             refresh_workspace()
             st.rerun()
+        return
+
+    selected_item_id = st.session_state.get("guided_review_selected_item")
+    journey = build_review_journey(session, selected_item_id=selected_item_id)
+    progress = journey.progress
+    _sync_guided_focus(journey)
+    if not writes_available:
+        _render_review_summary(journey)
+        _render_needs_your_decision(journey)
         return
 
     feedback = st.session_state.pop("review_feedback", None)
     if feedback:
         st.success(feedback)
     st.write(
-        "Confirm what the document says, distinguish inference and human input, retain legitimate unknowns, and resolve structural blockers."
+        "Confirm what the document says, distinguish extraction suggestions and reviewer-supplied context, retain legitimate unknowns, and resolve any structural blockers."
     )
-    progress = build_review_progress(session)
-    with st.container(border=True):
-        _render_review_progress(progress)
-        _render_non_blocking_attention(session)
+    _render_review_summary(journey)
+    _render_needs_your_decision(journey)
+    _render_document_says(session, journey)
+    _render_unknowns(journey)
+    _render_dependencies_and_structure(session, journey)
+    _render_recommended_checks(journey)
 
-    st.header("Process identity")
+    st.header("Review more detail")
+    st.subheader("Process identity")
     if st.session_state.get("review_focus_path") == "process.name":
-        st.warning("Opened from Review progress. Accept or correct the process name below.")
-    _render_document_confirmation_group(
-        session,
-        targets=iter_process_assertions(session),
-        key="process",
-        scope_label="the process identity",
-    )
+        st.warning("Review attention requested here: accept or correct the process name below.")
     _assertion_editor(
         session,
         label="Process name",
@@ -852,7 +1080,7 @@ def render() -> None:
         resolver=lambda working: working.process_objective,
     )
 
-    st.header("Ordered activities")
+    st.subheader("Ordered activities")
     ordered_steps = sorted(session.steps, key=lambda value: value.sequence)
     for item in ordered_steps:
         st.markdown(
@@ -868,7 +1096,7 @@ def render() -> None:
         if st.session_state.get("selected-review-step") not in step_labels:
             st.session_state.pop("selected-review-step", None)
         selected_step_id = st.selectbox(
-            "Select an activity to review",
+            "Select an activity to review in detail",
             list(step_labels),
             format_func=lambda value: step_labels[value],
             key="selected-review-step",
@@ -897,7 +1125,7 @@ def render() -> None:
             )
 
     with st.container(border=True):
-        st.subheader("Blocking conflicts")
+        st.subheader("Resolve structural issues")
         open_blocking = [
             item for item in session.conflicts if item.blocking and item.status is ConflictStatus.OPEN
         ]
@@ -921,20 +1149,22 @@ def render() -> None:
                             success_message="Blocking conflict resolved.",
                         )
 
+    st.header("Ready for approval")
     with st.container(border=True):
+        _render_approval_summary(journey)
         st.subheader("Explicit approval")
         st.write(
-            "Approval confirms that this is an acceptable human-reviewed representation of the current-state process. "
-            "Unknown AI-assessment information may remain unknown."
+            "Approval confirms an acceptable human-reviewed representation of the current-state process. It does not approve AI adoption, deployment, ROI, complete evidence, legal/security sign-off, or a recommendation. Unknown information may remain explicitly unknown."
         )
-        if not progress.is_ready:
-            noun = "item" if progress.remaining_required == 1 else "items"
-            verb = "remains" if progress.remaining_required == 1 else "remain"
+        _render_technical_traceability(session)
+        if not journey.progress.is_ready:
+            noun = "item" if journey.progress.remaining_required == 1 else "items"
+            verb = "remains" if journey.progress.remaining_required == 1 else "remain"
             st.error(
-                f"Not ready for approval — {progress.remaining_required} required "
+                f"Not ready for approval — {journey.progress.remaining_required} required "
                 f"{noun} {verb}."
             )
-            for item in progress.outstanding:
+            for item in journey.required_items:
                 st.write(
                     f"- {item.location_label} → {item.field_label}: {item.reason}"
                 )
@@ -943,8 +1173,8 @@ def render() -> None:
                 type="primary",
                 disabled=True,
                 help=(
-                    f"Resolve the {progress.remaining_required} required item"
-                    f"{'s' if progress.remaining_required != 1 else ''} listed immediately above."
+                    f"Resolve the {journey.progress.remaining_required} required item"
+                    f"{'s' if journey.progress.remaining_required != 1 else ''} listed immediately above."
                 ),
             )
             return

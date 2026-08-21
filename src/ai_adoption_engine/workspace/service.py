@@ -37,6 +37,9 @@ from ai_adoption_engine.models.review import (
     ProcessReviewSession,
 )
 from ai_adoption_engine.persistence.base import AssessmentRepository
+from ai_adoption_engine.persistence.workspace_protection import (
+    assert_phase4_write_target_allowed,
+)
 from ai_adoption_engine.review.approval import approve_review
 from ai_adoption_engine.review.service import ProcessReviewService
 
@@ -62,6 +65,11 @@ class AssessmentWorkspaceService:
         self.package_service = package_service or DecisionSupportPackageService()
         self.review_service = review_service or ProcessReviewService()
         self.grw_m1_service = grw_m1_service or GrwM1Service(repository)
+
+    def _assert_phase4_write_target_allowed(self) -> None:
+        """Refuse a frozen evaluation target before any Phase 4 repository access."""
+
+        assert_phase4_write_target_allowed(self.repository.path)
 
     def open_grw_m1_context(self, assessment_id: str) -> GrwM1Context | None:
         return self.grw_m1_service.open_m1_context(assessment_id)
@@ -284,6 +292,7 @@ class AssessmentWorkspaceService:
         return result
 
     def start_review(self, assessment_id: str) -> ProcessReviewSession:
+        self._assert_phase4_write_target_allowed()
         workspace = self.repository.load_workspace(assessment_id)
         candidate = workspace.active_artifacts.get(
             ArtifactType.CANDIDATE_EXTRACTION_RESULT
@@ -305,6 +314,7 @@ class AssessmentWorkspaceService:
         return session
 
     def save_review(self, assessment_id: str, session: ProcessReviewSession) -> None:
+        self._assert_phase4_write_target_allowed()
         workspace = self.repository.load_workspace(assessment_id)
         current = workspace.active_artifacts.get(ArtifactType.REVIEW_SESSION)
         if current is None or current.payload.review_id != session.review_id:
@@ -326,6 +336,7 @@ class AssessmentWorkspaceService:
         rationale: str | None = None,
         approved_at: datetime | None = None,
     ) -> ApprovalResult:
+        self._assert_phase4_write_target_allowed()
         workspace = self.repository.load_workspace(assessment_id)
         review = workspace.active_artifacts.get(ArtifactType.REVIEW_SESSION)
         if review is None:
@@ -420,6 +431,7 @@ class AssessmentWorkspaceService:
         return result
 
     def reset_to_review(self, assessment_id: str) -> None:
+        self._assert_phase4_write_target_allowed()
         workspace = self.repository.load_workspace(assessment_id)
         if ArtifactType.REVIEW_SESSION not in workspace.active_artifacts:
             raise WorkflowGuardError("No review session is available to reopen")

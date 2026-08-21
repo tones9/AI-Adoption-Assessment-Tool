@@ -41,7 +41,7 @@ def test_app_starts_with_eight_page_navigation(tmp_path, monkeypatch) -> None:
     for label in (
         "Assessments",
         "Source & Extraction",
-        "Process Review",
+        "Validate process",
         "Assessment Results",
         "Decision Package",
         "Decision continuation",
@@ -305,14 +305,12 @@ def test_start_human_review_button_persists_once_and_opens_same_review(
     app._page_hash = calc_hash("source")
     app.run()
     assert app.title[0].value == "Source & Extraction"
-    start = next(button for button in app.button if button.label == "Start human review")
+    start = next(button for button in app.button if button.label == "Start process validation")
 
     app = start.click().run()
     assert not app.exception
-    assert app.title[0].value == "Process Review"
-    assert any(
-        "CANDIDATE / UNCONFIRMED" in warning.value for warning in app.warning
-    )
+    assert app.title[0].value == "Validate process"
+    assert any("CANDIDATE PROCESS — NEEDS VALIDATION" in warning.value for warning in app.warning)
 
     started = SQLiteAssessmentRepository(path).load_workspace(
         assessment.assessment_id
@@ -333,15 +331,15 @@ def test_start_human_review_button_persists_once_and_opens_same_review(
     app._page_hash = calc_hash("source")
     app.run()
     assert app.title[0].value == "Source & Extraction"
-    assert not any(button.label == "Start human review" for button in app.button)
+    assert not any(button.label == "Start process validation" for button in app.button)
     open_review = next(
-        button for button in app.button if button.label == "Open Process Review"
+        button for button in app.button if button.label == "Open process validation"
     )
     assert any(review_id in caption.value for caption in app.caption)
 
     app = open_review.click().run()
     assert not app.exception
-    assert app.title[0].value == "Process Review"
+    assert app.title[0].value == "Validate process"
     reopened = SQLiteAssessmentRepository(path).load_workspace(
         assessment.assessment_id
     )
@@ -679,7 +677,7 @@ def test_complete_offline_demo_ui_journey_persists_and_reopens_exact_chain(
         item for item in app.button if item.label == "Extract candidate process"
     ).click().run()
     next(
-        item for item in app.button if item.label == "Start human review"
+        item for item in app.button if item.label == "Start process validation"
     ).click().run()
 
     repository = SQLiteAssessmentRepository(path)
