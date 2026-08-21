@@ -12,6 +12,7 @@ from ai_adoption_engine.presentation.context import (
     hydrate_workspace,
     refresh_workspace,
     switch_to_registered_page,
+    workspace_writes_available,
     workspace_service,
 )
 from ai_adoption_engine.presentation.report_html import render_report_html
@@ -35,6 +36,11 @@ def render() -> None:
         st.write(
             "Generate the deterministic business-facing portfolio, future state, roadmap, governance summary and report."
         )
+        if not workspace_writes_available():
+            st.info(
+                "A decision package cannot be generated because this is a frozen evaluation workspace."
+            )
+            return
         if st.button("Generate decision package", type="primary"):
             try:
                 with st.spinner("Generating the decision-support package…"):

@@ -58,6 +58,10 @@ def _run_fresh_m1(tmp_path) -> None:
 def _protected_port004_copy(tmp_path):
     """Copy a known frozen package-ready workspace into a protected path for refusal tests."""
 
+    ordinary = tmp_path / "ordinary" / "workspace.db"
+    ordinary.parent.mkdir(parents=True)
+    shutil.copy2(PORT004_PACKAGE_DB, ordinary)
+    SQLiteAssessmentRepository(ordinary)
     destination = (
         tmp_path
         / "evaluation"
@@ -68,7 +72,7 @@ def _protected_port004_copy(tmp_path):
         / "workspace.db"
     )
     destination.parent.mkdir(parents=True)
-    shutil.copy2(PORT004_PACKAGE_DB, destination)
+    shutil.copy2(ordinary, destination)
     repository = SQLiteAssessmentRepository(destination)
     service = AssessmentWorkspaceService(repository, extraction_service_factory=extraction_service_for)
     assessment = repository.list_assessments()

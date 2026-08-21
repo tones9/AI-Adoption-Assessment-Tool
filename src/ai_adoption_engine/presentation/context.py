@@ -88,6 +88,12 @@ def frozen_evaluation_workspace_selected() -> bool:
     return is_frozen_evaluation_portfolio_path(path)
 
 
+def workspace_writes_available() -> bool:
+    """Return whether ordinary writes may target the configured workspace path."""
+
+    return not frozen_evaluation_workspace_selected()
+
+
 def decision_continuation_service():
     path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
     return get_decision_continuation_service(path)

@@ -35,6 +35,11 @@ from ai_adoption_engine.persistence.serialization import (
     serialize_artifact,
     validate_schema_version,
 )
+from ai_adoption_engine.persistence.workspace_protection import (
+    FrozenEvaluationWorkspaceCompatibilityError,
+    assert_workspace_write_target_allowed,
+    is_frozen_evaluation_portfolio_path,
+)
 
 
 Clock = Callable[[], datetime]
@@ -78,11 +83,20 @@ class SQLiteAssessmentRepository:
         self.path = Path(path)
         self.clock = clock or _utc_now
         self.id_factory = id_factory or _id
-        if str(self.path) != ":memory:":
+        protected = is_frozen_evaluation_portfolio_path(self.path)
+        if protected:
+            if not self.path.is_file():
+                raise FrozenEvaluationWorkspaceCompatibilityError(
+                    "Frozen evaluation portfolio database must already exist and be a regular file"
+                )
+        elif str(self.path) != ":memory:":
             self.path.parent.mkdir(parents=True, exist_ok=True)
         self._connection: sqlite3.Connection | None = None
-        self._migrate()
-        if str(self.path) != ":memory:" and self.path.exists():
+        if protected:
+            self._assert_protected_schema_compatible()
+        else:
+            self._migrate()
+        if not protected and str(self.path) != ":memory:" and self.path.exists():
             self.path.chmod(0o600)
 
     def _connect(self) -> sqlite3.Connection:
@@ -91,17 +105,46 @@ class SQLiteAssessmentRepository:
                 self._connection = sqlite3.connect(":memory:")
                 self._configure(self._connection)
             return self._connection
-        connection = sqlite3.connect(self.path)
-        self._configure(connection)
+        protected = is_frozen_evaluation_portfolio_path(self.path)
+        if protected:
+            uri = f"{self.path.resolve(strict=True).as_uri()}?mode=ro"
+            connection = sqlite3.connect(uri, uri=True)
+        else:
+            connection = sqlite3.connect(self.path)
+        self._configure(connection, query_only=protected)
         return connection
 
     @staticmethod
-    def _configure(connection: sqlite3.Connection) -> None:
+    def _configure(
+        connection: sqlite3.Connection, *, query_only: bool = False
+    ) -> None:
         connection.row_factory = sqlite3.Row
         connection.execute("PRAGMA foreign_keys = ON")
+        if query_only:
+            connection.execute("PRAGMA query_only = ON")
+
+    def _assert_protected_schema_compatible(self) -> None:
+        expected = {version for version, _script in MIGRATIONS}
+        try:
+            with self._read() as connection:
+                applied = {
+                    row[0]
+                    for row in connection.execute(
+                        "SELECT version FROM schema_migrations"
+                    )
+                }
+        except (OSError, sqlite3.Error) as exc:
+            raise FrozenEvaluationWorkspaceCompatibilityError(
+                "Frozen evaluation portfolio database could not be opened safely in read-only mode"
+            ) from exc
+        if applied != expected:
+            raise FrozenEvaluationWorkspaceCompatibilityError(
+                "Frozen evaluation portfolio database schema is incompatible with the current application; it will not be migrated in place"
+            )
 
     @contextmanager
     def _transaction(self) -> Iterator[sqlite3.Connection]:
+        assert_workspace_write_target_allowed(self.path)
         connection = self._connect()
         try:
             connection.execute("BEGIN IMMEDIATE")
@@ -124,6 +167,7 @@ class SQLiteAssessmentRepository:
                 connection.close()
 
     def _migrate(self) -> None:
+        assert_workspace_write_target_allowed(self.path)
         connection = self._connect()
         try:
             connection.execute(

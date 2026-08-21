@@ -10,6 +10,7 @@ from ai_adoption_engine.presentation.components.status import guard
 from ai_adoption_engine.presentation.context import (
     hydrate_workspace,
     refresh_workspace,
+    workspace_writes_available,
     workspace_service,
 )
 
@@ -86,6 +87,11 @@ def render() -> None:
         st.write(
             "The approved current-state process is ready for deterministic AI-adoption assessment."
         )
+        if not workspace_writes_available():
+            st.info(
+                "Assessment cannot be run because this is a frozen evaluation workspace."
+            )
+            return
         if st.button("Run AI-adoption assessment", type="primary"):
             try:
                 with st.spinner("Running the deterministic AI-adoption assessment…"):
