@@ -126,6 +126,16 @@ def _package_ready_m2_successor_without_comparison(tmp_path):
     return repository, assessment_id, run_id
 
 
+def _completed_m2_successor(tmp_path):
+    repository, assessment_id, run_id = (
+        _package_ready_m2_successor_without_comparison(tmp_path)
+    )
+    M2ReassessmentService(
+        repository, SQLiteReassessmentRepository(repository.path)
+    ).compare(run_id)
+    return repository, assessment_id, run_id
+
+
 def test_dcw_page_shows_active_baseline_and_m2_route_without_lifecycle_controls(
     tmp_path, monkeypatch
 ) -> None:
@@ -234,6 +244,36 @@ def test_dcw_shows_package_ready_successor_when_comparison_is_not_available(
     assert f"Separate M2 successor for run {run_id}" in rendered
     assert "baseline-versus-successor comparison is not available" in rendered
     assert "Current formal decision" in rendered
+    assert "Controlled reassessment decision report" not in rendered
+    assert not app.get("download_button")
+
+
+def test_dcw_completed_reassessment_exposes_controlled_report_only_after_comparison(
+    tmp_path, monkeypatch
+) -> None:
+    repository, assessment_id, _ = _completed_m2_successor(tmp_path)
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(repository.path))
+
+    app = _dcw_app(assessment_id)
+
+    assert not app.exception
+    rendered = _rendered(app)
+    assert "Controlled reassessment decision report" in rendered
+    assert "1. Original baseline decision" in rendered
+    assert "The original baseline Decision Package remains unchanged" in rendered
+    assert "2. Approved controlled change" in rendered
+    assert "The exact M2 M1 resolution is approved for a separate successor." in rendered
+    assert "3. Approved evidence basis" in rendered
+    assert "Synthetic service operations manager" in rendered
+    assert "Text quality limitations remain." in rendered
+    assert "4. Separate successor comparison" in rendered
+    assert "Unknown (Unknown)" in rendered
+    assert "3 (Known)" in rendered
+    assert "Recommendation movement is not a measured outcome" in rendered
+    assert any(
+        button.label == "Download controlled reassessment report"
+        for button in app.get("download_button")
+    )
 
 
 def test_dcw_protected_workspace_shows_immutable_baseline_without_grw_routes(

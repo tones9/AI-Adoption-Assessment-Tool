@@ -6,15 +6,24 @@ from dataclasses import dataclass
 
 from ai_adoption_engine.grw.m2.models import (
     M2ArtifactReference,
+    M2ArtifactType,
     M2BaselineReference,
     M2BaselineSuccessorComparison,
+    M2DataReadinessResolution,
+    M2DocumentSubmission,
+    M2EvidenceReview,
+    M2ReassessmentApproval,
+    M2ReassessmentRequest,
     M2RunStage,
     M2StepGapReference,
+    M2SuccessorApprovedReview,
+    M2SuccessorAssessment,
     M2SuccessorDecisionPackage,
 )
 from ai_adoption_engine.grw.m2.service import M2ReassessmentService
 from ai_adoption_engine.grw.models import GrwM1Context, GrwM1Status
 from ai_adoption_engine.models.decision_support import DecisionPackageSuccess
+from ai_adoption_engine.models.enums import CriterionName
 from ai_adoption_engine.models.integrated_assessment import IntegratedAssessmentSuccess
 from ai_adoption_engine.persistence.base import PersistenceError
 from ai_adoption_engine.persistence.reassessment import M2RunListing
@@ -80,6 +89,78 @@ class DecisionContinuationComparison:
 
 
 @dataclass(frozen=True)
+class DecisionContinuationGateDifference:
+    gate: str
+    baseline_status: str | None
+    successor_status: str | None
+    baseline_rationale: str | None
+    successor_rationale: str | None
+
+
+@dataclass(frozen=True)
+class DecisionContinuationApprovedChange:
+    approval_reason: str
+    exact_change: str
+    mapping_rationale: str
+    retained_uncertainty: str
+    changed_field_path: str
+    baseline_remains_active: bool
+
+
+@dataclass(frozen=True)
+class DecisionContinuationEvidenceBasis:
+    document_id: str
+    content_sha256: str
+    filename: str
+    source_label: str
+    line_start: int
+    line_end: int
+    start_offset: int
+    end_offset: int
+    exact_excerpt: str
+    source_authority: str
+    scope_statement: str
+    period_statement: str
+    semantic_rationale: str
+    limitations: str
+    conflict_status: str
+    conflict_rationale: str
+    reconciliation_statement: str | None
+    applicability_statement: str | None
+
+
+@dataclass(frozen=True)
+class DecisionContinuationLineageReference:
+    label: str
+    artifact_id: str
+    artifact_revision: int
+    payload_sha256: str
+
+
+@dataclass(frozen=True)
+class DecisionContinuationControlledReport:
+    run_id: str
+    current_activity: str
+    field_name: str
+    baseline_package_id: str
+    baseline_value: int | None
+    baseline_knowledge_state: str
+    baseline_recommendation: str
+    baseline_rationale: tuple[str, ...]
+    approved_change: DecisionContinuationApprovedChange
+    evidence: DecisionContinuationEvidenceBasis
+    successor_package_id: str
+    successor_value: int | None
+    successor_knowledge_state: str
+    successor_recommendation: str
+    successor_rationale: tuple[str, ...]
+    gate_differences: tuple[DecisionContinuationGateDifference, ...]
+    comparison_categories: tuple[str, ...]
+    neutral_explanation: str
+    lineage: tuple[DecisionContinuationLineageReference, ...]
+
+
+@dataclass(frozen=True)
 class DecisionContinuationRun:
     run_id: str
     stage: M2RunStage
@@ -89,6 +170,7 @@ class DecisionContinuationRun:
     gap: M2StepGapReference
     successor: DecisionContinuationSuccessor | None
     comparison: DecisionContinuationComparison | None
+    controlled_report: DecisionContinuationControlledReport | None = None
 
     @property
     def is_terminal(self) -> bool:
@@ -180,14 +262,323 @@ class DecisionContinuationService:
         ):
             raise PersistenceError("M2 run does not match the active package baseline")
 
+    def _load_baseline_artifact(self, reference: M2ArtifactReference, expected_type):
+        artifact = self.workspace_service.repository.load_artifact(reference.artifact_id)
+        if (
+            artifact.artifact_id != reference.artifact_id
+            or artifact.artifact_revision != reference.artifact_revision
+            or artifact.payload_sha256 != reference.payload_sha256
+            or not isinstance(artifact.payload, expected_type)
+        ):
+            raise PersistenceError("Pinned baseline artifact is stale or invalid")
+        return artifact.payload
+
+    def _load_m2_artifact(
+        self,
+        run_id: str,
+        artifact_type: M2ArtifactType,
+        expected_type,
+    ):
+        reference = self.m2_service.repository.load_artifact_reference(
+            run_id, artifact_type
+        )
+        if reference is None:
+            raise PersistenceError(
+                f"M2 run is missing {artifact_type.value.lower()}"
+            )
+        payload = self.m2_service.repository.load_artifact(reference.artifact_id)
+        if not isinstance(payload, expected_type) or payload.run_id != run_id:
+            raise PersistenceError("M2 artifact does not belong to its declared run")
+        return reference, payload
+
+    @staticmethod
+    def _target_assessment(integrated: IntegratedAssessmentSuccess, step_id: str):
+        step = next(
+            (
+                item
+                for item in integrated.process_assessment.step_assessments
+                if item.step_id == step_id
+            ),
+            None,
+        )
+        if step is None:
+            raise PersistenceError("Integrated assessment does not cover the M2 target")
+        criterion = next(
+            (
+                item
+                for item in step.criteria
+                if item.criterion is CriterionName.DATA_READINESS
+            ),
+            None,
+        )
+        if criterion is None:
+            raise PersistenceError("Integrated assessment has no data-readiness value")
+        return step, criterion
+
+    @staticmethod
+    def _target_package(package: DecisionPackageSuccess, step_id: str):
+        item = next(
+            (
+                item
+                for item in package.package.portfolio.items
+                if item.step_id == step_id
+            ),
+            None,
+        )
+        if item is None:
+            raise PersistenceError("Decision Package does not cover the M2 target")
+        return item
+
+    @staticmethod
+    def _gate_differences(baseline_item, successor_item):
+        baseline = {item.gate.value: item for item in baseline_item.gate_results}
+        successor = {item.gate.value: item for item in successor_item.gate_results}
+        order = list(baseline) + [gate for gate in successor if gate not in baseline]
+        differences = []
+        for gate in order:
+            old = baseline.get(gate)
+            new = successor.get(gate)
+            if (
+                old is not None
+                and new is not None
+                and old.model_dump(mode="json") == new.model_dump(mode="json")
+            ):
+                continue
+            differences.append(
+                DecisionContinuationGateDifference(
+                    gate=gate,
+                    baseline_status=old.status.value if old is not None else None,
+                    successor_status=new.status.value if new is not None else None,
+                    baseline_rationale=old.rationale if old is not None else None,
+                    successor_rationale=new.rationale if new is not None else None,
+                )
+            )
+        return tuple(differences)
+
+    @staticmethod
+    def _lineage_reference(label: str, reference) -> DecisionContinuationLineageReference:
+        return DecisionContinuationLineageReference(
+            label=label,
+            artifact_id=reference.artifact_id,
+            artifact_revision=reference.artifact_revision,
+            payload_sha256=reference.payload_sha256,
+        )
+
+    def _controlled_report(
+        self,
+        listing: M2RunListing,
+        successor_reference: M2ArtifactReference,
+        successor_package: M2SuccessorDecisionPackage,
+        comparison_reference: M2ArtifactReference,
+        comparison: M2BaselineSuccessorComparison,
+    ) -> DecisionContinuationControlledReport:
+        run_id = listing.run_id
+        submission_ref, submission = self._load_m2_artifact(
+            run_id, M2ArtifactType.DOCUMENT_SUBMISSION, M2DocumentSubmission
+        )
+        evidence_ref, evidence = self._load_m2_artifact(
+            run_id, M2ArtifactType.EVIDENCE_REVIEW, M2EvidenceReview
+        )
+        resolution_ref, resolution = self._load_m2_artifact(
+            run_id,
+            M2ArtifactType.DATA_READINESS_RESOLUTION,
+            M2DataReadinessResolution,
+        )
+        request_ref, request = self._load_m2_artifact(
+            run_id, M2ArtifactType.REASSESSMENT_REQUEST, M2ReassessmentRequest
+        )
+        approval_ref, approval = self._load_m2_artifact(
+            run_id, M2ArtifactType.REASSESSMENT_APPROVAL, M2ReassessmentApproval
+        )
+        successor_review_ref, successor_review = self._load_m2_artifact(
+            run_id,
+            M2ArtifactType.SUCCESSOR_APPROVED_REVIEW,
+            M2SuccessorApprovedReview,
+        )
+        successor_assessment_ref, successor_assessment = self._load_m2_artifact(
+            run_id,
+            M2ArtifactType.SUCCESSOR_INTEGRATED_ASSESSMENT,
+            M2SuccessorAssessment,
+        )
+
+        if (
+            successor_reference != listing.successor_package_artifact
+            or comparison_reference != listing.comparison_artifact
+            or submission.baseline != listing.baseline
+            or submission.gap != listing.gap
+            or evidence.submission_artifact != submission_ref
+            or resolution.evidence_review_artifact != evidence_ref
+            or request.baseline != listing.baseline
+            or request.gap != listing.gap
+            or request.evidence_review_artifact != evidence_ref
+            or request.resolution_artifact != resolution_ref
+            or approval.request_artifact != request_ref
+            or successor_review.baseline_approved_review
+            != listing.baseline.approved_review
+            or successor_review.request_artifact != request_ref
+            or successor_review.approval_artifact != approval_ref
+            or successor_review.evidence_review_artifact != evidence_ref
+            or successor_review.resolution_artifact != resolution_ref
+            or successor_review.data_readiness_resolution != resolution
+            or successor_review.target_step_id != listing.gap.step_id
+            or successor_review.supporting_document != submission.document
+            or successor_review.locator != evidence.locator
+            or successor_assessment.successor_review_artifact != successor_review_ref
+            or successor_assessment.request_artifact != request_ref
+            or successor_assessment.approval_artifact != approval_ref
+            or successor_assessment.evidence_review_artifact != evidence_ref
+            or successor_assessment.resolution_artifact != resolution_ref
+            or successor_assessment.baseline != listing.baseline
+            or successor_package.successor_assessment_artifact
+            != successor_assessment_ref
+            or successor_package.request_artifact != request_ref
+            or successor_package.approval_artifact != approval_ref
+            or successor_package.evidence_review_artifact != evidence_ref
+            or successor_package.resolution_artifact != resolution_ref
+            or successor_package.baseline != listing.baseline
+            or comparison.baseline != listing.baseline
+            or comparison.successor_package_artifact != successor_reference
+            or comparison.target_step_id != listing.gap.step_id
+            or not approval.baseline_remains_active
+        ):
+            raise PersistenceError("M2 controlled-report lineage is inconsistent")
+
+        baseline_package = self._load_baseline_artifact(
+            listing.baseline.decision_package, DecisionPackageSuccess
+        )
+        baseline_integrated = self._load_baseline_artifact(
+            listing.baseline.integrated_assessment, IntegratedAssessmentSuccess
+        )
+        if (
+            baseline_package.package.package_id != listing.baseline.package_id
+            or baseline_package.package.source.integrated_assessment_run_id
+            != baseline_integrated.metadata.assessment_run_id
+            or successor_package.decision_package.package.source.integrated_assessment_run_id
+            != successor_assessment.integrated_assessment.metadata.assessment_run_id
+        ):
+            raise PersistenceError("Decision Package assessment lineage is inconsistent")
+
+        baseline_step, baseline_criterion = self._target_assessment(
+            baseline_integrated, listing.gap.step_id
+        )
+        successor_step, successor_criterion = self._target_assessment(
+            successor_assessment.integrated_assessment, listing.gap.step_id
+        )
+        baseline_item = self._target_package(
+            baseline_package, listing.gap.step_id
+        )
+        successor_item = self._target_package(
+            successor_package.decision_package, listing.gap.step_id
+        )
+        gate_differences = self._gate_differences(baseline_item, successor_item)
+        if (
+            baseline_step.recommendation_mode != baseline_item.recommendation_mode
+            or baseline_step.gate_results != baseline_item.gate_results
+            or successor_step.recommendation_mode != successor_item.recommendation_mode
+            or successor_step.gate_results != successor_item.gate_results
+            or resolution.baseline_value != baseline_criterion.value
+            or resolution.baseline_knowledge_state
+            is not baseline_criterion.knowledge_state
+            or resolution.proposed_value != successor_criterion.value
+            or resolution.proposed_knowledge_state
+            is not successor_criterion.knowledge_state
+            or comparison.baseline_data_readiness != baseline_criterion.value
+            or comparison.successor_data_readiness != successor_criterion.value
+            or comparison.baseline_recommendation
+            != baseline_item.recommendation_mode.value
+            or comparison.successor_recommendation
+            != successor_item.recommendation_mode.value
+            or (
+                "GATE_CHANGE" in comparison.categories
+                and not gate_differences
+            )
+        ):
+            raise PersistenceError("M2 comparison does not match its package lineage")
+
+        return DecisionContinuationControlledReport(
+            run_id=run_id,
+            current_activity=listing.gap.current_activity,
+            field_name=listing.gap.information_gap.field_name,
+            baseline_package_id=baseline_package.package.package_id,
+            baseline_value=baseline_criterion.value,
+            baseline_knowledge_state=baseline_criterion.knowledge_state.value,
+            baseline_recommendation=baseline_item.recommendation_mode.value,
+            baseline_rationale=tuple(baseline_item.rationale),
+            approved_change=DecisionContinuationApprovedChange(
+                approval_reason=approval.rationale,
+                exact_change=approval.exact_change,
+                mapping_rationale=resolution.mapping_rationale,
+                retained_uncertainty=approval.retained_uncertainty,
+                changed_field_path=successor_review.changed_field_path,
+                baseline_remains_active=approval.baseline_remains_active,
+            ),
+            evidence=DecisionContinuationEvidenceBasis(
+                document_id=submission.document.document_id,
+                content_sha256=submission.document.content_sha256,
+                filename=submission.document.filename,
+                source_label=submission.document.source_label,
+                line_start=evidence.locator.line_start,
+                line_end=evidence.locator.line_end,
+                start_offset=evidence.locator.start_offset,
+                end_offset=evidence.locator.end_offset,
+                exact_excerpt=evidence.locator.exact_excerpt,
+                source_authority=evidence.source_authority,
+                scope_statement=evidence.scope_statement,
+                period_statement=evidence.period_statement,
+                semantic_rationale=evidence.semantic_rationale,
+                limitations=evidence.limitations,
+                conflict_status=evidence.conflict_status.value,
+                conflict_rationale=evidence.conflict_rationale,
+                reconciliation_statement=evidence.reconciliation_statement,
+                applicability_statement=evidence.applicability_statement,
+            ),
+            successor_package_id=successor_package.decision_package.package.package_id,
+            successor_value=successor_criterion.value,
+            successor_knowledge_state=successor_criterion.knowledge_state.value,
+            successor_recommendation=successor_item.recommendation_mode.value,
+            successor_rationale=tuple(successor_item.rationale),
+            gate_differences=gate_differences,
+            comparison_categories=tuple(comparison.categories),
+            neutral_explanation=comparison.neutral_explanation,
+            lineage=(
+                self._lineage_reference(
+                    "Baseline approved review", listing.baseline.approved_review
+                ),
+                self._lineage_reference(
+                    "Baseline integrated assessment",
+                    listing.baseline.integrated_assessment,
+                ),
+                self._lineage_reference(
+                    "Baseline Decision Package", listing.baseline.decision_package
+                ),
+                self._lineage_reference("Document submission", submission_ref),
+                self._lineage_reference("Evidence review", evidence_ref),
+                self._lineage_reference("Criterion resolution", resolution_ref),
+                self._lineage_reference("Reassessment request", request_ref),
+                self._lineage_reference("Reassessment approval", approval_ref),
+                self._lineage_reference("Successor review", successor_review_ref),
+                self._lineage_reference(
+                    "Successor integrated assessment", successor_assessment_ref
+                ),
+                self._lineage_reference(
+                    "Successor Decision Package", successor_reference
+                ),
+                self._lineage_reference("Formal comparison", comparison_reference),
+            ),
+        )
+
     def _run_view(self, listing: M2RunListing) -> DecisionContinuationRun:
         successor = None
+        successor_payload = None
         if listing.successor_package_artifact is not None:
             payload = self.m2_service.repository.load_artifact(
                 listing.successor_package_artifact.artifact_id
             )
             if not isinstance(payload, M2SuccessorDecisionPackage):
                 raise PersistenceError("M2 successor package artifact is invalid")
+            if payload.run_id != listing.run_id or payload.baseline != listing.baseline:
+                raise PersistenceError("M2 successor package lineage is invalid")
+            successor_payload = payload
             item = next(
                 (
                     item
@@ -204,20 +595,37 @@ class DecisionContinuationService:
                 target_recommendation=item.recommendation_mode.value,
             )
         comparison = None
+        comparison_payload = None
         if listing.comparison_artifact is not None:
             payload = self.m2_service.repository.load_artifact(
                 listing.comparison_artifact.artifact_id
             )
             if not isinstance(payload, M2BaselineSuccessorComparison):
                 raise PersistenceError("M2 comparison artifact is invalid")
-            if payload.target_step_id != listing.gap.step_id:
+            if (
+                payload.run_id != listing.run_id
+                or payload.target_step_id != listing.gap.step_id
+                or payload.baseline != listing.baseline
+            ):
                 raise PersistenceError("M2 comparison does not match its target step")
+            comparison_payload = payload
             comparison = DecisionContinuationComparison(
                 artifact=listing.comparison_artifact,
                 categories=tuple(payload.categories),
                 neutral_explanation=payload.neutral_explanation,
                 baseline_recommendation=payload.baseline_recommendation,
                 successor_recommendation=payload.successor_recommendation,
+            )
+        controlled_report = None
+        if comparison_payload is not None:
+            if successor_payload is None or listing.successor_package_artifact is None:
+                raise PersistenceError("M2 comparison has no successor Decision Package")
+            controlled_report = self._controlled_report(
+                listing,
+                listing.successor_package_artifact,
+                successor_payload,
+                listing.comparison_artifact,
+                comparison_payload,
             )
         return DecisionContinuationRun(
             run_id=listing.run_id,
@@ -228,6 +636,7 @@ class DecisionContinuationService:
             gap=listing.gap,
             successor=successor,
             comparison=comparison,
+            controlled_report=controlled_report,
         )
 
     def open(self, assessment_id: str) -> DecisionContinuationView:
