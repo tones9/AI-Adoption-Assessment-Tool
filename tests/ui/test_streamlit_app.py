@@ -16,6 +16,7 @@ from ai_adoption_engine.models.document import (
     IngestionStatus,
     IssueSeverity,
 )
+from ai_adoption_engine.models.review import ReviewConflict
 from ai_adoption_engine.persistence.sqlite import SQLiteAssessmentRepository
 from ai_adoption_engine.presentation.review_progress import (
     document_supported_unreviewed,
@@ -351,6 +352,57 @@ def test_start_human_review_button_persists_once_and_opens_same_review(
             assessment.assessment_id, ArtifactType.REVIEW_SESSION
         )
     ) == 1
+
+
+def test_review_renders_duplicate_process_conflict_actions(tmp_path, monkeypatch) -> None:
+    path = tmp_path / "duplicate-conflicts.db"
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
+    repository = SQLiteAssessmentRepository(path)
+    assessment = repository.create_assessment(
+        "Duplicate conflict actions", ExecutionMode.OFFLINE_DEMO
+    )
+    service = build_workspace_service(path)
+    service.ingest_upload(assessment.assessment_id, raw_text=demo_text())
+    service.extract(assessment.assessment_id)
+    session = service.start_review(assessment.assessment_id)
+    session.conflicts.extend(
+        [
+            ReviewConflict(
+                conflict_id="conflict-a",
+                code="ambiguous-dependency",
+                message="A candidate dependency could not be resolved uniquely.",
+                blocking=True,
+            ),
+            ReviewConflict(
+                conflict_id="conflict-b",
+                code="ambiguous-dependency",
+                message="A candidate dependency could not be resolved uniquely.",
+                blocking=True,
+            ),
+        ]
+    )
+    service.save_review(assessment.assessment_id, session)
+
+    app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=30)
+    app.session_state["selected_assessment_id"] = assessment.assessment_id
+    app._page_hash = calc_hash("review")
+    app = app.run()
+
+    assert not app.exception
+    conflict_actions = [
+        button
+        for button in app.button
+        if button.key
+        and button.key.startswith(
+            "open-outstanding-unresolved-structural-conflict:process:"
+        )
+    ]
+    assert len(conflict_actions) == 2
+    assert [button.label for button in conflict_actions] == [
+        "Show requirement",
+        "Show requirement",
+    ]
+    assert not conflict_actions[0].click().run().exception
 
 
 def test_approval_blockers_are_explicit_and_final_resolution_enables_approval(

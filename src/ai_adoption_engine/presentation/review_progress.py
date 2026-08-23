@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass
 
 from ai_adoption_engine.models.enums import KnowledgeState
@@ -82,7 +83,10 @@ def build_review_progress(session: ProcessReviewSession) -> ReviewProgress:
     retained_steps = [item for item in session.steps if item.retained]
     base_required = 2 + len(retained_steps)  # process identity, order, each activity
     errors = approval_errors(session)
-    outstanding = tuple(_outstanding_item(session, item) for item in errors)
+    outstanding = tuple(
+        _outstanding_item(session, error, item_id=item_id)
+        for error, item_id in zip(errors, _item_ids(errors), strict=True)
+    )
     dynamic_codes = {
         "no-retained-steps",
         "invalid-retained-dependency",
@@ -253,8 +257,42 @@ def unknown_unreviewed_by_step(session: ProcessReviewSession) -> dict[str, int]:
     }
 
 
+def _base_item_id(error: ApprovalError) -> str:
+    """Return the historical, non-disambiguated identifier for one requirement."""
+
+    return f"{error.code}:{error.field_path or 'process'}"
+
+
+def _item_ids(errors: list[ApprovalError]) -> list[str]:
+    """Keep every already-unique identifier and disambiguate only collisions.
+
+    Two approval errors can share a code and field path - for example two
+    blocking structural conflicts recorded against the process itself.  Only
+    those colliding identifiers receive a deterministic ``:<occurrence>``
+    suffix, numbered in Phase 4 error order.  An identifier that is already
+    unique is returned exactly as earlier revisions produced it, so persisted
+    bookmarks and established widget keys keep working.
+    """
+
+    base_ids = [_base_item_id(error) for error in errors]
+    counts = Counter(base_ids)
+    occurrences: dict[str, int] = {}
+    item_ids: list[str] = []
+    for base_id in base_ids:
+        if counts[base_id] == 1:
+            item_ids.append(base_id)
+            continue
+        occurrence = occurrences.get(base_id, 0)
+        occurrences[base_id] = occurrence + 1
+        item_ids.append(f"{base_id}:{occurrence}")
+    return item_ids
+
+
 def _outstanding_item(
-    session: ProcessReviewSession, error: ApprovalError
+    session: ProcessReviewSession,
+    error: ApprovalError,
+    *,
+    item_id: str,
 ) -> OutstandingReviewItem:
     step_id = _step_id(error.field_path)
     step = next(
@@ -282,7 +320,7 @@ def _outstanding_item(
     }
     field_label, reason = labels.get(error.code, ("Review requirement", error.message))
     return OutstandingReviewItem(
-        item_id=f"{error.code}:{error.field_path or 'process'}",
+        item_id=item_id,
         field_path=error.field_path,
         field_label=field_label,
         reason=reason,

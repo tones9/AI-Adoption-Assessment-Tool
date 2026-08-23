@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from ai_adoption_engine.models.review import ReviewConflict
 from ai_adoption_engine.presentation.review_progress import build_review_progress
 from ai_adoption_engine.workspace.composition import build_workspace_service
 from ai_adoption_engine.workspace.demo_extraction import demo_text
@@ -60,3 +61,59 @@ def test_progress_identifies_one_persisted_activity_blocker(tmp_path: Path) -> N
         "Step 6 — Approve or return the proposed response"
     )
     assert progress.outstanding[0].field_label == "Activity"
+
+
+def test_progress_assigns_unique_ids_to_duplicate_process_conflicts(tmp_path: Path) -> None:
+    _, session = _demo_review(tmp_path)
+    session.conflicts.extend(
+        [
+            ReviewConflict(
+                conflict_id="conflict-a",
+                code="ambiguous-dependency",
+                message="A candidate dependency could not be resolved uniquely.",
+                blocking=True,
+            ),
+            ReviewConflict(
+                conflict_id="conflict-b",
+                code="ambiguous-dependency",
+                message="A candidate dependency could not be resolved uniquely.",
+                blocking=True,
+            ),
+        ]
+    )
+
+    progress = build_review_progress(session)
+
+    conflict_items = [
+        item
+        for item in progress.outstanding
+        if item.field_label == "Structural conflict"
+    ]
+    assert [item.item_id for item in conflict_items] == [
+        "unresolved-structural-conflict:process:0",
+        "unresolved-structural-conflict:process:1",
+    ]
+    item_ids = [item.item_id for item in progress.outstanding]
+    assert len(set(item_ids)) == len(item_ids)
+    # Only the colliding pair is disambiguated; unique requirements in the same
+    # session keep their historical identifiers.
+    assert "process-identity-unconfirmed:process.name" in item_ids
+    assert "step-order-unconfirmed:process.steps.order" in item_ids
+
+
+def test_progress_preserves_historical_ids_for_unique_requirements(tmp_path: Path) -> None:
+    _, session = _demo_review(tmp_path)
+
+    progress = build_review_progress(session)
+
+    item_ids = [item.item_id for item in progress.outstanding]
+    assert item_ids == [
+        "process-identity-unconfirmed:process.name",
+        "step-order-unconfirmed:process.steps.order",
+        *(
+            f"step-activity-unconfirmed:steps.{step.candidate_step_id}.activity"
+            for step in session.steps
+        ),
+    ]
+    assert len(set(item_ids)) == len(item_ids)
+    assert not any(item_id.endswith((":0", ":1")) for item_id in item_ids)
