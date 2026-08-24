@@ -23,7 +23,10 @@ def test_m2_page_shows_baseline_and_one_document_question(tmp_path, monkeypatch)
     ).run()
     assert not app.exception
     rendered = _rendered(app)
-    assert "baseline Decision Package remains active" in rendered
+    # The non-change rule is now stated in business words; the raw baseline
+    # identity and recommendation stay reachable in the technical section,
+    # which ``_rendered`` also walks.
+    assert "Your original Decision Package remains unchanged." in rendered
     assert "What information is documented about the data available" in rendered
     assert "Baseline recommendation:" in rendered
     assert not app.file_uploader
@@ -31,7 +34,7 @@ def test_m2_page_shows_baseline_and_one_document_question(tmp_path, monkeypatch)
     assert not app.exception
     assert len(app.file_uploader) == 1
     rendered = _rendered(app)
-    assert "only M2 M1 intake type" in rendered
+    assert "One .txt document is the only intake this route accepts." in rendered
 
 
 def test_m2_review_ui_exposes_review_and_conflict_decisions() -> None:
@@ -79,13 +82,27 @@ def test_m2_ui_records_accepted_and_rejected_review_paths(tmp_path, monkeypatch)
     assert any(item.key == "grw-m2-value" for item in accepted.selectbox)
     rejected = _complete_review_form(_open_submitted_m2_page(tmp_path / "rejected", monkeypatch), outcome="REJECTED", conflict="CONSISTENT")
     assert not rejected.exception
-    assert "complete or stopped" in _rendered(rejected)
+    # A stopped run is explained by the outcome that stopped it, never as a
+    # generic error, and it offers no lifecycle control.
+    rendered = _rendered(rejected)
+    assert "Stopped — the evidence review did not accept the document" in rendered
+    assert "No successor Decision Package was produced" in rendered
+    assert [button.label for button in rejected.button] == [
+        "Return to decision continuation"
+    ]
 
 
 def test_m2_ui_records_insufficient_and_conflict_review_paths(tmp_path, monkeypatch) -> None:
     insufficient = _complete_review_form(_open_submitted_m2_page(tmp_path / "insufficient", monkeypatch), outcome="INSUFFICIENT_FOR_THIS_USE", conflict="CONSISTENT")
     assert not insufficient.exception
-    assert "complete or stopped" in _rendered(insufficient)
+    rendered = _rendered(insufficient)
+    assert (
+        "Stopped — the evidence was recorded as not sufficient for this use"
+        in rendered
+    )
+    assert [button.label for button in insufficient.button] == [
+        "Return to decision continuation"
+    ]
     conflict = _complete_review_form(_open_submitted_m2_page(tmp_path / "conflict", monkeypatch), outcome="CRITERION_RESOLUTION_AND_GATE_ADMISSIBLE", conflict="CONTRADICTORY")
     assert not conflict.exception
     assert any(item.key == "grw-m2-value" for item in conflict.selectbox)

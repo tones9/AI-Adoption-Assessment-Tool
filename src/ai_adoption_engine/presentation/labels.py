@@ -308,12 +308,57 @@ M2_STAGE_LABELS: dict[str, str] = {
     "ASSESSED": "Assessed — awaiting Decision Package",
     "PACKAGE_READY": "Decision Package ready — awaiting comparison",
     "COMPARED": "Comparison complete",
+    # Terminal stages.  Each restates why the recorded lifecycle stopped; none
+    # of them is an error, and none of them is interchangeable with another.
+    "EVIDENCE_REJECTED": "Stopped — the evidence review did not accept the document",
+    "INSUFFICIENT": "Stopped — the evidence was recorded as not sufficient for this use",
+    "BLOCKED_CONFLICT": "Stopped — a recorded conflict with existing evidence was left unresolved",
+    "STALE": "Stopped — this reassessment no longer matches the current decision",
+    "WITHDRAWN": "Stopped — this reassessment was withdrawn",
+    "FAILED": "Stopped — this reassessment did not complete",
 }
 
 
 def m2_stage_label(value: str) -> str:
     """Return a business-facing M2 run stage description."""
     return M2_STAGE_LABELS.get(value, _human(value))
+
+
+# ---------------------------------------------------------------------------
+# Controlled reassessment (GRW M2) review vocabulary
+#
+# Faithful restatements of the recorded enum names.  They reinterpret no
+# admissibility policy: the reviewer still chooses the authoritative value, and
+# that raw value is what is submitted and what the technical layer shows.
+# ---------------------------------------------------------------------------
+
+M2_EVIDENCE_PERMISSION_LABELS: dict[str, str] = {
+    "REJECTED": "Rejected as evidence for this question",
+    "INSUFFICIENT_FOR_THIS_USE": "Not sufficient for this use",
+    "CRITERION_RESOLUTION_AND_GATE_ADMISSIBLE": (
+        "Admissible for resolving this question and for the assessment checks"
+    ),
+}
+
+
+def m2_evidence_permission_label(value: str) -> str:
+    """Return a business-facing evidence-review outcome."""
+    return M2_EVIDENCE_PERMISSION_LABELS.get(value, _human(value))
+
+
+M2_CONFLICT_STATUS_LABELS: dict[str, str] = {
+    "CONSISTENT": "Consistent with the evidence already reviewed",
+    "PARTIALLY_OVERLAPPING": "Partly overlaps the evidence already reviewed",
+    "CONTRADICTORY": "Contradicts the evidence already reviewed",
+    "DIFFERENT_SCOPE": "Covers a different scope from the evidence already reviewed",
+    "STALE_OR_SUPERSEDED": "Older than, or superseded by, the evidence already reviewed",
+    "UNRESOLVED": "Relationship not resolved",
+}
+
+
+def m2_conflict_status_label(value: str) -> str:
+    """Return a business-facing relationship to the evidence already reviewed."""
+    return M2_CONFLICT_STATUS_LABELS.get(value, _human(value))
 
 
 # ---------------------------------------------------------------------------

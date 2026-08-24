@@ -360,7 +360,7 @@ def test_dcw_package_entry_and_m2_return_control_are_available_in_native_navigat
     # retains its explicitly assigned initial page hash after chained switches.
     app._page_hash = calc_hash("reassessment")
     app.run()
-    assert app.title[0].value == "Reassess with supporting document"
+    assert app.title[0].value == "Controlled reassessment"
     assert any(
         button.label == "Return to decision continuation" for button in app.button
     )
