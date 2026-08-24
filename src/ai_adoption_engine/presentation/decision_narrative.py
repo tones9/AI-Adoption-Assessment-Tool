@@ -167,6 +167,7 @@ class PackageNarrative:
     process_name: str
     completeness_statement: str
     headline: str
+    outcome_groups: tuple[str, ...]
     why: tuple[str, ...]
     what_this_means: tuple[str, ...]
     next_action: tuple[str, ...]
@@ -280,6 +281,7 @@ def build_package_narrative(package: DecisionSupportPackage) -> PackageNarrative
         process_name=package.current_state.process_name,
         completeness_statement=_completeness_statement(package.completeness),
         headline=_headline(counts, len(items)),
+        outcome_groups=_package_outcome_groups(package),
         why=_package_why(package),
         what_this_means=_what_this_means(counts),
         next_action=_package_next_action(package, counts),
@@ -371,17 +373,26 @@ def _completeness_statement(completeness: PackageCompleteness) -> str:
     )
 
 
+def _package_outcome_groups(package: DecisionSupportPackage) -> tuple[str, ...]:
+    """Group the activities by outcome, without the per-fact gap detail.
+
+    Surfaces that need the decision at a glance - the Decision Continuation
+    Workspace - use this on its own; the Decision Package uses ``why``, which
+    is these lines followed by the unestablished facts.
+    """
+
+    return _what_we_found(
+        tuple(
+            (item.current_activity, item.recommendation_mode)
+            for item in package.portfolio.items
+        )
+    )
+
+
 def _package_why(package: DecisionSupportPackage) -> tuple[str, ...]:
     """Name the outcome groups, then the facts the evidence does not establish."""
 
-    why = list(
-        _what_we_found(
-            tuple(
-                (item.current_activity, item.recommendation_mode)
-                for item in package.portfolio.items
-            )
-        )
-    )
+    why = list(_package_outcome_groups(package))
     activities = {item.step_id: item.current_activity for item in package.portfolio.items}
     ordered: list[str] = []
     where: dict[str, list[str]] = {}

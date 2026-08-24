@@ -146,10 +146,19 @@ def test_dcw_page_shows_active_baseline_and_m2_route_without_lifecycle_controls(
 
     assert not app.exception
     rendered = _rendered(app)
-    assert "Current formal decision" in rendered
-    assert "active formal baseline" in rendered
-    assert "Controlled formal reassessment" in rendered
-    assert "This is the existing M2 M1 data-readiness route" in rendered
+    assert "Your current official decision" in rendered
+    # The page must explain the decision in business terms, never lead with the
+    # internal baseline vocabulary.
+    assert "active formal baseline" not in rendered
+    assert (
+        "This is the decision produced from the evidence that has already been "
+        "reviewed and approved."
+    ) in rendered
+    assert "Option C — Controlled reassessment" in rendered
+    assert "What this route requires" in rendered
+    assert (
+        "The route covers this one recorded question only." in rendered
+    )
     assert "InformationGap" not in rendered
     assert not app.file_uploader
     assert not any("approve" in button.label.lower() for button in app.button)
@@ -173,9 +182,18 @@ def test_dcw_page_shows_existing_m1_as_non_decision_route(tmp_path, monkeypatch)
 
     assert not app.exception
     rendered = _rendered(app)
-    assert "Improve preliminary understanding" in rendered
-    assert "Optional context only — no formal decision change" in rendered
-    assert "Controlled formal reassessment" not in rendered
+    assert "Option B — Add preliminary context" in rendered
+    assert (
+        "This cannot change the decision above. It does not change the assessment "
+        "criteria, the checks, the scores, the recommendation, the priority, or "
+        "the Decision Package."
+    ) in rendered
+    # No controlled reassessment route is offered for this baseline.
+    assert "What this route requires" not in rendered
+    assert (
+        "Option C — Controlled reassessment is not available for this decision."
+        in rendered
+    )
 
 
 def test_dcw_discovers_persisted_run_in_a_fresh_streamlit_session(tmp_path, monkeypatch) -> None:
@@ -241,9 +259,17 @@ def test_dcw_shows_package_ready_successor_when_comparison_is_not_available(
 
     assert not app.exception
     rendered = _rendered(app)
-    assert f"Separate M2 successor for run {run_id}" in rendered
+    assert (
+        "A separate reassessment was produced using additional approved evidence."
+        in rendered
+    )
+    assert (
+        "This separate decision sits alongside your current official decision."
+        in rendered
+    )
+    assert run_id in rendered  # retained as technical traceability
     assert "baseline-versus-successor comparison is not available" in rendered
-    assert "Current formal decision" in rendered
+    assert "Your current official decision" in rendered
     assert "Controlled reassessment decision report" not in rendered
     assert not app.get("download_button")
 
@@ -297,8 +323,9 @@ def test_dcw_protected_workspace_shows_immutable_baseline_without_grw_routes(
 
     assert not app.exception
     rendered = _rendered(app)
-    assert "immutable evaluation baseline" in rendered
-    assert "Controlled formal reassessment" not in rendered
+    assert "sealed evaluation record" in rendered
+    assert "Your current official decision" in rendered
+    assert "What this route requires" not in rendered
     assert hashlib.sha256(protected.read_bytes()).hexdigest() == before
 
 
@@ -321,7 +348,9 @@ def test_dcw_package_entry_and_m2_return_control_are_available_in_native_navigat
     assert not app.exception
     assert app.title[0].value == "Decision continuation"
     open_m2 = next(
-        button for button in app.button if button.label == "Open controlled reassessment"
+        button
+        for button in app.button
+        if button.label == "Review controlled reassessment"
     )
     assert not open_m2.disabled
     # Re-open the registered target as a fresh browser/page render. AppTest
