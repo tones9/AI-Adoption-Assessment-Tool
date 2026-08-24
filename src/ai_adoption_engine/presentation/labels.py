@@ -232,6 +232,52 @@ def role_confirmation_label(value: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Preliminary-context (GRW M1) vocabulary
+#
+# Faithful restatements of the recorded enum names.  They add no meaning: an
+# answer's evidence class, the reviewer's decision and the admissibility effect
+# are all authoritative values, and the raw token stays available in the
+# technical layer.
+# ---------------------------------------------------------------------------
+
+EVIDENCE_CLASS_LABELS: dict[str, str] = {
+    "OPERATOR_PROVIDED_ESTIMATE": "An estimate provided by an operator",
+    "UNKNOWN": "Recorded as not known",
+}
+
+
+def evidence_class_label(value: str) -> str:
+    """Return a business-facing evidence class."""
+    return EVIDENCE_CLASS_LABELS.get(value, _human(value))
+
+
+REVIEW_DECISION_LABELS: dict[str, str] = {
+    "ACCEPT_PRELIMINARY": "Accepted as preliminary understanding",
+    "ACCEPT_RECORDED_ONLY": "Accepted, recorded only",
+    "REJECT": "Rejected",
+}
+
+
+def review_decision_label(value: str) -> str:
+    """Return a business-facing review decision."""
+    return REVIEW_DECISION_LABELS.get(value, _human(value))
+
+
+ADMISSIBILITY_EFFECT_LABELS: dict[str, str] = {
+    "PRELIMINARY_UNDERSTANDING": (
+        "May be used as preliminary understanding only"
+    ),
+    "RECORDED_ONLY": "Kept on the record only",
+    "NONE": "Not used as an assessment input",
+}
+
+
+def admissibility_effect_label(value: str) -> str:
+    """Return a business-facing admissibility effect."""
+    return ADMISSIBILITY_EFFECT_LABELS.get(value, _human(value))
+
+
+# ---------------------------------------------------------------------------
 # Adoption roadmap status
 # ---------------------------------------------------------------------------
 

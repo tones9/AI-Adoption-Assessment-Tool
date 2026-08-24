@@ -56,8 +56,17 @@ def test_grw_page_shows_one_optional_question_without_upload_controls(tmp_path, 
     app, _, _ = _ready_page(tmp_path, monkeypatch)
     assert not app.exception
     rendered = _rendered(app)
-    assert "Your current information is enough for an initial assessment." in rendered
+    # The page no longer asserts that the existing information is "enough".
+    # It states the actual recorded completeness and the non-decision-affecting
+    # rule instead.
+    assert "Your current information is enough for an initial assessment." not in rendered
+    assert (
+        "Adding this context does not change your current AI adoption decision."
+        in rendered
+    )
+    assert "This Decision Package is complete and records" in rendered
     assert "continue with the current recommendation" in rendered
+    # Formal traceability is preserved; it now lives in the technical section.
     assert "Baseline recommendation for this activity:" in rendered
     assert "existing; unchanged by Gap resolution" in rendered
     assert len(app.text_area) == 1
