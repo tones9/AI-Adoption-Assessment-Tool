@@ -285,17 +285,20 @@ def test_dcw_completed_reassessment_exposes_controlled_report_only_after_compari
     assert not app.exception
     rendered = _rendered(app)
     assert "Controlled reassessment decision report" in rendered
-    assert "1. Original baseline decision" in rendered
-    assert "The original baseline Decision Package remains unchanged" in rendered
-    assert "2. Approved controlled change" in rendered
+    assert "Your original decision" in rendered
+    assert "Your original Decision Package was not rewritten." in rendered
+    assert "What changed in the assessment input" in rendered
     assert "The exact M2 M1 resolution is approved for a separate successor." in rendered
-    assert "3. Approved evidence basis" in rendered
+    assert "What additional evidence was approved" in rendered
     assert "Synthetic service operations manager" in rendered
     assert "Text quality limitations remain." in rendered
-    assert "4. Separate successor comparison" in rendered
-    assert "Unknown (Unknown)" in rendered
-    assert "3 (Known)" in rendered
-    assert "Recommendation movement is not a measured outcome" in rendered
+    assert "The separate reassessment decision" in rendered
+    assert "Not established by the evidence" in rendered
+    assert "3 out of 5 — confirmed by the evidence" in rendered
+    assert (
+        "A difference between the two decisions is not a measured outcome or "
+        "evidence that adoption succeeded." in rendered
+    )
     assert any(
         button.label == "Download controlled reassessment report"
         for button in app.get("download_button")

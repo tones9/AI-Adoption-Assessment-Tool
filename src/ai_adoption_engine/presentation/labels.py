@@ -155,6 +155,23 @@ def knowledge_state_label(value: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Criterion value display
+#
+# Formatting only: it pairs a recorded value with its recorded knowledge state.
+# It reads no threshold, decides no pass or fail, and says nothing about whether
+# a value is good or bad - the Engine alone judges that.
+# ---------------------------------------------------------------------------
+
+
+def criterion_value_display(value: int | None, knowledge_state: str) -> str:
+    """Render a recorded criterion value and how well it is known."""
+
+    if value is None:
+        return knowledge_state_label(knowledge_state)
+    return f"{value} out of 5 — {knowledge_state_label(knowledge_state).lower()}"
+
+
+# ---------------------------------------------------------------------------
 # Priority status and band
 # ---------------------------------------------------------------------------
 

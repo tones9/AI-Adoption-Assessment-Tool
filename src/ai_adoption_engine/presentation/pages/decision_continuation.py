@@ -28,6 +28,7 @@ from ai_adoption_engine.presentation.context import (
     switch_to_registered_page,
 )
 from ai_adoption_engine.presentation.controlled_reassessment_report import (
+    build_controlled_reassessment_narrative,
     render_controlled_reassessment_report_html,
 )
 from ai_adoption_engine.presentation.decision_narrative import (
@@ -51,15 +52,6 @@ CONTINUATION_IS_OPTIONAL = (
     "above unless you complete the controlled reassessment route, and even then "
     "the decision above is kept unchanged alongside the new one."
 )
-
-
-def _human(value: str) -> str:
-    return value.replace("_", " ").replace("-", " ").title()
-
-
-def _criterion_value(value: int | None, knowledge_state: str) -> str:
-    rendered = "Unknown" if value is None else str(value)
-    return f"{rendered} ({_human(knowledge_state)})"
 
 
 def _package_from(snapshot):
@@ -162,7 +154,7 @@ def _m1_status_label(view: DecisionContinuationView) -> str:
         return "Optional question available"
     if status.review is None:
         return "Answer submitted — awaiting human review"
-    return _human(status.review.admissibility_effect.value)
+    return labels.human_label(status.review.admissibility_effect.value)
 
 
 def _navigate_to_m1() -> None:
@@ -274,115 +266,61 @@ def _render_m2_route(view: DecisionContinuationView) -> None:
 
 
 def _render_controlled_report(report: DecisionContinuationControlledReport) -> None:
+    """Render the same projection the downloadable report uses."""
+
+    narrative = build_controlled_reassessment_narrative(report)
     st.subheader("Controlled reassessment decision report")
-    st.caption(
-        "A read-only projection of the original baseline, approved evidence, and "
-        "separate successor decision."
-    )
+    for line in narrative.purpose:
+        st.write(line)
+
     with st.container(border=True):
-        st.markdown("**1. Original baseline decision**")
-        st.write(f"Baseline package: {report.baseline_package_id}")
-        st.write(
-            "Data-readiness value: "
-            + _criterion_value(
-                report.baseline_value, report.baseline_knowledge_state
-            )
-        )
-        st.write(f"Recommendation: {_human(report.baseline_recommendation)}")
-        for rationale in report.baseline_rationale:
-            st.caption(rationale)
-        st.info(
-            "The original baseline Decision Package remains unchanged and is not "
-            "overwritten by this successor."
-        )
+        st.markdown("**Your original decision**")
+        for line in narrative.original_decision:
+            st.write(line)
     with st.container(border=True):
-        st.markdown("**2. Approved controlled change**")
-        st.write(f"Approved reason: {report.approved_change.approval_reason}")
-        st.write(f"Exact approved change: {report.approved_change.exact_change}")
-        st.write(f"Mapping rationale: {report.approved_change.mapping_rationale}")
-        st.write(
-            f"Retained uncertainty: {report.approved_change.retained_uncertainty}"
-        )
+        st.markdown("**What additional evidence was approved**")
+        for line in narrative.approved_evidence:
+            st.write(line)
+        st.code(narrative.evidence_excerpt, language=None)
     with st.container(border=True):
-        st.markdown("**3. Approved evidence basis**")
-        st.write(
-            f"Document: {report.evidence.filename} · Source: "
-            f"{report.evidence.source_label}"
-        )
-        st.caption(f"Document SHA-256: {report.evidence.content_sha256}")
-        st.caption(
-            f"Locator: lines {report.evidence.line_start}-{report.evidence.line_end}; "
-            f"characters {report.evidence.start_offset}-{report.evidence.end_offset}"
-        )
-        st.code(report.evidence.exact_excerpt, language=None)
-        st.write(f"Source authority: {report.evidence.source_authority}")
-        st.write(f"Scope: {report.evidence.scope_statement}")
-        st.write(f"Period or limitation: {report.evidence.period_statement}")
-        st.write(f"Evidence-review rationale: {report.evidence.semantic_rationale}")
-        st.write(f"Limitations retained: {report.evidence.limitations}")
-        st.write(f"Conflict status: {_human(report.evidence.conflict_status)}")
-        st.caption(report.evidence.conflict_rationale)
-        if report.evidence.reconciliation_statement:
-            st.write(f"Reconciliation: {report.evidence.reconciliation_statement}")
-        if report.evidence.applicability_statement:
-            st.write(f"Applicability: {report.evidence.applicability_statement}")
+        st.markdown("**What changed in the assessment input**")
+        for line in narrative.input_change:
+            st.write(line)
     with st.container(border=True):
-        st.markdown("**4. Separate successor comparison**")
-        st.write(f"Successor package: {report.successor_package_id}")
-        st.write(
-            "Data-readiness value: "
-            + _criterion_value(
-                report.successor_value, report.successor_knowledge_state
-            )
-        )
-        st.write(f"Recommendation: {_human(report.successor_recommendation)}")
-        for rationale in report.successor_rationale:
-            st.caption(rationale)
-        st.markdown("**Relevant gate differences**")
-        if not report.gate_differences:
-            st.caption("No gate difference was recorded.")
-        for gate in report.gate_differences:
-            st.write(
-                f"{_human(gate.gate)}: "
-                f"{_human(gate.baseline_status or 'not-present')} → "
-                f"{_human(gate.successor_status or 'not-present')}"
-            )
-            if gate.baseline_rationale:
-                st.caption(f"Baseline: {gate.baseline_rationale}")
-            if gate.successor_rationale:
-                st.caption(f"Successor: {gate.successor_rationale}")
-        st.caption(
-            "Categories: "
-            + ", ".join(_human(item) for item in report.comparison_categories)
-        )
-        st.info(report.neutral_explanation)
-        st.caption(
-            "Recommendation movement is not a measured outcome, ROI result, "
-            "deployment approval, or evidence of adoption success."
-        )
-    html_report = render_controlled_reassessment_report_html(report)
+        st.markdown("**What did not change**")
+        for line in narrative.unchanged:
+            st.write(line)
+    with st.container(border=True):
+        st.markdown("**The separate reassessment decision**")
+        for line in narrative.successor_decision:
+            st.write(line)
+    with st.container(border=True):
+        st.markdown("**Original decision compared with the reassessment**")
+        for line in narrative.comparison:
+            st.write(line)
+        st.markdown("**Assessment checks**")
+        for line in narrative.gate_differences:
+            st.write(line)
+    with st.container(border=True):
+        st.markdown("**Limitations**")
+        for line in narrative.limitations:
+            st.write(line)
+
     st.download_button(
         "Download controlled reassessment report",
-        data=html_report,
+        data=render_controlled_reassessment_report_html(report),
         file_name=f"controlled-reassessment-{report.run_id}.html",
         mime="text/html",
         key=f"dcw-download-controlled-report-{report.run_id}",
         icon=":material/download:",
     )
-    with st.expander("Technical lineage appendix"):
-        st.code(
-            "\n".join(
-                f"{item.label}: {item.artifact_id} "
-                f"(revision {item.artifact_revision})\nSHA-256: {item.payload_sha256}"
-                for item in report.lineage
-            ),
-            language=None,
-        )
-        st.code(
-            f"Changed field: {report.approved_change.changed_field_path}\n"
-            f"Supporting document: {report.evidence.document_id}",
-            language=None,
-        )
+    st.caption(
+        "Downloads this same report as a printable file. Nothing is changed by "
+        "downloading it."
+    )
+    with technical_details():
+        for line in narrative.technical:
+            st.caption(line)
 
 
 def _render_run_detail(
