@@ -53,8 +53,28 @@ GATE_STATUS_ICONS: dict[str, str] = {
 }
 
 
-def gate_status_label(value: str) -> str:
-    """Return a business-facing gate status."""
+#: A ``failed`` check on an activity the assessment left open did not establish
+#: a negative finding - it stopped because a required fact was never
+#: established.  The verb phrase matches the sentence Assessment Results and the
+#: Decision Package already use for the same situation.
+GATE_STATUS_UNESTABLISHED_LABEL = (
+    "Could not be completed — required evidence was not established"
+)
+
+
+def gate_status_label(value: str, *, outcome_unestablished: bool = False) -> str:
+    """Return a business-facing gate status.
+
+    ``outcome_unestablished`` is the caller's authoritative statement that the
+    activity's recommendation is ``INVESTIGATE_FURTHER`` - the same structured
+    signal ``decision_narrative`` reads when it chooses between "could not be
+    completed" and "was not met".  It changes only how a ``failed`` status is
+    named; the persisted status itself is never reinterpreted, and every other
+    status keeps its single translation.
+    """
+
+    if outcome_unestablished and value == "failed":
+        return GATE_STATUS_UNESTABLISHED_LABEL
     return GATE_STATUS_LABELS.get(value, _human(value))
 
 

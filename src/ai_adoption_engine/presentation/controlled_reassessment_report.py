@@ -19,6 +19,7 @@ from html import escape
 from ai_adoption_engine.application.decision_continuation import (
     DecisionContinuationControlledReport,
 )
+from ai_adoption_engine.models.enums import RecommendationMode
 from ai_adoption_engine.presentation import labels
 from ai_adoption_engine.presentation.components.technical_details import (
     TECHNICAL_DETAILS_LABEL,
@@ -59,8 +60,23 @@ class ControlledReassessmentNarrative:
         )
 
 
-def _gate_status(value: str | None) -> str:
-    return labels.gate_status_label(value) if value else "Not recorded"
+def _gate_status(value: str | None, recommendation: str) -> str:
+    """Name one side's recorded check status for that side's own outcome.
+
+    A ``failed`` check on a side whose recommendation is ``INVESTIGATE_FURTHER``
+    stopped because a required fact was never established, and must not be read
+    as a negative finding.  ``recommendation`` is the persisted recommendation
+    for that side of the comparison; nothing here reads a rationale string or
+    recomputes a gate.
+    """
+
+    if not value:
+        return "Not recorded"
+    return labels.gate_status_label(
+        value,
+        outcome_unestablished=recommendation
+        == RecommendationMode.INVESTIGATE_FURTHER.value,
+    )
 
 
 def build_controlled_reassessment_narrative(
@@ -200,8 +216,9 @@ def build_controlled_reassessment_narrative(
         ),
         gate_differences=tuple(
             f"{labels.gate_name_label(gate.gate)}: "
-            f"{_gate_status(gate.baseline_status)} \u2192 "
-            f"{_gate_status(gate.successor_status)}"
+            f"{_gate_status(gate.baseline_status, report.baseline_recommendation)}"
+            f" \u2192 "
+            f"{_gate_status(gate.successor_status, report.successor_recommendation)}"
             for gate in report.gate_differences
         )
         or ("No difference between the assessment checks was recorded.",),
