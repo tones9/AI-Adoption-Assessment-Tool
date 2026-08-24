@@ -313,7 +313,11 @@ def test_dcw_package_entry_and_m2_return_control_are_available_in_native_navigat
     app._page_hash = calc_hash("decision-package")
     app.run()
 
-    app = next(button for button in app.button if button.label == "Continue decision").click().run()
+    app = next(
+        button
+        for button in app.button
+        if button.label == "Review optional evidence-continuation paths"
+    ).click().run()
     assert not app.exception
     assert app.title[0].value == "Decision continuation"
     open_m2 = next(

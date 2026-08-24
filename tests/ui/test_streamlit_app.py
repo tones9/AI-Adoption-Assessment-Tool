@@ -817,7 +817,10 @@ def test_complete_offline_demo_ui_journey_persists_and_reopens_exact_chain(
         item.label == "Download print-friendly HTML report"
         for item in app.download_button
     )
-    assert any(item.label == "Continue decision" for item in app.button)
+    assert any(
+        item.label == "Review optional evidence-continuation paths"
+        for item in app.button
+    )
 
     completed = repository.load_workspace(assessment_id)
     immutable_ids = {

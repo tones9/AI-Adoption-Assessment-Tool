@@ -31,12 +31,22 @@ def render_decision_header(
     context_line: str,
     headline: str,
     sections: Sequence[HeaderSection],
+    headline_heading: str = "Decision today",
+    headline_note: str | None = None,
 ) -> None:
-    """Render where-am-I, the decision, and its supporting blocks in order."""
+    """Render where-am-I, the decision, and its supporting blocks in order.
+
+    ``headline_heading`` names the decision block for the surface in question -
+    an assessment reports the decision today, a Decision Package summarises the
+    decision it delivers.  ``headline_note`` carries one short qualifier that
+    belongs with the decision itself rather than with a later block.
+    """
 
     st.caption(context_line)
-    st.subheader("Decision today")
+    st.subheader(headline_heading)
     st.markdown(f"### {headline}")
+    if headline_note:
+        st.caption(headline_note)
     for section in sections:
         if not section.lines:
             continue

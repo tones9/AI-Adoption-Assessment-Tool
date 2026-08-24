@@ -31,6 +31,12 @@ from ai_adoption_engine.models.assessment import (
     GateResult,
     StepAssessment,
 )
+from ai_adoption_engine.models.decision_support import (
+    DecisionSupportPackage,
+    InformationGap,
+    InformationGapKind,
+    PackageCompleteness,
+)
 from ai_adoption_engine.models.enums import (
     GateStatus,
     KnowledgeState,
@@ -153,6 +159,37 @@ class ProcessNarrative:
         return tuple(lines)
 
 
+@dataclass(frozen=True)
+class PackageNarrative:
+    """Business explanation of one Decision Package deliverable."""
+
+    process_name: str
+    completeness_statement: str
+    headline: str
+    why: tuple[str, ...]
+    what_this_means: tuple[str, ...]
+    next_action: tuple[str, ...]
+    limitations: tuple[str, ...]
+    technical_reference: tuple[str, ...]
+
+    def business_lines(self) -> tuple[str, ...]:
+        """Return exactly the Layer 1 text for the package.
+
+        ``technical_reference`` is excluded for the same reason gate rationale is
+        excluded from ``ProcessNarrative``: identifiers and fingerprints belong
+        to Layer 2 alone.
+        """
+
+        return (
+            self.completeness_statement,
+            self.headline,
+            *self.why,
+            *self.what_this_means,
+            *self.next_action,
+            *self.limitations,
+        )
+
+
 # ---------------------------------------------------------------------------
 # Public entry points
 # ---------------------------------------------------------------------------
@@ -179,7 +216,12 @@ def build_process_narrative(
     return ProcessNarrative(
         process_name=assessment.process_name,
         headline=_headline(counts, len(activities)),
-        what_we_found=_what_we_found(assessment.step_assessments),
+        what_we_found=_what_we_found(
+            tuple(
+                (step.activity, step.recommendation_mode)
+                for step in assessment.step_assessments
+            )
+        ),
         what_is_still_needed=_what_is_still_needed(activities),
         what_this_means=_what_this_means(counts),
         next_action=_process_next_action(counts),
@@ -217,6 +259,182 @@ def build_activity_narrative(
         next_action=_ACTIVITY_NEXT_ACTIONS[step.recommendation_mode],
         deciding_gate=_gate_reference(deciding) if deciding is not None else None,
         gates=gates,
+    )
+
+
+def build_package_narrative(package: DecisionSupportPackage) -> PackageNarrative:
+    """Project one immutable Decision Package into business language.
+
+    Every sentence restates a structured package field.  The package's own
+    disclosure prose is left untouched for Layer 2; the limitations below are
+    derived from the typed guarantees the package carries instead.
+    """
+
+    items = package.portfolio.items
+    counts = {
+        mode: sum(1 for item in items if item.recommendation_mode is mode)
+        for mode in RecommendationMode
+    }
+    return PackageNarrative(
+        process_name=package.current_state.process_name,
+        completeness_statement=_completeness_statement(package.completeness),
+        headline=_headline(counts, len(items)),
+        why=_package_why(package),
+        what_this_means=_what_this_means(counts),
+        next_action=_package_next_action(package, counts),
+        limitations=_package_limitations(package),
+        technical_reference=_package_technical_reference(package),
+    )
+
+
+def _completeness_statement(completeness: PackageCompleteness) -> str:
+    if completeness is PackageCompleteness.COMPLETE_WITH_INFORMATION_GAPS:
+        return (
+            "This Decision Package is complete and records material information "
+            "gaps."
+        )
+    return (
+        "This Decision Package is complete and records no material information "
+        "gap."
+    )
+
+
+def _package_why(package: DecisionSupportPackage) -> tuple[str, ...]:
+    """Name the outcome groups, then the facts the evidence does not establish."""
+
+    why = list(
+        _what_we_found(
+            tuple(
+                (item.current_activity, item.recommendation_mode)
+                for item in package.portfolio.items
+            )
+        )
+    )
+    activities = {item.step_id: item.current_activity for item in package.portfolio.items}
+    ordered: list[str] = []
+    where: dict[str, list[str]] = {}
+    material: dict[str, bool] = {}
+    for item in package.portfolio.items:
+        for gap in item.missing_information:
+            if not _is_named_criterion_gap(gap):
+                continue
+            if gap.field_name not in where:
+                ordered.append(gap.field_name)
+                where[gap.field_name] = []
+                material[gap.field_name] = False
+            activity = activities.get(gap.step_id)
+            if activity is not None and activity not in where[gap.field_name]:
+                where[gap.field_name].append(activity)
+            material[gap.field_name] = (
+                material[gap.field_name] or gap.material_to_recommendation
+            )
+    for field_name in ordered:
+        names = where[field_name]
+        scope = (
+            f"This applies to all {len(package.portfolio.items)} assessed activities."
+            if len(names) == len(package.portfolio.items)
+            else f"This applies to: {_join(tuple(names))}."
+        )
+        impact = (
+            " It affects the recommendation."
+            if material[field_name]
+            else " It does not affect the recommendation."
+        )
+        why.append(f"{_not_established(field_name)} {scope}{impact}")
+    return tuple(why)
+
+
+def _is_named_criterion_gap(gap: InformationGap) -> bool:
+    """Report only unknown inputs whose field is a criterion we can name.
+
+    Capability signals, priority roll-ups and the investigation marker are
+    recorded with field names that have no business phrase, so they stay in the
+    technical layer rather than being paraphrased.
+    """
+
+    return (
+        gap.kind is InformationGapKind.UNKNOWN_INPUT
+        and gap.field_name in labels.CRITERION_SUBJECTS
+    )
+
+
+def _package_next_action(
+    package: DecisionSupportPackage, counts: dict[RecommendationMode, int]
+) -> tuple[str, ...]:
+    actions = [
+        "This Decision Package is a complete decision. You can act on it now.",
+    ]
+    if package.completeness is PackageCompleteness.COMPLETE_WITH_INFORMATION_GAPS:
+        actions.append(
+            "If you want to close one of the information gaps recorded above "
+            "first, the evidence-continuation paths are available. They are "
+            "optional and they do not change this Decision Package."
+        )
+    else:
+        actions.append(
+            "No evidence continuation is required for this decision."
+        )
+    if counts[RecommendationMode.AUTOMATE] or counts[RecommendationMode.AUGMENT]:
+        actions.append(
+            "Implementation of any recommended activity belongs to your own "
+            "engineering, delivery or advisory teams and is outside this product."
+        )
+    return tuple(actions)
+
+
+def _package_limitations(package: DecisionSupportPackage) -> tuple[str, ...]:
+    """Derive limitations from the package's typed guarantees, not its prose."""
+
+    limitations = [package.roi_statement]
+    if package.methodology.decision_support_only:
+        limitations.append(
+            "This package is decision support. It does not approve deployment or "
+            "implementation."
+        )
+    if package.methodology.policy_is_provisional:
+        limitations.append(
+            "The decision policy used is provisional and is not academically "
+            "validated."
+        )
+    if not package.methodology.proposed_future_state_deployed:
+        limitations.append(
+            "The proposed future-state workflow is a proposal. Nothing in it has "
+            "been deployed."
+        )
+    governance = package.governance
+    if not (
+        governance.legal_conclusions_provided
+        or governance.security_approval_claimed
+        or governance.deployment_readiness_claimed
+    ):
+        limitations.append(
+            "This package provides no legal conclusion, no security approval and "
+            "no judgement that anything is ready for deployment."
+        )
+    if package.completeness is PackageCompleteness.COMPLETE_WITH_INFORMATION_GAPS:
+        limitations.append(
+            "Material information gaps are recorded above. Where they apply, no "
+            "AI adoption recommendation is made."
+        )
+    return tuple(limitations)
+
+
+def _package_technical_reference(package: DecisionSupportPackage) -> tuple[str, ...]:
+    return (
+        f"Package ID: {package.package_id}",
+        f"Package schema version: {package.package_schema_version}",
+        f"Completeness: {package.completeness.value}",
+        f"Decision policy: {package.source.policy.policy_id} "
+        f"{package.source.policy.policy_version} "
+        f"({package.source.policy.policy_status})",
+        f"Decision policy fingerprint: "
+        f"{package.source.policy.decision_policy_fingerprint}",
+        f"Validated process fingerprint: "
+        f"{package.source.lineage.validated_process_fingerprint}",
+        f"Assessment run: {package.source.integrated_assessment_run_id}",
+        f"Review: {package.current_state.review_id}",
+        f"Approval event: {package.current_state.approval_event_id}",
+        f"Source document: {package.current_state.source_document_id}",
     )
 
 
@@ -483,7 +701,11 @@ def _headline(counts: dict[RecommendationMode, int], total: int) -> str:
     )
 
 
-def _what_we_found(steps: list[StepAssessment]) -> tuple[str, ...]:
+def _what_we_found(
+    named_outcomes: tuple[tuple[str, RecommendationMode], ...],
+) -> tuple[str, ...]:
+    """Group activity names by their authoritative outcome, in process order."""
+
     groups = (
         (
             "Recommendation supported on the current evidence",
@@ -500,7 +722,7 @@ def _what_we_found(steps: list[StepAssessment]) -> tuple[str, ...]:
     )
     found = []
     for label, modes in groups:
-        named = [step.activity for step in steps if step.recommendation_mode in modes]
+        named = [name for name, mode in named_outcomes if mode in modes]
         if named:
             found.append(f"{label}: {_join(tuple(named))}.")
     return tuple(found)

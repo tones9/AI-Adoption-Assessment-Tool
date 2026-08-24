@@ -27,8 +27,10 @@ from ai_adoption_engine.presentation.decision_narrative import (
     NO_AUTHORISATION,
     ROI_LIMITATION,
     build_activity_narrative,
+    build_package_narrative,
     build_process_narrative,
 )
+from ai_adoption_engine.decision_support import DecisionSupportPackageService
 from tests.fakes.decision_support import sample_integrated_assessment
 
 
@@ -567,3 +569,116 @@ def test_policy_reference_is_technical_and_absent_from_layer_one() -> None:
         integrated.policy.policy_id in item for item in narrative.policy_reference
     )
     assert integrated.policy.policy_id not in " ".join(narrative.business_lines())
+# ---------------------------------------------------------------------------
+# Decision Package projection
+# ---------------------------------------------------------------------------
+
+
+def _package():
+    integrated = sample_integrated_assessment()
+    generated = DecisionSupportPackageService().generate(integrated)
+    assert generated.status == "success"
+    return integrated, generated.package
+
+
+def test_package_narrative_agrees_with_the_assessment_it_came_from() -> None:
+    integrated, package = _package()
+
+    package_narrative = build_package_narrative(package)
+    process_narrative = build_process_narrative(integrated)
+
+    assert package_narrative.headline == process_narrative.headline
+    assert package_narrative.what_this_means == process_narrative.what_this_means
+    assert package_narrative.process_name == process_narrative.process_name
+    assert package_narrative.why[: len(process_narrative.what_we_found)] == (
+        process_narrative.what_we_found
+    )
+
+
+def test_package_limitations_come_from_typed_guarantees_not_prose() -> None:
+    _, package = _package()
+
+    narrative = build_package_narrative(package)
+
+    assert narrative.limitations[0] == package.roi_statement
+    assert (
+        "This package is decision support. It does not approve deployment or "
+        "implementation."
+    ) in narrative.limitations
+    assert (
+        "The decision policy used is provisional and is not academically validated."
+    ) in narrative.limitations
+    assert (
+        "This package provides no legal conclusion, no security approval and no "
+        "judgement that anything is ready for deployment."
+    ) in narrative.limitations
+    # The Engine's own disclosure prose is not restated in Layer 1; it stays
+    # available verbatim for the technical layer.
+    for statement in package.methodology.disclosure_statements:
+        assert statement not in narrative.business_lines()
+
+
+def test_package_narrative_names_only_gaps_with_a_business_phrase() -> None:
+    _, package = _package()
+
+    narrative = build_package_narrative(package)
+    business = " ".join(narrative.business_lines())
+
+    recorded = {
+        gap.field_name
+        for item in package.portfolio.items
+        for gap in item.missing_information
+    }
+    # The package records capability-signal, priority and investigation markers
+    # that have no business phrase; they must not be paraphrased.
+    assert any(name.startswith("synthetic_") for name in recorded)
+    for field_name in recorded:
+        if field_name.startswith("synthetic_") or field_name in {
+            "priority",
+            "recommendation_mode",
+        }:
+            assert field_name not in business
+
+    assert (
+        "Data readiness: the available evidence does not establish whether the "
+        "data this activity relies on is ready for AI use."
+    ) in business
+
+
+def test_package_identifiers_are_technical_only() -> None:
+    _, package = _package()
+
+    narrative = build_package_narrative(package)
+    business = " ".join(narrative.business_lines())
+    technical = " ".join(narrative.technical_reference)
+
+    for token in (
+        package.package_id,
+        package.source.policy.policy_id,
+        package.source.policy.decision_policy_fingerprint,
+        package.source.integrated_assessment_run_id,
+        package.completeness.value,
+    ):
+        assert token in technical
+        assert token not in business
+
+
+def test_package_next_action_presents_continuation_as_optional() -> None:
+    _, package = _package()
+
+    narrative = build_package_narrative(package)
+
+    assert narrative.next_action[0] == (
+        "This Decision Package is a complete decision. You can act on it now."
+    )
+    assert any("optional" in line for line in narrative.next_action)
+    assert not any("must" in line for line in narrative.next_action)
+
+
+def test_package_narrative_is_deterministic() -> None:
+    _, first_package = _package()
+    _, second_package = _package()
+
+    assert build_package_narrative(first_package) == build_package_narrative(
+        second_package
+    )

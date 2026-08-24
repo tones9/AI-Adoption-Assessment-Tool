@@ -201,6 +201,22 @@ def completeness_label(value: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Adoption roadmap status
+# ---------------------------------------------------------------------------
+
+ROADMAP_STATUS_LABELS: dict[str, str] = {
+    "QUALIFYING_OPPORTUNITY": "Qualifies for controlled validation",
+    "INVESTIGATION_ONLY": "Investigation only",
+    "AI_DEPLOYMENT_NOT_APPLICABLE": "No AI deployment roadmap",
+}
+
+
+def roadmap_status_label(value: str) -> str:
+    """Return a business-facing adoption-roadmap status."""
+    return ROADMAP_STATUS_LABELS.get(value, _human(value))
+
+
+# ---------------------------------------------------------------------------
 # GRW M2 reassessment run stages
 # ---------------------------------------------------------------------------
 
