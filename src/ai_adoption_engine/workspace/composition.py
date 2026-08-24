@@ -5,10 +5,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from ai_adoption_engine.workspace.demo_extraction import (
-    ScriptedDemoExtractionProvider,
-    demo_document_id,
-)
+from ai_adoption_engine.workspace.demo_fixtures import fixture_for_document_id
 from ai_adoption_engine.workspace.service import AssessmentWorkspaceService
 from ai_adoption_engine.workspace.models import ExecutionMode
 from ai_adoption_engine.extraction.errors import ExtractionProviderConfigurationError
@@ -32,13 +29,14 @@ def extraction_service_for(
     mode: ExecutionMode, document: IngestedDocument
 ) -> ProcessExtractionService:
     if mode is ExecutionMode.OFFLINE_DEMO:
-        if document.document_id != demo_document_id():
+        # Scripted extraction stays bound to the exact document it was written
+        # for; the registry only allows more than one bundled fixture.
+        fixture = fixture_for_document_id(document.document_id)
+        if fixture is None:
             raise ExtractionProviderConfigurationError(
-                "Offline scripted extraction is available only for the bundled synthetic demo document."
+                "Offline scripted extraction is available only for a bundled synthetic demo document."
             )
-        return ProcessExtractionService(
-            ScriptedDemoExtractionProvider(), repair_attempts=0
-        )
+        return ProcessExtractionService(fixture.provider(), repair_attempts=0)
     if not os.environ.get("OPENAI_API_KEY"):
         raise ExtractionProviderConfigurationError(
             "Live extraction requires OPENAI_API_KEY in the local environment."

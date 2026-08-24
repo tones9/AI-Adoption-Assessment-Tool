@@ -1,0 +1,15 @@
+SYNTHETIC DEMONSTRATION DATA — supporting document for the controlled reassessment demo.
+
+Contract record note — service contract entitlement data
+
+This note is illustrative synthetic material prepared for product demonstration. It is not a real customer record and it reports no measured outcome.
+
+Scope. This note covers the contract records used by the entitlement check on incoming field service requests. It does not describe any other activity in the process.
+
+Fields retained. Each service contract record holds the customer identifier, the contract start and end dates, the covered equipment classes, the covered fault categories, the response-time commitment, and the exclusions clause as stored free text.
+
+Coverage and history. Contract records are held in the entitlement register from January 2023 onward. Every coverage decision taken since that date is retained against the request it applies to, together with the clause reference the administrator relied on.
+
+Access. The contracts team owns the entitlement register and grants read access to named administrators and to reporting analysts on request.
+
+Limitations. The exclusions clause is free text and its wording is not standardised across older contracts. Records created before January 2023 were migrated without their clause references. No assessment of decision correctness has been carried out on the retained history.

@@ -4,7 +4,11 @@ from pathlib import Path
 
 import streamlit as st
 
-from ai_adoption_engine.workspace.demo_extraction import demo_document_id, demo_text
+from ai_adoption_engine.workspace.demo_fixtures import (
+    DEMO_FIXTURES,
+    SYNTHETIC_LABEL,
+    fixture_for_document_id,
+)
 from ai_adoption_engine.workspace.models import ExecutionMode
 from ai_adoption_engine.models.document import IngestionStatus
 from ai_adoption_engine.models.extraction import ExtractionStatus
@@ -49,9 +53,10 @@ def render() -> None:
 
     with st.container(border=True):
         st.subheader("1. Document input")
+        selected_fixture = None
         if mode is ExecutionMode.OFFLINE_DEMO:
             st.caption(
-                "Use the approved bundled fixture for the complete offline journey. "
+                "Use one of the approved bundled fixtures for the complete offline journey. "
                 "Arbitrary documents can be ingested, but scripted extraction will remain disabled."
             )
             input_kind = st.radio(
@@ -59,6 +64,14 @@ def render() -> None:
                 ["Bundled synthetic demo", "Upload PDF or text", "Paste text"],
                 horizontal=True,
             )
+            if input_kind == "Bundled synthetic demo":
+                selected_fixture = st.radio(
+                    "Bundled synthetic document",
+                    DEMO_FIXTURES,
+                    format_func=lambda item: item.title,
+                    key="demo-fixture-choice",
+                )
+                st.caption(f"{SYNTHETIC_LABEL} — {selected_fixture.summary}")
         else:
             input_kind = st.radio(
                 "Input source",
@@ -68,7 +81,12 @@ def render() -> None:
         uploaded = None
         pasted = None
         if input_kind == "Bundled synthetic demo":
-            st.text_area("Synthetic document preview", demo_text(), height=220, disabled=True)
+            st.text_area(
+                "Synthetic document preview",
+                selected_fixture.text(),
+                height=220,
+                disabled=True,
+            )
         elif input_kind == "Upload PDF or text":
             uploaded = st.file_uploader(
                 "Current-state process document",
@@ -92,9 +110,9 @@ def render() -> None:
                     if input_kind == "Bundled synthetic demo":
                         result = workspace_service().ingest_upload(
                             snapshot.assessment.assessment_id,
-                            raw_text=demo_text(),
+                            raw_text=selected_fixture.text(),
                             replace_existing=replace_confirmed,
-                            source_label="synthetic_complaint_process.txt",
+                            source_label=selected_fixture.source_label,
                         )
                     elif uploaded is not None:
                         result = workspace_service().ingest_upload(
@@ -153,13 +171,20 @@ def render() -> None:
 
     with st.container(border=True):
         st.subheader("3. Candidate process extraction")
-        if mode is ExecutionMode.OFFLINE_DEMO and document.document_id != demo_document_id():
+        bundled = (
+            fixture_for_document_id(document.document_id)
+            if mode is ExecutionMode.OFFLINE_DEMO
+            else None
+        )
+        if mode is ExecutionMode.OFFLINE_DEMO and bundled is None:
             st.warning(
-                "Scripted extraction is disabled: this is not the approved bundled demo document."
+                "Scripted extraction is disabled: this is not an approved bundled demo document."
             )
             extraction_enabled = False
         else:
             extraction_enabled = True
+            if bundled is not None:
+                st.caption(f"{SYNTHETIC_LABEL} — {bundled.title}")
         candidate_result = st.session_state.get("candidate_extraction_result")
         if candidate_result is None:
             if st.button(
@@ -169,7 +194,7 @@ def render() -> None:
                 help=(
                     None
                     if extraction_enabled
-                    else "Offline scripted extraction works only with the bundled synthetic demo document."
+                    else "Offline scripted extraction works only with a bundled synthetic demo document."
                 ),
             ):
                 try:

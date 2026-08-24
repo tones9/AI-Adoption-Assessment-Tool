@@ -365,24 +365,51 @@ extraction is needed:
 python -m pip install -e '.[dev,openai]'
 ```
 
-### The offline demo, described honestly
+### The offline demos, described honestly
 
 Offline demo mode is permanently labelled
-`OFFLINE DEMO — SCRIPTED SYNTHETIC EXTRACTION` and its scripted extraction
-operates only on
-[`data/demo/synthetic_complaint_process.txt`](data/demo/synthetic_complaint_process.txt).
-Arbitrary documents can be ingested in demo mode but cannot receive the scripted
-extraction. Live-provider mode never silently falls back to the demo adapter.
+`OFFLINE DEMO — SCRIPTED SYNTHETIC EXTRACTION`. Scripted extraction is bound to
+the exact bundled document it was written for; arbitrary documents can be
+ingested in demo mode but cannot receive it, and live-provider mode never
+silently falls back to the demo adapter.
 
-The bundled fixture deliberately records **every assessment criterion as
-`unknown`**, because the source narrative does not state them. The demo
-therefore exercises the full journey — ingestion, extraction, guided review,
-approval, assessment, Decision Package and HTML export — and returns
-`INVESTIGATE_FURTHER` for all seven activities. It demonstrates the conservative
-branch and the evidence-gap reporting; it does **not** demonstrate the
-`AUTOMATE`, `AUGMENT` or `DO_NOT_RECOMMEND` outcomes, and it does not reach the
-controlled-reassessment route. A second, clearly labelled synthetic fixture that
-exercises the remaining outcomes is planned.
+Two bundled fixtures ship, chosen on the **Source & Extraction** page under
+*Bundled synthetic demo*. Both are synthetic demonstration data — neither is a
+customer process, research evidence, or a record of any measured outcome.
+
+**A — Customer complaint handling (evidence gap).** The default.
+[`data/demo/synthetic_complaint_process.txt`](data/demo/synthetic_complaint_process.txt)
+is a process narrative that states no assessment criterion, so the scripted
+extraction records **every criterion as `unknown`** and all seven activities
+return "more information needed". This is what the engine does when a document
+does not support a decision, and it is the behaviour the Phase 8 portfolio
+observed on real documents.
+
+**B — Field service request handling (documented facts).**
+[`data/demo/synthetic_field_service_process.txt`](data/demo/synthetic_field_service_process.txt)
+records, for each of its four activities, the operational facts an adoption
+decision needs — volume, predictability, data availability, judgement, risk,
+complexity and accountability — each in a sentence the extraction cites. Running
+it produces four different outcomes from the unchanged policy:
+
+| Activity | Outcome | Priority |
+|---|---|---|
+| Sort incoming maintenance requests | `AUTOMATE` | 75.0 (High) |
+| Check the request against the service contract | `INVESTIGATE_FURTHER` | not scored |
+| Draft the scheduling note for the field engineer | `AUGMENT` | 65.0 (Medium) |
+| Approve or refuse a goodwill repair | `DO_NOT_RECOMMEND` | not scored |
+
+Those outcomes are engine output, not fixture text: the source states facts, a
+human reviewer accepts them, and the policy decides. The entitlement check keeps
+its data-readiness question open, which makes it eligible for the controlled
+reassessment route. To demonstrate that route, supply
+[`data/demo/synthetic_field_service_contract_records.txt`](data/demo/synthetic_field_service_contract_records.txt)
+as the supporting document on the Reassessment page. The baseline Decision
+Package stays exactly as it is, and a separate successor is produced alongside
+it.
+
+Capability signals the source does not mention stay `unknown` in both fixtures.
+They are recorded as immaterial to the recommendation rather than assumed away.
 
 ### Diagnostic CLI
 
