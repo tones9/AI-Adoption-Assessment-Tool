@@ -150,6 +150,15 @@ def switch_to_registered_page(page_key: str) -> bool:
             icon=":material/restart_alt:",
             url_path="reassessment",
         )
+    elif page_key == "decision-package":
+        from ai_adoption_engine.presentation.pages import decision_package
+
+        page = st.Page(
+            decision_package.render,
+            title="Decision Package",
+            icon=":material/account_tree:",
+            url_path="decision-package",
+        )
     elif page_key == "results":
         from ai_adoption_engine.presentation.pages import results
 

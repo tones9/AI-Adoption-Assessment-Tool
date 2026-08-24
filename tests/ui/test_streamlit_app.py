@@ -126,9 +126,19 @@ def test_results_ui_displays_all_four_modes_and_incomplete_priority(tmp_path, mo
     rendered = "\n".join(
         str(item.value) for kind in ("markdown", "caption", "warning") for item in app.get(kind)
     )
-    for label in ("Automate", "Augment", "Investigate Further", "Do Not Recommend"):
-        assert label in rendered
-    assert "Incomplete" in rendered
+    # Every recommendation mode reaches the reader as a business outcome, and an
+    # incomplete priority explains itself rather than showing a status token.
+    for outcome in (
+        "**Automate**",
+        "**Augment**",
+        "**More information needed**",
+        "**Not recommended**",
+    ):
+        assert outcome in rendered
+    assert (
+        "A priority score could not be calculated because the available evidence "
+        "does not establish: Task repetition."
+    ) in rendered
 
 
 def test_decision_package_ui_renders_proposed_state_gates_and_report(tmp_path, monkeypatch) -> None:
