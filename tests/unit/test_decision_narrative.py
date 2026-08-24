@@ -14,6 +14,7 @@ from ai_adoption_engine.models.assessment import (
     GateResult,
     StepAssessment,
 )
+from ai_adoption_engine.models.decision_support import InformationGapKind
 from ai_adoption_engine.models.enums import (
     Capability,
     CriterionName,
@@ -29,6 +30,8 @@ from ai_adoption_engine.presentation.decision_narrative import (
     build_activity_narrative,
     build_package_narrative,
     build_process_narrative,
+    gap_business_statement,
+    portfolio_reason_statement,
 )
 from ai_adoption_engine.decision_support import DecisionSupportPackageService
 from tests.fakes.decision_support import sample_integrated_assessment
@@ -673,6 +676,64 @@ def test_package_next_action_presents_continuation_as_optional() -> None:
     )
     assert any("optional" in line for line in narrative.next_action)
     assert not any("must" in line for line in narrative.next_action)
+
+
+def test_gap_business_statement_restates_only_named_criterion_gaps() -> None:
+    _, package = _package()
+
+    gaps = {
+        (gap.kind, gap.field_name): gap
+        for item in package.portfolio.items
+        for gap in item.missing_information
+    }
+    unknown = next(
+        gap
+        for (kind, field), gap in gaps.items()
+        if kind is InformationGapKind.UNKNOWN_INPUT and field == "data_readiness"
+    )
+    assert gap_business_statement(unknown) == (
+        "Data readiness: the available evidence does not establish whether the "
+        "data this activity relies on is ready for AI use."
+    )
+
+    inferred = next(
+        gap
+        for (kind, field), gap in gaps.items()
+        if kind is InformationGapKind.INFERRED_REQUIRES_CONFIRMATION
+        and field == "implementation_complexity"
+    )
+    assert gap_business_statement(inferred) == (
+        "Implementation complexity: this is recorded as an assumption and still "
+        "requires confirmation."
+    )
+
+    # Fields without a business phrase are never paraphrased: no invention.
+    for (kind, field), gap in gaps.items():
+        if field.startswith("synthetic_") or field in {
+            "priority",
+            "recommendation_mode",
+        }:
+            assert gap_business_statement(gap) is None
+
+
+def test_portfolio_reason_statement_matches_the_step_level_reason() -> None:
+    integrated, package = _package()
+
+    process = build_process_narrative(integrated)
+    by_activity = {item.activity: item for item in process.activities}
+    for item in package.portfolio.items:
+        assert portfolio_reason_statement(item) == (
+            by_activity[item.current_activity].reason_statement
+        )
+
+
+def test_portfolio_reason_statement_never_reads_engine_rationale() -> None:
+    _, package = _package()
+
+    for item in package.portfolio.items:
+        reason = portfolio_reason_statement(item)
+        for gate in item.gate_results:
+            assert gate.rationale not in reason
 
 
 def test_package_narrative_is_deterministic() -> None:

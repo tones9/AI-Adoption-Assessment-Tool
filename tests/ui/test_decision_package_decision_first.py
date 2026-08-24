@@ -4,10 +4,11 @@ Layer 1 is asserted structurally: the decision, its reason, its meaning, the
 next action and the limitations must all be readable before anything is opened,
 and package identifiers must not be.
 
-Scope note: the deterministic report projection rendered under "Supporting
-decision detail" is produced by ``report_view``/``decision_support.report``,
-which this stage may not modify.  Assertions about Layer 1 vocabulary therefore
-address the decision header, which is what this stage owns.
+The deterministic report projection rendered under "Supporting decision
+detail" is decision-first as well: its business layer carries no raw internal
+tokens, and identifiers, planning origins and engine rationale stay behind the
+canonical technical control.  The future-state, roadmap and governance tabs
+keep their frozen Stage 4 presentation.
 """
 
 from __future__ import annotations
@@ -280,6 +281,43 @@ def test_identifiers_and_provenance_remain_behind_the_canonical_control(
     assert any(
         line.startswith("Step ") and "Origin" in line for line in layer_two
     )
+
+
+def test_report_body_layer_one_is_business_facing(tmp_path, monkeypatch) -> None:
+    """The embedded report carries no raw internal tokens outside Layer 2."""
+
+    app, _ = _package_app(tmp_path, monkeypatch)
+    layer_one, layer_two = _split_layers(app)
+    start = layer_one.index("Supporting decision detail")
+    end = next(
+        index
+        for index in range(start, len(layer_one))
+        if layer_one[index] == "PROPOSED / NOT DEPLOYED"
+    )
+    body = "\n".join(layer_one[start:end])
+
+    for token in (
+        "AUTOMATE=",
+        "COMPLETE_WITH_INFORMATION_GAPS",
+        "INVESTIGATE_FURTHER",
+        "DO_NOT_RECOMMEND",
+        "Investigate Further",
+        "Do Not Recommend",
+        "NEEDS_CONFIRMATION",
+        "AI_ENABLED_EXECUTION",
+        "QUALIFYING_OPPORTUNITY",
+        "ASSESSMENT_FINDING",
+        "DERIVED_PLANNING_GUIDANCE",
+    ):
+        assert token not in body, token
+
+    assert "Recommendation: More information needed" in body
+    assert "Recommendation: Not recommended" in body
+
+    technical = "\n".join(layer_two)
+    assert "Source statement:" in technical
+    assert "Engine rationale:" in technical
+    assert "Recommendation mode: DO_NOT_RECOMMEND" in technical
 
 
 def test_package_semantics_are_unchanged_by_presentation(tmp_path, monkeypatch) -> None:

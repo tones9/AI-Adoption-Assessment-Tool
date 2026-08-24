@@ -12,9 +12,16 @@ from ai_adoption_engine.models.decision_support import (
     InformationGapKind,
     OpportunityPortfolioItem,
     PlanningOrigin,
+    ReportSection,
     ReportSectionId,
 )
 from ai_adoption_engine.models.enums import CriterionName, GateStatus, RecommendationMode
+from ai_adoption_engine.presentation import labels
+from ai_adoption_engine.presentation.decision_narrative import (
+    build_package_narrative,
+    gap_business_statement,
+    portfolio_reason_statement,
+)
 
 
 @dataclass(frozen=True)
@@ -36,9 +43,15 @@ class ReportViewSection:
 def build_report_view(package: DecisionSupportPackage) -> tuple[ReportViewSection, ...]:
     """Create deterministic, consolidated report content without altering Phase 6."""
 
+    narrative = build_package_narrative(package)
     renderers = {
-        ReportSectionId.EXECUTIVE_SUMMARY: _executive_summary,
+        ReportSectionId.EXECUTIVE_SUMMARY: (
+            lambda pkg, src: _executive_summary(pkg, src, narrative)
+        ),
         ReportSectionId.OPPORTUNITY_PORTFOLIO: _opportunity_portfolio,
+        ReportSectionId.HIGHEST_PRIORITY: _highest_priority,
+        ReportSectionId.FUTURE_STATE: _future_state,
+        ReportSectionId.HUMAN_ROLES: _human_roles,
         ReportSectionId.RISKS_GOVERNANCE: _governance,
         ReportSectionId.ADOPTION_ROADMAP: _roadmap,
         ReportSectionId.MISSING_INFORMATION: _missing_information,
@@ -47,7 +60,11 @@ def build_report_view(package: DecisionSupportPackage) -> tuple[ReportViewSectio
     sections = []
     for source in package.report_content.sections:
         renderer = renderers.get(source.section_id)
-        blocks = renderer(package) if renderer else _source_blocks(source.statements)
+        blocks = (
+            renderer(package, source)
+            if renderer
+            else _source_blocks(source.statements)
+        )
         sections.append(
             ReportViewSection(
                 section_id=source.section_id,
@@ -71,40 +88,50 @@ def _source_blocks(statements) -> list[ReportViewBlock]:
     ]
 
 
-def _executive_summary(package: DecisionSupportPackage) -> list[ReportViewBlock]:
+def _executive_summary(
+    package: DecisionSupportPackage, source: ReportSection, narrative
+) -> list[ReportViewBlock]:
+    """Open with the package narrative decision, never with counts or tokens.
+
+    The authoritative source statements are preserved verbatim as technical
+    detail wherever the business paragraphs do not already carry them.
+    """
+
     items = package.portfolio.items
-    all_investigate = items and all(
+    paragraphs = [narrative.headline, narrative.completeness_statement]
+    all_investigate = bool(items) and all(
         item.recommendation_mode is RecommendationMode.INVESTIGATE_FURTHER
         for item in items
     )
+    technical: list[str] = []
     if all_investigate:
-        activity_count = len(items)
-        statement = (
-            f"All {activity_count} activities require further investigation because the "
+        paragraphs.append(
+            f"All {len(items)} activities require further investigation because the "
             "current evidence is not sufficient to establish AI-adoption suitability. "
             "The appropriate next action is to gather and validate the missing evidence, "
             "not to begin deployment planning."
         )
-        return [
-            ReportViewBlock(
-                paragraphs=(statement, package.roi_statement),
-                origin=PlanningOrigin.ASSESSMENT_FINDING,
-                technical_details=(
-                    "Applies to activities: "
-                    + ", ".join(item.current_activity for item in items),
-                ),
-            )
-        ]
-    source = next(
-        section
-        for section in package.report_content.sections
-        if section.section_id is ReportSectionId.EXECUTIVE_SUMMARY
+        technical.append(
+            "Applies to activities: "
+            + ", ".join(item.current_activity for item in items)
+        )
+    paragraphs.append(package.roi_statement)
+    technical.extend(
+        f"Source statement: {statement.text}"
+        for statement in source.statements
+        if statement.text not in paragraphs
     )
-    return _source_blocks(source.statements)
+    return [
+        ReportViewBlock(
+            paragraphs=tuple(paragraphs),
+            origin=PlanningOrigin.ASSESSMENT_FINDING,
+            technical_details=tuple(technical),
+        )
+    ]
 
 
 def _opportunity_portfolio(
-    package: DecisionSupportPackage,
+    package: DecisionSupportPackage, source: ReportSection
 ) -> list[ReportViewBlock]:
     common_gap_keys = _common_gap_keys(package)
     roadmaps = {item.step_id: item for item in package.roadmap.opportunities}
@@ -122,16 +149,132 @@ def _opportunity_portfolio(
             ReportViewBlock(
                 heading=f"{item.sequence}. {item.current_activity}",
                 paragraphs=(
-                    f"Recommendation: {_human(item.recommendation_mode.value)}",
-                    f"Reason / basis: {_concise_basis(item)}",
+                    "Recommendation: "
+                    + labels.recommendation_label(item.recommendation_mode.value),
+                    f"Reason / basis: {portfolio_reason_statement(item)}",
                     f"Material missing information: {missing_basis}",
                     f"Next action: {next_action}",
                 ),
                 origin=PlanningOrigin.ASSESSMENT_FINDING,
-                technical_details=(f"Internal step ID: {item.step_id}",),
+                technical_details=(
+                    f"Internal step ID: {item.step_id}",
+                    f"Recommendation mode: {item.recommendation_mode.value}",
+                    f"Engine rationale: {_concise_basis(item)}",
+                ),
             )
         )
     return blocks
+
+
+def _highest_priority(
+    package: DecisionSupportPackage, source: ReportSection
+) -> list[ReportViewBlock]:
+    """Restate the section's own membership with business priority wording.
+
+    ``item_references`` is a sorted set of step IDs, so the referenced items are
+    re-ordered here by the authoritative Phase 6 ordering - highest score first,
+    process order as the tie-break - rather than by identifier.
+    """
+
+    items = {item.step_id: item for item in package.portfolio.items}
+    referenced = [items.get(step_id) for step_id in source.item_references]
+    if not referenced or any(
+        item is None or item.priority is None for item in referenced
+    ):
+        return _source_blocks(source.statements)
+    referenced = sorted(
+        referenced, key=lambda item: (-item.priority.score, item.sequence)
+    )
+    return [
+        ReportViewBlock(
+            bullets=tuple(
+                f"{item.current_activity}: priority score {item.priority.score:.1f} "
+                f"of 100 ({labels.priority_band_label(item.priority.band.value)} band)."
+                for item in referenced
+            ),
+            origin=PlanningOrigin.ASSESSMENT_FINDING,
+            technical_details=tuple(
+                f"Internal step ID: {item.step_id} · Priority band: "
+                f"{item.priority.band.value}"
+                for item in referenced
+            ),
+        )
+    ]
+
+
+def _future_state(
+    package: DecisionSupportPackage, source: ReportSection
+) -> list[ReportViewBlock]:
+    """Render the proposed workflow without raw intervention tokens."""
+
+    steps = package.future_state.steps
+    return [
+        ReportViewBlock(
+            paragraphs=(
+                "This future-state workflow is a proposal. Nothing in it has "
+                "been deployed.",
+            ),
+            bullets=tuple(
+                f"{step.sequence}. {step.proposed_activity}" for step in steps
+            ),
+            origin=PlanningOrigin.DERIVED_PLANNING_GUIDANCE,
+            technical_details=(
+                f"Future-state status: {package.future_state.status.value}",
+            )
+            + tuple(
+                f"{step.sequence}. Intervention type: {step.intervention_type.value} "
+                f"· Capability use: {step.capability_use_status.value} "
+                f"· Source step ID: {step.source_step_id}"
+                for step in steps
+            ),
+        )
+    ]
+
+
+def _human_roles(
+    package: DecisionSupportPackage, source: ReportSection
+) -> list[ReportViewBlock]:
+    """Name the recommended human roles in business words per activity."""
+
+    bullets = []
+    technical = []
+    for item in package.portfolio.items:
+        if not item.recommended_human_roles:
+            bullets.append(
+                f"{item.current_activity}: no recommended human role is recorded."
+            )
+            technical.append(f"Internal step ID: {item.step_id}")
+            continue
+        roles = ", ".join(
+            labels.human_label(role.role_type.value)
+            for role in item.recommended_human_roles
+        )
+        statuses = sorted(
+            {role.confirmation_status.value for role in item.recommended_human_roles}
+        )
+        suffix = (
+            "; " + " and ".join(
+                labels.role_confirmation_label(status) for status in statuses
+            )
+            if statuses
+            else ""
+        )
+        bullets.append(f"{item.current_activity}: {roles}{suffix}.")
+        technical.append(
+            f"Internal step ID: {item.step_id}"
+            + (
+                " · Role confirmation status: " + ", ".join(statuses)
+                if statuses
+                else ""
+            )
+        )
+    return [
+        ReportViewBlock(
+            bullets=tuple(bullets),
+            origin=PlanningOrigin.DERIVED_PLANNING_GUIDANCE,
+            technical_details=tuple(technical),
+        )
+    ]
 
 
 def _concise_basis(item: OpportunityPortfolioItem) -> str:
@@ -172,7 +315,25 @@ def _portfolio_gap_summary(
     return "; ".join(parts) + "."
 
 
-def _missing_information(package: DecisionSupportPackage) -> list[ReportViewBlock]:
+def _gap_bullet(gap: InformationGap) -> str:
+    """Prefer the evidence-bounded business phrasing; keep the message otherwise."""
+
+    return gap_business_statement(gap) or gap.message
+
+
+def _replaced_messages(gaps: list[InformationGap]) -> list[str]:
+    """Authoritative messages whose business restatement replaced them."""
+
+    return [
+        f"Source record: {gap.message}"
+        for gap in gaps
+        if gap_business_statement(gap) is not None
+    ]
+
+
+def _missing_information(
+    package: DecisionSupportPackage, source: ReportSection
+) -> list[ReportViewBlock]:
     items = package.portfolio.items
     step_ids = {item.step_id for item in items}
     activity_by_id = {item.step_id: item.current_activity for item in items}
@@ -190,19 +351,21 @@ def _missing_information(package: DecisionSupportPackage) -> list[ReportViewBloc
     ]
     blocks = []
     if common:
+        common_bullets, common_sources = _group_common_gaps(common)
         blocks.append(
             ReportViewBlock(
                 heading="Process-wide/common gaps",
                 paragraphs=(
                     f"These gaps apply consistently across all {len(items)} assessed activities.",
                 ),
-                bullets=tuple(_group_common_gaps(common)),
+                bullets=tuple(common_bullets),
                 origin=PlanningOrigin.ASSESSMENT_FINDING,
                 technical_details=(
                     "Underlying package records retained: "
                     f"{sum(len(values) for values in grouped.values() if {gap.step_id for gap in values} == step_ids)} "
                     "per-step gaps.",
-                ),
+                )
+                + tuple(common_sources),
             )
         )
     by_step: dict[str, list[InformationGap]] = defaultdict(list)
@@ -214,9 +377,10 @@ def _missing_information(package: DecisionSupportPackage) -> list[ReportViewBloc
             blocks.append(
                 ReportViewBlock(
                     heading=f"{item.sequence}. {item.current_activity} — step-specific gaps",
-                    bullets=tuple(gap.message for gap in differences),
+                    bullets=tuple(_gap_bullet(gap) for gap in differences),
                     origin=PlanningOrigin.ASSESSMENT_FINDING,
-                    technical_details=(f"Internal step ID: {item.step_id}",),
+                    technical_details=(f"Internal step ID: {item.step_id}",)
+                    + tuple(_replaced_messages(differences)),
                 )
             )
     if common and not specific:
@@ -236,7 +400,10 @@ def _missing_information(package: DecisionSupportPackage) -> list[ReportViewBloc
     return blocks
 
 
-def _group_common_gaps(gaps: list[InformationGap]) -> list[str]:
+def _group_common_gaps(
+    gaps: list[InformationGap],
+) -> tuple[list[str], list[str]]:
+    """Return the consolidated bullets and the source records they replaced."""
     criteria = {item.value for item in CriterionName}
     unknown_criteria = sorted(
         _field_label(gap.field_name)
@@ -262,11 +429,14 @@ def _group_common_gaps(gaps: list[InformationGap]) -> list[str]:
         bullets.append("Unknown assessment criteria: " + ", ".join(unknown_criteria) + ".")
     if unknown_capabilities:
         bullets.append("Unknown capability signals: " + ", ".join(unknown_capabilities) + ".")
-    bullets.extend(gap.message for gap in gaps if gap.field_name not in consumed)
-    return bullets
+    remaining = [gap for gap in gaps if gap.field_name not in consumed]
+    bullets.extend(_gap_bullet(gap) for gap in remaining)
+    return bullets, _replaced_messages(remaining)
 
 
-def _governance(package: DecisionSupportPackage) -> list[ReportViewBlock]:
+def _governance(
+    package: DecisionSupportPackage, source: ReportSection
+) -> list[ReportViewBlock]:
     items = package.portfolio.items
     step_ids = {item.step_id for item in items}
     grouped: dict[tuple, list[GovernanceConsideration]] = defaultdict(list)
@@ -324,7 +494,9 @@ def _governance(package: DecisionSupportPackage) -> list[ReportViewBlock]:
     return blocks
 
 
-def _roadmap(package: DecisionSupportPackage) -> list[ReportViewBlock]:
+def _roadmap(
+    package: DecisionSupportPackage, source: ReportSection
+) -> list[ReportViewBlock]:
     activity = {item.step_id: item for item in package.portfolio.items}
     blocks = []
     for item in package.roadmap.opportunities:
@@ -342,18 +514,23 @@ def _roadmap(package: DecisionSupportPackage) -> list[ReportViewBlock]:
             ReportViewBlock(
                 heading=f"{opportunity.sequence}. {opportunity.current_activity}",
                 paragraphs=(
-                    f"Status: {_human(item.status.value)}",
+                    f"Status: {labels.roadmap_status_label(item.status.value)}",
                     item.rationale,
                 ),
                 bullets=stage_summary,
                 origin=PlanningOrigin.DERIVED_PLANNING_GUIDANCE,
-                technical_details=(f"Internal step ID: {item.step_id}",),
+                technical_details=(
+                    f"Internal step ID: {item.step_id}",
+                    f"Roadmap status: {item.status.value}",
+                ),
             )
         )
     return blocks
 
 
-def _evidence_appendix(package: DecisionSupportPackage) -> list[ReportViewBlock]:
+def _evidence_appendix(
+    package: DecisionSupportPackage, source: ReportSection
+) -> list[ReportViewBlock]:
     blocks = []
     for item in package.portfolio.items:
         evidence = item.source_traceability.activity.evidence

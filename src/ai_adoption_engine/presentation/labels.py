@@ -201,6 +201,20 @@ def completeness_label(value: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Human-role confirmation status
+# ---------------------------------------------------------------------------
+
+ROLE_CONFIRMATION_LABELS: dict[str, str] = {
+    "NEEDS_CONFIRMATION": "the organisational assignment still needs confirmation",
+}
+
+
+def role_confirmation_label(value: str) -> str:
+    """Return a business-facing role-confirmation status."""
+    return ROLE_CONFIRMATION_LABELS.get(value, _human(value))
+
+
+# ---------------------------------------------------------------------------
 # Adoption roadmap status
 # ---------------------------------------------------------------------------
 

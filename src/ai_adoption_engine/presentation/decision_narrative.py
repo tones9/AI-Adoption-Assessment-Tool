@@ -35,6 +35,7 @@ from ai_adoption_engine.models.decision_support import (
     DecisionSupportPackage,
     InformationGap,
     InformationGapKind,
+    OpportunityPortfolioItem,
     PackageCompleteness,
 )
 from ai_adoption_engine.models.enums import (
@@ -285,6 +286,77 @@ def build_package_narrative(package: DecisionSupportPackage) -> PackageNarrative
         limitations=_package_limitations(package),
         technical_reference=_package_technical_reference(package),
     )
+
+
+def portfolio_reason_statement(item: OpportunityPortfolioItem) -> str:
+    """Explain a portfolio item's outcome from its persisted deciding check.
+
+    This is the package-level counterpart of ``_reason_statement``: the same
+    sentences, derived from the item's persisted gate results and structured
+    information gaps.  Engine rationale strings are never read; they stay
+    verbatim in Layer 2.
+    """
+
+    deciding = _deciding_gate(item.gate_results)
+    if deciding is None:
+        return "The assessment did not record a check outcome for this activity."
+    gate_label = labels.gate_name_label(deciding.gate.value)
+    mode = item.recommendation_mode
+    if mode is RecommendationMode.INVESTIGATE_FURTHER:
+        material = {value.value for value in deciding.material_criteria}
+        if deciding.accountability_material:
+            material.add(ACCOUNTABILITY_FIELD)
+        named: list[str] = []
+        for gap in item.missing_information:
+            if (
+                gap.kind is InformationGapKind.UNKNOWN_INPUT
+                and gap.field_name in material
+                and gap.field_name in labels.CRITERION_SUBJECTS
+            ):
+                subject = labels.criterion_subject(gap.field_name)
+                if subject not in named:
+                    named.append(subject)
+        if named:
+            return (
+                f"The {gate_label} check could not be completed because the "
+                f"available evidence does not establish {_join(tuple(named))}."
+            )
+        return (
+            f"The {gate_label} check could not be completed because the evidence "
+            "recorded for it was not sufficient."
+        )
+    if mode is RecommendationMode.DO_NOT_RECOMMEND:
+        return (
+            f"The {gate_label} check was not met by the values recorded in the "
+            "approved evidence."
+        )
+    if deciding.status is GateStatus.PASSED_WITH_CONSTRAINTS:
+        return (
+            f"The {gate_label} check passed with conditions, so material human "
+            "involvement is expected to remain."
+        )
+    return "Every assessment check passed on the approved evidence."
+
+
+def gap_business_statement(gap: InformationGap) -> str | None:
+    """Return the business phrasing for one structured information gap, if any.
+
+    Only gaps whose field is a criterion with a business phrase are restated,
+    and only from their structured ``kind`` and ``field_name``.  Everything else
+    returns ``None`` so callers keep the authoritative message instead of
+    paraphrasing fields that have no business vocabulary.
+    """
+
+    if gap.field_name not in labels.CRITERION_SUBJECTS:
+        return None
+    if gap.kind is InformationGapKind.UNKNOWN_INPUT:
+        return _not_established(gap.field_name)
+    if gap.kind is InformationGapKind.INFERRED_REQUIRES_CONFIRMATION:
+        return (
+            f"{labels.criterion_label(gap.field_name)}: this is recorded as an "
+            "assumption and still requires confirmation."
+        )
+    return None
 
 
 def _completeness_statement(completeness: PackageCompleteness) -> str:
