@@ -129,12 +129,12 @@ def test_results_ui_displays_all_four_modes_and_incomplete_priority(tmp_path, mo
     # Every recommendation mode reaches the reader as a business outcome, and an
     # incomplete priority explains itself rather than showing a status token.
     for outcome in (
-        "**Automate**",
-        "**Augment**",
-        "**More information needed**",
-        "**Not recommended**",
+        "Automate",
+        "Augment",
+        "More information needed",
+        "Not recommended",
     ):
-        assert outcome in rendered
+        assert f">{outcome}<" in rendered
     assert (
         "A priority score could not be calculated because the available evidence "
         "does not establish: Task repetition."
@@ -180,24 +180,29 @@ def test_decision_package_ui_renders_proposed_state_gates_and_report(tmp_path, m
         default_timeout=30,
     ).run()
     assert not app.exception
-    rendered = "\n".join(
-        str(item.value)
-        for kind in ("markdown", "caption", "warning", "info")
-        for item in app.get(kind)
-    )
+    assert app.download_button
+    sections = list(app.segmented_control[0].options)
+    rendered_parts = []
+    subheaders = []
+    expander_labels = []
+    for section in sections:
+        app = app.segmented_control[0].set_value(section).run()
+        rendered_parts.extend(
+            str(item.value)
+            for kind in ("markdown", "caption", "warning", "info")
+            for item in app.get(kind)
+        )
+        subheaders.extend(item.value for item in app.subheader)
+        expander_labels.extend(item.label for item in app.expander)
+    rendered = "\n".join(rendered_parts)
     assert "PROPOSED / NOT DEPLOYED" in rendered
     assert "GO / REVISE / STOP" in rendered
     assert "ROI / quantified benefit unavailable with current evidence." in rendered
     assert "AI deployment roadmap not applicable." in rendered
     assert "does not claim legal compliance" in rendered
-    assert app.download_button
-    expander_labels = [item.label for item in app.expander]
-    for opportunity in generated.package.portfolio.items:
-        assert any(
-            label.startswith(opportunity.current_activity)
-            for label in expander_labels
-        )
-    subheaders = [item.value for item in app.subheader]
+    assert expander_labels.count("View activity decision") == len(
+        generated.package.portfolio.items
+    )
     assert subheaders.count("Methodology and policy disclosure") == 1
     assert "Methodology disclosure" not in subheaders
     assert rendered.count("Reason / basis:") == len(generated.package.portfolio.items)
@@ -801,18 +806,6 @@ def test_complete_offline_demo_ui_journey_persists_and_reopens_exact_chain(
         item for item in app.button if item.label == "Generate decision package"
     ).click().run()
     assert not app.exception
-    rendered = "\n".join(
-        str(item.value)
-        for kind in ("markdown", "caption", "warning", "info", "subheader")
-        for item in app.get(kind)
-    )
-    for marker in (
-        "PROPOSED / NOT DEPLOYED",
-        "GO / REVISE / STOP",
-        "ROI / quantified benefit unavailable with current evidence.",
-        "does not claim legal compliance",
-    ):
-        assert marker in rendered
     assert any(
         item.label == "Download print-friendly HTML report"
         for item in app.download_button
@@ -821,7 +814,22 @@ def test_complete_offline_demo_ui_journey_persists_and_reopens_exact_chain(
         item.label == "Review optional evidence-continuation paths"
         for item in app.button
     )
-
+    rendered_parts = []
+    for section in app.segmented_control[0].options:
+        app = app.segmented_control[0].set_value(section).run()
+        rendered_parts.extend(
+            str(item.value)
+            for kind in ("markdown", "caption", "warning", "info", "subheader")
+            for item in app.get(kind)
+        )
+    rendered = "\n".join(rendered_parts)
+    for marker in (
+        "PROPOSED / NOT DEPLOYED",
+        "GO / REVISE / STOP",
+        "ROI / quantified benefit unavailable with current evidence.",
+        "does not claim legal compliance",
+    ):
+        assert marker in rendered
     completed = repository.load_workspace(assessment_id)
     immutable_ids = {
         artifact_type: completed.active_artifacts[artifact_type].artifact_id

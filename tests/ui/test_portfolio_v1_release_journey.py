@@ -306,7 +306,8 @@ def test_portfolio_v1_canonical_customer_journey(tmp_path, monkeypatch) -> None:
     app = _page("results", assessment_id)
     assert not app.exception
     visible = _business_text(app)
-    assert "Decision today" in visible
+    assert "Assessment Results ·" in visible
+    assert "What we found" in visible
     assert "mixed result" in visible
     for activity in EXPECTED_OUTCOMES:
         assert activity in visible, activity

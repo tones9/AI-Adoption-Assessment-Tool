@@ -12,8 +12,9 @@ an assessment, reads a policy, or decides what to say.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from collections.abc import Sequence
+from dataclasses import dataclass
+from html import escape
 
 import streamlit as st
 
@@ -26,6 +27,16 @@ class HeaderSection:
     lines: tuple[str, ...]
 
 
+@dataclass(frozen=True)
+class HeaderAction:
+    """One named primary action placed inside its owning decision block."""
+
+    section_heading: str
+    label: str
+    key: str
+    icon: str | None = None
+
+
 def render_decision_header(
     *,
     context_line: str,
@@ -33,7 +44,10 @@ def render_decision_header(
     sections: Sequence[HeaderSection],
     headline_heading: str = "Decision today",
     headline_note: str | None = None,
-) -> None:
+    boxed: bool = False,
+    headline_as_title: bool = False,
+    action: HeaderAction | None = None,
+) -> bool:
     """Render where-am-I, the decision, and its supporting blocks in order.
 
     ``headline_heading`` names the decision block for the surface in question -
@@ -43,13 +57,33 @@ def render_decision_header(
     """
 
     st.caption(context_line)
-    st.subheader(headline_heading)
-    st.markdown(f"### {headline}")
+    if headline_as_title:
+        st.title(headline)
+    else:
+        st.subheader(headline_heading)
+        st.markdown(f"### {headline}")
     if headline_note:
         st.caption(headline_note)
+    action_clicked = False
     for section in sections:
         if not section.lines:
             continue
-        st.subheader(section.heading)
-        for line in section.lines:
-            st.write(line)
+        block = st.container(border=True) if boxed else st.container()
+        with block:
+            if boxed:
+                st.markdown(
+                    f'<span class="aae-page-eyebrow">{escape(section.heading)}</span>',
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.subheader(section.heading)
+            for line in section.lines:
+                st.write(line)
+            if action is not None and action.section_heading == section.heading:
+                action_clicked = st.button(
+                    action.label,
+                    key=action.key,
+                    icon=action.icon,
+                    type="primary",
+                )
+    return action_clicked

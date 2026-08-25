@@ -19,8 +19,13 @@ from ai_adoption_engine.models.enums import PriorityStatus, RecommendationMode
 from ai_adoption_engine.models.integrated_assessment import IntegratedAssessmentSuccess
 from ai_adoption_engine.presentation import labels
 from ai_adoption_engine.presentation.components.decision_header import (
+    HeaderAction,
     HeaderSection,
     render_decision_header,
+)
+from ai_adoption_engine.presentation.components.primitives import (
+    render_badge,
+    render_business_list,
 )
 from ai_adoption_engine.presentation.components.status import guard
 from ai_adoption_engine.presentation.components.technical_details import (
@@ -148,31 +153,49 @@ def _render_activity_technical_layer(integrated, step) -> None:
             st.caption(f"{evidence.source_locator} · block {evidence.block_id}")
 
 
-def _render_activity(integrated, narrative: ActivityNarrative, step) -> None:
+def _render_activity(narrative: ActivityNarrative, step) -> None:
     """Render one activity: outcome, why, what is missing, what happens next."""
 
     with st.container(border=True):
-        st.markdown(f"**{narrative.sequence}. {narrative.activity}**")
-        st.markdown(f"**{narrative.outcome_label}** — {narrative.outcome_statement}")
+        title, status = st.columns([4, 1], vertical_alignment="center")
+        with title:
+            st.markdown(f"**{narrative.sequence}. {narrative.activity}**")
+        with status:
+            render_badge(
+                narrative.outcome_label,
+                tone=(
+                    "primary"
+                    if step.recommendation_mode
+                    in {RecommendationMode.AUTOMATE, RecommendationMode.AUGMENT}
+                    else "muted"
+                ),
+            )
+        st.write(narrative.outcome_statement)
         st.write(narrative.reason_statement)
         if narrative.missing_facts:
-            st.markdown("**What is missing**")
-            for fact in narrative.missing_facts:
-                suffix = (
-                    " This affects the recommendation."
-                    if fact.affects_recommendation
-                    else ""
-                )
-                st.write(f"- {fact.statement}{suffix}")
+            render_business_list(
+                (
+                    fact.statement
+                    + (
+                        " This affects the recommendation."
+                        if fact.affects_recommendation
+                        else ""
+                    )
+                    for fact in narrative.missing_facts
+                ),
+                eyebrow="What is missing",
+                boxed=False,
+            )
         if narrative.unconfirmed_facts:
-            st.markdown("**Recorded as assumptions**")
-            for fact in narrative.unconfirmed_facts:
-                st.write(f"- {fact.statement}")
-        st.markdown(f"**Next:** {narrative.next_action}")
+            render_business_list(
+                (fact.statement for fact in narrative.unconfirmed_facts),
+                eyebrow="Recorded as assumptions",
+                boxed=False,
+            )
+        st.markdown("**Next action**")
+        st.write(narrative.next_action)
         if step.priority_status in _MEANINGFUL_PRIORITY_STATUSES:
             st.caption(narrative.priority_statement)
-        with technical_details():
-            _render_activity_technical_layer(integrated, step)
 
 
 def _render_supporting_counts(steps) -> None:
@@ -180,21 +203,73 @@ def _render_supporting_counts(steps) -> None:
 
     counts = Counter(item.recommendation_mode for item in steps)
     st.caption("Supporting numbers")
-    columns = st.columns(5)
-    columns[0].metric("Activities assessed", len(steps))
-    for column, (mode, label) in zip(columns[1:], _SUPPORTING_COUNT_LABELS):
-        column.metric(label, counts[mode])
+    values = [("Activities assessed", len(steps))] + [
+        (label, counts[mode]) for mode, label in _SUPPORTING_COUNT_LABELS
+    ]
+    for start in range(0, len(values), 2):
+        columns = st.columns(2)
+        for column, (label, value) in zip(columns, values[start : start + 2]):
+            column.metric(label, value)
+
+
+def _render_results_technical(integrated, steps, policy_reference) -> None:
+    """Keep every assessment value in one page-level disclosure."""
+
+    with technical_details():
+        for sequence, step in enumerate(steps, start=1):
+            st.markdown(f"**{sequence}. {step.activity}**")
+            _render_activity_technical_layer(integrated, step)
+        st.markdown("**Policy and assessment run**")
+        for line in policy_reference:
+            st.caption(line)
+
+
+def _open_decision_package() -> None:
+    if not switch_to_registered_page("decision-package"):
+        st.info("Open Decision Package from the sidebar to continue.")
 
 
 def render() -> None:
-    render_page_header("Assessment Results")
     snapshot = hydrate_workspace()
+    approved = st.session_state.get("approved_review")
+    integrated = st.session_state.get("integrated_assessment_result")
+
+    ready = (
+        snapshot is not None
+        and approved is not None
+        and isinstance(integrated, IntegratedAssessmentSuccess)
+    )
+    if ready:
+        narrative = build_process_narrative(integrated)
+        action_clicked = render_decision_header(
+            context_line=f"Assessment Results · {narrative.process_name}",
+            headline=narrative.headline,
+            headline_as_title=True,
+            boxed=True,
+            sections=(
+                HeaderSection("What we found", narrative.what_we_found),
+                HeaderSection(
+                    "What information is still needed",
+                    narrative.what_is_still_needed,
+                ),
+                HeaderSection("What this means", narrative.what_this_means),
+                HeaderSection("What happens next", narrative.next_action),
+            ),
+            action=HeaderAction(
+                section_heading="What happens next",
+                label="Open the Decision Package",
+                key="results-open-decision-package",
+                icon=":material/account_tree:",
+            ),
+        )
+    else:
+        render_page_header("Assessment Results")
+        action_clicked = False
+
     if snapshot is None:
         guard("Create or open an assessment first.")
-    approved = st.session_state.get("approved_review")
     if approved is None:
         guard("Explicitly approve the human-reviewed process before assessment.")
-    integrated = st.session_state.get("integrated_assessment_result")
     if integrated is None:
         st.write(
             "The approved current-state process is ready for deterministic "
@@ -223,32 +298,12 @@ def render() -> None:
     narrative = build_process_narrative(integrated)
     steps = integrated.process_assessment.step_assessments
 
-    render_decision_header(
-        context_line=f"Assessment complete · {narrative.process_name}",
-        headline=narrative.headline,
-        sections=(
-            HeaderSection("What we found", narrative.what_we_found),
-            HeaderSection(
-                "What information is still needed", narrative.what_is_still_needed
-            ),
-            HeaderSection("What this means", narrative.what_this_means),
-            HeaderSection("What happens next", narrative.next_action),
-        ),
-    )
-    if st.button(
-        "Open the Decision Package",
-        key="results-open-decision-package",
-        icon=":material/account_tree:",
-    ):
-        if not switch_to_registered_page("decision-package"):
-            st.info("Open Decision Package from the sidebar to continue.")
+    if action_clicked:
+        _open_decision_package()
 
+    _render_results_technical(integrated, steps, narrative.policy_reference)
     _render_supporting_counts(steps)
 
     st.subheader("Activity-by-activity results")
     for activity, step in zip(narrative.activities, steps, strict=True):
-        _render_activity(integrated, activity, step)
-
-    with technical_details():
-        for line in narrative.policy_reference:
-            st.caption(line)
+        _render_activity(activity, step)

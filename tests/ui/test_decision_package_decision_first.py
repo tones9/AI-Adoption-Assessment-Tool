@@ -13,6 +13,8 @@ keep their frozen Stage 4 presentation.
 
 from __future__ import annotations
 
+from html import unescape
+
 from streamlit.testing.v1 import AppTest
 
 from ai_adoption_engine.decision_support import DecisionSupportPackageService
@@ -20,6 +22,12 @@ from ai_adoption_engine.persistence.sqlite import SQLiteAssessmentRepository
 from ai_adoption_engine.presentation.components.technical_details import (
     TECHNICAL_DETAILS_LABEL,
 )
+from ai_adoption_engine.presentation.pages.decision_package import (
+    OPPORTUNITY_PORTFOLIO,
+    PACKAGE_SECTIONS,
+    _SECTION_NAV_STYLES,
+)
+from ai_adoption_engine.presentation.report_view import build_report_view
 from ai_adoption_engine.workspace.models import (
     ArtifactType,
     ExecutionMode,
@@ -70,7 +78,12 @@ def _package_app(tmp_path, monkeypatch):
 
 
 def _text(element) -> str:
-    return str(getattr(element, "value", "") or getattr(element, "label", "") or "")
+    value = str(
+        getattr(element, "value", "") or getattr(element, "label", "") or ""
+    )
+    if value.lstrip().startswith("<style>"):
+        return ""
+    return unescape(value)
 
 
 def _split_layers(app) -> tuple[list[str], list[str]]:
@@ -107,6 +120,21 @@ def _decision_header(layer_one: list[str]) -> list[str]:
     return layer_one[:end]
 
 
+def _select_section(app: AppTest, section: str) -> AppTest:
+    return app.segmented_control[0].set_value(section).run()
+
+
+def _all_section_layers(app: AppTest) -> tuple[list[str], list[str]]:
+    visible: list[str] = []
+    technical: list[str] = []
+    for section in PACKAGE_SECTIONS:
+        app = _select_section(app, section)
+        layer_one, layer_two = _split_layers(app)
+        visible.extend(layer_one)
+        technical.extend(layer_two)
+    return visible, technical
+
+
 # ---------------------------------------------------------------------------
 # Decision-first hierarchy
 # ---------------------------------------------------------------------------
@@ -123,18 +151,44 @@ def test_package_leads_with_the_decision_not_the_generator(tmp_path, monkeypatch
     assert "Decision package generated from the saved assessment result." not in "\n".join(
         layer_one
     )
-    assert header[1] == f"Decision Package · {package.current_state.process_name}"
+    assert app.title[0].value == "Decision Package"
+    assert tuple(app.segmented_control[0].options) == PACKAGE_SECTIONS
+    assert f"Decision Package · {package.current_state.process_name}" in header
 
     headings = [item.value for item in app.subheader]
-    assert headings[:5] == [
+    assert headings == [
         "Decision summary",
+        "Supporting decision detail",
+        "Executive summary",
+        "Process assessed",
+    ]
+    for label in (
         "Why this decision was reached",
         "What this means",
         "What happens next",
         "Risks and limitations",
-    ]
-    assert headings[5] == "Supporting decision detail"
+    ):
+        assert label in joined
     assert "mixed result" in joined
+
+
+def test_package_navigation_has_six_sticky_sections_and_one_technical_control_each(
+    tmp_path, monkeypatch
+) -> None:
+    app, _ = _package_app(tmp_path, monkeypatch)
+    assert tuple(app.segmented_control[0].options) == PACKAGE_SECTIONS
+
+    for section in PACKAGE_SECTIONS:
+        app = _select_section(app, section)
+        assert not app.exception
+        assert sum(
+            item.label == TECHNICAL_DETAILS_LABEL for item in app.expander
+        ) == 1
+
+    assert 'data-testid="stLayoutWrapper"' in _SECTION_NAV_STYLES
+    assert "position: sticky" in _SECTION_NAV_STYLES
+    assert '[role="radiogroup"]' in _SECTION_NAV_STYLES
+    assert "overflow-x: auto" in _SECTION_NAV_STYLES
 
 
 def test_limitations_are_readable_before_any_technical_detail(
@@ -254,7 +308,7 @@ def test_identifiers_and_provenance_remain_behind_the_canonical_control(
     tmp_path, monkeypatch
 ) -> None:
     app, package = _package_app(tmp_path, monkeypatch)
-    _, layer_two = _split_layers(app)
+    _, layer_two = _all_section_layers(app)
     technical = "\n".join(layer_two)
 
     for token in (
@@ -284,17 +338,12 @@ def test_identifiers_and_provenance_remain_behind_the_canonical_control(
 
 
 def test_report_body_layer_one_is_business_facing(tmp_path, monkeypatch) -> None:
-    """The embedded report carries no raw internal tokens outside Layer 2."""
+    """The portfolio section carries no raw internal tokens outside Layer 2."""
 
     app, _ = _package_app(tmp_path, monkeypatch)
+    app = _select_section(app, OPPORTUNITY_PORTFOLIO)
     layer_one, layer_two = _split_layers(app)
-    start = layer_one.index("Supporting decision detail")
-    end = next(
-        index
-        for index in range(start, len(layer_one))
-        if layer_one[index] == "PROPOSED / NOT DEPLOYED"
-    )
-    body = "\n".join(layer_one[start:end])
+    body = "\n".join(layer_one)
 
     for token in (
         "AUTOMATE=",
@@ -315,19 +364,31 @@ def test_report_body_layer_one_is_business_facing(tmp_path, monkeypatch) -> None
     assert "Recommendation: Not recommended" in body
 
     technical = "\n".join(layer_two)
-    assert "Source statement:" in technical
     assert "Engine rationale:" in technical
     assert "Recommendation mode: DO_NOT_RECOMMEND" in technical
 
 
 def test_package_semantics_are_unchanged_by_presentation(tmp_path, monkeypatch) -> None:
     app, package = _package_app(tmp_path, monkeypatch)
-    layer_one, layer_two = _split_layers(app)
+    layer_one, layer_two = _all_section_layers(app)
     everything = "\n".join(layer_one + layer_two)
 
-    # The authoritative report projection is still rendered in full.
-    subheaders = [item.value for item in app.subheader]
-    assert subheaders.count("Methodology and policy disclosure") == 1
+    # Every authoritative report value remains reachable in one of the six
+    # sections; sectioning relocates content and does not delete it.
+    for section in build_report_view(package):
+        assert section.title in everything
+        for block in section.blocks:
+            if block.heading:
+                assert block.heading in everything
+            for paragraph in block.paragraphs:
+                assert paragraph in everything
+            for bullet in block.bullets:
+                assert bullet in everything
+            if block.origin:
+                assert block.origin.value in "\n".join(layer_two)
+            for detail in block.technical_details:
+                assert detail in "\n".join(layer_two)
+
     assert everything.count("Reason / basis:") == len(package.portfolio.items)
     assert everything.count("Next action:") == len(package.portfolio.items)
     assert "PROPOSED / NOT DEPLOYED" in everything
@@ -335,7 +396,7 @@ def test_package_semantics_are_unchanged_by_presentation(tmp_path, monkeypatch) 
     assert "does not claim legal compliance" in everything
     assert any(
         item.label == "Download print-friendly HTML report"
-        for item in app.download_button
+        for item in _select_section(app, PACKAGE_SECTIONS[0]).download_button
     )
 
 
