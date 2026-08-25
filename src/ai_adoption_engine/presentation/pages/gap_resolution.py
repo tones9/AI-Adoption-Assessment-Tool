@@ -163,10 +163,10 @@ def _render_review_technical(status) -> None:
 
 
 def render() -> None:
+    render_page_header("Add preliminary context")
     snapshot = hydrate_workspace()
     if snapshot is None:
         guard("Create or open an assessment first.")
-    render_page_header("Add preliminary context")
     package_artifact = snapshot.active_artifacts.get(ArtifactType.DECISION_PACKAGE_RESULT)
     if package_artifact is None:
         guard("Generate a Decision Package before opening optional Gap resolution.")

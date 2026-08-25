@@ -48,7 +48,15 @@ def render_progress(stage: WorkflowStage) -> None:
     still to come.
     """
 
-    rank = {WorkflowStage.NEW: 0, **{item: index for index, (item, _) in enumerate(_STAGES, start=1)}}
+    # A brand-new workspace has entered the journey but has completed no
+    # stage yet, so Source is its current destination rather than upcoming.
+    rank = {
+        WorkflowStage.NEW: 1,
+        **{
+            item: index
+            for index, (item, _) in enumerate(_STAGES, start=1)
+        },
+    }
     current = rank[stage]
     rows = []
     for index, (_, label) in enumerate(_STAGES, start=1):

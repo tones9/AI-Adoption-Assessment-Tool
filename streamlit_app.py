@@ -30,7 +30,7 @@ st.set_page_config(
     page_title=PRODUCT_NAME,
     page_icon="◈",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
 
 # The one centralised stylesheet: static design tokens only, injected once.

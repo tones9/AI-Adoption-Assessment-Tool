@@ -435,10 +435,10 @@ def _render_m2_records(view: DecisionContinuationView) -> None:
 
 
 def render() -> None:
+    render_page_header("Decision continuation")
     snapshot = hydrate_workspace()
     if snapshot is None:
         guard("Create or open an assessment first.")
-    render_page_header("Decision continuation")
     if not grw_continuation_available():
         _render_protected_baseline(snapshot)
         return
