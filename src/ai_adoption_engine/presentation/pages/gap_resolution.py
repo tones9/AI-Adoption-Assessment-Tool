@@ -32,6 +32,9 @@ from ai_adoption_engine.presentation.decision_narrative import (
     build_package_narrative,
 )
 from ai_adoption_engine.workspace.models import ArtifactType
+from ai_adoption_engine.presentation.components.page_header import (
+    render_page_header,
+)
 
 
 _REVIEW_OPTIONS = {
@@ -163,7 +166,7 @@ def render() -> None:
     snapshot = hydrate_workspace()
     if snapshot is None:
         guard("Create or open an assessment first.")
-    st.title("Add preliminary context")
+    render_page_header("Add preliminary context")
     package_artifact = snapshot.active_artifacts.get(ArtifactType.DECISION_PACKAGE_RESULT)
     if package_artifact is None:
         guard("Generate a Decision Package before opening optional Gap resolution.")

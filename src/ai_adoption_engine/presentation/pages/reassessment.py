@@ -41,6 +41,9 @@ from ai_adoption_engine.presentation.context import (
     switch_to_registered_page,
 )
 from ai_adoption_engine.workspace.models import ArtifactType
+from ai_adoption_engine.presentation.components.page_header import (
+    render_page_header,
+)
 
 
 PAGE_PURPOSE = (
@@ -521,7 +524,7 @@ def _render_orientation(item, gap, *, stage: str | None) -> None:
 
 
 def render() -> None:
-    st.title("Controlled reassessment")
+    render_page_header("Controlled reassessment")
     snapshot = hydrate_workspace()
     if snapshot is None:
         st.info("Open a package-ready assessment first.")

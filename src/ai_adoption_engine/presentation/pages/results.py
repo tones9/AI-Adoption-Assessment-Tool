@@ -37,6 +37,9 @@ from ai_adoption_engine.presentation.decision_narrative import (
     ActivityNarrative,
     build_process_narrative,
 )
+from ai_adoption_engine.presentation.components.page_header import (
+    render_page_header,
+)
 
 
 _MEANINGFUL_PRIORITY_STATUSES = frozenset(
@@ -184,10 +187,10 @@ def _render_supporting_counts(steps) -> None:
 
 
 def render() -> None:
+    render_page_header("Assessment Results")
     snapshot = hydrate_workspace()
     if snapshot is None:
         guard("Create or open an assessment first.")
-    st.title("Assessment Results")
     approved = st.session_state.get("approved_review")
     if approved is None:
         guard("Explicitly approve the human-reviewed process before assessment.")

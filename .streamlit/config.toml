@@ -1,9 +1,40 @@
 [theme]
+base = "light"
 primaryColor = "#1F5A54"
 backgroundColor = "#F7F8F6"
 secondaryBackgroundColor = "#EDF1EE"
 textColor = "#17211F"
-font = "sans serif"
+borderColor = "#DCE4DF"
+linkColor = "#1F5A54"
+linkUnderline = false
+baseRadius = "none"
+buttonRadius = "none"
+baseFontSize = 14
+showWidgetBorder = true
+showSidebarBorder = true
+metricValueFontSize = "1.6rem"
+font = "Barlow:https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&display=swap"
+headingFont = "Barlow Condensed:https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&display=swap"
+headingFontSizes = ["1.9rem", "1.4rem", "1.15rem", "1rem", "0.9rem", "0.8rem"]
+headingFontWeights = [700, 600, 600, 600, 600, 600]
+blueBackgroundColor = "#E8EEF3"
+blueColor = "#C7D6E1"
+blueTextColor = "#2C4A63"
+yellowBackgroundColor = "#FBF6E3"
+yellowColor = "#E3D68E"
+yellowTextColor = "#6B5A17"
+
+[theme.sidebar]
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#EDF1EE"
+borderColor = "#DCE4DF"
+baseRadius = "none"
+buttonRadius = "none"
+linkColor = "#1F5A54"
+
+[client]
+toolbarMode = "minimal"
+showSidebarNavigation = false
 
 [server]
 maxUploadSize = 25

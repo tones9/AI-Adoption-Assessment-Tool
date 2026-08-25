@@ -39,6 +39,9 @@ from ai_adoption_engine.presentation.decision_narrative import (
 )
 from ai_adoption_engine.presentation.report_html import render_report_html
 from ai_adoption_engine.presentation.report_view import build_report_view
+from ai_adoption_engine.presentation.components.page_header import (
+    render_page_header,
+)
 
 
 _BORDERED_REPORT_SECTIONS = frozenset(
@@ -124,10 +127,10 @@ def _render_governance(package) -> None:
 
 
 def render() -> None:
+    render_page_header("Decision Package")
     snapshot = hydrate_workspace()
     if snapshot is None:
         guard("Create or open an assessment first.")
-    st.title("Decision Package")
     integrated = st.session_state.get("integrated_assessment_result")
     if integrated is None or getattr(integrated, "status", None) != "success":
         guard("Complete a successful integrated assessment before generating decision support.")

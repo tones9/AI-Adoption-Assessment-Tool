@@ -9,13 +9,18 @@ from ai_adoption_engine.presentation.context import (
     workspace_writes_available,
     workspace_service,
 )
+from ai_adoption_engine.presentation.components.page_header import (
+    render_page_header,
+)
 
 
 def render() -> None:
-    st.title("AI Adoption Assessment")
-    st.write(
-        "Assess one documented current-state business process through ingestion, "
-        "human validation, deterministic assessment and decision support."
+    render_page_header(
+        "AI Adoption Assessment",
+        purpose=(
+            "Assess one documented current-state business process through ingestion, "
+            "human validation, deterministic assessment and decision support."
+        ),
     )
     st.info(
         "Local, single-user MVP. SQLite data is not encrypted at rest. "

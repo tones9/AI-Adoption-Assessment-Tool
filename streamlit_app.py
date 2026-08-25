@@ -8,10 +8,7 @@ import streamlit as st
 # Streamlit executes this file directly; keep the repository runnable before install.
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 
-from ai_adoption_engine.presentation.components.status import (
-    render_mode_banner,
-    render_progress,
-)
+from ai_adoption_engine.presentation.components.shell import NavGroup, render_sidebar
 from ai_adoption_engine.presentation.context import (
     frozen_evaluation_workspace_selected,
     hydrate_workspace,
@@ -26,38 +23,33 @@ from ai_adoption_engine.presentation.pages import (
     review,
     source,
 )
+from ai_adoption_engine.presentation.theme import PRODUCT_NAME, inject_global_styles
 
 
 st.set_page_config(
-    page_title="AI Adoption Engine",
+    page_title=PRODUCT_NAME,
     page_icon="◈",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# Static design tokens only; no document or user content is interpolated here.
-st.markdown(
-    """
-    <style>
-    .block-container {max-width: 1240px; padding-top: 1.8rem; padding-bottom: 4rem;}
-    h1, h2, h3 {letter-spacing: -0.025em;}
-    [data-testid="stMetric"] {background: #ffffff; border: 1px solid #dce4df; padding: 1rem; border-radius: .6rem;}
-    [data-testid="stSidebar"] {border-right: 1px solid #dce4df;}
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+# The one centralised stylesheet: static design tokens only, injected once.
+# No document, assessment or user content is interpolated into it.
+inject_global_styles()
 
-pages = [
+main_journey = [
     st.Page(assessments.render, title="Assessments", icon=":material/home:", url_path="assessments", default=True),
     st.Page(source.render, title="Source & Extraction", icon=":material/description:", url_path="source"),
     st.Page(review.render, title="Validate process", icon=":material/fact_check:", url_path="review"),
     st.Page(results.render, title="Assessment Results", icon=":material/analytics:", url_path="results"),
     st.Page(decision_package.render, title="Decision Package", icon=":material/account_tree:", url_path="decision-package"),
+]
+continuation = [
     st.Page(decision_continuation.render, title="Decision continuation", icon=":material/route:", url_path="decision-continuation"),
     st.Page(gap_resolution.render, title="Gap resolution", icon=":material/help_center:", url_path="gap-resolution"),
     st.Page(reassessment.render, title="Reassessment", icon=":material/restart_alt:", url_path="reassessment"),
 ]
+pages = [*main_journey, *continuation]
 page = st.navigation(pages, position="sidebar", expanded=True)
 protected_p2_page = (
     frozen_evaluation_workspace_selected()
@@ -67,14 +59,17 @@ snapshot = None if protected_p2_page else hydrate_workspace()
 if st.session_state.get("workspace_load_error"):
     st.error(st.session_state.workspace_load_error)
 with st.sidebar:
-    st.markdown("### AI Adoption Engine")
-    if snapshot is not None:
-        st.markdown(f"**{snapshot.assessment.title}**")
-        st.caption(snapshot.assessment.assessment_id)
-        render_mode_banner(snapshot.assessment.execution_mode)
-        render_progress(snapshot.assessment.current_stage)
-    elif protected_p2_page:
-        st.caption("Frozen evaluation record — ordinary workspace access is disabled.")
-    else:
-        st.caption("Create or open an assessment to begin.")
+    render_sidebar(
+        [
+            NavGroup(None, main_journey),
+            NavGroup("Optional continuation", continuation),
+        ],
+        active_page=page,
+        snapshot=snapshot,
+        notice=(
+            "Frozen evaluation record — ordinary workspace access is disabled."
+            if protected_p2_page
+            else None
+        ),
+    )
 page.run()

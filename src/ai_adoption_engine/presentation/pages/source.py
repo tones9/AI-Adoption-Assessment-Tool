@@ -21,6 +21,9 @@ from ai_adoption_engine.presentation.context import (
     workspace_service,
 )
 from ai_adoption_engine.presentation.pages import review
+from ai_adoption_engine.presentation.components.page_header import (
+    render_page_header,
+)
 
 
 def _safe_name(name: str) -> str:
@@ -38,7 +41,7 @@ def _process_review_page():
 
 
 def render() -> None:
-    st.title("Source & Extraction")
+    render_page_header("Source & Extraction")
     if frozen_evaluation_workspace_selected():
         st.info(
             "This is a frozen evaluation record. Source and process-validation changes are unavailable, and the ordinary workspace will not be opened."

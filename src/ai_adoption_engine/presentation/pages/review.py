@@ -42,6 +42,9 @@ from ai_adoption_engine.presentation.review_progress import (
     iter_step_assertions,
     unknown_unreviewed_by_step,
 )
+from ai_adoption_engine.presentation.components.page_header import (
+    render_page_header,
+)
 
 
 AssertionResolver = Callable[[ProcessReviewSession], ReviewedAssertion]
@@ -998,7 +1001,7 @@ def _render_approved(approved) -> None:
 
 
 def render() -> None:
-    st.title("Validate process")
+    render_page_header("Validate process")
     if frozen_evaluation_workspace_selected():
         st.info(
             "This is a frozen evaluation record. Process-validation changes are unavailable, and the ordinary workspace will not be opened."

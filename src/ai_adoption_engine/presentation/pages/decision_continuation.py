@@ -35,6 +35,9 @@ from ai_adoption_engine.presentation.decision_narrative import (
     build_package_narrative,
 )
 from ai_adoption_engine.workspace.models import ArtifactType
+from ai_adoption_engine.presentation.components.page_header import (
+    render_page_header,
+)
 
 
 PAGE_PURPOSE = (
@@ -435,7 +438,7 @@ def render() -> None:
     snapshot = hydrate_workspace()
     if snapshot is None:
         guard("Create or open an assessment first.")
-    st.title("Decision continuation")
+    render_page_header("Decision continuation")
     if not grw_continuation_available():
         _render_protected_baseline(snapshot)
         return
