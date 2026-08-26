@@ -12,6 +12,11 @@ from ai_adoption_engine.presentation.context import (
 from ai_adoption_engine.presentation.components.page_header import (
     render_page_header,
 )
+from ai_adoption_engine.presentation.components.primitives import (
+    destructive_action,
+    render_badge,
+    render_guard_state,
+)
 
 
 def render() -> None:
@@ -67,36 +72,50 @@ def render() -> None:
     st.subheader("Saved assessments")
     assessments = workspace_service().repository.list_assessments()
     if not assessments:
-        st.caption("No saved assessments yet.")
+        render_guard_state(
+            "No saved assessments yet. Start a new assessment above to create the first record.",
+            icon=":material/folder_open:",
+        )
         return
     for item in assessments:
         with st.container(border=True):
-            left, middle, right = st.columns([4, 2, 2])
+            left, middle, right = st.columns([5, 2, 1.5], vertical_alignment="center")
             with left:
                 st.markdown(f"**{item.title}**")
+                created = item.created_at.astimezone().strftime("%d %b %Y")
+                mode = item.execution_mode.value.replace("-", " ").title()
+                st.caption(f"Created {created} · {mode}")
                 st.caption(item.source_filename or "No source supplied")
             with middle:
-                st.write(item.current_stage.value.replace("-", " ").title())
-                st.caption(item.execution_mode.value.replace("-", " ").title())
+                render_badge(
+                    item.current_stage.value.replace("-", " ").title(),
+                    tone=(
+                        "primary"
+                        if item.current_stage.value in {"approved", "assessed", "package-ready"}
+                        else "muted"
+                    ),
+                )
             with right:
                 if st.button("Open", key=f"open-{item.assessment_id}", width="stretch"):
                     select_assessment(item.assessment_id)
                     st.rerun()
+            st.caption(f"Assessment ID: {item.assessment_id}")
             if writes_available:
                 with st.expander("Delete assessment"):
                     confirmed = st.checkbox(
                         "Permanently delete this assessment and all historical artifacts",
                         key=f"delete-confirm-{item.assessment_id}",
                     )
-                    if st.button(
-                        "Delete permanently",
-                        key=f"delete-{item.assessment_id}",
-                        disabled=not confirmed,
-                    ):
-                        workspace_service().repository.delete_assessment(
-                            item.assessment_id, confirmed=True
-                        )
-                        if st.session_state.get("selected_assessment_id") == item.assessment_id:
-                            st.session_state.pop("selected_assessment_id", None)
-                            clear_workspace_state()
-                        st.rerun()
+                    with destructive_action(item.assessment_id):
+                        if st.button(
+                            "Delete permanently",
+                            key=f"delete-{item.assessment_id}",
+                            disabled=not confirmed,
+                        ):
+                            workspace_service().repository.delete_assessment(
+                                item.assessment_id, confirmed=True
+                            )
+                            if st.session_state.get("selected_assessment_id") == item.assessment_id:
+                                st.session_state.pop("selected_assessment_id", None)
+                                clear_workspace_state()
+                            st.rerun()

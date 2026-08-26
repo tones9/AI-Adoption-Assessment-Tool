@@ -42,16 +42,16 @@ def test_guided_review_renders_required_sections_and_preserves_unknowns(tmp_path
     app = _review_app(assessment_id).run()
 
     assert not app.exception
-    headers = [item.value for item in app.header]
+    headers = [item.value for item in [*app.header, *app.subheader]]
     for label in (
         "Review summary",
-        "Needs your decision",
+        "Review progress",
         "What the document says",
         "Unknown or not provided",
         "Dependencies and structural issues",
         "Recommended checks",
-        "Review more detail",
-        "Ready for approval",
+        "Assertion review",
+        "Final approval",
     ):
         assert label in headers
     rendered = "\n".join(
@@ -104,8 +104,8 @@ def test_guided_review_resumes_from_persisted_phase4_state_after_a_new_session(t
     reopened = _review_app(assessment_id).run()
 
     assert not first.exception and not reopened.exception
-    assert next(item for item in first.metric if item.label == "Remaining").value == "8"
-    assert next(item for item in reopened.metric if item.label == "Remaining").value == "8"
+    assert [item.value for item in first.markdown].count("### 8") >= 2
+    assert [item.value for item in reopened.markdown].count("### 8") >= 2
     assert reopened.session_state["guided_review_selected_item"] == (
         "step-order-unconfirmed:process.steps.order"
     )
@@ -128,7 +128,7 @@ def test_guided_queue_selection_is_a_transient_valid_work_item_bookmark(tmp_path
     assert app.session_state["guided_review_selected_item"] == (
         f"step-activity-unconfirmed:steps.{target.candidate_step_id}.activity"
     )
-    assert app.selectbox(key="selected-review-step").value == target.candidate_step_id
+    assert app.session_state["selected-review-step"] == target.candidate_step_id
 
 
 def test_protected_review_hides_phase4_write_controls(tmp_path, monkeypatch) -> None:

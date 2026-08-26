@@ -461,10 +461,10 @@ def test_approval_blockers_are_explicit_and_final_resolution_enables_approval(
     app.run()
     assert not app.exception
 
-    metrics = {item.label: item.value for item in app.metric}
-    assert metrics["Required items"] == "9"
-    assert metrics["Complete"] == "8"
-    assert metrics["Remaining"] == "1"
+    assert not app.metric
+    stats = [item.value for item in app.markdown]
+    assert stats.count("### 1") >= 2
+    assert "### 8" in stats
     assert any(
         "1 required item needs attention before approval" in item.value
         for item in app.warning
@@ -497,10 +497,10 @@ def test_approval_blockers_are_explicit_and_final_resolution_enables_approval(
     reopened._page_hash = calc_hash("review")
     app = reopened.run()
     assert not app.exception
-    assert next(item for item in app.metric if item.label == "Remaining").value == "1"
+    assert [item.value for item in app.markdown].count("### 1") >= 2
 
     app = next(item for item in app.button if item.label == "Open step").click().run()
-    assert app.selectbox(key="selected-review-step").value == unresolved_step.candidate_step_id
+    assert app.session_state["selected-review-step"] == unresolved_step.candidate_step_id
     assert any("Review attention requested here: Activity" in item.value for item in app.warning)
     app = _confirm_document_group(
         app, f"step-{unresolved_step.candidate_step_id}"
@@ -569,20 +569,22 @@ def test_scoped_document_confirmation_reduces_demo_review_work_without_flattenin
     app._page_hash = calc_hash("review")
     app.run()
     assert not app.exception
-    metrics = {item.label: item.value for item in app.metric}
-    assert metrics == {"Required items": "9", "Complete": "0", "Remaining": "9"}
+    assert not app.metric
+    assert {item.value for item in app.caption} >= {
+        "Outstanding",
+        "Complete",
+        "Remaining",
+    }
+    assert [item.value for item in app.markdown].count("### 9") >= 2
 
     app = _confirm_document_group(app, "process")
     for step in session.steps:
-        app = app.selectbox(key="selected-review-step").select(
-            step.candidate_step_id
-        ).run()
         app = _confirm_document_group(app, f"step-{step.candidate_step_id}")
     app = next(
         item for item in app.button if item.label == "Accept current step order"
     ).click().run()
 
-    assert next(item for item in app.metric if item.label == "Remaining").value == "0"
+    assert "### 0" in {item.value for item in app.markdown}
     persisted = repository.load_active_artifact(
         assessment.assessment_id, ArtifactType.REVIEW_SESSION
     ).payload
@@ -626,17 +628,19 @@ def test_review_action_controls_are_conditional_and_saved_state_is_visible(
     app.run()
     assert not app.exception
 
-    # The page edits one activity at a time and summarizes the rest without
-    # requiring the user to expand every activity card.
-    assert len([item for item in app.selectbox if item.key == "selected-review-step"]) == 1
+    # The page edits one activity in place and keeps the other ordered activity
+    # rows collapsed without hiding them behind a selector.
+    assert not [item for item in app.selectbox if item.key == "selected-review-step"]
+    assert len([item for item in app.button if item.label == "Review activity"]) == (
+        len(session.steps) - 1
+    )
     progress = "\n".join(item.value for item in app.markdown)
-    assert ":gray-badge[Not reviewed]" in progress
+    assert ">Not reviewed<" in progress
     assert "Optional descriptive fields" in "\n".join(
         item.value for item in app.caption
     )
-    metrics = {item.label: item.value for item in app.metric}
-    assert metrics["Required items"] == "9"
-    assert metrics["Remaining"] == "9"
+    assert not app.metric
+    assert [item.value for item in app.markdown].count("### 9") >= 2
     assert len([item for item in app.button if item.label == "Apply review action"]) < 45
 
     process_action = _widget_with_key_prefix(app.selectbox, "action-process.name-")
@@ -655,7 +659,7 @@ def test_review_action_controls_are_conditional_and_saved_state_is_visible(
     )
     app = _widget_with_key_prefix(app.button, "apply-process.name-").click().run()
     assert any("Process name: accept saved" in item.value for item in app.success)
-    assert any(":green-badge[Accepted]" in item.value for item in app.markdown)
+    assert any(">Accepted<" in item.value for item in app.markdown)
 
     first_step = session.steps[0]
     unknown_path = f"steps.{first_step.candidate_step_id}.criteria[0]"
@@ -671,7 +675,7 @@ def test_review_action_controls_are_conditional_and_saved_state_is_visible(
     )
     app = _widget_with_key_prefix(app.button, f"apply-{unknown_path}-").click().run()
     assert any("unknown retained saved" in item.value for item in app.success)
-    assert any(":gray-badge[Unknown retained]" in item.value for item in app.markdown)
+    assert any(">Unknown retained<" in item.value for item in app.markdown)
 
     # Correction and rejection expose rationale only when it is required, and
     # saved states remain visibly distinct.
@@ -689,8 +693,8 @@ def test_review_action_controls_are_conditional_and_saved_state_is_visible(
         app.button, "apply-process.description-"
     ).click().run()
     rendered = "\n".join(item.value for item in app.markdown)
-    assert ":blue-badge[Corrected]" in rendered
-    assert ":blue-badge[Human supplied]" in rendered
+    assert ">Corrected<" in rendered
+    assert ">Human supplied<" in rendered
 
     objective_action = _widget_with_key_prefix(
         app.selectbox, "action-process.objective-"
@@ -702,7 +706,7 @@ def test_review_action_controls_are_conditional_and_saved_state_is_visible(
     app = _widget_with_key_prefix(
         app.button, "apply-process.objective-"
     ).click().run()
-    assert any(":red-badge[Rejected]" in item.value for item in app.markdown)
+    assert any(">Rejected<" in item.value for item in app.markdown)
 
     # A human-added collection value is saved through the Phase 4 operation and
     # cannot acquire document evidence in the UI.
@@ -755,15 +759,11 @@ def test_complete_offline_demo_ui_journey_persists_and_reopens_exact_chain(
     app.run()
     app = _confirm_document_group(app, "process")
     for step in session.steps:
-        app = app.selectbox(key="selected-review-step").select(
-            step.candidate_step_id
-        ).run()
         app = _confirm_document_group(app, f"step-{step.candidate_step_id}")
 
     first_step = session.steps[0]
-    app.selectbox(key="selected-review-step").select(
-        first_step.candidate_step_id
-    ).run()
+    if app.session_state["selected-review-step"] != first_step.candidate_step_id:
+        app = app.button(key=f"review-step-{first_step.candidate_step_id}").click().run()
     unknown_path = f"steps.{first_step.candidate_step_id}.criteria[0]"
     app = _apply_review_action(app, unknown_path, "Retain unknown")
     assert any("unknown retained saved" in item.value for item in app.success)

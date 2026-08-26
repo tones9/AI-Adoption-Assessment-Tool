@@ -24,6 +24,7 @@ from ai_adoption_engine.presentation.pages import review
 from ai_adoption_engine.presentation.components.page_header import (
     render_page_header,
 )
+from ai_adoption_engine.presentation.components.primitives import render_stat_strip
 
 
 def _safe_name(name: str) -> str:
@@ -41,7 +42,13 @@ def _process_review_page():
 
 
 def render() -> None:
-    render_page_header("Source & Extraction")
+    render_page_header(
+        "Source & Extraction",
+        purpose=(
+            "Supply one text-native process document, inspect ingestion, then explicitly "
+            "start extraction."
+        ),
+    )
     if frozen_evaluation_workspace_selected():
         st.info(
             "This is a frozen evaluation record. Source and process-validation changes are unavailable, and the ordinary workspace will not be opened."
@@ -50,7 +57,6 @@ def render() -> None:
     snapshot = hydrate_workspace()
     if snapshot is None:
         guard("Create or open an assessment first.")
-    st.write("Supply one text-native process document, inspect ingestion, then explicitly start extraction.")
     mode = snapshot.assessment.execution_mode
     current_ingestion = st.session_state.get("ingestion_result")
 
@@ -144,36 +150,45 @@ def render() -> None:
                 st.error(f"Document ingestion could not complete: {type(exc).__name__}")
 
     current_ingestion = st.session_state.get("ingestion_result")
-    if current_ingestion is None:
-        return
     with st.container(border=True):
         st.subheader("2. Ingestion result")
-        if current_ingestion.status is IngestionStatus.SUCCESS:
+        document = None
+        if current_ingestion is None:
+            st.caption("Ingest a document to inspect the extracted text and source details.")
+        elif current_ingestion.status is IngestionStatus.SUCCESS:
             st.success("Text extracted successfully.")
         elif current_ingestion.status is IngestionStatus.PARTIAL:
             st.warning("Text was extracted with warnings.")
         else:
             st.error("No usable document was produced.")
-        for issue in current_ingestion.issues:
-            message = issue.message
-            if "extractable" in message.lower() or "ocr" in message.lower():
-                message += " OCR is outside the MVP; provide a text-native PDF."
-            (st.error if issue.severity.value == "error" else st.warning)(message)
-        document = current_ingestion.document
-        if document is None:
-            return
-        columns = st.columns(4)
-        columns[0].metric("Input", document.source.input_type.value.replace("_", " ").title())
-        columns[1].metric("Pages", document.metadata.page_count or "—")
-        columns[2].metric("Text blocks", len(document.blocks))
-        columns[3].metric("Size", f"{document.source.byte_size:,} bytes")
-        with st.expander("Extracted-text preview"):
-            st.code(document.canonical_text[:8000], language=None, wrap_lines=True)
-            if len(document.canonical_text) > 8000:
-                st.caption("Preview truncated at 8,000 characters.")
+        if current_ingestion is not None:
+            for issue in current_ingestion.issues:
+                message = issue.message
+                if "extractable" in message.lower() or "ocr" in message.lower():
+                    message += " OCR is outside the MVP; provide a text-native PDF."
+                (st.error if issue.severity.value == "error" else st.warning)(message)
+            document = current_ingestion.document
+        if document is not None:
+            render_stat_strip(
+                [
+                    ("Input", document.source.input_type.value.replace("_", " ").title()),
+                    ("Text blocks", len(document.blocks)),
+                    ("Size", f"{document.source.byte_size:,} bytes"),
+                ]
+            )
+            st.caption(f"Pages: {document.metadata.page_count or 'Not reported'}")
+            with st.expander("Extracted-text preview"):
+                st.code(document.canonical_text[:8000], language=None, wrap_lines=True)
+                if len(document.canonical_text) > 8000:
+                    st.caption("Preview truncated at 8,000 characters.")
 
     with st.container(border=True):
         st.subheader("3. Candidate process extraction")
+        if document is None:
+            st.caption(
+                "A usable ingested document is required before candidate extraction can start."
+            )
+            return
         bundled = (
             fixture_for_document_id(document.document_id)
             if mode is ExecutionMode.OFFLINE_DEMO

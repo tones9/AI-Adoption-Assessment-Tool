@@ -57,6 +57,40 @@ def test_protected_assessments_page_offers_open_but_not_create_or_delete(
     assert tuple(sorted(item.name for item in protected.parent.iterdir())) == entries
 
 
+def test_protected_source_and_review_pages_withdraw_all_batch2_write_controls(
+    tmp_path: Path, monkeypatch
+) -> None:
+    ordinary = tmp_path / "ordinary-input-review.db"
+    repository = SQLiteAssessmentRepository(ordinary)
+    assessment = repository.create_assessment(
+        "Protected input and review", ExecutionMode.OFFLINE_DEMO
+    )
+    protected = _protected_copy(ordinary, tmp_path, "input-review.db")
+    before = hashlib.sha256(protected.read_bytes()).hexdigest()
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(protected))
+
+    source_app = _selected_page("source", assessment.assessment_id).run()
+    review_app = _selected_page("review", assessment.assessment_id).run()
+
+    assert not source_app.exception
+    assert not review_app.exception
+    assert any("frozen evaluation record" in item.value for item in source_app.info)
+    assert any("frozen evaluation record" in item.value for item in review_app.info)
+    withdrawn = {
+        "Ingest document",
+        "Extract candidate process",
+        "Start process validation",
+        "Apply review action",
+        "Accept current step order",
+        "Resolve conflict",
+        "Reject/remove step",
+        "Approve current-state process",
+    }
+    assert not withdrawn.intersection(item.label for item in source_app.button)
+    assert not withdrawn.intersection(item.label for item in review_app.button)
+    assert hashlib.sha256(protected.read_bytes()).hexdigest() == before
+
+
 def test_protected_results_and_package_pages_hide_generation_controls(
     tmp_path: Path, monkeypatch
 ) -> None:
