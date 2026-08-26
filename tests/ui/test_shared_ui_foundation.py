@@ -62,8 +62,30 @@ def test_product_branding_is_rendered_from_the_shared_identity() -> None:
     assert not app.exception
     rendered = "\n".join(element.value for element in app.markdown)
     assert PRODUCT_NAME == "AI Adoption Assessment Tool"
+    assert PRODUCT_BYLINE == "Conceptualised and shipped by Antony Vishal."
     assert PRODUCT_NAME in rendered
     assert PRODUCT_BYLINE in rendered
+    assert "AI Project Memory" not in rendered
+
+
+def test_entrypoint_uses_shared_product_identity_for_browser_title() -> None:
+    tree = ast.parse((ROOT / "streamlit_app.py").read_text(encoding="utf-8"))
+    page_config = next(
+        node.value
+        for node in tree.body
+        if isinstance(node, ast.Expr)
+        and isinstance(node.value, ast.Call)
+        and isinstance(node.value.func, ast.Attribute)
+        and node.value.func.attr == "set_page_config"
+    )
+    page_title = next(
+        keyword.value
+        for keyword in page_config.keywords
+        if keyword.arg == "page_title"
+    )
+
+    assert isinstance(page_title, ast.Name)
+    assert page_title.id == "PRODUCT_NAME"
 
 
 def test_registered_navigation_keeps_five_primary_and_three_optional_routes() -> None:
