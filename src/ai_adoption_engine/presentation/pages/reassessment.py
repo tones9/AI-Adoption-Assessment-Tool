@@ -90,6 +90,17 @@ JOURNEY: tuple[str, ...] = (
     "Compare it with your original decision.",
 )
 
+# Compact headings for the visual strip.  The full stage descriptions above
+# remain visible in every cell and continue to own the process meaning.
+JOURNEY_LABELS: tuple[str, ...] = (
+    "Source",
+    "Reviewed",
+    "Resolved",
+    "Approved",
+    "Successor",
+    "Compared",
+)
+
 # Which journey step each recorded stage sits in.  Several stages share a step
 # because the service records more than one immutable operation inside it.
 _STAGE_STEP: dict[str, int] = {
@@ -240,9 +251,10 @@ def _render_journey(stage: str | None) -> None:
     st.subheader("What this process requires")
     current = _STAGE_STEP.get(stage or "")
     stopped = _STOPPED_STEP.get(stage or "")
-    for index, description in enumerate(JOURNEY):
+    cells = st.columns(len(JOURNEY), gap="small")
+    for index, (label, description) in enumerate(zip(JOURNEY_LABELS, JOURNEY)):
         if stopped is not None:
-            marker = "✓" if index < stopped else ("✗" if index == stopped else "•")
+            marker = "✓" if index < stopped else ("→" if index == stopped else "•")
         elif current is None:
             marker = "•"
         elif index < current:
@@ -251,7 +263,9 @@ def _render_journey(stage: str | None) -> None:
             marker = "→"
         else:
             marker = "•"
-        st.write(f"{marker} {index + 1}. {description}")
+        with cells[index].container(border=True, height="stretch"):
+            st.markdown(f"**{marker} {index + 1}. {label}**")
+            st.caption(description)
     if stopped is not None:
         st.caption(f"This reassessment stopped at step {stopped + 1} of {len(JOURNEY)}.")
     elif stage is None:
@@ -323,6 +337,23 @@ def _render_recorded(service, run_id: str) -> None:
     st.subheader("What has been recorded so far")
     for line in lines:
         st.write(line)
+
+
+def _render_decision_pair(item, run) -> None:
+    """Keep the baseline and any successor visibly separate and equal."""
+
+    if run.successor is None:
+        return
+    st.subheader("The two recorded decisions")
+    original, successor = st.columns(2, gap="small")
+    with original.container(border=True, height="stretch"):
+        st.markdown("**Your original decision**")
+        st.write(labels.recommendation_label(item.recommendation_mode.value))
+        st.caption("Remains unchanged and is not replaced by the reassessment.")
+    with successor.container(border=True, height="stretch"):
+        st.markdown("**The separate reassessment decision**")
+        st.write(labels.recommendation_label(run.successor.target_recommendation))
+        st.caption("Sits alongside the original decision as a separate record.")
 
 
 def _render_this_step(stage: str) -> None:
@@ -590,8 +621,9 @@ def render() -> None:
             "Open a controlled reassessment for this question. Opening it "
             "records nothing about the decision and produces no successor."
         )
-        with st.form("grw-m2-open-run"):
-            opened = st.form_submit_button("Open reassessment", type="primary")
+        with st.container(border=True):
+            with st.form("grw-m2-open-run", border=False):
+                opened = st.form_submit_button("Open reassessment", type="primary")
         st.caption(
             "Starts the controlled path above at step 1. Your original "
             "Decision Package remains unchanged."
@@ -617,8 +649,10 @@ def render() -> None:
     _render_orientation(item, gap, stage=stage)
     _render_where_you_are(stage)
     _render_recorded(service, run_id)
+    _render_decision_pair(item, selected)
     _render_this_step(stage)
-    _render_stage_controls(service, run_id=run_id, stage=stage)
+    with st.container(border=True):
+        _render_stage_controls(service, run_id=run_id, stage=stage)
     _render_what_next(stage)
     _render_end_state()
     _render_return()
@@ -660,26 +694,27 @@ def _render_stopped(run) -> None:
             "reassessments in Decision continuation."
         )
         return
-    st.subheader(
-        "This reassessment is complete"
-        if stage == "COMPARED"
-        else "This reassessment stopped"
-    )
-    st.write(labels.m2_stage_label(stage))
-    detail = _TERMINAL_DETAIL.get(stage)
-    if detail:
-        st.write(detail)
-    st.caption(
-        "This record is available for inspection only. Its outcome and its "
-        "comparison, where one exists, are shown in Decision continuation."
-    )
+    with st.container(border=True):
+        st.subheader(
+            "This reassessment is complete"
+            if stage == "COMPARED"
+            else "This reassessment stopped"
+        )
+        st.write(labels.m2_stage_label(stage))
+        detail = _TERMINAL_DETAIL.get(stage)
+        if detail:
+            st.write(detail)
+        st.caption(
+            "This record is available for inspection only. Its outcome and its "
+            "comparison, where one exists, are shown in Decision continuation."
+        )
 
 
 def _render_stage_controls(service, *, run_id: str, stage: str) -> None:
     """Render the one control this stage permits, with its consequence."""
 
     if stage == "OPEN":
-        with st.form("grw-m2-document-submit"):
+        with st.form("grw-m2-document-submit", border=False):
             uploaded = st.file_uploader(
                 "One supporting plain-text document",
                 type=["txt"],
@@ -727,7 +762,8 @@ def _render_stage_controls(service, *, run_id: str, stage: str) -> None:
             disabled=True,
             key="grw-m2-document-preview",
         )
-        with st.form("grw-m2-evidence-review"):
+        with st.form("grw-m2-evidence-review", border=False):
+            st.markdown("**Exact evidence excerpt**")
             st.caption(
                 "The passage you rely on is recorded exactly, as its first and "
                 "last character position in the stored document above. The "
@@ -742,6 +778,7 @@ def _render_stage_controls(service, *, run_id: str, stage: str) -> None:
                 value=len(text),
                 key="grw-m2-end",
             )
+            st.markdown("**Reviewer and evidence scope**")
             reviewer = st.text_input("Evidence reviewer", key="grw-m2-reviewer")
             scope = st.text_input("Same-activity scope statement", key="grw-m2-scope")
             period = st.text_input(
@@ -752,6 +789,7 @@ def _render_stage_controls(service, *, run_id: str, stage: str) -> None:
                 "Semantic-support rationale", key="grw-m2-rationale"
             )
             limitations = st.text_area("Limitations retained", key="grw-m2-limitations")
+            st.markdown("**Reviewed decision and relationship**")
             outcome = st.selectbox(
                 "Evidence-review outcome",
                 [item.value for item in M2EvidencePermission],
@@ -823,7 +861,7 @@ def _render_stage_controls(service, *, run_id: str, stage: str) -> None:
         return
 
     if stage == "EVIDENCE_REVIEWED":
-        with st.form("grw-m2-resolution"):
+        with st.form("grw-m2-resolution", border=False):
             value = st.selectbox(
                 "Reviewed data-readiness value (document-only M2 M1 allows 0–4)",
                 [0, 1, 2, 3, 4],
@@ -887,7 +925,7 @@ def _render_stage_controls(service, *, run_id: str, stage: str) -> None:
         return
 
     if stage == "REQUESTED":
-        with st.form("grw-m2-approval"):
+        with st.form("grw-m2-approval", border=False):
             approver = st.text_input("Reassessment approver", key="grw-m2-approver")
             rationale = st.text_area(
                 "Approval rationale", key="grw-m2-approval-rationale"

@@ -74,12 +74,13 @@ def _render_non_change_panel() -> None:
     """The formal six-part effect, preserved verbatim as traceability."""
 
     st.markdown("**Formal assessment effect**")
-    st.write("Criterion: unchanged")
-    st.write("Assessment gates: unchanged")
-    st.write("Recommendation: unchanged")
-    st.write("Priority: unchanged")
-    st.write("ROI: unchanged")
-    st.write("Decision Package: unchanged")
+    with st.container(border=True):
+        st.write("Criterion: unchanged")
+        st.write("Assessment gates: unchanged")
+        st.write("Recommendation: unchanged")
+        st.write("Priority: unchanged")
+        st.write("ROI: unchanged")
+        st.write("Decision Package: unchanged")
     st.caption("No successor assessment or Decision Package was generated.")
 
 
@@ -182,8 +183,8 @@ def render() -> None:
     st.subheader("What this page is for")
     st.write(PAGE_PURPOSE if status.submission is None else PAGE_PURPOSE_ANSWERED)
 
-    st.subheader("Your current decision does not change")
     st.warning(NO_DECISION_CHANGE, icon="ℹ️")
+    st.subheader("Your current decision does not change")
     st.write(
         "Decision recorded for this activity: "
         + _baseline_recommendation(package_artifact, context.gap.step_id)
@@ -198,10 +199,11 @@ def render() -> None:
         "the technical section on this page."
     )
 
-    st.subheader("The question")
-    st.write(context.question.why_it_matters)
-    st.markdown(f"**{context.question.customer_question}**")
-    st.caption(context.question.help_text)
+    with st.container(border=True):
+        st.subheader("The question")
+        st.write(context.question.why_it_matters)
+        st.markdown(f"**{context.question.customer_question}**")
+        st.caption(context.question.help_text)
 
     if status.submission is None:
         st.subheader("Your answer")
