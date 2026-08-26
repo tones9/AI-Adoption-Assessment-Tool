@@ -1,4 +1,4 @@
-# AI Adoption Decision Engine
+# AI Adoption Assessment Tool
 
 A local, explainable decision-support system that turns **one documented business
 process** into a defensible AI-adoption decision.
@@ -204,14 +204,31 @@ The local Streamlit application registers **eight pages**
 | Gap resolution | GRW Milestone 1 preliminary context |
 | Reassessment | GRW Milestone 2 controlled reassessment |
 
+### Interface preview
+
+| Four-outcome assessment | Decision Package |
+|---|---|
+| ![Assessment Results showing all four bounded recommendation modes](docs/assets/portfolio-v1-release/04-assessment-results-four-outcomes-desktop.jpg) | ![Decision Package summary](docs/assets/portfolio-v1-release/05-decision-package-desktop.jpg) |
+| Controlled reassessment | Neutral comparison report |
+| ![M2 controlled reassessment awaiting explicit approval](docs/assets/portfolio-v1-release/08-m2-controlled-reassessment-desktop.jpg) | ![Controlled reassessment decision report](docs/assets/portfolio-v1-release/09-controlled-reassessment-report-desktop.jpg) |
+
+The [complete release screenshot set](docs/assets/portfolio-v1-release/README.md)
+also includes the input, validation, continuation, M1 and 390-pixel views. Every
+screen uses bundled synthetic demonstration data.
+
 The application enforces the backend boundaries: extraction is explicit,
 candidate output stays unconfirmed until approval, assessment requires the
 immutable approval artifact, and decision-support content is rendered without
 recreating assessment or planning rules.
 
 Every capability listed above is implemented and exercised by the test suite.
-The remaining Portfolio Version 1 work is demonstration material rather than
-product capability — see the note on the offline demo below.
+Portfolio Version 1 ships with two synthetic demonstrations: an evidence-gap
+journey that preserves uncertainty and a field-service journey that exercises
+all four recommendation modes. The canonical release journey covers the
+decision workflow end to end, and the eligible field-service activity can also
+continue through the controlled M2 reassessment demonstration. These fixtures
+demonstrate product behavior; they are not evidence of predictive accuracy,
+measured outcomes or generalisability.
 
 ## Assessment method
 
