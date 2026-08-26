@@ -210,6 +210,36 @@ def test_dcw_discovers_persisted_run_in_a_fresh_streamlit_session(tmp_path, monk
     assert "Separate reassessment run:" in _rendered(app)
 
 
+def test_dcw_resumes_selected_persisted_run_without_mutating_widget_state(
+    tmp_path, monkeypatch
+) -> None:
+    repository, assessment_id = package_ready_m2_baseline(tmp_path)
+    run_id, _, _ = M2ReassessmentService(
+        repository, SQLiteReassessmentRepository(repository.path)
+    ).create_run(assessment_id)
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(repository.path))
+    root = Path(__file__).resolve().parents[2]
+    app = AppTest.from_file(root / "streamlit_app.py", default_timeout=30)
+    app.session_state["selected_assessment_id"] = assessment_id
+    app._page_hash = calc_hash("decision-continuation")
+    app.run()
+
+    run_selector = next(
+        item for item in app.selectbox if item.key == "dcw_selected_m2_run_id"
+    )
+    app = run_selector.select(run_id).run()
+    resume = next(
+        button
+        for button in app.button
+        if button.label == "Resume controlled reassessment"
+    )
+    app = resume.click().run()
+
+    assert not app.exception
+    assert app.title[0].value == "Controlled reassessment"
+    assert app.session_state["grw_m2_run_id"] == run_id
+
+
 def test_dcw_terminal_run_is_inspectable_but_not_resumable(tmp_path, monkeypatch) -> None:
     repository, assessment_id = package_ready_m2_baseline(tmp_path)
     run_id, _, _ = M2ReassessmentService(

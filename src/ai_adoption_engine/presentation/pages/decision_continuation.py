@@ -172,7 +172,6 @@ def _navigate_to_m1() -> None:
 def _navigate_to_m2(run_id: str | None = None) -> None:
     st.session_state.dcw_return_page = "decision-continuation"
     if run_id is not None:
-        st.session_state.dcw_selected_m2_run_id = run_id
         st.session_state.grw_m2_run_id = run_id
     if not switch_to_registered_page("reassessment"):
         st.info("Open Reassessment from the sidebar to continue.")
