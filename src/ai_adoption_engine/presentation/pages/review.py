@@ -45,6 +45,11 @@ from ai_adoption_engine.presentation.review_progress import (
 from ai_adoption_engine.presentation.components.page_header import (
     render_page_header,
 )
+from ai_adoption_engine.presentation.components.primitives import (
+    render_badge,
+    render_business_list,
+    render_stat_strip,
+)
 
 
 AssertionResolver = Callable[[ProcessReviewSession], ReviewedAssertion]
@@ -378,20 +383,20 @@ def _collection_progress(collection: ReviewedCollection) -> str:
     return f"{reviewed}/{len(collection.items)} reviewed"
 
 
-def _step_status(step, progress: ReviewProgress) -> str:
+def _step_status(step, progress: ReviewProgress) -> tuple[str, str]:
     if not step.retained:
-        return ":gray-badge[Removed]"
+        return "Removed", "muted"
     remaining = sum(
         item.step_id == step.candidate_step_id for item in progress.outstanding
     )
     if remaining:
         if step.activity.disposition is ReviewDisposition.UNREVIEWED:
-            return ":gray-badge[Not reviewed]"
+            return "Not reviewed", "muted"
         return (
-            f":orange-badge[{remaining} required item"
-            f"{'s' if remaining != 1 else ''} remaining]"
+            f"{remaining} required item{'s' if remaining != 1 else ''} remaining",
+            "muted",
         )
-    return ":green-badge[Complete]"
+    return "Complete", "primary"
 
 
 def _open_outstanding(item) -> None:
@@ -406,17 +411,12 @@ def _open_outstanding(item) -> None:
 
 
 def _render_review_progress(progress: ReviewProgress) -> None:
-    st.subheader("Review progress")
-    columns = st.columns(3)
-    columns[0].metric("Required items", progress.total_required)
-    columns[1].metric("Complete", progress.completed_required)
-    columns[2].metric("Remaining", progress.remaining_required)
-    st.progress(
-        progress.completion_ratio,
-        text=(
-            f"{progress.completed_required} of {progress.total_required} "
-            "required review items complete"
-        ),
+    render_stat_strip(
+        [
+            ("Outstanding", progress.remaining_required),
+            ("Complete", progress.completed_required),
+            ("Remaining", progress.remaining_required),
+        ]
     )
     st.caption(
         "This progress follows the Phase 4 approval rules. Optional descriptive fields, "
@@ -532,12 +532,10 @@ def _render_step(
     if not step.retained:
         st.caption("Rejected step retained in the audit record.")
         return
-    top = st.columns([5, 2, 2])
-    top[0].markdown(f"### {step.sequence}. {step.activity.value or 'Unknown activity'}")
-    top[0].markdown(_step_status(step, progress))
+    top = st.columns(2)
     retained_ids = [item.candidate_step_id for item in session.steps if item.retained]
     position = retained_ids.index(step_id)
-    if top[1].button("Move earlier", key=f"up-{step_id}", disabled=position == 0):
+    if top[0].button("Move earlier", key=f"up-{step_id}", disabled=position == 0):
         reordered = list(retained_ids)
         reordered[position - 1], reordered[position] = reordered[position], reordered[position - 1]
         _apply(
@@ -547,7 +545,7 @@ def _render_step(
             ),
             success_message=f"Step {step.sequence} moved earlier. Review and re-accept the updated order.",
         )
-    if top[2].button("Move later", key=f"down-{step_id}", disabled=position == len(retained_ids) - 1):
+    if top[1].button("Move later", key=f"down-{step_id}", disabled=position == len(retained_ids) - 1):
         reordered = list(retained_ids)
         reordered[position + 1], reordered[position] = reordered[position], reordered[position + 1]
         _apply(
@@ -796,7 +794,7 @@ def _sync_guided_focus(journey: ReviewJourneyView) -> None:
 
 
 def _render_review_summary(journey: ReviewJourneyView) -> None:
-    st.header("Review summary")
+    st.subheader("Review summary")
     with st.container(border=True):
         st.warning("CANDIDATE PROCESS — NEEDS VALIDATION")
         st.markdown(
@@ -816,18 +814,17 @@ def _render_review_summary(journey: ReviewJourneyView) -> None:
 
 
 def _render_needs_your_decision(journey: ReviewJourneyView) -> None:
-    st.header("Needs your decision")
-    with st.container(border=True):
-        _render_review_progress(journey.progress)
-        st.caption(
-            "This queue is the existing Phase 4 approval readiness check. It does not count optional fields as approval requirements."
-        )
+    st.subheader("Review progress")
+    _render_review_progress(journey.progress)
+    st.caption(
+        "This queue is the existing Phase 4 approval readiness check. It does not count optional fields as approval requirements."
+    )
 
 
 def _render_document_says(
     session: ProcessReviewSession, journey: ReviewJourneyView
 ) -> None:
-    st.header("What the document says")
+    st.subheader("What the document says")
     st.caption(
         "These are directly documented extraction assertions with their existing source locators. Confirming one records an individual review event; it does not create new evidence."
     )
@@ -855,7 +852,7 @@ def _render_document_says(
 
 
 def _render_unknowns(journey: ReviewJourneyView) -> None:
-    st.header("Unknown or not provided")
+    st.subheader("Unknown or not provided")
     with st.container(border=True):
         if not journey.unknown_groups:
             st.success("No currently unreviewed unknown values are recorded.")
@@ -874,7 +871,7 @@ def _render_unknowns(journey: ReviewJourneyView) -> None:
 
 
 def _render_recommended_checks(journey: ReviewJourneyView) -> None:
-    st.header("Recommended checks")
+    st.subheader("Recommended checks")
     with st.container(border=True):
         if journey.inferred_field_paths:
             st.warning(
@@ -891,7 +888,7 @@ def _render_recommended_checks(journey: ReviewJourneyView) -> None:
 def _render_dependencies_and_structure(
     session: ProcessReviewSession, journey: ReviewJourneyView
 ) -> None:
-    st.header("Dependencies and structural issues")
+    st.subheader("Dependencies and structural issues")
     with st.container(border=True):
         if journey.invalid_dependency_field_paths:
             st.warning(
@@ -1060,7 +1057,7 @@ def render() -> None:
     _render_dependencies_and_structure(session, journey)
     _render_recommended_checks(journey)
 
-    st.header("Review more detail")
+    st.header("Assertion review")
     st.subheader("Process identity")
     if st.session_state.get("review_focus_path") == "process.name":
         st.warning("Review attention requested here: accept or correct the process name below.")
@@ -1085,27 +1082,39 @@ def render() -> None:
 
     st.subheader("Ordered activities")
     ordered_steps = sorted(session.steps, key=lambda value: value.sequence)
-    for item in ordered_steps:
-        st.markdown(
-            f"**{item.sequence}. {item.activity.value or 'Unknown activity'}**  \n"
-            f"{_step_status(item, progress)}"
-        )
     retained_steps = [item for item in ordered_steps if item.retained]
-    step_labels = {
-        item.candidate_step_id: f"Step {item.sequence}: {item.activity.value or 'Unknown activity'}"
-        for item in retained_steps
-    }
     if retained_steps:
-        if st.session_state.get("selected-review-step") not in step_labels:
-            st.session_state.pop("selected-review-step", None)
-        selected_step_id = st.selectbox(
-            "Select an activity to review in detail",
-            list(step_labels),
-            format_func=lambda value: step_labels[value],
-            key="selected-review-step",
-        )
-        with st.container(border=True):
-            _render_step(session, selected_step_id, progress)
+        retained_ids = {item.candidate_step_id for item in retained_steps}
+        selected_step_id = st.session_state.get("selected-review-step")
+        if selected_step_id not in retained_ids:
+            selected_step_id = retained_steps[0].candidate_step_id
+            st.session_state["selected-review-step"] = selected_step_id
+        for item in ordered_steps:
+            status_label, status_tone = _step_status(item, progress)
+            with st.container(border=True):
+                heading, status, action = st.columns(
+                    [5, 2, 2], vertical_alignment="center"
+                )
+                with heading:
+                    st.markdown(
+                        f"**{item.sequence}. {item.activity.value or 'Unknown activity'}**"
+                    )
+                with status:
+                    render_badge(status_label, tone=status_tone)
+                is_open = item.candidate_step_id == selected_step_id and item.retained
+                with action:
+                    if is_open:
+                        st.caption("Open for review")
+                    elif item.retained and st.button(
+                        "Review activity",
+                        key=f"review-step-{item.candidate_step_id}",
+                        width="stretch",
+                    ):
+                        st.session_state["selected-review-step"] = item.candidate_step_id
+                        st.session_state.pop("review_focus_path", None)
+                        st.rerun()
+                if is_open:
+                    _render_step(session, item.candidate_step_id, progress)
     else:
         st.error("No process activities are currently retained. Restore or retain at least one activity before approval.")
 
@@ -1152,7 +1161,7 @@ def render() -> None:
                             success_message="Blocking conflict resolved.",
                         )
 
-    st.header("Ready for approval")
+    st.header("Final approval")
     with st.container(border=True):
         _render_approval_summary(journey)
         st.subheader("Explicit approval")
@@ -1167,10 +1176,13 @@ def render() -> None:
                 f"Not ready for approval — {journey.progress.remaining_required} required "
                 f"{noun} {verb}."
             )
-            for item in journey.required_items:
-                st.write(
-                    f"- {item.location_label} → {item.field_label}: {item.reason}"
-                )
+            render_business_list(
+                [
+                    f"{item.location_label} → {item.field_label}: {item.reason}"
+                    for item in journey.required_items
+                ],
+                boxed=False,
+            )
             st.button(
                 "Approve current-state process",
                 type="primary",

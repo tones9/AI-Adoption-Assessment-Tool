@@ -239,7 +239,8 @@ def test_review_ui_can_produce_an_evidence_backed_criterion(tmp_path, monkeypatc
     app._page_hash = calc_hash("review")
     app.run()
     assert not app.exception
-    app = app.selectbox(key="selected-review-step").select(step_id).run()
+    if app.session_state["selected-review-step"] != step_id:
+        app = app.button(key=f"review-step-{step_id}").click().run()
 
     def widget(collection, prefix: str):
         return next(item for item in collection if item.key and item.key.startswith(prefix))

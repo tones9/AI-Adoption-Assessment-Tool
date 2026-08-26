@@ -51,6 +51,19 @@ def render_badges(labels: Sequence[tuple[str, str]]) -> None:
     )
 
 
+def render_stat_strip(items: Sequence[tuple[str, object]]) -> None:
+    """Render compact, decision-neutral counts without dashboard-style metrics."""
+
+    if not items:
+        return
+    with st.container(border=True):
+        columns = st.columns(len(items))
+        for column, (label, value) in zip(columns, items, strict=True):
+            with column:
+                st.markdown(f"### {escape(str(value))}")
+                st.caption(str(label))
+
+
 def render_business_list(
     items: Iterable[str],
     *,
