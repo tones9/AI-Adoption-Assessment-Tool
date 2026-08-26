@@ -40,6 +40,7 @@ from ai_adoption_engine.presentation.pages.reassessment import (
     JOURNEY,
     NO_GUARANTEE,
     PAGE_PURPOSE,
+    _TERMINAL_DETAIL,
 )
 from tests.fakes.m2_reassessment import package_ready_m2_baseline
 from tests.integration.test_grw_m2_m1_lifecycle import _actor
@@ -300,6 +301,23 @@ def test_full_required_path_is_visible_in_every_state(lifecycle) -> None:
             assert step in text, (stage, step)
 
 
+def test_journey_uses_six_peer_cells_and_shared_progress_markers(lifecycle) -> None:
+    open_page = lifecycle[0]["OPEN"]
+    visible = "\n".join(_layer_one(lifecycle, "OPEN"))
+
+    assert len(open_page.get("column")) == 6
+    assert "→ 1. Source" in visible
+    for step, label in enumerate(
+        ("Reviewed", "Resolved", "Approved", "Successor", "Compared"), start=2
+    ):
+        assert f"• {step}. {label}" in visible
+    assert "✗" not in visible
+
+    # Once the successor exists, the active comparison step adds one equal
+    # original/successor decision row while the six journey cells remain intact.
+    assert len(lifecycle[0]["PACKAGE_READY"].get("column")) == 8
+
+
 def test_progress_marks_the_step_each_recorded_stage_sits_in(lifecycle) -> None:
     expected = {
         "OPEN": "You are on step 1 of 6.",
@@ -540,6 +558,22 @@ def test_terminal_states_are_explained_accurately_and_distinctly(lifecycle) -> N
         assert "error" not in text.lower()
         assert "your original decision" in text.lower()
     assert "Stopped —" not in compared
+
+
+def test_every_stopped_state_retains_its_own_explanation() -> None:
+    expected_phrases = {
+        "EVIDENCE_REJECTED": "rejected as evidence for this question",
+        "INSUFFICIENT": "not sufficient for this use",
+        "BLOCKED_CONFLICT": "left unresolved",
+        "STALE": "no longer the current one",
+        "WITHDRAWN": "was withdrawn",
+        "FAILED": "did not complete",
+    }
+
+    explanations = [_TERMINAL_DETAIL[stage] for stage in expected_phrases]
+    assert len(set(explanations)) == len(expected_phrases)
+    for stage, phrase in expected_phrases.items():
+        assert phrase in _TERMINAL_DETAIL[stage]
 
 
 def test_terminal_states_offer_no_lifecycle_control(lifecycle) -> None:

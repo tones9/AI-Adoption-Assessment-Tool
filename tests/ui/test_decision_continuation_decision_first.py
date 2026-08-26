@@ -182,6 +182,16 @@ def test_the_user_is_told_they_can_stop_here(tmp_path, monkeypatch) -> None:
     assert "No action is needed to choose this option." in visible
     assert "Everything on this page is optional." in visible
 
+    # The three choices share one equal peer row on wide screens; Streamlit
+    # stacks this same row in source order on narrow screens.
+    assert len(app.get("column")) == 3
+    for heading in (
+        "Option A — Keep the current decision",
+        "Option B — Add preliminary context",
+        "Option C — Controlled reassessment",
+    ):
+        assert heading in visible
+
     # Option A is stated, never faked as a transaction.
     labels_seen = [item.label for item in app.button]
     assert "Continue with current recommendation" not in labels_seen
@@ -360,8 +370,13 @@ def test_resumable_run_still_resumes_and_terminal_run_still_does_not(
 def test_successor_and_comparison_use_neutral_language(tmp_path, monkeypatch) -> None:
     repository, assessment_id, _ = _completed_m2_successor(tmp_path)
     monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(repository.path))
-    layer_one, _ = _split_layers(_dcw_app(assessment_id))
+    app = _dcw_app(assessment_id)
+    layer_one, _ = _split_layers(app)
     visible = _before_controlled_report(layer_one)
+
+    # Three continuation peers plus the two equal report rows: original versus
+    # successor, then changed versus unchanged.
+    assert len(app.get("column")) == 7
 
     assert (
         "A separate reassessment was produced using additional approved evidence."

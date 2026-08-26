@@ -17,6 +17,9 @@ from ai_adoption_engine.presentation.components.decision_header import (
     HeaderSection,
     render_decision_header,
 )
+from ai_adoption_engine.presentation.components.primitives import (
+    render_evidence_block,
+)
 from ai_adoption_engine.presentation.components.status import guard
 from ai_adoption_engine.presentation.components.technical_details import (
     technical_details,
@@ -178,94 +181,118 @@ def _navigate_to_m2(run_id: str | None = None) -> None:
 def _render_keep_option() -> None:
     """Option A needs no action, so it is stated rather than made clickable."""
 
-    with st.container(border=True):
-        st.markdown("**Option A — Keep the current decision**")
-        st.write(
-            "You can stop here. Nothing else is required and nothing changes: the "
-            "decision above remains your official decision."
-        )
-        st.caption("No action is needed to choose this option.")
+    st.markdown("**Option A — Keep the current decision**")
+    st.write(
+        "You can stop here. Nothing else is required and nothing changes: the "
+        "decision above remains your official decision."
+    )
+    st.caption("No action is needed to choose this option.")
 
 
 def _render_m1_route(view: DecisionContinuationView) -> None:
     if view.m1_context is None:
-        return
-    with st.container(border=True):
         st.markdown("**Option B — Add preliminary context**")
         st.write(
-            "Answer one optional question so the background to this activity is "
-            "recorded alongside the decision."
+            "Preliminary context is not available because this decision has no "
+            "open question that can be answered through this route."
         )
-        st.warning(
-            "This cannot change the decision above. It does not change the "
-            "assessment criteria, the checks, the scores, the recommendation, the "
-            "priority, or the Decision Package.",
-            icon="ℹ️",
-        )
-        st.write(f"Activity: {view.m1_context.gap.current_activity}")
-        st.write(view.m1_context.question.customer_question)
-        st.caption(f"Status: {_m1_status_label(view)}")
-        if st.button(
-            "Add preliminary context",
-            key="dcw-open-m1",
-            icon=":material/help_center:",
-        ):
-            _navigate_to_m1()
-        st.caption(
-            "Opens the Gap resolution page, where you write the answer and a "
-            "reviewer records what it may be used for."
-        )
+        st.caption("Unavailable for this decision. Your current decision is unchanged.")
+        return
+    st.markdown("**Option B — Add preliminary context**")
+    st.write(
+        "Answer one optional question so the background to this activity is "
+        "recorded alongside the decision."
+    )
+    st.warning(
+        "This cannot change the decision above. It does not change the "
+        "assessment criteria, the checks, the scores, the recommendation, the "
+        "priority, or the Decision Package.",
+        icon="ℹ️",
+    )
+    st.write(f"Activity: {view.m1_context.gap.current_activity}")
+    st.write(view.m1_context.question.customer_question)
+    st.caption(f"Status: {_m1_status_label(view)}")
+    if st.button(
+        "Add preliminary context",
+        key="dcw-open-m1",
+        icon=":material/help_center:",
+    ):
+        _navigate_to_m1()
+    st.caption(
+        "Opens the Gap resolution page, where you write the answer and a "
+        "reviewer records what it may be used for."
+    )
 
 
 def _render_m2_route(view: DecisionContinuationView) -> None:
+    st.markdown("**Option C — Controlled reassessment**")
     if view.m2_discovery_error is not None:
-        st.warning(view.m2_discovery_error)
+        st.write(
+            "Controlled reassessment availability could not be confirmed for "
+            "this decision."
+        )
+        st.caption(view.m2_discovery_error)
         return
     if view.m2_context is None:
-        st.info(
+        st.write(
             "Option C — Controlled reassessment is not available for this "
             "decision. A controlled reassessment can only be started for a "
             "question the assessment has already recorded as open."
         )
+        st.caption("Unavailable for this decision. This is not an error state.")
         return
     _, gap = view.m2_context
-    with st.container(border=True):
-        st.markdown("**Option C — Controlled reassessment**")
-        st.write(
-            "Supply a supporting document about the data behind one activity, so "
-            "the question the assessment left open can be answered."
-        )
-        st.write(f"Activity: {gap.current_activity}")
-        st.write(
-            "The question is: what information is documented about the data "
-            "available for this activity?"
-        )
-        st.markdown("**What this route requires**")
-        st.write(
-            "- A reviewed supporting document\n"
-            "- A reviewed resolution of the open question\n"
-            "- Explicit approval to reassess"
-        )
-        st.markdown("**What it can produce**")
-        st.write(
-            "If all three are completed, a separate successor Decision Package is "
-            "created next to the decision above. The decision above is not "
-            "replaced and not edited."
-        )
-        st.caption(
-            "Supplying more evidence does not guarantee a different "
-            "recommendation. The route covers this one recorded question only."
-        )
-        if st.button(
-            "Review controlled reassessment",
-            key="dcw-open-m2",
-            icon=":material/restart_alt:",
-        ):
-            _navigate_to_m2()
-        st.caption(
-            "Opens the Reassessment page, where the document, the review and the "
-            "approval are recorded step by step."
-        )
+    st.write(
+        "Supply a supporting document about the data behind one activity, so "
+        "the question the assessment left open can be answered."
+    )
+    st.write(f"Activity: {gap.current_activity}")
+    st.write(
+        "The question is: what information is documented about the data "
+        "available for this activity?"
+    )
+    st.markdown("**What this route requires**")
+    st.write(
+        "- A reviewed supporting document\n"
+        "- A reviewed resolution of the open question\n"
+        "- Explicit approval to reassess"
+    )
+    st.markdown("**What it can produce**")
+    st.write(
+        "If all three are completed, a separate successor Decision Package is "
+        "created next to the decision above. The decision above is not "
+        "replaced and not edited."
+    )
+    st.caption(
+        "Supplying more evidence does not guarantee a different "
+        "recommendation. The route covers this one recorded question only."
+    )
+    if st.button(
+        "Review controlled reassessment",
+        key="dcw-open-m2",
+        icon=":material/restart_alt:",
+    ):
+        _navigate_to_m2()
+    st.caption(
+        "Opens the Reassessment page, where the document, the review and the "
+        "approval are recorded step by step."
+    )
+
+
+def _render_options(view: DecisionContinuationView) -> None:
+    """Render the three permitted choices as equal visual peers.
+
+    Streamlit columns stack automatically on narrow screens, preserving A/B/C
+    order without introducing a second responsive implementation.
+    """
+
+    keep, context, reassess = st.columns(3, gap="small")
+    with keep.container(border=True, height="stretch"):
+        _render_keep_option()
+    with context.container(border=True, height="stretch"):
+        _render_m1_route(view)
+    with reassess.container(border=True, height="stretch"):
+        _render_m2_route(view)
 
 
 def _render_controlled_report(report: DecisionContinuationControlledReport) -> None:
@@ -276,26 +303,30 @@ def _render_controlled_report(report: DecisionContinuationControlledReport) -> N
     for line in narrative.purpose:
         st.write(line)
 
-    with st.container(border=True):
+    original, successor = st.columns(2, gap="small")
+    with original.container(border=True, height="stretch"):
         st.markdown("**Your original decision**")
         for line in narrative.original_decision:
             st.write(line)
+    with successor.container(border=True, height="stretch"):
+        st.markdown("**The separate reassessment decision**")
+        for line in narrative.successor_decision:
+            st.write(line)
+
     with st.container(border=True):
         st.markdown("**What additional evidence was approved**")
         for line in narrative.approved_evidence:
             st.write(line)
-        st.code(narrative.evidence_excerpt, language=None)
-    with st.container(border=True):
+        render_evidence_block(narrative.evidence_excerpt)
+
+    changed, unchanged = st.columns(2, gap="small")
+    with changed.container(border=True, height="stretch"):
         st.markdown("**What changed in the assessment input**")
         for line in narrative.input_change:
             st.write(line)
-    with st.container(border=True):
+    with unchanged.container(border=True, height="stretch"):
         st.markdown("**What did not change**")
         for line in narrative.unchanged:
-            st.write(line)
-    with st.container(border=True):
-        st.markdown("**The separate reassessment decision**")
-        for line in narrative.successor_decision:
             st.write(line)
     with st.container(border=True):
         st.markdown("**Original decision compared with the reassessment**")
@@ -455,8 +486,6 @@ def render() -> None:
     )
     st.subheader("Your options")
     st.caption(CONTINUATION_IS_OPTIONAL)
-    _render_keep_option()
-    _render_m1_route(view)
-    _render_m2_route(view)
+    _render_options(view)
     _render_m2_records(view)
     _render_baseline_technical(view.baseline)

@@ -181,6 +181,7 @@ def test_plain_english_non_change_leads_every_state(m1_states) -> None:
     for key, app in m1_states.items():
         layer_one, _ = _split_layers(app)
         assert NO_DECISION_CHANGE in layer_one, key
+        assert layer_one.index(NO_DECISION_CHANGE) < layer_one.index("The question"), key
         assert any(
             line.startswith("Decision recorded for this activity: ")
             and line.endswith(". Nothing on this page changes it.")
