@@ -6,6 +6,7 @@ from ai_adoption_engine.workspace.models import ExecutionMode
 from ai_adoption_engine.presentation.context import (
     clear_workspace_state,
     select_assessment,
+    switch_to_registered_page,
     workspace_writes_available,
     workspace_service,
 )
@@ -98,7 +99,8 @@ def render() -> None:
             with right:
                 if st.button("Open", key=f"open-{item.assessment_id}", width="stretch"):
                     select_assessment(item.assessment_id)
-                    st.rerun()
+                    if not switch_to_registered_page("source"):
+                        st.rerun()
             st.caption(f"Assessment ID: {item.assessment_id}")
             if writes_available:
                 with st.expander("Delete assessment"):

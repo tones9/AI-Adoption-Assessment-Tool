@@ -123,7 +123,16 @@ def clear_workspace_state() -> None:
 def switch_to_registered_page(page_key: str) -> bool:
     """Switch through a Page definition matching the app's native navigation."""
 
-    if page_key == "decision-continuation":
+    if page_key == "source":
+        from ai_adoption_engine.presentation.pages import source
+
+        page = st.Page(
+            source.render,
+            title="Source & Extraction",
+            icon=":material/description:",
+            url_path="source",
+        )
+    elif page_key == "decision-continuation":
         from ai_adoption_engine.presentation.pages import decision_continuation
 
         page = st.Page(

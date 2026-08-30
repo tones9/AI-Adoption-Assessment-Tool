@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from streamlit.testing.v1 import AppTest
 
 from ai_adoption_engine.persistence.sqlite import SQLiteAssessmentRepository
 from ai_adoption_engine.workspace.composition import build_workspace_service
 from ai_adoption_engine.workspace.demo_extraction import demo_text
 from ai_adoption_engine.workspace.models import ExecutionMode
+
+
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def _page(module: str, assessment_id: str) -> AppTest:
@@ -65,6 +70,23 @@ def test_assessment_creation_acknowledgement_and_record_actions_are_unchanged(
     app = delete.click().run()
     assert not app.exception
     assert repository.list_assessments() == []
+
+
+def test_open_saved_assessment_navigates_to_source_and_extraction(
+    tmp_path, monkeypatch
+) -> None:
+    database = tmp_path / "open-assessment.db"
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(database))
+    assessment = SQLiteAssessmentRepository(database).create_assessment(
+        "Saved record", ExecutionMode.OFFLINE_DEMO
+    )
+
+    app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=30).run()
+    app = app.button(key=f"open-{assessment.assessment_id}").click().run()
+
+    assert not app.exception
+    assert app.session_state["selected_assessment_id"] == assessment.assessment_id
+    assert app.title[0].value == "Source & Extraction"
 
 
 def test_source_keeps_three_stages_and_disclosures_without_metric_tiles(
