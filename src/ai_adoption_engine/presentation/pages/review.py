@@ -237,8 +237,12 @@ def _assertion_editor(
     resolver: AssertionResolver,
     value_kind: type = str,
     evidence_choices: Sequence[ResolvedEvidenceReference] = (),
+    reject_removes_step_id: str | None = None,
 ) -> None:
     assertion = resolver(session)
+    reject_action = (
+        "Reject/remove step" if reject_removes_step_id is not None else "Reject"
+    )
     with st.container(border=True):
         if st.session_state.get("review_focus_path") == field_path:
             st.warning(f"Review attention requested here: {label}.")
@@ -249,13 +253,15 @@ def _assertion_editor(
             else:
                 actions = ["Choose an action", "Resolve unknown", "Retain unknown"]
         elif assertion.disposition is ReviewDisposition.UNREVIEWED:
-            actions = ["Choose an action", "Accept", "Correct", "Reject"]
+            actions = ["Choose an action", "Accept", "Correct", reject_action]
         elif assertion.disposition is ReviewDisposition.REJECTED:
             actions = ["No change — rejected", "Correct"]
+            if reject_removes_step_id is not None:
+                actions.append(reject_action)
         elif assertion.disposition is ReviewDisposition.CORRECTED:
-            actions = ["No change — corrected", "Correct", "Reject"]
+            actions = ["No change — corrected", "Correct", reject_action]
         else:
-            actions = ["No change — accepted", "Correct", "Reject"]
+            actions = ["No change — accepted", "Correct", reject_action]
 
         state_key = f"{field_path}-{session.updated_at.isoformat()}"
         action = st.selectbox(
@@ -298,7 +304,7 @@ def _assertion_editor(
                         "The citation is recorded verbatim and shown in the decision "
                         "report. It is not checked for relevance to this value."
                     )
-        if action in {"Correct", "Reject", "Resolve unknown"}:
+        if action in {"Correct", reject_action, "Resolve unknown"}:
             rationale = st.text_input(
                 "Reviewer rationale (required)",
                 placeholder="Explain the correction, rejection or supplied value",
@@ -307,7 +313,7 @@ def _assertion_editor(
         actionable = action in {
             "Accept",
             "Correct",
-            "Reject",
+            reject_action,
             "Resolve unknown",
             "Retain unknown",
         }
@@ -322,7 +328,10 @@ def _assertion_editor(
             ),
         )
         if submitted:
-            if action in {"Correct", "Reject", "Resolve unknown"} and not rationale.strip():
+            if (
+                action in {"Correct", reject_action, "Resolve unknown"}
+                and not rationale.strip()
+            ):
                 st.error("Provide a rationale for this action.")
                 return
             if chosen_origin is InformationOrigin.DOCUMENT_SUPPORTED and not cited:
@@ -344,10 +353,17 @@ def _assertion_editor(
                         origin=chosen_origin,
                         evidence=list(cited),
                     )
-                elif action == "Reject":
-                    service.reject_assertion(
-                        working, target, field_path, rationale=rationale
-                    )
+                elif action == reject_action:
+                    if reject_removes_step_id is not None:
+                        service.remove_step(
+                            working,
+                            reject_removes_step_id,
+                            rationale=rationale,
+                        )
+                    else:
+                        service.reject_assertion(
+                            working, target, field_path, rationale=rationale
+                        )
                 elif action == "Resolve unknown":
                     service.resolve_unknown(
                         working,
@@ -361,11 +377,12 @@ def _assertion_editor(
                 else:
                     service.retain_unknown(working, target, field_path)
 
-            saved_action = (
-                "unknown retained"
-                if action == "Retain unknown"
-                else action.lower()
-            )
+            if action == "Retain unknown":
+                saved_action = "unknown retained"
+            elif action == reject_action and reject_removes_step_id is not None:
+                saved_action = "step removed; review and re-accept the updated order"
+            else:
+                saved_action = action.lower()
             _apply(
                 session,
                 mutate,
@@ -567,6 +584,7 @@ def _render_step(
         label="Activity",
         field_path=f"steps.{step_id}.activity",
         resolver=lambda working: _step(working, step_id).activity,
+        reject_removes_step_id=step_id,
     )
     _assertion_editor(
         session,

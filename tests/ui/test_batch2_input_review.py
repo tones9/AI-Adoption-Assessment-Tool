@@ -150,7 +150,7 @@ def test_validate_process_keeps_actions_order_and_disabled_approval_gate(
     action = next(
         item for item in app.selectbox if item.label == "Review decision for Activity"
     )
-    assert {"Accept", "Correct", "Reject"}.issubset(action.options)
+    assert {"Accept", "Correct", "Reject/remove step"}.issubset(action.options)
     assert any(item.label == "Accept current step order" for item in app.button)
     approval = next(
         item for item in app.button if item.label == "Approve current-state process"
