@@ -51,27 +51,30 @@ def test_guided_review_renders_required_sections_and_preserves_unknowns(tmp_path
     app = _review_app(assessment_id).run()
 
     assert not app.exception
-    headers = [item.value for item in [*app.header, *app.subheader]]
-    for label in (
-        "Review summary",
-        "Review progress",
-        "What the document says",
-        "Unknown or not provided",
-        "Dependencies and structural issues",
-        "Recommended checks",
-        "Assertion review",
+    assert len(app.button_group) == 1
+    assert app.button_group[0].options == [
+        "Required review",
+        "Optional details",
         "Final approval",
-    ):
-        assert label in headers
+    ]
+    assert app.button_group[0].value == "Required review"
+    assert any(button.label == "Process name" for button in app.button)
+    assert any(button.label.startswith("Step 1:") for button in app.button)
+    assert any(button.label == "Step order" for button in app.button)
+    assert any(
+        button.label.startswith("Keep all ")
+        and button.label.endswith(" document-backed details")
+        for button in app.button
+    )
     rendered = "\n".join(
         str(item.value)
-        for kind in ("markdown", "caption", "warning", "write")
+        for kind in ("markdown", "caption", "warning", "write", "success")
         for item in app.get(kind)
     )
-    assert "directly documented" in rendered.lower()
-    assert "Unknown values remain explicitly unknown" in rendered
-    assert "extraction suggestion" in rendered
-    assert "does not approve AI adoption" in rendered
+    assert "Required checks are kept separate from optional details" in rendered
+    assert "Only the checks required to validate this process are counted" in rendered
+    assert "Knowledge: known" not in rendered
+    assert "Assertion review" not in rendered
     assert hashlib.sha256(path.read_bytes()).hexdigest() == before
 
 
@@ -113,10 +116,12 @@ def test_guided_review_resumes_from_persisted_phase4_state_after_a_new_session(t
     reopened = _review_app(assessment_id).run()
 
     assert not first.exception and not reopened.exception
-    assert [item.value for item in first.markdown].count("### 8") >= 2
-    assert [item.value for item in reopened.markdown].count("### 8") >= 2
+    assert "### 1 of 9 required checks complete" in [
+        item.value for item in first.markdown
+    ]
+    assert "**8 left**" in [item.value for item in reopened.markdown]
     assert reopened.session_state["guided_review_selected_item"] == (
-        "step-order-unconfirmed:process.steps.order"
+        f"step-activity-unconfirmed:steps.{session.steps[0].candidate_step_id}.activity"
     )
 
 
@@ -211,8 +216,8 @@ def test_rejecting_loop_activity_removes_its_dependency_blocker_across_reopen(
         for item in app.selectbox
         if item.key and item.key.startswith(f"action-{activity_path}-")
     )
-    assert "Reject/remove step" in action.options
-    app = action.select("Reject/remove step").run()
+    assert "This is not a process step" in action.options
+    app = action.select("This is not a process step").run()
     rationale = next(
         item
         for item in app.text_input
@@ -247,15 +252,15 @@ def test_rejecting_loop_activity_removes_its_dependency_blocker_across_reopen(
     ]
 
     accept_order = next(
-        button for button in app.button if button.label == "Accept current step order"
+        button for button in app.button if button.label == "Keep this step order"
     )
     app = accept_order.click().run()
     assert not app.exception
-    assert any("Ready for approval" in item.value for item in app.success)
+    assert any("All required checks are complete" in item.value for item in app.success)
     confirmation = next(
         item
         for item in app.checkbox
-        if item.label == "APPROVE CURRENT-STATE PROCESS"
+        if item.label == "I approve this current-state process"
     )
     app = confirmation.check().run()
     assert not next(
@@ -268,11 +273,11 @@ def test_rejecting_loop_activity_removes_its_dependency_blocker_across_reopen(
     reopened = _review_app(assessment_id).run()
     for current in (rerun, reopened):
         assert not current.exception
-        assert any("Ready for approval" in item.value for item in current.success)
+        assert any("All required checks are complete" in item.value for item in current.success)
         confirmation = next(
             item
             for item in current.checkbox
-            if item.label == "APPROVE CURRENT-STATE PROCESS"
+            if item.label == "I approve this current-state process"
         )
         current = confirmation.check().run()
         assert not next(

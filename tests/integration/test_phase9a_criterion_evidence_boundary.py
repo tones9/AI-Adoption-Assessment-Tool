@@ -239,13 +239,16 @@ def test_review_ui_can_produce_an_evidence_backed_criterion(tmp_path, monkeypatc
     app._page_hash = calc_hash("review")
     app.run()
     assert not app.exception
-    if app.session_state["selected-review-step"] != step_id:
-        app = app.button(key=f"review-step-{step_id}").click().run()
+    app = app.button_group[0].select("Optional details").run()
+    if app.selectbox(key="optional-review-step").value != step_id:
+        app = app.selectbox(key="optional-review-step").select(step_id).run()
 
     def widget(collection, prefix: str):
         return next(item for item in collection if item.key and item.key.startswith(prefix))
 
-    app = widget(app.selectbox, f"action-{field_path}-").select("Resolve unknown").run()
+    app = widget(app.selectbox, f"action-{field_path}-").select(
+        "Add the missing information"
+    ).run()
     app = widget(app.number_input, f"value-{field_path}-").set_value(5).run()
 
     origin = widget(app.selectbox, f"origin-{field_path}-")

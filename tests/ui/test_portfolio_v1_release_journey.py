@@ -197,38 +197,30 @@ def test_portfolio_v1_canonical_customer_journey(tmp_path, monkeypatch) -> None:
     assert not app.exception
 
     before_review = _text(app)
-    assert "required item" in before_review
+    assert "required checks" in before_review
+    app = app.button_group[0].select("Final approval").run()
     approve_button = next(
         item
         for item in app.button
         if item.label == "Approve current-state process"
     )
     assert approve_button.disabled, "approval must not be offered before review"
-    assert re.search(r"Not ready for approval — \d+ required item", before_review)
+    assert re.search(r"\d+ required checks? still need", _text(app))
 
-    confirmations = 0
-    for _ in range(20):
-        pending = [
-            item
-            for item in app.button
-            if item.label.startswith("Confirm ")
-            and "document-supported fact" in item.label
-        ]
-        if not pending:
-            break
-        app = _click(app, pending[0].label)
-        assert not app.exception
-        confirmations += 1
-    else:  # pragma: no cover - the fixture has five confirmation scopes
-        raise AssertionError("document confirmation did not converge")
-    # One confirmation scope for the process and one for each activity: the
-    # review was genuinely performed, not skipped by an empty loop.
-    assert confirmations >= 1 + len(EXPECTED_OUTCOMES)
+    app = app.button_group[0].select("Required review").run()
+    grouped = next(
+        item
+        for item in app.button
+        if item.label.startswith("Keep all ")
+        and item.label.endswith(" document-backed details")
+    )
+    app = grouped.click().run()
+    assert not app.exception
 
     assert any(
-        item.label == "Accept current step order" for item in app.button
+        item.label == "Keep this step order" for item in app.button
     ), "step order is a required review item and must be offered"
-    app = _click(app, "Accept current step order")
+    app = _click(app, "Keep this step order")
     assert not app.exception
 
     # The reviewer's actions are persisted, not held in the browser session.
@@ -256,7 +248,7 @@ def test_portfolio_v1_canonical_customer_journey(tmp_path, monkeypatch) -> None:
     # ------------------------------------------------------------------
     app = _page("review", assessment_id)
     ready_text = _text(app)
-    assert "Ready for approval — all required review items are complete." in ready_text
+    assert "All required checks are complete." in ready_text
     approve_button = next(
         item for item in app.button if item.label == "Approve current-state process"
     )

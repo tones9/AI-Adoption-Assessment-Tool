@@ -368,7 +368,52 @@ _GLOBAL_STYLESHEET = """
   word-break: break-all;
 }
 
-/* ---------- 8. Responsive foundation ------------------------------------ */
+/* ---------- 8. Validate-process workspace ------------------------------- */
+.st-key-review-workspace-progress {
+  background: var(--aae-secondary-bg);
+  border: 1px solid var(--aae-hairline);
+  border-left: 4px solid var(--aae-primary);
+  padding: 16px 18px 12px;
+  margin: 10px 0 16px;
+}
+.st-key-review-workspace-progress h3 { margin: 0; }
+.st-key-review-workspace-progress [data-testid="stProgress"] > div > div {
+  background: var(--aae-primary);
+}
+.st-key-review-requirement-buttons {
+  padding: 4px 0 12px;
+}
+.st-key-review-requirement-buttons [data-testid^="stBaseButton"] {
+  min-height: 42px;
+  text-align: left;
+  white-space: normal;
+}
+.st-key-review-selected-workspace {
+  background: var(--aae-surface);
+  border: 1px solid var(--aae-hairline);
+  border-top: 4px solid var(--aae-primary);
+  padding: 20px 22px;
+  margin: 4px 0 20px;
+}
+.st-key-review-selected-workspace h3 { margin-top: 0; }
+.st-key-review-bulk-confirmation {
+  background: var(--aae-info-bg);
+  border-color: var(--aae-info-border);
+  padding: 18px 20px;
+}
+.st-key-review-approval-summary {
+  border-top: 4px solid var(--aae-primary);
+  padding: 20px 22px;
+}
+[class*="st-key-review-field-"] {
+  background: var(--aae-bg);
+  padding: 16px;
+}
+[data-testid="stSegmentedControl"] {
+  margin: 4px 0 16px;
+}
+
+/* ---------- 9. Responsive foundation ------------------------------------ */
 @media (min-width: 641px) {
   [data-testid="stSidebar"] {
     width: var(--aae-sidebar-width) !important;
@@ -384,6 +429,11 @@ _GLOBAL_STYLESHEET = """
   [data-testid="stMain"] [data-testid="stMarkdown"] li { max-width: 100%; }
   .aae-purpose, .aae-list, .aae-list-card { max-width: 100%; }
   [data-testid="stVerticalBlock"] { gap: 0.6rem; }
+  .st-key-review-selected-workspace,
+  .st-key-review-bulk-confirmation,
+  .st-key-review-approval-summary { padding: 14px; }
+  .st-key-review-requirement-buttons [data-testid="stButton"] { width: 100%; }
+  .st-key-review-requirement-buttons [data-testid^="stBaseButton"] { width: 100%; }
 }
 """
 
