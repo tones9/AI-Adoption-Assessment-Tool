@@ -138,22 +138,21 @@ def test_validate_process_keeps_actions_order_and_disabled_approval_gate(
     app = _page("review", assessment.assessment_id)
     assert not app.exception
     assert not app.metric
-    assert {item.value for item in app.caption} >= {
-        "Outstanding",
-        "Complete",
-        "Remaining",
-    }
+    assert app.button_group[0].options == [
+        "Required review",
+        "Optional details",
+        "Final approval",
+    ]
     assert not [item for item in app.selectbox if item.key == "selected-review-step"]
-    assert len([item for item in app.button if item.label == "Review activity"]) == (
-        len(session.steps) - 1
+    assert len([item for item in app.button if item.label.startswith("Step ")]) == (
+        len(session.steps) + 1
     )
-    action = next(
-        item for item in app.selectbox if item.label == "Review decision for Activity"
-    )
-    assert {"Accept", "Correct", "Reject/remove step"}.issubset(action.options)
-    assert any(item.label == "Accept current step order" for item in app.button)
+    action = next(item for item in app.selectbox if item.label == "What would you like to do?")
+    assert {"Keep it", "I want to change it"}.issubset(action.options)
+    assert any(item.label == "Step order" for item in app.button)
+    app = app.button_group[0].select("Final approval").run()
     approval = next(
         item for item in app.button if item.label == "Approve current-state process"
     )
     assert approval.disabled
-    assert any(item.value == "Final approval" for item in app.header)
+    assert "### Finish required review first" in [item.value for item in app.markdown]

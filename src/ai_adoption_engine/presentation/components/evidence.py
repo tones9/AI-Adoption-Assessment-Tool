@@ -47,13 +47,10 @@ def render_reviewed_assertion(assertion: ReviewedAssertion, *, label: str) -> No
             ),
         ]
     )
-    details = [f"Knowledge: {assertion.knowledge_state.value}"]
-    if assertion.confidence is not None:
-        details.append(f"Extraction confidence: {assertion.confidence:.2f}")
-    st.caption(" · ".join(details))
-    st.caption(assertion.rationale)
     if assertion.evidence:
-        with st.expander(f"Supporting evidence ({len(assertion.evidence)})"):
+        with st.expander(f"See where this appears in the document ({len(assertion.evidence)})"):
+            if assertion.rationale:
+                st.caption(assertion.rationale)
             for item in assertion.evidence:
                 render_evidence_block(
                     item.exact_snippet,
@@ -64,4 +61,4 @@ def render_reviewed_assertion(assertion: ReviewedAssertion, *, label: str) -> No
                     ),
                 )
     elif assertion.origin.value == "HUMAN_SUPPLIED":
-        st.caption("Human-supplied information — no document evidence claimed.")
+        st.caption("Added during review; this was not taken from the document.")
