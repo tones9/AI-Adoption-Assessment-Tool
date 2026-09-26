@@ -1,0 +1,7 @@
+Process: Conventional-first Gate 3 fixture
+
+Activity: Route complete records with maintained rules; human accountability required=false
+
+Reviewed decision inputs (0-5): repetition=4; predictability=5; data_readiness=4; ai_capability_fit=unknown; human_judgement_requirement=1; business_value=4; risk_consequence=1; residual_risk_with_human_oversight=1; implementation_complexity=2; conventional_solution_fit=5
+
+Reviewed capability signals: reads_unstructured_documents=true; categorises_items=false; predicts_future_outcomes=false; detects_anomalies_or_patterns=false; creates_new_content=false; searches_reference_knowledge=false; ranks_or_suggests_options=false; supports_complex_decisions=false; interprets_images_or_video=false; routes_or_orchestrates_work=false

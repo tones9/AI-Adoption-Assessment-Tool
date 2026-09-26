@@ -12,11 +12,21 @@ from __future__ import annotations
 from html import escape
 
 from ai_adoption_engine.models.decision_support import DecisionSupportPackage
+from ai_adoption_engine.models.four_gate_decision_support import (
+    FourGateDecisionSupportPackage,
+)
 from ai_adoption_engine.presentation.components.technical_details import (
     TECHNICAL_DETAILS_LABEL,
 )
 from ai_adoption_engine.presentation.decision_narrative import (
     build_package_narrative,
+)
+from ai_adoption_engine.presentation.contracts import (
+    PresentationContract,
+    phase6_presentation_contract,
+)
+from ai_adoption_engine.presentation.four_gate_narrative import (
+    build_four_gate_package_narrative,
 )
 from ai_adoption_engine.presentation.report_view import (
     ReportViewBlock,
@@ -24,10 +34,17 @@ from ai_adoption_engine.presentation.report_view import (
 )
 
 
-def render_report_html(package: DecisionSupportPackage) -> str:
+def render_report_html(
+    package: DecisionSupportPackage | FourGateDecisionSupportPackage,
+) -> str:
     """Render a business-facing view without mutating canonical package records."""
 
-    narrative = build_package_narrative(package)
+    contract = phase6_presentation_contract(package)
+    narrative = (
+        build_four_gate_package_narrative(package)
+        if contract is PresentationContract.FOUR_GATE
+        else build_package_narrative(package)
+    )
     sections = "".join(
         f"<section id='{escape(section.section_id.value)}'>"
         f"<h2>{escape(section.title)}</h2>"

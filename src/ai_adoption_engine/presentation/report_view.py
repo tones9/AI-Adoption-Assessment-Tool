@@ -15,6 +15,11 @@ from ai_adoption_engine.models.decision_support import (
     ReportSection,
     ReportSectionId,
 )
+from ai_adoption_engine.models.four_gate_decision_support import (
+    FourGateDecisionSupportPackage,
+    FourGateReportOrigin,
+    FourGateReportSectionId,
+)
 from ai_adoption_engine.models.enums import CriterionName, GateStatus, RecommendationMode
 from ai_adoption_engine.presentation import labels
 from ai_adoption_engine.presentation.decision_narrative import (
@@ -29,19 +34,39 @@ class ReportViewBlock:
     heading: str | None = None
     paragraphs: tuple[str, ...] = ()
     bullets: tuple[str, ...] = ()
-    origin: PlanningOrigin | None = None
+    origin: PlanningOrigin | FourGateReportOrigin | None = None
     technical_details: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
 class ReportViewSection:
-    section_id: ReportSectionId
+    section_id: ReportSectionId | FourGateReportSectionId
     title: str
     blocks: tuple[ReportViewBlock, ...] = field(default_factory=tuple)
 
 
-def build_report_view(package: DecisionSupportPackage) -> tuple[ReportViewSection, ...]:
+def build_report_view(
+    package: DecisionSupportPackage | FourGateDecisionSupportPackage,
+) -> tuple[ReportViewSection, ...]:
     """Create deterministic, consolidated report content without altering Phase 6."""
+
+    if isinstance(package, FourGateDecisionSupportPackage):
+        from ai_adoption_engine.presentation.four_gate_report_view import (
+            build_four_gate_report_view,
+        )
+
+        return build_four_gate_report_view(package)
+    if (
+        not isinstance(package, DecisionSupportPackage)
+        or package.package_schema_version != "phase6-v0.1"
+    ):
+        from ai_adoption_engine.presentation.contracts import (
+            UnsupportedPresentationContract,
+        )
+
+        raise UnsupportedPresentationContract(
+            "The Phase 6 artifact contract is not supported for presentation."
+        )
 
     narrative = build_package_narrative(package)
     renderers = {

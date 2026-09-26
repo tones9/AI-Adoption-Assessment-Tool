@@ -31,6 +31,58 @@ def recommendation_label(value: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Four-gate successor outcome and audit vocabulary
+#
+# These maps are deliberately separate from RecommendationMode. They translate
+# already-derived successor fields and contain no decision logic.
+# ---------------------------------------------------------------------------
+
+FOUR_GATE_OUTCOME_LABELS: dict[str, str] = {
+    "NO_CHANGE_JUSTIFIED": "No Change Justified",
+    "AI_AUTOMATION": "AI Automation",
+    "AI_ASSISTED_WORK": "AI-Assisted Work",
+    "CONVENTIONAL_AUTOMATION": "Conventional Automation",
+    "PROCESS_IMPROVEMENT_FIRST": "Process Improvement First",
+    "KEEP_HUMAN_LED": "Keep Human-Led",
+    "DISCOVERY_REQUIRED": "Discovery Required",
+}
+
+
+def four_gate_outcome_label(value: str) -> str:
+    """Return the direct label for one derived successor outcome."""
+
+    return FOUR_GATE_OUTCOME_LABELS.get(value, _human(value))
+
+
+FOUR_GATE_NAME_LABELS: dict[str, str] = {
+    "SHOULD_WE_CHANGE": "Gate 1 — Should we change?",
+    "IS_IT_READY": "Gate 2 — Is it ready?",
+    "BEST_INTERVENTION": "Gate 3 — Best intervention",
+    "SAFE_AUTONOMY": "Gate 4 — Safe autonomy",
+}
+
+
+def four_gate_name_label(value: str) -> str:
+    """Return the direct label for one successor gate."""
+
+    return FOUR_GATE_NAME_LABELS.get(value, _human(value))
+
+
+FOUR_GATE_STATUS_LABELS: dict[str, str] = {
+    "COMPLETED": "Completed",
+    "COMPLETED_WITH_CONSTRAINTS": "Completed with constraints",
+    "BLOCKED_BY_EVIDENCE": "Blocked by evidence for the active decision",
+    "NOT_EVALUATED": "Not evaluated — an earlier gate determined the path",
+}
+
+
+def four_gate_status_label(value: str) -> str:
+    """Return the direct label for one successor gate status."""
+
+    return FOUR_GATE_STATUS_LABELS.get(value, _human(value))
+
+
+# ---------------------------------------------------------------------------
 # Gate status
 #
 # These are direct translations of the persisted status token.  ``not_evaluated``

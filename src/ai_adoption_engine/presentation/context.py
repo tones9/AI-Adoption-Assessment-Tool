@@ -40,6 +40,15 @@ def get_decision_continuation_service(database_path: str):
     return build_decision_continuation_service(database_path)
 
 
+@st.cache_resource
+def get_four_gate_m2_service(database_path: str):
+    from ai_adoption_engine.application.four_gate_reassessment_composition import (
+        build_four_gate_m2_service,
+    )
+
+    return build_four_gate_m2_service(database_path)
+
+
 def workspace_service():
     path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
     return get_workspace_service(path)
@@ -57,6 +66,22 @@ def grw_continuation_available() -> bool:
     try:
         assert_m2_write_target_allowed(path)
     except M2FrozenWorkspaceError:
+        return False
+    return True
+
+
+def four_gate_m2_continuation_available() -> bool:
+    """Check frozen exclusion without opening a write-capable repository."""
+
+    from ai_adoption_engine.persistence.four_gate_reassessment import (
+        FourGateM2FrozenWorkspaceError,
+        assert_four_gate_m2_write_target_allowed,
+    )
+
+    path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
+    try:
+        assert_four_gate_m2_write_target_allowed(path)
+    except FourGateM2FrozenWorkspaceError:
         return False
     return True
 
@@ -99,6 +124,11 @@ def decision_continuation_service():
     return get_decision_continuation_service(path)
 
 
+def four_gate_m2_service():
+    path = os.environ.get("AI_ADOPTION_ENGINE_DB_PATH", str(DEFAULT_DATABASE_PATH))
+    return get_four_gate_m2_service(path)
+
+
 def clear_workspace_state() -> None:
     for key in (
         "loaded_assessment_id",
@@ -112,6 +142,9 @@ def clear_workspace_state() -> None:
         "selected_step_id",
         "grw_m2_run_id",
         "dcw_selected_m2_run_id",
+        "four_gate_m2_run_id",
+        "four-gate-m2-target-step",
+        "four-gate-m2-existing-run",
         "dcw_return_page",
         "guided_review_selected_item",
         "selected-review-step",

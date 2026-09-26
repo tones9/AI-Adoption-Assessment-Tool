@@ -16,7 +16,14 @@ from collections import Counter
 import streamlit as st
 
 from ai_adoption_engine.models.enums import PriorityStatus, RecommendationMode
-from ai_adoption_engine.models.integrated_assessment import IntegratedAssessmentSuccess
+from ai_adoption_engine.models.integrated_assessment import (
+    IntegratedAssessmentFailure,
+    IntegratedAssessmentSuccess,
+)
+from ai_adoption_engine.models.four_gate_integrated_assessment import (
+    FourGateIntegratedAssessmentFailure,
+    FourGateIntegratedAssessmentSuccess,
+)
 from ai_adoption_engine.presentation import labels
 from ai_adoption_engine.presentation.components.decision_header import (
     HeaderAction,
@@ -45,6 +52,11 @@ from ai_adoption_engine.presentation.decision_narrative import (
 from ai_adoption_engine.presentation.components.page_header import (
     render_page_header,
 )
+from ai_adoption_engine.presentation.contracts import (
+    UnsupportedPresentationContract,
+    phase5_presentation_contract,
+)
+from ai_adoption_engine.presentation.four_gate_ui import render_four_gate_results
 
 
 _MEANINGFUL_PRIORITY_STATUSES = frozenset(
@@ -234,6 +246,20 @@ def render() -> None:
     approved = st.session_state.get("approved_review")
     integrated = st.session_state.get("integrated_assessment_result")
 
+    if (
+        snapshot is not None
+        and approved is not None
+        and isinstance(integrated, FourGateIntegratedAssessmentSuccess)
+    ):
+        try:
+            phase5_presentation_contract(integrated)
+        except UnsupportedPresentationContract:
+            render_page_header("Assessment Results")
+            st.error("This assessment contract is not supported for presentation.")
+            return
+        render_four_gate_results(integrated)
+        return
+
     ready = (
         snapshot is not None
         and approved is not None
@@ -289,10 +315,24 @@ def render() -> None:
             except Exception as exc:
                 st.error(f"Assessment pipeline failed: {type(exc).__name__}")
         return
-    if not isinstance(integrated, IntegratedAssessmentSuccess):
+    if isinstance(integrated, FourGateIntegratedAssessmentFailure):
+        st.error("The successor assessment pipeline could not complete.")
+        for error in integrated.errors:
+            st.error(f"{error.code.value}: {error.message}")
+        return
+    if isinstance(integrated, IntegratedAssessmentFailure):
         st.error("The assessment pipeline could not complete.")
         for error in integrated.errors:
             st.error(f"{error.code.value}: {error.message}")
+        return
+    if not isinstance(integrated, IntegratedAssessmentSuccess):
+        st.error("This assessment contract is not supported for presentation.")
+        return
+
+    try:
+        phase5_presentation_contract(integrated)
+    except UnsupportedPresentationContract:
+        st.error("This assessment contract is not supported for presentation.")
         return
 
     narrative = build_process_narrative(integrated)

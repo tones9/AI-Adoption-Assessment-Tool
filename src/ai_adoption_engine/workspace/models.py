@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import StrEnum
-from typing import Any
+from typing import Any, Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class ExecutionMode(StrEnum):
@@ -64,6 +64,38 @@ class OperationStatus(StrEnum):
     FAILED = "failed"
 
 
+class AssessmentContractPin(BaseModel):
+    """Immutable assessment-level decision contract and policy identity."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    decision_contract_version: Literal["phase1-v0.3", "phase1-v0.4"]
+    policy_id: Literal["decision_policy.v0.2", "decision_policy.v0.3"]
+    policy_version: Literal["0.2.0", "0.3.0"]
+    decision_policy_fingerprint: str = Field(pattern=r"^[0-9a-f]{64}$")
+    virtual: bool = False
+
+    @model_validator(mode="after")
+    def validate_contract_family(self) -> Self:
+        identity = (
+            self.decision_contract_version,
+            self.policy_id,
+            self.policy_version,
+        )
+        if identity not in {
+            ("phase1-v0.3", "decision_policy.v0.2", "0.2.0"),
+            ("phase1-v0.4", "decision_policy.v0.3", "0.3.0"),
+        }:
+            raise ValueError("Decision contract and policy identity must be same-family")
+        if self.virtual and identity != (
+            "phase1-v0.3",
+            "decision_policy.v0.2",
+            "0.2.0",
+        ):
+            raise ValueError("Only the protected legacy pin may be virtual")
+        return self
+
+
 class AssessmentRecord(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -77,6 +109,7 @@ class AssessmentRecord(BaseModel):
     created_at: datetime
     updated_at: datetime
     row_version: int = Field(ge=1)
+    contract_pin: AssessmentContractPin
 
 
 class ArtifactReference(BaseModel):
@@ -109,6 +142,11 @@ class OperationRecord(BaseModel):
     sanitised_error_code: str | None = None
     started_at: datetime
     completed_at: datetime | None = None
+    decision_contract_version: str | None = None
+    decision_policy_fingerprint: str | None = Field(
+        default=None,
+        pattern=r"^[0-9a-f]{64}$",
+    )
 
 
 class WorkspaceSnapshot(BaseModel):

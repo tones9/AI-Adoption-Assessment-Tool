@@ -13,6 +13,7 @@ from uuid import uuid4
 from pydantic import BaseModel
 
 from ai_adoption_engine.workspace.models import (
+    AssessmentContractPin,
     ArtifactReference,
     ArtifactType,
     AssessmentRecord,
@@ -30,9 +31,14 @@ from ai_adoption_engine.persistence.base import (
     PersistenceError,
 )
 from ai_adoption_engine.persistence.migrations import MIGRATIONS
+from ai_adoption_engine.persistence.contract_pins import (
+    LEGACY_CONTRACT_PIN,
+    VIRTUAL_LEGACY_CONTRACT_PIN,
+    contract_operation_identity,
+)
 from ai_adoption_engine.persistence.serialization import (
-    deserialize_artifact,
-    serialize_artifact,
+    deserialize_artifact_versioned,
+    serialize_artifact_versioned,
     validate_schema_version,
 )
 from ai_adoption_engine.persistence.workspace_protection import (
@@ -59,6 +65,23 @@ _REQUIRED_PARENT_TYPES = {
     ArtifactType.DECISION_PACKAGE_RESULT,
     ArtifactType.GRW_EVIDENCE_SUBMISSION,
     ArtifactType.GRW_EVIDENCE_REVIEW,
+}
+
+_PROTECTED_SCHEMA_SETS = {
+    frozenset({1, 2, 3}),
+    frozenset({1, 2, 3, 4}),
+}
+_CONTRACT_AWARE_OPERATION_KINDS = {
+    OperationKind.ASSESS,
+    OperationKind.GENERATE_PACKAGE,
+}
+_ASSESSMENT_SCHEMA_BY_CONTRACT = {
+    "phase1-v0.3": "phase5-v0.1",
+    "phase1-v0.4": "phase5-v0.2",
+}
+_PACKAGE_SCHEMA_BY_CONTRACT = {
+    "phase1-v0.3": "phase6-v0.1",
+    "phase1-v0.4": "phase6-v0.2",
 }
 
 
@@ -107,7 +130,7 @@ class SQLiteAssessmentRepository:
             return self._connection
         protected = is_frozen_evaluation_portfolio_path(self.path)
         if protected:
-            uri = f"{self.path.resolve(strict=True).as_uri()}?mode=ro"
+            uri = f"{self.path.resolve(strict=True).as_uri()}?mode=ro&immutable=1"
             connection = sqlite3.connect(uri, uri=True)
         else:
             connection = sqlite3.connect(self.path)
@@ -124,7 +147,6 @@ class SQLiteAssessmentRepository:
             connection.execute("PRAGMA query_only = ON")
 
     def _assert_protected_schema_compatible(self) -> None:
-        expected = {version for version, _script in MIGRATIONS}
         try:
             with self._read() as connection:
                 applied = {
@@ -133,14 +155,60 @@ class SQLiteAssessmentRepository:
                         "SELECT version FROM schema_migrations"
                     )
                 }
+                actual_signature = self._schema_signature(connection)
         except (OSError, sqlite3.Error) as exc:
             raise FrozenEvaluationWorkspaceCompatibilityError(
                 "Frozen evaluation portfolio database could not be opened safely in read-only mode"
             ) from exc
-        if applied != expected:
+        if frozenset(applied) not in _PROTECTED_SCHEMA_SETS:
             raise FrozenEvaluationWorkspaceCompatibilityError(
                 "Frozen evaluation portfolio database schema is incompatible with the current application; it will not be migrated in place"
             )
+        if actual_signature != self._expected_schema_signature(applied):
+            raise FrozenEvaluationWorkspaceCompatibilityError(
+                "Frozen evaluation portfolio database schema is incompatible with the current application; it will not be migrated in place"
+            )
+
+    @staticmethod
+    def _schema_signature(
+        connection: sqlite3.Connection,
+    ) -> tuple[tuple[str, str, str, str], ...]:
+        objects = tuple(
+            tuple(row)
+            for row in connection.execute(
+                """SELECT type, name, tbl_name, sql
+                   FROM sqlite_master
+                   WHERE sql IS NOT NULL
+                     AND name NOT LIKE 'sqlite_%'
+                     AND name != 'schema_migrations'
+                   ORDER BY type, name"""
+            )
+        )
+        migration_columns = repr(
+            tuple(
+                tuple(row[1:6])
+                for row in connection.execute(
+                    "PRAGMA table_info(schema_migrations)"
+                )
+            )
+        )
+        return objects + (
+            ("table", "schema_migrations", "schema_migrations", migration_columns),
+        )
+
+    @classmethod
+    def _expected_schema_signature(
+        cls,
+        applied: set[int],
+    ) -> tuple[tuple[str, str, str, str], ...]:
+        expected = sqlite3.connect(":memory:")
+        try:
+            for version, script in MIGRATIONS:
+                if version in applied:
+                    expected.executescript(script)
+            return cls._schema_signature(expected)
+        finally:
+            expected.close()
 
     @contextmanager
     def _transaction(self) -> Iterator[sqlite3.Connection]:
@@ -192,19 +260,28 @@ class SQLiteAssessmentRepository:
                 connection.close()
 
     def create_assessment(
-        self, title: str, mode: ExecutionMode
+        self,
+        title: str,
+        mode: ExecutionMode,
+        *,
+        contract_pin: AssessmentContractPin | None = None,
     ) -> AssessmentRecord:
         clean_title = title.strip()
         if not clean_title:
             raise ValueError("Assessment title must be non-empty")
         now = self.clock()
         assessment_id = self.id_factory("assessment")
+        pin = contract_pin or LEGACY_CONTRACT_PIN
+        if pin.virtual:
+            raise ValueError("A writable assessment cannot use a virtual contract pin")
         with self._transaction() as connection:
             connection.execute(
                 """INSERT INTO assessments(
                     assessment_id, title, execution_mode, current_stage,
-                    created_at, updated_at, row_version
-                ) VALUES (?, ?, ?, ?, ?, ?, 1)""",
+                    created_at, updated_at, row_version,
+                    decision_contract_version, decision_policy_id,
+                    decision_policy_version, decision_policy_fingerprint
+                ) VALUES (?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?)""",
                 (
                     assessment_id,
                     clean_title,
@@ -212,6 +289,57 @@ class SQLiteAssessmentRepository:
                     WorkflowStage.NEW.value,
                     now.isoformat(),
                     now.isoformat(),
+                    pin.decision_contract_version,
+                    pin.policy_id,
+                    pin.policy_version,
+                    pin.decision_policy_fingerprint,
+                ),
+            )
+        return self.get_assessment(assessment_id)
+
+    def pin_decision_contract(
+        self,
+        assessment_id: str,
+        contract_pin: AssessmentContractPin,
+    ) -> AssessmentRecord:
+        """Set an explicit pin before approval; persisted decision history locks it."""
+
+        if contract_pin.virtual:
+            raise ValueError("A writable assessment cannot use a virtual contract pin")
+        now = self.clock()
+        with self._transaction() as connection:
+            assessment_row = self._require_assessment(connection, assessment_id)
+            current = self._assessment(assessment_row)
+            if current.contract_pin == contract_pin:
+                return current
+            locked = connection.execute(
+                """SELECT 1 FROM assessment_artifacts
+                   WHERE assessment_id = ? AND artifact_type IN (?, ?, ?)
+                   LIMIT 1""",
+                (
+                    assessment_id,
+                    ArtifactType.APPROVED_REVIEW.value,
+                    ArtifactType.INTEGRATED_ASSESSMENT_RESULT.value,
+                    ArtifactType.DECISION_PACKAGE_RESULT.value,
+                ),
+            ).fetchone()
+            if locked is not None:
+                raise PersistenceError(
+                    "Assessment contract pin is immutable after approval"
+                )
+            connection.execute(
+                """UPDATE assessments
+                   SET decision_contract_version = ?, decision_policy_id = ?,
+                       decision_policy_version = ?, decision_policy_fingerprint = ?,
+                       updated_at = ?, row_version = row_version + 1
+                   WHERE assessment_id = ?""",
+                (
+                    contract_pin.decision_contract_version,
+                    contract_pin.policy_id,
+                    contract_pin.policy_version,
+                    contract_pin.decision_policy_fingerprint,
+                    now.isoformat(),
+                    assessment_id,
                 ),
             )
         return self.get_assessment(assessment_id)
@@ -235,6 +363,17 @@ class SQLiteAssessmentRepository:
 
     @staticmethod
     def _assessment(row: sqlite3.Row) -> AssessmentRecord:
+        if "decision_contract_version" in row.keys():
+            contract_pin = AssessmentContractPin(
+                decision_contract_version=row["decision_contract_version"],
+                policy_id=row["decision_policy_id"],
+                policy_version=row["decision_policy_version"],
+                decision_policy_fingerprint=row[
+                    "decision_policy_fingerprint"
+                ],
+            )
+        else:
+            contract_pin = VIRTUAL_LEGACY_CONTRACT_PIN
         return AssessmentRecord(
             assessment_id=row["assessment_id"],
             title=row["title"],
@@ -246,6 +385,7 @@ class SQLiteAssessmentRepository:
             created_at=datetime.fromisoformat(row["created_at"]),
             updated_at=datetime.fromisoformat(row["updated_at"]),
             row_version=row["row_version"],
+            contract_pin=contract_pin,
         )
 
     def save_artifact_and_advance(
@@ -265,16 +405,38 @@ class SQLiteAssessmentRepository:
         deactivate_types: Iterable[ArtifactType] = (),
     ) -> ArtifactReference:
         validate_schema_version(artifact_type, artifact_schema_version)
-        payload_json, payload_sha = serialize_artifact(artifact_type, payload)
+        payload_json, payload_sha = serialize_artifact_versioned(
+            artifact_type,
+            artifact_schema_version,
+            payload,
+        )
+        validated_payload = deserialize_artifact_versioned(
+            artifact_type,
+            artifact_schema_version,
+            payload_json,
+            payload_sha,
+        )
         now = self.clock()
         with self._transaction() as connection:
-            self._require_assessment(connection, assessment_id)
+            assessment_row = self._require_assessment(connection, assessment_id)
+            pin = self._assessment(assessment_row).contract_pin
+            self._validate_artifact_contract_pin(
+                artifact_type,
+                artifact_schema_version,
+                pin,
+            )
+            self._validate_payload_contract_pin(
+                artifact_type,
+                artifact_schema_version,
+                validated_payload,
+                pin,
+            )
             connection.executemany(
                 "DELETE FROM active_artifacts WHERE assessment_id = ? AND artifact_type = ?",
                 ((assessment_id, item.value) for item in deactivate_types),
             )
             if parent_artifact_id is not None:
-                parent_type = self._require_owned_artifact(
+                parent_type, parent_schema_version = self._require_owned_artifact(
                     connection, assessment_id, parent_artifact_id
                 )
                 expected_parent = _EXPECTED_PARENT_TYPE.get(artifact_type)
@@ -282,6 +444,12 @@ class SQLiteAssessmentRepository:
                     raise PersistenceError(
                         f"{artifact_type.value} requires parent {expected_parent.value}"
                     )
+                self._validate_parent_contract_family(
+                    artifact_type,
+                    artifact_schema_version,
+                    parent_type,
+                    parent_schema_version,
+                )
             elif artifact_type in _REQUIRED_PARENT_TYPES:
                 raise PersistenceError(
                     f"{artifact_type.value} requires an exact parent artifact"
@@ -398,13 +566,14 @@ class SQLiteAssessmentRepository:
         with self._transaction() as connection:
             self._require_assessment(connection, assessment_id)
             row = connection.execute(
-                """SELECT artifact_type FROM assessment_artifacts
+                """SELECT * FROM assessment_artifacts
                    WHERE artifact_id = ? AND assessment_id = ?""",
                 (artifact_id, assessment_id),
             ).fetchone()
             if row is None:
                 raise ArtifactNotFoundError("Artifact does not belong to assessment")
             artifact_type = ArtifactType(row["artifact_type"])
+            self._validate_row_parent_contract(connection, row)
             connection.executemany(
                 "DELETE FROM active_artifacts WHERE assessment_id = ? AND artifact_type = ?",
                 ((assessment_id, item.value) for item in deactivate_types),
@@ -442,7 +611,10 @@ class SQLiteAssessmentRepository:
                    WHERE aa.assessment_id = ? AND aa.artifact_type = ?""",
                 (assessment_id, artifact_type.value),
             ).fetchone()
-        return None if row is None else self._stored(row)
+            if row is None:
+                return None
+            pin = self._validate_row_parent_contract(connection, row)
+            return self._stored(row, pin)
 
     def load_artifact(self, artifact_id: str) -> StoredArtifact:
         with self._read() as connection:
@@ -450,9 +622,10 @@ class SQLiteAssessmentRepository:
                 "SELECT * FROM assessment_artifacts WHERE artifact_id = ?",
                 (artifact_id,),
             ).fetchone()
-        if row is None:
-            raise ArtifactNotFoundError("Artifact does not exist")
-        return self._stored(row)
+            if row is None:
+                raise ArtifactNotFoundError("Artifact does not exist")
+            pin = self._validate_row_parent_contract(connection, row)
+            return self._stored(row, pin)
 
     def load_artifact_revision(
         self,
@@ -466,9 +639,10 @@ class SQLiteAssessmentRepository:
                    WHERE assessment_id = ? AND artifact_type = ? AND artifact_revision = ?""",
                 (assessment_id, artifact_type.value, revision),
             ).fetchone()
-        if row is None:
-            raise ArtifactNotFoundError("Artifact revision does not exist")
-        return self._stored(row)
+            if row is None:
+                raise ArtifactNotFoundError("Artifact revision does not exist")
+            pin = self._validate_row_parent_contract(connection, row)
+            return self._stored(row, pin)
 
     def list_artifact_revisions(
         self, assessment_id: str, artifact_type: ArtifactType
@@ -480,17 +654,89 @@ class SQLiteAssessmentRepository:
                    ORDER BY artifact_revision""",
                 (assessment_id, artifact_type.value),
             ).fetchall()
-        return [self._stored(row) for row in rows]
+            pins = [
+                self._validate_row_parent_contract(connection, row)
+                for row in rows
+            ]
+            return [
+                self._stored(row, pin)
+                for row, pin in zip(rows, pins, strict=True)
+            ]
+
+    @classmethod
+    def _validate_row_parent_contract(
+        cls,
+        connection: sqlite3.Connection,
+        row: sqlite3.Row,
+    ) -> AssessmentContractPin:
+        assessment_row = connection.execute(
+            "SELECT * FROM assessments WHERE assessment_id = ?",
+            (row["assessment_id"],),
+        ).fetchone()
+        if assessment_row is None:
+            raise PersistenceError("Stored artifact has no owning assessment")
+        pin = cls._assessment(assessment_row).contract_pin
+        try:
+            artifact_type = ArtifactType(row["artifact_type"])
+        except ValueError as exc:
+            raise PersistenceError("Stored artifact type is unsupported") from exc
+        cls._validate_artifact_contract_pin(
+            artifact_type,
+            row["artifact_schema_version"],
+            pin,
+        )
+        parent_id = row["parent_artifact_id"]
+        expected_parent = _EXPECTED_PARENT_TYPE.get(artifact_type)
+        if expected_parent is not None and parent_id is not None:
+            parent = connection.execute(
+                """SELECT artifact_type, artifact_schema_version
+                   FROM assessment_artifacts
+                   WHERE artifact_id = ? AND assessment_id = ?""",
+                (parent_id, row["assessment_id"]),
+            ).fetchone()
+            try:
+                parent_type = (
+                    ArtifactType(parent["artifact_type"])
+                    if parent is not None
+                    else None
+                )
+            except ValueError as exc:
+                raise PersistenceError(
+                    "Stored artifact parent type is unsupported"
+                ) from exc
+            if parent is None or parent_type is not expected_parent:
+                raise PersistenceError("Stored artifact parent chain is invalid")
+            cls._validate_parent_contract_family(
+                artifact_type,
+                row["artifact_schema_version"],
+                expected_parent,
+                parent["artifact_schema_version"],
+            )
+        elif artifact_type in _REQUIRED_PARENT_TYPES:
+            raise PersistenceError("Stored artifact is missing its required parent")
+        return pin
 
     @staticmethod
-    def _stored(row: sqlite3.Row) -> StoredArtifact:
+    def _stored(
+        row: sqlite3.Row,
+        pin: AssessmentContractPin,
+    ) -> StoredArtifact:
         try:
             artifact_type = ArtifactType(row["artifact_type"])
         except ValueError as exc:
             raise PersistenceError("Stored artifact type is unsupported") from exc
         validate_schema_version(artifact_type, row["artifact_schema_version"])
-        payload = deserialize_artifact(
-            artifact_type, row["payload_json"], row["payload_sha256"]
+        payload = deserialize_artifact_versioned(
+            artifact_type,
+            row["artifact_schema_version"],
+            row["payload_json"],
+            row["payload_sha256"],
+        )
+        SQLiteAssessmentRepository._validate_payload_contract_pin(
+            artifact_type,
+            row["artifact_schema_version"],
+            payload,
+            pin,
         )
         return StoredArtifact(
             artifact_id=row["artifact_id"],
@@ -515,9 +761,10 @@ class SQLiteAssessmentRepository:
                    WHERE aa.assessment_id = ?""",
                 (assessment_id,),
             ).fetchall()
-        for row in rows:
-            stored = self._stored(row)
-            active[stored.artifact_type] = stored
+            for row in rows:
+                pin = self._validate_row_parent_contract(connection, row)
+                stored = self._stored(row, pin)
+                active[stored.artifact_type] = stored
         self._validate_active_chain(assessment, active)
         return WorkspaceSnapshot(assessment=assessment, active_artifacts=active)
 
@@ -584,12 +831,27 @@ class SQLiteAssessmentRepository:
     ) -> OperationRecord:
         now = self.clock()
         with self._transaction() as connection:
-            self._require_assessment(connection, assessment_id)
-            existing = connection.execute(
-                """SELECT * FROM assessment_operations
-                   WHERE assessment_id = ? AND operation_kind = ? AND idempotency_key = ?""",
-                (assessment_id, kind.value, idempotency_key),
-            ).fetchone()
+            assessment_row = self._require_assessment(connection, assessment_id)
+            pin = self._assessment(assessment_row).contract_pin
+            contract_key = (
+                contract_operation_identity(idempotency_key, pin)
+                if kind in _CONTRACT_AWARE_OPERATION_KINDS
+                else None
+            )
+            if contract_key is None:
+                existing = connection.execute(
+                    """SELECT * FROM assessment_operations
+                       WHERE assessment_id = ? AND operation_kind = ?
+                         AND idempotency_key = ?""",
+                    (assessment_id, kind.value, idempotency_key),
+                ).fetchone()
+            else:
+                existing = connection.execute(
+                    """SELECT * FROM assessment_operations
+                       WHERE assessment_id = ? AND operation_kind = ?
+                         AND contract_idempotency_key = ?""",
+                    (assessment_id, kind.value, contract_key),
+                ).fetchone()
             if existing:
                 record = self._operation(existing)
                 if record.status is OperationStatus.STARTED:
@@ -618,18 +880,36 @@ class SQLiteAssessmentRepository:
                     )
                 return record
             operation_id = self.id_factory("operation")
+            stored_idempotency_key = (
+                contract_key
+                if contract_key is not None
+                and pin.decision_contract_version == "phase1-v0.4"
+                else idempotency_key
+            )
             connection.execute(
                 """INSERT INTO assessment_operations(
                     operation_id, assessment_id, operation_kind, idempotency_key,
-                    status, started_at
-                ) VALUES (?, ?, ?, ?, ?, ?)""",
+                    status, started_at, decision_contract_version,
+                    decision_policy_fingerprint, contract_idempotency_key
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 (
                     operation_id,
                     assessment_id,
                     kind.value,
-                    idempotency_key,
+                    stored_idempotency_key,
                     OperationStatus.STARTED.value,
                     now.isoformat(),
+                    (
+                        pin.decision_contract_version
+                        if contract_key is not None
+                        else None
+                    ),
+                    (
+                        pin.decision_policy_fingerprint
+                        if contract_key is not None
+                        else None
+                    ),
+                    contract_key,
                 ),
             )
         return OperationRecord(
@@ -639,6 +919,12 @@ class SQLiteAssessmentRepository:
             idempotency_key=idempotency_key,
             status=OperationStatus.STARTED,
             started_at=now,
+            decision_contract_version=(
+                pin.decision_contract_version if contract_key is not None else None
+            ),
+            decision_policy_fingerprint=(
+                pin.decision_policy_fingerprint if contract_key is not None else None
+            ),
         )
 
     def fail_operation(self, operation_id: str, error_code: str) -> None:
@@ -660,11 +946,33 @@ class SQLiteAssessmentRepository:
 
     @staticmethod
     def _operation(row: sqlite3.Row) -> OperationRecord:
+        contract_columns = "decision_contract_version" in row.keys()
+        stored_idempotency_key = row["idempotency_key"]
+        decision_contract_version = (
+            row["decision_contract_version"] if contract_columns else None
+        )
+        contract_idempotency_key = (
+            row["contract_idempotency_key"]
+            if contract_columns
+            and "contract_idempotency_key" in row.keys()
+            else None
+        )
+        if (
+            decision_contract_version == "phase1-v0.4"
+            and contract_idempotency_key == stored_idempotency_key
+        ):
+            prefix = (
+                f"{decision_contract_version}:"
+                f"{row['decision_policy_fingerprint']}:"
+            )
+            idempotency_key = stored_idempotency_key.removeprefix(prefix)
+        else:
+            idempotency_key = stored_idempotency_key
         return OperationRecord(
             operation_id=row["operation_id"],
             assessment_id=row["assessment_id"],
             operation_kind=OperationKind(row["operation_kind"]),
-            idempotency_key=row["idempotency_key"],
+            idempotency_key=idempotency_key,
             status=OperationStatus(row["status"]),
             produced_artifact_id=row["produced_artifact_id"],
             sanitised_error_code=row["sanitised_error_code"],
@@ -673,6 +981,12 @@ class SQLiteAssessmentRepository:
                 datetime.fromisoformat(row["completed_at"])
                 if row["completed_at"]
                 else None
+            ),
+            decision_contract_version=(
+                decision_contract_version
+            ),
+            decision_policy_fingerprint=(
+                row["decision_policy_fingerprint"] if contract_columns else None
             ),
         )
 
@@ -686,21 +1000,111 @@ class SQLiteAssessmentRepository:
             )
 
     @staticmethod
-    def _require_assessment(connection: sqlite3.Connection, assessment_id: str) -> None:
-        if connection.execute(
-            "SELECT 1 FROM assessments WHERE assessment_id = ?", (assessment_id,)
-        ).fetchone() is None:
+    def _require_assessment(
+        connection: sqlite3.Connection,
+        assessment_id: str,
+    ) -> sqlite3.Row:
+        row = connection.execute(
+            "SELECT * FROM assessments WHERE assessment_id = ?", (assessment_id,)
+        ).fetchone()
+        if row is None:
             raise ArtifactNotFoundError("Assessment does not exist")
+        return row
 
     @staticmethod
     def _require_owned_artifact(
         connection: sqlite3.Connection, assessment_id: str, artifact_id: str
-    ) -> ArtifactType:
+    ) -> tuple[ArtifactType, str]:
         row = connection.execute(
-            """SELECT artifact_type FROM assessment_artifacts
+            """SELECT artifact_type, artifact_schema_version
+               FROM assessment_artifacts
                WHERE artifact_id = ? AND assessment_id = ?""",
             (artifact_id, assessment_id),
         ).fetchone()
         if row is None:
             raise ArtifactNotFoundError("Parent artifact does not belong to assessment")
-        return ArtifactType(row["artifact_type"])
+        return ArtifactType(row["artifact_type"]), row["artifact_schema_version"]
+
+    @staticmethod
+    def _validate_artifact_contract_pin(
+        artifact_type: ArtifactType,
+        artifact_schema_version: str,
+        pin: AssessmentContractPin,
+    ) -> None:
+        if artifact_type is ArtifactType.INTEGRATED_ASSESSMENT_RESULT:
+            expected = _ASSESSMENT_SCHEMA_BY_CONTRACT[
+                pin.decision_contract_version
+            ]
+            if artifact_schema_version != expected:
+                raise PersistenceError(
+                    "Integrated assessment schema does not match the workspace pin"
+                )
+        elif artifact_type is ArtifactType.DECISION_PACKAGE_RESULT:
+            expected = _PACKAGE_SCHEMA_BY_CONTRACT[pin.decision_contract_version]
+            if artifact_schema_version != expected:
+                raise PersistenceError(
+                    "Decision package schema does not match the workspace pin"
+                )
+
+    @staticmethod
+    def _validate_payload_contract_pin(
+        artifact_type: ArtifactType,
+        artifact_schema_version: str,
+        payload: Any,
+        pin: AssessmentContractPin,
+    ) -> None:
+        if artifact_type is ArtifactType.INTEGRATED_ASSESSMENT_RESULT:
+            metadata = getattr(payload, "metadata", None)
+            if (
+                metadata is not None
+                and metadata.phase1_contract_version
+                != pin.decision_contract_version
+            ):
+                raise PersistenceError(
+                    "Integrated assessment contract does not match the workspace pin"
+                )
+            policy = getattr(payload, "policy", None)
+        elif artifact_type is ArtifactType.DECISION_PACKAGE_RESULT:
+            package = getattr(payload, "package", None)
+            source = getattr(package, "source", None)
+            if (
+                artifact_schema_version == "phase6-v0.2"
+                and source is not None
+                and source.phase1_contract_version
+                != pin.decision_contract_version
+            ):
+                raise PersistenceError(
+                    "Decision package contract does not match the workspace pin"
+                )
+            policy = getattr(source, "policy", None)
+        else:
+            return
+        if policy is not None and (
+            policy.policy_id != pin.policy_id
+            or policy.policy_version != pin.policy_version
+            or policy.decision_policy_fingerprint
+            != pin.decision_policy_fingerprint
+        ):
+            raise PersistenceError(
+                "Persisted policy identity does not match the workspace pin"
+            )
+
+    @staticmethod
+    def _validate_parent_contract_family(
+        artifact_type: ArtifactType,
+        artifact_schema_version: str,
+        parent_type: ArtifactType,
+        parent_schema_version: str,
+    ) -> None:
+        if (
+            artifact_type is ArtifactType.DECISION_PACKAGE_RESULT
+            and parent_type is ArtifactType.INTEGRATED_ASSESSMENT_RESULT
+        ):
+            expected_parent = {
+                "phase6-v0.1": "phase5-v0.1",
+                "phase6-v0.2": "phase5-v0.2",
+            }[artifact_schema_version]
+            if parent_schema_version != expected_parent:
+                raise PersistenceError(
+                    "Mixed legacy/successor Phase 5/6 parent chains are refused"
+                )

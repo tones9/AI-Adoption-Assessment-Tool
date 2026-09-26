@@ -17,6 +17,13 @@ from ai_adoption_engine.models.decision_support import (
     ReportSectionId,
 )
 from ai_adoption_engine.models.enums import RecommendationMode
+from ai_adoption_engine.models.four_gate_decision_support import (
+    FourGateDecisionPackageFailure,
+    FourGateDecisionPackageSuccess,
+)
+from ai_adoption_engine.models.four_gate_integrated_assessment import (
+    FourGateIntegratedAssessmentSuccess,
+)
 from ai_adoption_engine.presentation import labels
 from ai_adoption_engine.presentation.components.decision_header import (
     HeaderSection,
@@ -41,6 +48,11 @@ from ai_adoption_engine.presentation.context import (
 from ai_adoption_engine.presentation.decision_narrative import build_package_narrative
 from ai_adoption_engine.presentation.report_html import render_report_html
 from ai_adoption_engine.presentation.report_view import build_report_view
+from ai_adoption_engine.presentation.four_gate_ui import render_four_gate_package
+from ai_adoption_engine.presentation.contracts import (
+    UnsupportedPresentationContract,
+    phase6_presentation_contract,
+)
 
 
 SUMMARY = "Summary"
@@ -408,7 +420,31 @@ def render() -> None:
             "Complete a successful integrated assessment before generating "
             "decision support."
         )
+    if isinstance(generated, FourGateDecisionPackageSuccess):
+        if not isinstance(integrated, FourGateIntegratedAssessmentSuccess):
+            st.error(
+                "The Phase 5 and Phase 6 presentation contracts do not match."
+            )
+            return
+        try:
+            render_four_gate_package(generated)
+        except UnsupportedPresentationContract:
+            st.error(
+                "This Decision Package contract is not supported for presentation."
+            )
+        return
+    if isinstance(generated, FourGateDecisionPackageFailure):
+        st.error("Successor Decision Package generation could not complete.")
+        for error in generated.errors:
+            st.error(f"{error.code.value}: {error.message}")
+        return
     if generated is None:
+        if isinstance(integrated, FourGateIntegratedAssessmentSuccess):
+            st.info(
+                "No successor Decision Package is available. It must be created "
+                "through the explicit non-default successor route."
+            )
+            return
         st.write(
             "Generate the deterministic business-facing portfolio, future state, "
             "roadmap, governance summary and report."
@@ -431,12 +467,23 @@ def render() -> None:
                 st.error(f"Decision-package generation failed: {type(exc).__name__}")
         return
     if not isinstance(generated, DecisionPackageSuccess):
+        if not hasattr(generated, "errors"):
+            st.error("This Decision Package contract is not supported for presentation.")
+            return
         st.error("Decision-package generation could not complete.")
         for error in generated.errors:
             st.error(f"{error.code.value}: {error.message}")
         return
+    if isinstance(integrated, FourGateIntegratedAssessmentSuccess):
+        st.error("The Phase 5 and Phase 6 presentation contracts do not match.")
+        return
 
     package = generated.package
+    try:
+        phase6_presentation_contract(package)
+    except UnsupportedPresentationContract:
+        st.error("This Decision Package contract is not supported for presentation.")
+        return
     narrative = build_package_narrative(package)
     groups = _report_groups(package)
     selected = _render_section_nav()

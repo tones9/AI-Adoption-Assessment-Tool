@@ -142,4 +142,71 @@ MIGRATIONS: tuple[tuple[int, str], ...] = (
             );
         """,
     ),
+    (
+        4,
+        """
+        ALTER TABLE assessments
+            ADD COLUMN decision_contract_version TEXT NOT NULL DEFAULT 'phase1-v0.3';
+        ALTER TABLE assessments
+            ADD COLUMN decision_policy_id TEXT NOT NULL DEFAULT 'decision_policy.v0.2';
+        ALTER TABLE assessments
+            ADD COLUMN decision_policy_version TEXT NOT NULL DEFAULT '0.2.0';
+        ALTER TABLE assessments
+            ADD COLUMN decision_policy_fingerprint TEXT NOT NULL
+                DEFAULT 'b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66';
+
+        ALTER TABLE assessment_operations
+            ADD COLUMN decision_contract_version TEXT;
+        ALTER TABLE assessment_operations
+            ADD COLUMN decision_policy_fingerprint TEXT;
+        ALTER TABLE assessment_operations
+            ADD COLUMN contract_idempotency_key TEXT;
+
+        UPDATE assessment_operations
+        SET decision_contract_version = 'phase1-v0.3',
+            decision_policy_fingerprint =
+                'b72e528b102bf893b45e6de9ec311e0888341d12b8aa3f99b8047e324d6a6d66'
+        WHERE operation_kind IN ('assess', 'generate-package');
+
+        UPDATE assessment_operations
+        SET contract_idempotency_key =
+            decision_contract_version || ':' ||
+            decision_policy_fingerprint || ':' || idempotency_key
+        WHERE operation_kind IN ('assess', 'generate-package');
+
+        CREATE UNIQUE INDEX idx_operations_contract_identity
+            ON assessment_operations(
+                assessment_id,
+                operation_kind,
+                contract_idempotency_key
+            )
+            WHERE contract_idempotency_key IS NOT NULL;
+
+        CREATE TRIGGER prevent_contract_pin_change_after_approval
+        BEFORE UPDATE OF
+            decision_contract_version,
+            decision_policy_id,
+            decision_policy_version,
+            decision_policy_fingerprint
+        ON assessments
+        WHEN (
+            OLD.decision_contract_version IS NOT NEW.decision_contract_version OR
+            OLD.decision_policy_id IS NOT NEW.decision_policy_id OR
+            OLD.decision_policy_version IS NOT NEW.decision_policy_version OR
+            OLD.decision_policy_fingerprint IS NOT NEW.decision_policy_fingerprint
+        ) AND EXISTS (
+            SELECT 1
+            FROM assessment_artifacts
+            WHERE assessment_id = OLD.assessment_id
+              AND artifact_type IN (
+                  'APPROVED_REVIEW',
+                  'INTEGRATED_ASSESSMENT_RESULT',
+                  'DECISION_PACKAGE_RESULT'
+              )
+        )
+        BEGIN
+            SELECT RAISE(ABORT, 'assessment contract pin is immutable');
+        END;
+        """,
+    ),
 )

@@ -10,6 +10,10 @@ from ai_adoption_engine.application.decision_continuation import (
     DecisionContinuationRun,
     DecisionContinuationView,
 )
+from ai_adoption_engine.application.four_gate_decision_continuation import (
+    DecisionContinuationContractFamily,
+    discriminate_decision_continuation,
+)
 from ai_adoption_engine.models.decision_support import DecisionPackageSuccess
 from ai_adoption_engine.persistence.base import PersistenceError
 from ai_adoption_engine.presentation import labels
@@ -26,6 +30,8 @@ from ai_adoption_engine.presentation.components.technical_details import (
 )
 from ai_adoption_engine.presentation.context import (
     decision_continuation_service,
+    four_gate_m2_continuation_available,
+    four_gate_m2_service,
     grw_continuation_available,
     hydrate_workspace,
     switch_to_registered_page,
@@ -36,6 +42,9 @@ from ai_adoption_engine.presentation.controlled_reassessment_report import (
 )
 from ai_adoption_engine.presentation.decision_narrative import (
     build_package_narrative,
+)
+from ai_adoption_engine.presentation.four_gate_decision_continuation import (
+    render_four_gate_decision_continuation,
 )
 from ai_adoption_engine.workspace.models import ArtifactType
 from ai_adoption_engine.presentation.components.page_header import (
@@ -469,6 +478,29 @@ def render() -> None:
     snapshot = hydrate_workspace()
     if snapshot is None:
         guard("Create or open an assessment first.")
+    contract_view = discriminate_decision_continuation(snapshot)
+    if contract_view.contract_family is DecisionContinuationContractFamily.FOUR_GATE:
+        successor_service = None
+        successor_writable = four_gate_m2_continuation_available()
+        if (
+            contract_view.successor_continuation_available
+            and successor_writable
+        ):
+            try:
+                successor_service = four_gate_m2_service()
+            except Exception:
+                successor_service = None
+        render_four_gate_decision_continuation(
+            contract_view,
+            service=successor_service,
+            workspace_writable=successor_writable,
+        )
+        return
+    if contract_view.contract_family is DecisionContinuationContractFamily.UNSUPPORTED:
+        guard(
+            contract_view.failure_message
+            or "The saved baseline contract could not be verified."
+        )
     if not grw_continuation_available():
         _render_protected_baseline(snapshot)
         return
