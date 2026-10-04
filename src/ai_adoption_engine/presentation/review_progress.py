@@ -226,9 +226,9 @@ def document_supported_unreviewed(
         item
         for item in targets
         if item.assertion.retained
-        and item.assertion.knowledge_state is KnowledgeState.KNOWN
-        and item.assertion.origin is InformationOrigin.DOCUMENT_SUPPORTED
-        and item.assertion.disposition is ReviewDisposition.UNREVIEWED
+        and item.assertion.knowledge_state.value == KnowledgeState.KNOWN.value
+        and item.assertion.origin.value == InformationOrigin.DOCUMENT_SUPPORTED.value
+        and item.assertion.disposition.value == ReviewDisposition.UNREVIEWED.value
     ]
 
 
@@ -240,16 +240,16 @@ def inferred_unreviewed(session: ProcessReviewSession) -> list[AssertionTarget]:
         item
         for item in targets
         if item.assertion.retained
-        and item.assertion.origin is InformationOrigin.MODEL_INFERRED
-        and item.assertion.disposition is ReviewDisposition.UNREVIEWED
+        and item.assertion.origin.value == InformationOrigin.MODEL_INFERRED.value
+        and item.assertion.disposition.value == ReviewDisposition.UNREVIEWED.value
     ]
 
 
 def unknown_unreviewed_by_step(session: ProcessReviewSession) -> dict[str, int]:
     return {
         step.candidate_step_id: sum(
-            item.assertion.knowledge_state is KnowledgeState.UNKNOWN
-            and item.assertion.disposition is ReviewDisposition.UNREVIEWED
+            item.assertion.knowledge_state.value == KnowledgeState.UNKNOWN.value
+            and item.assertion.disposition.value == ReviewDisposition.UNREVIEWED.value
             for item in iter_step_assertions(session, step.candidate_step_id)
         )
         for step in session.steps

@@ -23,6 +23,10 @@ from ai_adoption_engine.presentation.pages import (
     review,
     source,
 )
+from ai_adoption_engine.presentation.preliminary_ui import (
+    preliminary_destination_title,
+    preliminary_ui_enabled,
+)
 from ai_adoption_engine.presentation.theme import PRODUCT_NAME, inject_global_styles
 
 
@@ -37,19 +41,47 @@ st.set_page_config(
 # No document, assessment or user content is interpolated into it.
 inject_global_styles()
 
+preliminary_enabled = preliminary_ui_enabled()
+navigation_snapshot = st.session_state.get("workspace_snapshot")
+preliminary_title = None
+if preliminary_enabled and navigation_snapshot is not None:
+    try:
+        preliminary_title = preliminary_destination_title(navigation_snapshot)
+    except Exception:
+        preliminary_title = None
+
 main_journey = [
     st.Page(assessments.render, title="Assessments", icon=":material/home:", url_path="assessments", default=True),
     st.Page(source.render, title="Source & Extraction", icon=":material/description:", url_path="source"),
     st.Page(review.render, title="Validate process", icon=":material/fact_check:", url_path="review"),
-    st.Page(results.render, title="Assessment Results", icon=":material/analytics:", url_path="results"),
-    st.Page(decision_package.render, title="Decision Package", icon=":material/account_tree:", url_path="decision-package"),
 ]
+registered_only = []
+if preliminary_enabled:
+    from ai_adoption_engine.presentation.pages import process_journey
+
+    preliminary_page = st.Page(
+        process_journey.render,
+        title=preliminary_title or "Preliminary Assessment",
+        icon=":material/explore:",
+        url_path="process-journey",
+        visibility="visible" if preliminary_title else "hidden",
+    )
+    if preliminary_title:
+        main_journey.append(preliminary_page)
+    else:
+        registered_only.append(preliminary_page)
+main_journey.extend(
+    [
+        st.Page(results.render, title="Assessment Results", icon=":material/analytics:", url_path="results"),
+        st.Page(decision_package.render, title="Decision Package", icon=":material/account_tree:", url_path="decision-package"),
+    ]
+)
 continuation = [
     st.Page(decision_continuation.render, title="Decision continuation", icon=":material/route:", url_path="decision-continuation"),
     st.Page(gap_resolution.render, title="Gap resolution", icon=":material/help_center:", url_path="gap-resolution"),
     st.Page(reassessment.render, title="Reassessment", icon=":material/restart_alt:", url_path="reassessment"),
 ]
-pages = [*main_journey, *continuation]
+pages = [*main_journey, *registered_only, *continuation]
 page = st.navigation(pages, position="sidebar", expanded=True)
 protected_p2_page = (
     frozen_evaluation_workspace_selected()

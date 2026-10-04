@@ -57,6 +57,7 @@ from ai_adoption_engine.presentation.contracts import (
     phase5_presentation_contract,
 )
 from ai_adoption_engine.presentation.four_gate_ui import render_four_gate_results
+from ai_adoption_engine.presentation.preliminary_ui import journey_materialized
 
 
 _MEANINGFUL_PRIORITY_STATUSES = frozenset(
@@ -241,16 +242,38 @@ def _open_decision_package() -> None:
         st.info("Open Decision Package from the sidebar to continue.")
 
 
+def _render_journey_protection() -> None:
+    st.info(
+        "This assessment continues in Process journey. Assessment Results is the "
+        "separate strict workflow; no new strict assessment will be started here."
+    )
+    if st.button("Open Process journey", type="primary", key="results-open-journey"):
+        if not switch_to_registered_page("process-journey"):
+            st.info("Open Process journey from the sidebar to continue.")
+
+
 def render() -> None:
     snapshot = hydrate_workspace()
     approved = st.session_state.get("approved_review")
     integrated = st.session_state.get("integrated_assessment_result")
+    try:
+        protected_by_journey = bool(
+            snapshot is not None and journey_materialized(snapshot)
+        )
+    except Exception:
+        protected_by_journey = True
+        render_page_header("Assessment Results")
+        st.error(
+            "Journey protection could not be validated safely. No strict assessment action is available."
+        )
+        return
 
     if (
         snapshot is not None
         and approved is not None
         and isinstance(integrated, FourGateIntegratedAssessmentSuccess)
     ):
+        _render_journey_protection()
         try:
             phase5_presentation_contract(integrated)
         except UnsupportedPresentationContract:
@@ -281,11 +304,15 @@ def render() -> None:
                 HeaderSection("What this means", narrative.what_this_means),
                 HeaderSection("What happens next", narrative.next_action),
             ),
-            action=HeaderAction(
-                section_heading="What happens next",
-                label="Open the Decision Package",
-                key="results-open-decision-package",
-                icon=":material/account_tree:",
+            action=(
+                None
+                if protected_by_journey
+                else HeaderAction(
+                    section_heading="What happens next",
+                    label="Open the Decision Package",
+                    key="results-open-decision-package",
+                    icon=":material/account_tree:",
+                )
             ),
         )
     else:
@@ -296,6 +323,10 @@ def render() -> None:
         guard("Create or open an assessment first.")
     if approved is None:
         guard("Explicitly approve the human-reviewed process before assessment.")
+    if protected_by_journey:
+        _render_journey_protection()
+        if integrated is None:
+            return
     if integrated is None:
         st.write(
             "The approved current-state process is ready for deterministic "

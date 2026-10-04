@@ -100,7 +100,7 @@ class ProcessReviewService:
         *,
         rationale: str | None = None,
     ) -> None:
-        if assertion.knowledge_state is KnowledgeState.UNKNOWN:
+        if assertion.knowledge_state.value == KnowledgeState.UNKNOWN.value:
             raise ValueError("Unknown assertions must be resolved or explicitly retained")
         before = assertion.model_dump(mode="json")
         assertion.disposition = ReviewDisposition.ACCEPTED
@@ -123,9 +123,9 @@ class ProcessReviewService:
         if value is None or (isinstance(value, str) and not value.strip()):
             raise ValueError("A corrected value must be non-empty")
         supplied_evidence = list(evidence or [])
-        if origin is InformationOrigin.HUMAN_SUPPLIED and supplied_evidence:
+        if origin.value == InformationOrigin.HUMAN_SUPPLIED.value and supplied_evidence:
             raise ValueError("Human-supplied corrections cannot claim document evidence")
-        if origin is InformationOrigin.DOCUMENT_SUPPORTED:
+        if origin.value == InformationOrigin.DOCUMENT_SUPPORTED.value:
             if not supplied_evidence:
                 raise ValueError("Document-supported corrections require source evidence")
             if any(
@@ -133,7 +133,7 @@ class ProcessReviewService:
                 for item in supplied_evidence
             ):
                 raise ValueError("Correction evidence must belong to the reviewed document")
-        elif origin is not InformationOrigin.HUMAN_SUPPLIED:
+        elif origin.value != InformationOrigin.HUMAN_SUPPLIED.value:
             raise ValueError(
                 "Corrections may be HUMAN_SUPPLIED or DOCUMENT_SUPPORTED"
             )
@@ -169,7 +169,7 @@ class ProcessReviewService:
         unaffected. The recorded action remains ``RESOLVE_UNKNOWN``.
         """
 
-        if assertion.knowledge_state is not KnowledgeState.UNKNOWN:
+        if assertion.knowledge_state.value != KnowledgeState.UNKNOWN.value:
             raise ValueError("Only an unknown assertion can be resolved as unknown")
         before = assertion.model_dump(mode="json")
         self.correct_assertion(
@@ -199,7 +199,7 @@ class ProcessReviewService:
         *,
         rationale: str | None = None,
     ) -> None:
-        if assertion.knowledge_state is not KnowledgeState.UNKNOWN:
+        if assertion.knowledge_state.value != KnowledgeState.UNKNOWN.value:
             raise ValueError("Only an unknown assertion can be retained as unknown")
         before = assertion.model_dump(mode="json")
         assertion.disposition = ReviewDisposition.UNKNOWN_RETAINED
@@ -453,7 +453,7 @@ def _issue_is_blocking(issue: ExtractionIssue) -> bool:
     path = issue.field_path or ""
     if issue.code == "process-field-conflict":
         return path == "process_name"
-    if issue.severity is not ExtractionIssueSeverity.ERROR:
+    if issue.severity.value != ExtractionIssueSeverity.ERROR.value:
         return False
     if ".characteristics." in path:
         return False

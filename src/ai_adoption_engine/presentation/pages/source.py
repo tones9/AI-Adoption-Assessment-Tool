@@ -9,7 +9,7 @@ from ai_adoption_engine.workspace.demo_fixtures import (
     SYNTHETIC_LABEL,
     fixture_for_document_id,
 )
-from ai_adoption_engine.workspace.models import ExecutionMode
+from ai_adoption_engine.workspace.models import ArtifactType, ExecutionMode
 from ai_adoption_engine.models.document import IngestionStatus
 from ai_adoption_engine.models.extraction import ExtractionStatus
 from ai_adoption_engine.presentation.components.status import guard
@@ -25,6 +25,12 @@ from ai_adoption_engine.presentation.components.page_header import (
     render_page_header,
 )
 from ai_adoption_engine.presentation.components.primitives import render_stat_strip
+from ai_adoption_engine.presentation.preliminary_ui import (
+    clear_preliminary_session_state,
+    preliminary_ui_enabled,
+    render_route_choice,
+    route_intent,
+)
 
 
 def _safe_name(name: str) -> str:
@@ -114,6 +120,8 @@ def render() -> None:
                 "If this source differs, make the current candidate/review/assessment/package chain non-current. Historical milestone revisions will be retained."
             )
         if st.button("Ingest document", type="primary"):
+            if preliminary_ui_enabled():
+                clear_preliminary_session_state()
             try:
                 with st.spinner("Ingesting and validating the document…"):
                     if input_kind == "Bundled synthetic demo":
@@ -141,7 +149,7 @@ def render() -> None:
                         st.error("Provide one document or pasted text.")
                         return
                 refresh_workspace()
-                if result.status is IngestionStatus.FAILED:
+                if result.status.value == IngestionStatus.FAILED.value:
                     st.error("Document ingestion failed.")
                 else:
                     st.success("Document ingestion completed.")
@@ -155,9 +163,9 @@ def render() -> None:
         document = None
         if current_ingestion is None:
             st.caption("Ingest a document to inspect the extracted text and source details.")
-        elif current_ingestion.status is IngestionStatus.SUCCESS:
+        elif current_ingestion.status.value == IngestionStatus.SUCCESS.value:
             st.success("Text extracted successfully.")
-        elif current_ingestion.status is IngestionStatus.PARTIAL:
+        elif current_ingestion.status.value == IngestionStatus.PARTIAL.value:
             st.warning("Text was extracted with warnings.")
         else:
             st.error("No usable document was produced.")
@@ -215,13 +223,15 @@ def render() -> None:
                     else "Offline scripted extraction works only with a bundled synthetic demo document."
                 ),
             ):
+                if preliminary_ui_enabled():
+                    clear_preliminary_session_state()
                 try:
                     with st.spinner("Extracting a candidate process…"):
                         result = workspace_service().extract(
                             snapshot.assessment.assessment_id
                         )
                     refresh_workspace()
-                    if result.status is ExtractionStatus.FAILED:
+                    if result.status.value == ExtractionStatus.FAILED.value:
                         st.error("Candidate extraction failed.")
                     else:
                         st.success("Candidate extraction completed. Process validation is required.")
@@ -238,18 +248,68 @@ def render() -> None:
                 if issue.http_status_code:
                     message += f" HTTP {issue.http_status_code}."
                 st.warning(message)
+            if (
+                candidate_result.status.value == ExtractionStatus.FAILED.value
+                and extraction_enabled
+            ):
+                failed_artifact = snapshot.active_artifacts.get(
+                    ArtifactType.CANDIDATE_EXTRACTION_RESULT
+                )
+                if failed_artifact is not None and st.button(
+                    "Retry candidate extraction",
+                    type="primary",
+                ):
+                    if preliminary_ui_enabled():
+                        clear_preliminary_session_state()
+                    try:
+                        with st.spinner("Retrying candidate extraction…"):
+                            result = workspace_service().retry_failed_extraction(
+                                snapshot.assessment.assessment_id,
+                                failed_artifact_id=failed_artifact.artifact_id,
+                            )
+                        refresh_workspace()
+                        if result.status.value == ExtractionStatus.FAILED.value:
+                            st.error(
+                                "Candidate extraction did not produce a usable process. You can retry again."
+                            )
+                        else:
+                            st.success(
+                                "Candidate extraction completed. Process validation is required."
+                            )
+                        st.rerun()
+                    except Exception:
+                        st.error(
+                            "Candidate extraction could not be retried. Refresh and try again."
+                        )
             if candidate_result.candidate:
                 st.write(
                     f"Candidate process: {candidate_result.candidate.process_name.value or 'Unknown'} · "
                     f"{len(candidate_result.candidate.steps)} activities"
                 )
+                if preliminary_ui_enabled():
+                    st.divider()
+                    st.subheader("4. Choose what happens after validation")
+                    render_route_choice(snapshot, key_prefix="source-route")
                 review_session = st.session_state.get("review_session")
                 if review_session is None:
                     if not phase4_review_writes_available():
                         st.info(
                             "Process validation changes are unavailable because this is a frozen evaluation record."
                         )
-                    elif st.button("Start process validation", type="primary"):
+                    elif st.button(
+                        "Start process validation",
+                        type="primary",
+                        disabled=(
+                            preliminary_ui_enabled()
+                            and route_intent(snapshot) is None
+                        ),
+                        help=(
+                            "Choose what happens after validation first."
+                            if preliminary_ui_enabled()
+                            and route_intent(snapshot) is None
+                            else None
+                        ),
+                    ):
                         try:
                             workspace_service().start_review(
                                 snapshot.assessment.assessment_id

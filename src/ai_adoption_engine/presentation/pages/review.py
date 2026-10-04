@@ -51,6 +51,14 @@ from ai_adoption_engine.presentation.components.primitives import (
     render_business_list,
     render_stat_strip,
 )
+from ai_adoption_engine.presentation.preliminary_ui import (
+    continue_first_time_route,
+    current_journey_state,
+    preliminary_ui_enabled,
+    render_route_choice,
+    route_intent,
+)
+from ai_adoption_engine.models.preliminary_journey import PreliminaryCurrentRoute
 
 
 AssertionResolver = Callable[[ProcessReviewSession], ReviewedAssertion]
@@ -1323,7 +1331,47 @@ def _render_technical_traceability(session: ProcessReviewSession) -> None:
                 st.code(evidence.exact_snippet, language=None, wrap_lines=True)
 
 
-def _render_approved(approved) -> None:
+def _render_route_summary(snapshot) -> None:
+    if not preliminary_ui_enabled():
+        return
+    intent = route_intent(snapshot)
+    with st.container(border=True):
+        st.markdown("### Planned route after process approval")
+        if intent is None:
+            st.warning("Choose what happens after validation before approval.")
+            render_route_choice(snapshot, key_prefix="review-route-missing")
+            return
+        label = (
+            "Explore this process"
+            if intent.route.value == "EXPLORE_PROCESS"
+            else "Run an organisational assessment"
+        )
+        st.write(f"**{label}**")
+        st.caption(
+            "Both routes use this same reviewed and approved current-state process."
+        )
+        if st.button("Change choice", key="review-change-route"):
+            st.session_state.preliminary_change_route = True
+            st.rerun()
+        if st.session_state.get("preliminary_change_route"):
+            render_route_choice(snapshot, key_prefix="review-route-change")
+
+
+def _continue_journey_setup(snapshot) -> None:
+    try:
+        with st.spinner("Preparing your selected route…"):
+            continue_first_time_route(snapshot)
+    except Exception:
+        st.session_state.preliminary_setup_incomplete = True
+        st.error(
+            "Your selected route could not start safely. The current-state process approval remains valid."
+        )
+        return
+    st.session_state.pop("preliminary_change_route", None)
+    switch_to_registered_page("process-journey")
+
+
+def _render_approved(approved, snapshot) -> None:
     st.success("Current-state process explicitly approved.")
     st.caption(
         f"Review {approved.review.review_id} · Approved {approved.approval.approved_at.isoformat()}"
@@ -1336,6 +1384,39 @@ def _render_approved(approved) -> None:
     st.caption(
         "This approves the current-state process representation. It does not approve AI adoption, ROI, deployment readiness, or completion of all unknown information."
     )
+    if preliminary_ui_enabled():
+        try:
+            state = current_journey_state(snapshot)
+        except Exception:
+            st.error(
+                "Preliminary journey history could not be safely validated. No data was changed."
+            )
+            return
+        if (
+            state is not None
+            and state.current_route.value != PreliminaryCurrentRoute.UNSELECTED.value
+        ):
+            label = (
+                "Open Preliminary Assessment"
+                if state.current_route.value == PreliminaryCurrentRoute.EXPLORE_PROCESS.value
+                else "Open organisational assessment"
+            )
+            if st.button(label, type="primary"):
+                switch_to_registered_page("process-journey")
+            return
+        intent = route_intent(snapshot)
+        if intent is None:
+            st.warning("Choose a route to continue after process approval.")
+            render_route_choice(snapshot, key_prefix="approved-route")
+            intent = route_intent(snapshot)
+        if intent is not None:
+            st.warning("Journey setup incomplete")
+            st.write(
+                "Your current-state process approval remains valid. You do not need to approve it again."
+            )
+            if st.button("Continue journey setup", type="primary"):
+                _continue_journey_setup(snapshot)
+        return
     if st.button("Open assessment results", type="primary"):
         switch_to_registered_page("results")
 
@@ -1407,7 +1488,7 @@ def _render_optional_workspace(
 
 
 def _render_final_approval_workspace(
-    session: ProcessReviewSession, journey: ReviewJourneyView, assessment_id: str
+    session: ProcessReviewSession, journey: ReviewJourneyView, snapshot
 ) -> None:
     st.subheader("Final approval")
     with st.container(border=True, key="review-approval-summary"):
@@ -1451,21 +1532,41 @@ def _render_final_approval_workspace(
             "Approval note (optional)",
             key=f"approval-rationale-{session.review_id}",
         )
+        route_ready = (
+            not preliminary_ui_enabled() or route_intent(snapshot) is not None
+        )
         submitted = st.button(
             "Approve current-state process",
             type="primary",
-            disabled=not confirmed,
-            help=None if confirmed else "Tick the approval confirmation first.",
+            disabled=not confirmed or not route_ready,
+            help=(
+                "Choose the planned route before approval."
+                if not route_ready
+                else (
+                    None
+                    if confirmed
+                    else "Tick the approval confirmation first."
+                )
+            ),
         )
         if submitted:
             result = workspace_service().approve(
-                assessment_id, rationale=rationale or None
+                snapshot.assessment.assessment_id, rationale=rationale or None
             )
             if result.approved is None:
                 for error in result.errors:
                     st.error(error.message)
             else:
-                refresh_workspace()
+                refreshed = refresh_workspace()
+                if preliminary_ui_enabled() and route_intent(refreshed) is not None:
+                    try:
+                        with st.spinner("Preparing your selected route…"):
+                            continue_first_time_route(refreshed)
+                    except Exception:
+                        st.session_state.preliminary_setup_incomplete = True
+                        st.rerun()
+                    if switch_to_registered_page("process-journey"):
+                        return
                 st.rerun()
 
     with st.expander("Technical review record"):
@@ -1490,7 +1591,7 @@ def render() -> None:
         )
     approved = st.session_state.get("approved_review")
     if approved is not None:
-        _render_approved(approved)
+        _render_approved(approved, snapshot)
         return
     candidate = st.session_state.get("candidate_extraction_result")
     if candidate is None or candidate.candidate is None:
@@ -1510,6 +1611,8 @@ def render() -> None:
             refresh_workspace()
             st.rerun()
         return
+
+    _render_route_summary(snapshot)
 
     selected_item_id = st.session_state.get("guided_review_selected_item")
     journey = build_review_journey(session, selected_item_id=selected_item_id)
@@ -1540,7 +1643,7 @@ def render() -> None:
         _render_optional_workspace(session, journey)
     elif mode == "Final approval":
         _render_final_approval_workspace(
-            session, journey, snapshot.assessment.assessment_id
+            session, journey, snapshot
         )
     else:
         _render_requirement_buttons(journey)

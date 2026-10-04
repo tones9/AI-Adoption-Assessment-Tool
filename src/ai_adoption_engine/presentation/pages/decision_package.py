@@ -45,6 +45,7 @@ from ai_adoption_engine.presentation.context import (
     workspace_writes_available,
     workspace_service,
 )
+from ai_adoption_engine.presentation.preliminary_ui import journey_materialized
 from ai_adoption_engine.presentation.decision_narrative import build_package_narrative
 from ai_adoption_engine.presentation.report_html import render_report_html
 from ai_adoption_engine.presentation.report_view import build_report_view
@@ -206,7 +207,7 @@ def _recommendation_tone(mode: RecommendationMode) -> str:
     )
 
 
-def _render_summary(package, narrative, sections) -> None:
+def _render_summary(package, narrative, sections, *, read_only: bool = False) -> None:
     render_decision_header(
         context_line=f"Decision Package · {narrative.process_name}",
         headline=narrative.headline,
@@ -244,6 +245,11 @@ def _render_summary(package, narrative, sections) -> None:
             width="stretch",
         )
     with secondary:
+        if read_only:
+            st.caption(
+                "This historical package is read-only. Continue current work in Process journey."
+            )
+            return
         if st.button(
             "Review optional evidence-continuation paths",
             key="decision-package-continue",
@@ -415,6 +421,27 @@ def render() -> None:
 
     if snapshot is None:
         guard("Create or open an assessment first.")
+    try:
+        protected_by_journey = journey_materialized(snapshot)
+    except Exception:
+        st.error(
+            "Journey protection could not be validated safely. Decision Package actions are unavailable."
+        )
+        return
+    if protected_by_journey:
+        st.info(
+            "This assessment continues in Process journey. No new Decision Package "
+            "will be generated from this Preliminary journey."
+        )
+        if st.button(
+            "Open Process journey",
+            type="primary",
+            key="package-open-process-journey",
+        ):
+            if not switch_to_registered_page("process-journey"):
+                st.info("Open Process journey from the sidebar to continue.")
+        if generated is None:
+            return
     if integrated is None or getattr(integrated, "status", None) != "success":
         guard(
             "Complete a successful integrated assessment before generating "
@@ -489,7 +516,12 @@ def render() -> None:
     selected = _render_section_nav()
 
     if selected == SUMMARY:
-        _render_summary(package, narrative, groups[selected])
+        _render_summary(
+            package,
+            narrative,
+            groups[selected],
+            read_only=protected_by_journey,
+        )
     elif selected == OPPORTUNITY_PORTFOLIO:
         _render_portfolio(package, groups[selected])
     elif selected == FUTURE_STATE:

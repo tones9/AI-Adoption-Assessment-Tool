@@ -80,23 +80,23 @@ class ReviewedAssertion(BaseModel):
 
     @model_validator(mode="after")
     def validate_review_provenance(self) -> "ReviewedAssertion":
-        if self.origin is InformationOrigin.HUMAN_SUPPLIED and self.evidence:
+        if self.origin.value == InformationOrigin.HUMAN_SUPPLIED.value and self.evidence:
             raise ValueError("Human-supplied information cannot claim document evidence")
         if (
-            self.origin is InformationOrigin.DOCUMENT_SUPPORTED
-            and self.knowledge_state is not KnowledgeState.UNKNOWN
+            self.origin.value == InformationOrigin.DOCUMENT_SUPPORTED.value
+            and self.knowledge_state.value != KnowledgeState.UNKNOWN.value
             and not self.evidence
         ):
             raise ValueError("Document-supported information requires document evidence")
-        if self.knowledge_state is KnowledgeState.UNKNOWN:
+        if self.knowledge_state.value == KnowledgeState.UNKNOWN.value:
             if self.value is not None or self.evidence or self.confidence is not None:
                 raise ValueError("Unknown reviewed assertions cannot claim a value or evidence")
-            if self.origin is not InformationOrigin.UNKNOWN:
+            if self.origin.value != InformationOrigin.UNKNOWN.value:
                 raise ValueError("Unknown reviewed assertions must use UNKNOWN origin")
         elif self.value is None:
             raise ValueError("Known or inferred reviewed assertions require a value")
-        if self.knowledge_state is KnowledgeState.INFERRED:
-            if self.origin is not InformationOrigin.MODEL_INFERRED:
+        if self.knowledge_state.value == KnowledgeState.INFERRED.value:
+            if self.origin.value != InformationOrigin.MODEL_INFERRED.value:
                 raise ValueError("Inferred reviewed assertions retain MODEL_INFERRED origin")
             if self.confidence is None:
                 raise ValueError("Inferred reviewed assertions require confidence")
@@ -257,9 +257,9 @@ class ApprovalResult(BaseModel):
 
 
 def origin_for_candidate(assertion: CandidateAssertion[Any]) -> InformationOrigin:
-    if assertion.knowledge_state is KnowledgeState.KNOWN:
+    if assertion.knowledge_state.value == KnowledgeState.KNOWN.value:
         return InformationOrigin.DOCUMENT_SUPPORTED
-    if assertion.knowledge_state is KnowledgeState.INFERRED:
+    if assertion.knowledge_state.value == KnowledgeState.INFERRED.value:
         return InformationOrigin.MODEL_INFERRED
     return InformationOrigin.UNKNOWN
 

@@ -166,7 +166,7 @@ def build_review_journey(
         open_blocking_conflict_ids=tuple(
             conflict.conflict_id
             for conflict in session.conflicts
-            if conflict.blocking and conflict.status is ConflictStatus.OPEN
+            if conflict.blocking and conflict.status.value == ConflictStatus.OPEN.value
         ),
         invalid_dependency_field_paths=invalid_dependency_paths,
         audit=_audit_summary(session),
@@ -185,7 +185,7 @@ def _audit_summary(session: ProcessReviewSession) -> ReviewJourneyAuditSummary:
         path = event.field_path
         if event.action in {ReviewAction.CORRECT, ReviewAction.RESOLVE_UNKNOWN}:
             corrections.append(path)
-        elif event.action is ReviewAction.REJECT:
+        elif event.action.value == ReviewAction.REJECT.value:
             rejections_or_removals.append(path)
         elif event.action in {
             ReviewAction.REORDER_STEPS,
@@ -195,16 +195,16 @@ def _audit_summary(session: ProcessReviewSession) -> ReviewJourneyAuditSummary:
             ReviewAction.SELECT_PRIMARY_ACTOR,
         }:
             structural_changes.append(path)
-        elif event.action is ReviewAction.ACCEPT:
+        elif event.action.value == ReviewAction.ACCEPT.value:
             accepted_documented.append(path)
-        elif event.action is ReviewAction.RETAIN_UNKNOWN:
+        elif event.action.value == ReviewAction.RETAIN_UNKNOWN.value:
             retained_unknowns.append(path)
 
     human_supplied = tuple(
         target.field_path
         for target in _all_targets(session)
-        if target.assertion.origin is InformationOrigin.HUMAN_SUPPLIED
-        and target.assertion.knowledge_state is not KnowledgeState.UNKNOWN
+        if target.assertion.origin.value == InformationOrigin.HUMAN_SUPPLIED.value
+        and target.assertion.knowledge_state.value != KnowledgeState.UNKNOWN.value
         and target.assertion.retained
     )
     return ReviewJourneyAuditSummary(

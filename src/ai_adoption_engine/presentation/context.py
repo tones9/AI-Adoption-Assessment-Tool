@@ -130,6 +130,11 @@ def four_gate_m2_service():
 
 
 def clear_workspace_state() -> None:
+    from ai_adoption_engine.presentation.preliminary_ui import (
+        clear_preliminary_session_state,
+    )
+
+    clear_preliminary_session_state()
     for key in (
         "loaded_assessment_id",
         "workspace_snapshot",
@@ -209,6 +214,35 @@ def switch_to_registered_page(page_key: str) -> bool:
             title="Assessment Results",
             icon=":material/analytics:",
             url_path="results",
+        )
+    elif page_key == "process-journey":
+        from ai_adoption_engine.presentation.pages import process_journey
+        from ai_adoption_engine.presentation.preliminary_ui import (
+            preliminary_destination_title,
+        )
+
+        snapshot = hydrate_workspace()
+        title = (
+            preliminary_destination_title(snapshot)
+            if snapshot is not None
+            else None
+        )
+
+        page = st.Page(
+            process_journey.render,
+            title=title or "Preliminary Assessment",
+            icon=":material/explore:",
+            url_path="process-journey",
+            visibility="hidden",
+        )
+    elif page_key == "review":
+        from ai_adoption_engine.presentation.pages import review
+
+        page = st.Page(
+            review.render,
+            title="Validate process",
+            icon=":material/fact_check:",
+            url_path="review",
         )
     else:
         return False

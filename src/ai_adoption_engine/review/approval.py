@@ -99,7 +99,7 @@ def _approval_errors(
                 message="An explicit human approval action is required.",
             )
         )
-    if session.status is ReviewStatus.APPROVED:
+    if session.status.value == ReviewStatus.APPROVED.value:
         errors.append(
             ApprovalError(
                 code="review-already-approved",
@@ -161,7 +161,7 @@ def _approval_errors(
             field_path=conflict.field_path,
         )
         for conflict in session.conflicts
-        if conflict.blocking and conflict.status is ConflictStatus.OPEN
+        if conflict.blocking and conflict.status.value == ConflictStatus.OPEN.value
     )
     return errors
 
@@ -328,7 +328,7 @@ def _boolean_data(
 
 
 def _unknown_rationale(assertion: ReviewedAssertion) -> str:
-    if assertion.disposition is ReviewDisposition.REJECTED:
+    if assertion.disposition.value == ReviewDisposition.REJECTED.value:
         return "The extracted assertion was rejected during human review."
     return assertion.rationale
 
@@ -369,7 +369,10 @@ def _collect_assertion_evidence(
     assertion: ReviewedAssertion,
     evidence_by_id: dict[str, EvidenceReference],
 ) -> list[str]:
-    if not assertion.retained or assertion.origin is InformationOrigin.HUMAN_SUPPLIED:
+    if (
+        not assertion.retained
+        or assertion.origin.value == InformationOrigin.HUMAN_SUPPLIED.value
+    ):
         return []
     return [_store_evidence(reference, evidence_by_id) for reference in assertion.evidence]
 

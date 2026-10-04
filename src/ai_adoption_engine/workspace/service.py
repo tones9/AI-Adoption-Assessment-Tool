@@ -152,7 +152,7 @@ class AssessmentWorkspaceService:
         operation = self.repository.begin_operation(
             assessment_id, OperationKind.INGEST, source_digest
         )
-        if operation.status is OperationStatus.COMPLETED:
+        if operation.status.value == OperationStatus.COMPLETED.value:
             assert operation.produced_artifact_id
             stored = self.repository.load_artifact(operation.produced_artifact_id)
             active = existing_workspace.active_artifacts.get(
@@ -184,7 +184,7 @@ class AssessmentWorkspaceService:
             return stored.payload
         stage = (
             WorkflowStage.INGESTED
-            if result.status is not IngestionStatus.FAILED
+            if result.status.value != IngestionStatus.FAILED.value
             else WorkflowStage.NEW
         )
         document = result.document
@@ -223,6 +223,27 @@ class AssessmentWorkspaceService:
         return result
 
     def extract(self, assessment_id: str) -> CandidateExtractionResult:
+        return self._extract(assessment_id)
+
+    def retry_failed_extraction(
+        self,
+        assessment_id: str,
+        *,
+        failed_artifact_id: str,
+    ) -> CandidateExtractionResult:
+        """Retry one exact failed extraction without replaying its completed operation."""
+
+        return self._extract(
+            assessment_id,
+            retry_failed_artifact_id=failed_artifact_id,
+        )
+
+    def _extract(
+        self,
+        assessment_id: str,
+        *,
+        retry_failed_artifact_id: str | None = None,
+    ) -> CandidateExtractionResult:
         workspace = self.repository.load_workspace(assessment_id)
         ingestion = workspace.active_artifacts.get(ArtifactType.INGESTION_RESULT)
         if ingestion is None or ingestion.payload.document is None:
@@ -231,19 +252,37 @@ class AssessmentWorkspaceService:
         service: ProcessExtractionService = self.extraction_service_factory(
             workspace.assessment.execution_mode, document
         )
-        key = hashlib.sha256(
-            f"{document.document_id}:{service.provider.provider_name}:{service.provider.model_name}:{service.schema_version}:{service.prompt_version}".encode()
-        ).hexdigest()
+        key_material = (
+            f"{document.document_id}:{service.provider.provider_name}:"
+            f"{service.provider.model_name}:{service.schema_version}:"
+            f"{service.prompt_version}"
+        )
+        retry_source = None
+        if retry_failed_artifact_id is not None:
+            retry_source = self.repository.load_artifact(retry_failed_artifact_id)
+            if (
+                retry_source.assessment_id != assessment_id
+                or retry_source.artifact_type != ArtifactType.CANDIDATE_EXTRACTION_RESULT
+                or retry_source.parent_artifact_id != ingestion.artifact_id
+                or retry_source.payload.status.value != ExtractionStatus.FAILED.value
+            ):
+                raise WorkflowGuardError(
+                    "Only the current failed extraction for this document can be retried"
+                )
+            key_material = f"{key_material}:retry:{retry_failed_artifact_id}"
+        key = hashlib.sha256(key_material.encode()).hexdigest()
         operation = self.repository.begin_operation(
             assessment_id, OperationKind.EXTRACT, key
         )
-        if operation.status is OperationStatus.COMPLETED:
+        if operation.status.value == OperationStatus.COMPLETED.value:
             assert operation.produced_artifact_id
             stored = self.repository.load_artifact(operation.produced_artifact_id)
+            if retry_source is not None:
+                return stored.payload
             active = workspace.active_artifacts.get(
                 ArtifactType.CANDIDATE_EXTRACTION_RESULT
             )
-            if active is None or active.artifact_id != stored.artifact_id:
+            if active is None:
                 if stored.parent_artifact_id != ingestion.artifact_id:
                     raise WorkflowGuardError(
                         "Historical extraction does not belong to the active document revision"
@@ -253,7 +292,8 @@ class AssessmentWorkspaceService:
                     stored.artifact_id,
                     stage=(
                         WorkflowStage.CANDIDATE_READY
-                        if stored.payload.status is not ExtractionStatus.FAILED
+                        if stored.payload.status.value
+                        != ExtractionStatus.FAILED.value
                         else WorkflowStage.INGESTED
                     ),
                     deactivate_types=[
@@ -265,7 +305,23 @@ class AssessmentWorkspaceService:
                         ArtifactType.GRW_EVIDENCE_REVIEW,
                     ],
                 )
+            elif active.parent_artifact_id != ingestion.artifact_id:
+                raise WorkflowGuardError(
+                    "The active extraction does not belong to the active document revision"
+                )
             return stored.payload
+        if retry_source is not None:
+            active = workspace.active_artifacts.get(
+                ArtifactType.CANDIDATE_EXTRACTION_RESULT
+            )
+            if active is None or active.artifact_id != retry_source.artifact_id:
+                self.repository.fail_operation(
+                    operation.operation_id,
+                    "stale-extraction-retry",
+                )
+                raise WorkflowGuardError(
+                    "The failed extraction is no longer current; refresh before retrying"
+                )
         try:
             result = service.extract(document)
         except Exception:
@@ -273,7 +329,7 @@ class AssessmentWorkspaceService:
             raise
         stage = (
             WorkflowStage.CANDIDATE_READY
-            if result.status is not ExtractionStatus.FAILED
+            if result.status.value != ExtractionStatus.FAILED.value
             else WorkflowStage.INGESTED
         )
         try:

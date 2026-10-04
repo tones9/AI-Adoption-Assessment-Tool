@@ -1,0 +1,16 @@
+{
+  "configuration_id": "supporting-evidence-extraction.v0.1",
+  "version": "0.1.0",
+  "provider": "openai",
+  "model": "gpt-5.6-terra",
+  "reasoning_effort": "medium",
+  "prompt_id": "supporting-evidence-extraction.v0.1",
+  "prompt_version": "0.1.0",
+  "schema_version": "supporting-evidence-provider-output.v0.1",
+  "tools_enabled": false,
+  "streaming_enabled": false,
+  "store_responses": false,
+  "timeout_seconds": 120,
+  "sdk_max_retries": 2,
+  "max_output_tokens": 12000
+}

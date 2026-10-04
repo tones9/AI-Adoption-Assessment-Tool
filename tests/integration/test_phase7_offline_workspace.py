@@ -7,6 +7,12 @@ from ai_adoption_engine.workspace.models import ArtifactType, ExecutionMode
 from ai_adoption_engine.persistence.sqlite import SQLiteAssessmentRepository
 from ai_adoption_engine.application.assessment import IntegratedAssessmentService
 from ai_adoption_engine.decision_support import DecisionSupportPackageService
+from ai_adoption_engine.models.extraction import (
+    CandidateExtractionResult,
+    ExtractionIssue,
+    ExtractionIssueSeverity,
+    ExtractionStatus,
+)
 
 
 def test_complete_offline_workspace_save_and_reopen(tmp_path: Path, monkeypatch) -> None:
@@ -87,6 +93,78 @@ def test_repeated_explicit_extract_does_not_rerun_provider(tmp_path: Path) -> No
     second = service.extract(assessment.assessment_id)
     assert first == second
     assert len(calls) == 1
+
+
+def test_failed_extraction_can_be_retried_without_replaying_the_failed_run(
+    tmp_path: Path,
+) -> None:
+    attempts = 0
+
+    def factory(mode, document):
+        scripted = extraction_service_for(mode, document)
+
+        def staged_extract(current_document):
+            nonlocal attempts
+            attempts += 1
+            if attempts == 1:
+                return CandidateExtractionResult(
+                    status=ExtractionStatus.FAILED,
+                    issues=[
+                        ExtractionIssue(
+                            severity=ExtractionIssueSeverity.ERROR,
+                            code="no-candidate-steps",
+                            message="No process activities had verifiable source evidence.",
+                        )
+                    ],
+                )
+            return type(scripted).extract(scripted, current_document)
+
+        scripted.extract = staged_extract
+        return scripted
+
+    repository = SQLiteAssessmentRepository(tmp_path / "retry-extraction.db")
+    service = AssessmentWorkspaceService(
+        repository,
+        extraction_service_factory=factory,
+    )
+    assessment = repository.create_assessment(
+        "Retry failed extraction",
+        ExecutionMode.OFFLINE_DEMO,
+    )
+    service.ingest_upload(assessment.assessment_id, raw_text=demo_text())
+
+    failed = service.extract(assessment.assessment_id)
+    assert failed.status == ExtractionStatus.FAILED
+    failed_artifact = repository.load_active_artifact(
+        assessment.assessment_id,
+        ArtifactType.CANDIDATE_EXTRACTION_RESULT,
+    )
+    assert failed_artifact is not None
+    assert repository.load_workspace(
+        assessment.assessment_id
+    ).assessment.current_stage == "ingested"
+
+    retried = service.retry_failed_extraction(
+        assessment.assessment_id,
+        failed_artifact_id=failed_artifact.artifact_id,
+    )
+    replayed = service.retry_failed_extraction(
+        assessment.assessment_id,
+        failed_artifact_id=failed_artifact.artifact_id,
+    )
+
+    assert retried.status == ExtractionStatus.SUCCESS
+    assert replayed == retried
+    assert attempts == 2
+    assert repository.load_workspace(
+        assessment.assessment_id
+    ).assessment.current_stage == "candidate-ready"
+    assert len(
+        repository.list_artifact_revisions(
+            assessment.assessment_id,
+            ArtifactType.CANDIDATE_EXTRACTION_RESULT,
+        )
+    ) == 2
 
 
 def test_repeated_assessment_and_package_actions_reuse_completed_artifacts(tmp_path: Path) -> None:

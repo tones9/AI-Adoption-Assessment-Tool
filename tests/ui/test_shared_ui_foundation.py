@@ -88,11 +88,39 @@ def test_entrypoint_uses_shared_product_identity_for_browser_title() -> None:
     assert page_title.id == "PRODUCT_NAME"
 
 
-def test_registered_navigation_keeps_five_primary_and_three_optional_routes() -> None:
+def test_registered_navigation_keeps_default_routes_and_conditional_preliminary_route() -> None:
     tree = ast.parse((ROOT / "streamlit_app.py").read_text(encoding="utf-8"))
     groups: dict[str, list[tuple[str, str, str]]] = {}
 
+    def routes_from(items) -> list[tuple[str, str, str]]:
+        routes = []
+        for item in items:
+            assert isinstance(item, ast.Call)
+            assert isinstance(item.func, ast.Attribute)
+            assert item.func.attr == "Page"
+            destination = ast.unparse(item.args[0])
+            keywords = {
+                keyword.arg: ast.literal_eval(keyword.value)
+                for keyword in item.keywords
+                if keyword.arg in {"title", "url_path"}
+            }
+            routes.append((destination, keywords["title"], keywords["url_path"]))
+        return routes
+
     for node in tree.body:
+        if isinstance(node, ast.Expr) and isinstance(node.value, ast.Call):
+            call = node.value
+            if (
+                isinstance(call.func, ast.Attribute)
+                and isinstance(call.func.value, ast.Name)
+                and call.func.value.id == "main_journey"
+                and call.func.attr == "extend"
+            ):
+                assert len(call.args) == 1 and isinstance(call.args[0], ast.List)
+                groups.setdefault("main_journey", []).extend(
+                    routes_from(call.args[0].elts)
+                )
+            continue
         if not isinstance(node, ast.Assign) or len(node.targets) != 1:
             continue
         target = node.targets[0]
@@ -102,18 +130,7 @@ def test_registered_navigation_keeps_five_primary_and_three_optional_routes() ->
         }:
             continue
         assert isinstance(node.value, ast.List)
-        routes = []
-        for item in node.value.elts:
-            assert isinstance(item, ast.Call)
-            assert isinstance(item.func, ast.Attribute)
-            assert item.func.attr == "Page"
-            destination = ast.unparse(item.args[0])
-            keywords = {
-                keyword.arg: ast.literal_eval(keyword.value)
-                for keyword in item.keywords
-            }
-            routes.append((destination, keywords["title"], keywords["url_path"]))
-        groups[target.id] = routes
+        groups[target.id] = routes_from(node.value.elts)
 
     assert groups == {
         "main_journey": [
@@ -133,6 +150,11 @@ def test_registered_navigation_keeps_five_primary_and_three_optional_routes() ->
             ("reassessment.render", "Reassessment", "reassessment"),
         ],
     }
+
+    source = (ROOT / "streamlit_app.py").read_text(encoding="utf-8")
+    assert "if preliminary_enabled:" in source
+    assert 'url_path="process-journey"' in source
+    assert 'visibility="visible" if preliminary_title else "hidden"' in source
 
 
 def test_entrypoint_uses_streamlits_responsive_sidebar_default() -> None:
