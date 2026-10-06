@@ -143,16 +143,45 @@ def _widget(items, *, label: str | None = None, key: str | None = None):
     )
 
 
-@pytest.mark.parametrize(
-    "value",
-    (None, "", "0", "false", "no", "disabled", "TRUE-ish"),
-)
-def test_supporting_evidence_feature_is_default_off(monkeypatch, value) -> None:
-    monkeypatch.setenv(PRELIMINARY_FLAG, "1")
+@pytest.fixture(autouse=True)
+def _formal_assessment_ui_off(monkeypatch):
+    """These Slice 6 tests exercise the supporting workflow directly.
+
+    Since D-038 the Formal Assessment UI is on by default and fronts the
+    Organisational route, so it is switched off here via its kill switch.
+    """
+
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_FORMAL_ASSESSMENT_UI", "0")
+
+
+@pytest.mark.parametrize("value", (None, "", "  "))
+def test_supporting_evidence_feature_is_default_on(monkeypatch, value) -> None:
+    monkeypatch.delenv(PRELIMINARY_FLAG, raising=False)
     if value is None:
         monkeypatch.delenv(SUPPORTING_EVIDENCE_UI_ENV, raising=False)
     else:
         monkeypatch.setenv(SUPPORTING_EVIDENCE_UI_ENV, value)
+    assert supporting_evidence_ui_enabled() is True
+
+
+@pytest.mark.parametrize("value", ("0", "false", "no", "off", "OFF"))
+def test_supporting_evidence_explicit_off_is_a_kill_switch(monkeypatch, value) -> None:
+    monkeypatch.setenv(PRELIMINARY_FLAG, "1")
+    monkeypatch.setenv(SUPPORTING_EVIDENCE_UI_ENV, value)
+    assert supporting_evidence_ui_enabled() is False
+
+
+@pytest.mark.parametrize("value", ("disabled", "TRUE-ish"))
+def test_supporting_evidence_ambiguous_value_fails_closed(monkeypatch, value) -> None:
+    monkeypatch.setenv(PRELIMINARY_FLAG, "1")
+    monkeypatch.setenv(SUPPORTING_EVIDENCE_UI_ENV, value)
+    assert supporting_evidence_ui_enabled() is False
+
+
+@pytest.mark.parametrize("value", ("0", "off"))
+def test_supporting_evidence_requires_preliminary_ui(monkeypatch, value) -> None:
+    monkeypatch.setenv(PRELIMINARY_FLAG, value)
+    monkeypatch.setenv(SUPPORTING_EVIDENCE_UI_ENV, "1")
     assert supporting_evidence_ui_enabled() is False
 
 
@@ -172,7 +201,7 @@ def test_disabled_placeholder_does_not_apply_migration_seven(
     assessment_id, _, _ = _formal_lifecycle(path)
     monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
     monkeypatch.setenv(PRELIMINARY_FLAG, "1")
-    monkeypatch.delenv(SUPPORTING_EVIDENCE_UI_ENV, raising=False)
+    monkeypatch.setenv(SUPPORTING_EVIDENCE_UI_ENV, "0")
 
     app = _page(assessment_id).run()
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 import hashlib
 import shutil
 from pathlib import Path
@@ -18,6 +19,17 @@ from ai_adoption_engine.workspace.models import (
     ExecutionMode,
     WorkflowStage,
 )
+
+
+@pytest.fixture(autouse=True)
+def _strict_journey_with_preliminary_ui_off(monkeypatch):
+    """These tests cover the legacy strict journey.
+
+    Since D-038 the Preliminary journey is on by default, so the strict path is
+    exercised here through the documented kill switch.
+    """
+
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_PRELIMINARY_UI", "0")
 
 
 ROOT = Path(__file__).resolve().parents[2]

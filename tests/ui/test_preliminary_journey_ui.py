@@ -40,6 +40,21 @@ ROOT = Path(__file__).resolve().parents[2]
 FEATURE_FLAG = "AI_ADOPTION_ENGINE_PRELIMINARY_UI"
 
 
+@pytest.fixture(autouse=True)
+def _pin_v0_1_and_downstream_off(monkeypatch):
+    """Keep these journey tests on their original v0.1 contract.
+
+    D-038 made v0.2 the default evaluator and turned the Supporting Evidence and
+    Formal Assessment UIs on by default. These tests cover v0.1 rendering and the
+    plain Organisational placeholder, so they pin v0.1 explicitly and use the
+    downstream kill switches. Tests that need v0.2 still set it themselves.
+    """
+
+    monkeypatch.setenv(PRELIMINARY_EVALUATOR_ENV, "preliminary-evaluator.v0.1")
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_SUPPORTING_EVIDENCE_UI", "0")
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_FORMAL_ASSESSMENT_UI", "0")
+
+
 def _selected_page(module: str, assessment_id: str) -> AppTest:
     return AppTest.from_string(
         "import streamlit as st\n"
@@ -152,12 +167,13 @@ def _button(app: AppTest, label: str):
     return next(item for item in app.button if item.label == label)
 
 
-def test_feature_is_default_off_and_does_not_construct_preliminary_store(
-    tmp_path, monkeypatch
+@pytest.mark.parametrize("value", ("0", "false", "no", "off"))
+def test_explicit_off_does_not_construct_preliminary_store(
+    tmp_path, monkeypatch, value
 ) -> None:
     path = tmp_path / "feature-off.db"
     monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
-    monkeypatch.delenv(FEATURE_FLAG, raising=False)
+    monkeypatch.setenv(FEATURE_FLAG, value)
 
     app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=30).run()
 
@@ -175,10 +191,29 @@ def test_feature_is_default_off_and_does_not_construct_preliminary_store(
     assert "preliminary_journeys" not in tables
 
 
+@pytest.mark.parametrize("value", (None, "", " "))
+def test_preliminary_ui_is_default_on(monkeypatch, value) -> None:
+    from ai_adoption_engine.presentation.preliminary_ui import preliminary_ui_enabled
+
+    if value is None:
+        monkeypatch.delenv(FEATURE_FLAG, raising=False)
+    else:
+        monkeypatch.setenv(FEATURE_FLAG, value)
+    assert preliminary_ui_enabled() is True
+
+
+@pytest.mark.parametrize("value", ("enabled", "TRUE-ish"))
+def test_preliminary_ui_ambiguous_value_fails_closed(monkeypatch, value) -> None:
+    from ai_adoption_engine.presentation.preliminary_ui import preliminary_ui_enabled
+
+    monkeypatch.setenv(FEATURE_FLAG, value)
+    assert preliminary_ui_enabled() is False
+
+
 @pytest.mark.parametrize(
     ("configured", "expected"),
     [
-        (None, current_preliminary_compatibility_identity()),
+        (None, preliminary_v0_2_compatibility_identity()),
         ("preliminary-evaluator.v0.1", current_preliminary_compatibility_identity()),
         (
             "preliminary-evaluator.v0.2",
@@ -228,7 +263,7 @@ def test_disabled_preliminary_ui_ignores_invalid_evaluator_selector(
 ) -> None:
     path = tmp_path / "disabled-invalid-selector.db"
     monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
-    monkeypatch.delenv(FEATURE_FLAG, raising=False)
+    monkeypatch.setenv(FEATURE_FLAG, "0")
     monkeypatch.setenv(PRELIMINARY_EVALUATOR_ENV, "preliminary-evaluator.v9")
     script = (
         "import streamlit as st\n"

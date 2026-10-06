@@ -16,6 +16,7 @@ exercised continuously rather than only in the step that names it.
 
 from __future__ import annotations
 
+import pytest
 import re
 
 from streamlit.testing.v1 import AppTest
@@ -32,6 +33,17 @@ from ai_adoption_engine.workspace.demo_fixtures import (
     SYNTHETIC_LABEL,
 )
 from ai_adoption_engine.workspace.models import ArtifactType, ExecutionMode
+
+
+@pytest.fixture(autouse=True)
+def _strict_journey_with_preliminary_ui_off(monkeypatch):
+    """These tests cover the legacy strict journey.
+
+    Since D-038 the Preliminary journey is on by default, so the strict path is
+    exercised here through the documented kill switch.
+    """
+
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_PRELIMINARY_UI", "0")
 
 
 #: The release expectation for the bundled decision-variety fixture.  These are

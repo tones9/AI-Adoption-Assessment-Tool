@@ -13,21 +13,22 @@ from ai_adoption_engine.formal.composition import (
     build_formal_assessment_service_bundle,
 )
 from ai_adoption_engine.presentation.context import frozen_evaluation_workspace_selected
-from ai_adoption_engine.presentation.preliminary_ui import preliminary_ui_enabled
+from ai_adoption_engine.presentation.preliminary_ui import (
+    default_on_flag_enabled,
+    preliminary_ui_enabled,
+)
 from ai_adoption_engine.workspace.composition import DEFAULT_DATABASE_PATH
 
 
 FORMAL_ASSESSMENT_UI_ENV = "AI_ADOPTION_ENGINE_FORMAL_ASSESSMENT_UI"
-_TRUTHY = frozenset({"1", "true", "yes", "on"})
 _TOKENS_KEY = "formal_assessment_action_tokens"
 
 
 def formal_assessment_ui_enabled() -> bool:
-    """Return the one deployment-wide, default-off activation decision."""
+    """Return the one deployment-wide activation decision (D-038: default on)."""
 
-    return (
-        preliminary_ui_enabled()
-        and os.environ.get(FORMAL_ASSESSMENT_UI_ENV, "").strip().lower() in _TRUTHY
+    return preliminary_ui_enabled() and default_on_flag_enabled(
+        FORMAL_ASSESSMENT_UI_ENV
     )
 
 

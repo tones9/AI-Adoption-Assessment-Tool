@@ -10,7 +10,10 @@ import streamlit as st
 from ai_adoption_engine.presentation.context import (
     frozen_evaluation_workspace_selected,
 )
-from ai_adoption_engine.presentation.preliminary_ui import preliminary_ui_enabled
+from ai_adoption_engine.presentation.preliminary_ui import (
+    default_on_flag_enabled,
+    preliminary_ui_enabled,
+)
 from ai_adoption_engine.supporting_evidence.composition import (
     SupportingEvidenceServiceBundle,
     build_supporting_evidence_service_bundle,
@@ -19,15 +22,12 @@ from ai_adoption_engine.workspace.composition import DEFAULT_DATABASE_PATH
 
 
 SUPPORTING_EVIDENCE_UI_ENV = "AI_ADOPTION_ENGINE_SUPPORTING_EVIDENCE_UI"
-_TRUTHY = frozenset({"1", "true", "yes", "on"})
 _TOKENS_KEY = "supporting_evidence_action_tokens"
 
 
 def supporting_evidence_ui_enabled() -> bool:
-    return (
-        preliminary_ui_enabled()
-        and os.environ.get(SUPPORTING_EVIDENCE_UI_ENV, "").strip().lower()
-        in _TRUTHY
+    return preliminary_ui_enabled() and default_on_flag_enabled(
+        SUPPORTING_EVIDENCE_UI_ENV
     )
 
 

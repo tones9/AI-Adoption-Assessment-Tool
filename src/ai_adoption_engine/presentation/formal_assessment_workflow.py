@@ -1122,6 +1122,16 @@ def render_formal_assessment_workflow(formal_lifecycle_id: str, approved_review:
         st.caption(
             f"Ready supporting evidence is available ({len(snapshot.reviews)} reviewed item(s))."
         )
+        if supporting_evidence_ui_enabled() and st.toggle(
+            "Add or revise supporting evidence",
+            value=False,
+            key=f"manage-supporting-{formal_lifecycle_id}",
+        ):
+            # Changing evidence makes the prepared input set stale; it must be
+            # prepared again before it can be used for an attempt.
+            _discard_draft(formal_lifecycle_id)
+            render_supporting_evidence_workflow(formal_lifecycle_id)
+            return
 
     draft = _drafts().get(formal_lifecycle_id)
     if draft is not None and draft.mode is not mode_value:

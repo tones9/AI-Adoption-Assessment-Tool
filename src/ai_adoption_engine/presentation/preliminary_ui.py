@@ -54,20 +54,35 @@ class UnsupportedPreliminaryEvaluatorConfiguration(ValueError):
     """The deployment requested no approved whole compatibility identity."""
 
 
-def preliminary_ui_enabled() -> bool:
-    """The one central, default-off activation decision."""
+def default_on_flag_enabled(name: str) -> bool:
+    """Default-on kill switch (D-038).
 
-    return os.environ.get(PRELIMINARY_UI_ENV, "").strip().lower() in _TRUTHY
+    Unset or empty enables the feature; an explicit ``1/true/yes/on`` enables
+    it; an explicit ``0/false/no/off`` disables it. Any other value fails closed
+    (disabled) because the operator's intent is ambiguous.
+    """
+
+    value = os.environ.get(name, "").strip().lower()
+    if value == "" or value in _TRUTHY:
+        return True
+    return False
+
+
+def preliminary_ui_enabled() -> bool:
+    """The one central activation decision: on unless explicitly switched off."""
+
+    return default_on_flag_enabled(PRELIMINARY_UI_ENV)
 
 
 def configured_preliminary_compatibility_identity() -> PreliminaryCompatibilityIdentity:
     """Resolve one evaluator selector to its complete frozen identity."""
 
     evaluator_id = os.environ.get(PRELIMINARY_EVALUATOR_ENV)
-    if evaluator_id is None or evaluator_id == PRELIMINARY_EVALUATOR_V0_1:
-        return current_preliminary_compatibility_identity()
-    if evaluator_id == PRELIMINARY_EVALUATOR_V0_2:
+    # D-038: the latest evaluator (v0.2) is the default; v0.1 stays explicit.
+    if evaluator_id is None or evaluator_id == "" or evaluator_id == PRELIMINARY_EVALUATOR_V0_2:
         return preliminary_v0_2_compatibility_identity()
+    if evaluator_id == PRELIMINARY_EVALUATOR_V0_1:
+        return current_preliminary_compatibility_identity()
     raise UnsupportedPreliminaryEvaluatorConfiguration(
         f"Unsupported {PRELIMINARY_EVALUATOR_ENV} value"
     )

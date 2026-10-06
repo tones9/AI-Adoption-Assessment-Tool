@@ -130,7 +130,7 @@ def _enable(monkeypatch, path: Path, bundle=None, *, supporting: bool = False) -
     if supporting:
         monkeypatch.setenv(SUPPORTING_EVIDENCE_UI_ENV, "1")
     else:
-        monkeypatch.delenv(SUPPORTING_EVIDENCE_UI_ENV, raising=False)
+        monkeypatch.setenv(SUPPORTING_EVIDENCE_UI_ENV, "0")
     if bundle is not None:
         monkeypatch.setattr(
             ui_module,
@@ -407,13 +407,27 @@ def _repository(path: Path) -> SQLiteFormalAssessmentRepository:
 # Feature flag, composition, frozen, and disabled behaviour
 
 
-@pytest.mark.parametrize("value", (None, "", "0", "false", "no", "off", "enabled", "TRUE-ish"))
-def test_formal_assessment_feature_is_default_off(monkeypatch, value) -> None:
-    monkeypatch.setenv(PRELIMINARY_FLAG, "1")
+@pytest.mark.parametrize("value", (None, "", "  "))
+def test_formal_assessment_feature_is_default_on(monkeypatch, value) -> None:
+    monkeypatch.delenv(PRELIMINARY_FLAG, raising=False)
     if value is None:
         monkeypatch.delenv(FORMAL_ASSESSMENT_UI_ENV, raising=False)
     else:
         monkeypatch.setenv(FORMAL_ASSESSMENT_UI_ENV, value)
+    assert formal_assessment_ui_enabled() is True
+
+
+@pytest.mark.parametrize("value", ("0", "false", "FALSE", " no ", "off", "Off"))
+def test_formal_assessment_explicit_off_is_a_kill_switch(monkeypatch, value) -> None:
+    monkeypatch.setenv(PRELIMINARY_FLAG, "1")
+    monkeypatch.setenv(FORMAL_ASSESSMENT_UI_ENV, value)
+    assert formal_assessment_ui_enabled() is False
+
+
+@pytest.mark.parametrize("value", ("enabled", "TRUE-ish", "2"))
+def test_formal_assessment_ambiguous_value_fails_closed(monkeypatch, value) -> None:
+    monkeypatch.setenv(PRELIMINARY_FLAG, "1")
+    monkeypatch.setenv(FORMAL_ASSESSMENT_UI_ENV, value)
     assert formal_assessment_ui_enabled() is False
 
 
@@ -424,8 +438,9 @@ def test_formal_assessment_feature_accepts_only_approved_truthy_values(monkeypat
     assert formal_assessment_ui_enabled() is True
 
 
-def test_formal_assessment_feature_requires_preliminary_ui(monkeypatch) -> None:
-    monkeypatch.delenv(PRELIMINARY_FLAG, raising=False)
+@pytest.mark.parametrize("value", ("0", "off"))
+def test_formal_assessment_feature_requires_preliminary_ui(monkeypatch, value) -> None:
+    monkeypatch.setenv(PRELIMINARY_FLAG, value)
     monkeypatch.setenv(FORMAL_ASSESSMENT_UI_ENV, "1")
     assert formal_assessment_ui_enabled() is False
 
@@ -440,7 +455,7 @@ def test_services_refuse_when_disabled_or_frozen_before_construction(monkeypatch
 
     monkeypatch.setattr(ui_module, "_cached_formal_assessment_services", fail_if_constructed)
     monkeypatch.setenv(PRELIMINARY_FLAG, "1")
-    monkeypatch.delenv(FORMAL_ASSESSMENT_UI_ENV, raising=False)
+    monkeypatch.setenv(FORMAL_ASSESSMENT_UI_ENV, "0")
     with pytest.raises(RuntimeError, match="not enabled"):
         ui_module.formal_assessment_services()
     monkeypatch.setenv(FORMAL_ASSESSMENT_UI_ENV, "1")
@@ -502,7 +517,7 @@ def test_cache_identity_is_exact_database_and_policy(monkeypatch, tmp_path) -> N
     assert seen == [(str(tmp_path / "exact.db"), str(DEFAULT_FOUR_GATE_POLICY))]
 
 
-@pytest.mark.parametrize("value", (None, "0", "invalid"))
+@pytest.mark.parametrize("value", ("0", "off", "invalid"))
 def test_disabled_flag_preserves_route_and_creates_no_migration_eight(
     tmp_path, monkeypatch, value
 ) -> None:
@@ -510,11 +525,8 @@ def test_disabled_flag_preserves_route_and_creates_no_migration_eight(
     assessment_id, journey_id, _ = _formal_lifecycle(path)
     monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
     monkeypatch.setenv(PRELIMINARY_FLAG, "1")
-    monkeypatch.delenv(SUPPORTING_EVIDENCE_UI_ENV, raising=False)
-    if value is None:
-        monkeypatch.delenv(FORMAL_ASSESSMENT_UI_ENV, raising=False)
-    else:
-        monkeypatch.setenv(FORMAL_ASSESSMENT_UI_ENV, value)
+    monkeypatch.setenv(SUPPORTING_EVIDENCE_UI_ENV, "0")
+    monkeypatch.setenv(FORMAL_ASSESSMENT_UI_ENV, value)
     before = _tables(path)
     sidecars_before = {item.name for item in tmp_path.iterdir()}
 
@@ -839,6 +851,41 @@ def test_ready_supporting_evidence_run_pins_exact_candidate(tmp_path, monkeypatc
     assert step.characteristics.criterion(unknown).value == 4
     assert _supporting_rows(path) == supporting_before
     assert build_preliminary_service_bundle(path).journeys.get_history(journey_id).runs == ()
+
+
+def test_ready_supporting_evidence_stays_editable_from_formal_workflow(
+    tmp_path, monkeypatch
+) -> None:
+    path = tmp_path / "manage.db"
+    assessment_id, _, lifecycle_id = _formal_lifecycle(path)
+    _, unknown = _criterion_states(path, lifecycle_id)
+    _ready_supporting(path, lifecycle_id, ((_target(unknown), 4),))
+    supporting_before = _supporting_rows(path)
+    log = EngineLog()
+    _enable(monkeypatch, path, _bundle(path, log), supporting=True)
+    monkeypatch.setattr(
+        "ai_adoption_engine.presentation.supporting_evidence_ui._cached_supporting_evidence_services",
+        lambda database_path: build_supporting_evidence_service_bundle(
+            database_path,
+            provider_factory=lambda: (_ for _ in ()).throw(AssertionError("unused")),
+        ),
+    )
+    mode = FormalAssessmentInputMode.APPROVED_PROCESS_WITH_SUPPORTING_EVIDENCE
+
+    app = _choose(_page(assessment_id).run(), lifecycle_id, mode)
+    assert "Ready supporting evidence is available" in _rendered(app)
+    assert "1. Add documents" not in _rendered(app)
+    toggle = _keyed(app.toggle, f"manage-supporting-{lifecycle_id}")
+    assert toggle.value is False
+
+    app = toggle.set_value(True).run()
+
+    assert not app.exception
+    assert "1. Add documents" in _rendered(app)
+    assert not any(item.key and item.key.startswith("prepare-formal-") for item in app.button)
+    assert _supporting_rows(path) == supporting_before
+    assert _repository(path).lifecycle_authorizations(lifecycle_id) == ()
+    assert log.calls == 0
 
 
 def test_known_source_conflict_requires_explicit_human_resolution(tmp_path, monkeypatch) -> None:
