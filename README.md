@@ -11,10 +11,35 @@ the reasoning, the evidence and the missing information all recorded.
 The product ends at the decision. It does not build, pilot, deploy or operate
 anything.
 
-The [Master Bible](AI_Adoption_Engine_MASTER_BIBLE_v1.0.docx) is the
-highest-authority project document. The implementation must not broaden the
-project scope or replace deterministic recommendation logic with unconstrained
-LLM judgement.
+## Project memory — start here
+
+The lightweight canonical spine separates target direction from implemented
+reality:
+
+| File | Purpose |
+|---|---|
+| [`00_PROJECT_CONTEXT.md`](00_PROJECT_CONTEXT.md) | Stable purpose, boundary and source-of-truth rules |
+| [`01_FRAMEWORK_SPEC.md`](01_FRAMEWORK_SPEC.md) | Target four-gate framework — not yet implemented |
+| [`02_DECISIONS.md`](02_DECISIONS.md) | Adopted and open decisions |
+| [`03_CURRENT_STATE.md`](03_CURRENT_STATE.md) | Verified implementation and active work |
+| [`04_CODEX_HANDOFF.md`](04_CODEX_HANDOFF.md) | Low-token workflow and exact next task |
+
+The former Master Bible, technical specification, architecture blueprint and
+design deliveries are preserved in the external historical archive at
+`/Users/antony/Documents/Personal Projects/AI-Adoption Engine Archive/2026-09-01-centralisation`.
+The implementation must not broaden the project scope or replace deterministic
+recommendation logic with unconstrained LLM judgement.
+
+The current product still runs `decision_policy.v0.2`. The adopted four-gate
+model is a successor design target and must not be described as shipped behavior
+until its versioned migration is implemented and recorded in `03_CURRENT_STATE.md`.
+
+## Current agreed sequence
+
+- Git tag `v1.0.0` remains the historical Portfolio V1 baseline.
+- The next framework task is a design-only four-gate migration; its successor must be versioned and must not be labelled Portfolio V1.
+- The committed Validate Process usability redesign is a separate local release decision, pending verification and push.
+- Reliability and productisation work follow the framework migration; authentication, tenancy, hosted commercialisation, and the Adoption Execution Layer are future scope.
 
 ## The problem
 
