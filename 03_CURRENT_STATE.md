@@ -45,10 +45,10 @@ Formal Assessment Slice 6 explicit default-off product/UI activation verified: *
 
 - Repository: `/Users/antony/Documents/Personal Projects/AI-Adoption Engine`
 - Branch: `codex/preliminary-evidence-checkpoint`
-- HEAD inspected: `1d50c33e3dbce09ba9fb97d8fec7d506e40fa2e5` — verified Preliminary and supporting-evidence checkpoint
+- HEAD inspected: `6f9e4dc` — local checkpoint commits C1–C5 (not pushed); see the Formal Assessment commit record below
 - Package: `ai-adoption-engine` version `1.0.0`
 - Application: local single-user Python/Streamlit product with SQLite persistence
-- Working tree: unrelated pre-existing changes remain uncommitted and preserved after the scoped checkpoint
+- Working tree: only four untracked paths remain deliberately uncommitted and preserved — `recovered/`, `docs/validate-process-redesign-audit-and-brief-v0.1.md`, `evaluation/four_gate_cohorts/four-gate-development-initial-v0-1/`, and `evaluation/four_gate_cohorts/governed_case_materials/`
 
 ## Implemented product
 
@@ -236,6 +236,8 @@ Conflicts come from a narrow public read-only `FormalFourGateInputAdapter.prefli
 
 Verification on 2026-10-06 passed 35 focused Slice 6 UI/composition/flag/frozen tests, 6 preflight regression tests, 4 Slice 6 architecture tests, and the full suite (1,978 passed; the only failure is the known pre-existing Phase 7 architecture test for the untouched `four_gate_decision_continuation.py` `decision.gates` reference). Compilation, `git diff --check`, and a Slice 6 whitespace scan passed. Localhost smoke tests passed: feature-disabled (prior placeholder, no migration-8 tables) and feature-enabled with locally seeded deterministic supporting evidence (scripted provider during seeding only, no live provider) through conflict resolution, one strict run, review-required Discovery Required result, gap-local guidance, collapsed audit, and immutable history (1 authorization, 1 success, 1 guidance record). No policy/engine/adapter-rule, migration 7/8, frozen contract, readiness, Preliminary, application/CLI default, formal-start, approval, implementation-authority, Decision Package, commit, or push change was made.
 
+On 2026-10-06 the Formal Assessment Slices 1–6 checkpoint was verified and committed locally on `codex/preliminary-evidence-checkpoint` (not pushed): C1 `77113fa` D-034 Validate Process follow-up (`review.py` plus six tests); C2 `715efcb` Formal Assessment Slices 1–6 (30 paths including `process_journey.py`); C3 `d613df3` project memory for D-034, D-037, and Slices 1–6; C4 `f134bdf` `.gitignore` for external BPI evaluation source data; C5 `6f9e4dc` README centralisation plus removal of five legacy documents already present in the external archive. C1, C2, and C3 were each tested in a detached worktree whose imports resolved inside that worktree: C1 `1 failed, 1798 passed`; C2 and C3 `1 failed, 1978 passed`; the only failure each time was the known Phase 7 `decision.gates` reference in the untouched `four_gate_decision_continuation.py`. The default policy remains `decision_policy.v0.2` (`cli.py`, `application/assessment.py`) and the Formal Assessment UI remains default-off.
+
 A narrow Source & Extraction reliability correction was verified on 2026-10-01. Persisted ingestion and extraction statuses are now compared by stable value so a Streamlit reload cannot show a successful PDF as unusable or advance a failed extraction incorrectly. A failed candidate extraction now exposes an explicit retry bound to that exact failed artifact; the retry creates a new immutable extraction revision, while replaying the same retry remains idempotent and cannot reactivate an older failure. Verification passed 23 ingestion/persistence integration tests, 14 strict UI tests, and 16 Preliminary UI regressions; compilation and `git diff --check` passed. No schema, policy, Preliminary evaluator/journey, formal-assessment, default-route, commit, or push change occurred.
 
 ## Evaluation state
@@ -320,12 +322,12 @@ These were targeted checks, not a full-suite certification.
 4. The current legacy `DO_NOT_RECOMMEND` mode still collapses conventional automation, process improvement, human-led work, and other rejection reasons.
 5. Phase 9A still cannot validate that a cited snippet semantically supports the criterion value.
 6. Phase 9A-0c Case C remains incomplete; O-007 remains open.
-7. The Validate Process redesign plus the D-034 follow-up are verified locally but are not pushed or released; the D-034 follow-up remains uncommitted in the active working tree.
+7. The Validate Process redesign plus the D-034 follow-up are verified and committed locally (D-034 follow-up in `77113fa`) but are not pushed or released.
 8. Long live-document extraction is not yet resilient: a provider timeout can fail a candidate extraction without chunk-level retry, resume, or user-facing progress. Treat this as a separate scoped reliability task, not a four-gate migration change.
 
 ## Next state-changing checkpoint
 
-Formal Assessment Slices 1–6 are implemented and verified, including explicit default-off product/UI activation. The next bounded task is **Formal Assessment checkpoint — verify the complete default-off Slices 1–6 boundary and prepare a separate release/activation decision**. Formal approval, implementation authority, Decision Package generation from formal results, default activation, release, commit, and push remain separately unauthorized.
+The Formal Assessment Slices 1–6 checkpoint is **complete**: the default-off boundary was verified and the work was committed locally in C1–C5 (`77113fa`, `715efcb`, `d613df3`, `f134bdf`, `6f9e4dc`); nothing was pushed. The next bounded task is a **release/activation decision paper — design only, no activation**. Formal approval, implementation authority, Decision Package generation from formal results, default activation, release, and push remain separately unauthorized.
 
 The synthetic-only `four-gate-evaluation-cohort.v0.1` harness and five development fixtures are implemented and verified. They pin the exact successor contract, validate lineage and traceability, prove byte-stable repeatability, preserve not-applicable measures, generate deterministic cohort/case freeze artifacts, and refuse Phase 8 targets. Every output explicitly excludes real-world, effectiveness, ROI, deployment-safety, threshold-quality, and generalisation claims. On 2026-09-06, 18 successor cohort tests, 40 successor Phase 5/6/persistence regressions, and 22 legacy Phase 8 freeze/boundary regressions passed (80 targeted tests total).
 
