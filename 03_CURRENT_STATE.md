@@ -40,12 +40,13 @@ Formal Assessment Slice 3 isolated persistence verified: **2026-10-05**
 Formal Assessment Slice 4 explicit strict-run orchestration verified: **2026-10-05**
 Formal Assessment Slice 5 deterministic guidance and read-only presentation verified: **2026-10-05**
 Formal Assessment Slice 6 explicit default-off product/UI activation verified: **2026-10-06**
+D-038 latest journey features made the default (flags are kill switches): **2026-10-06**
 
 ## Repository snapshot
 
 - Repository: `/Users/antony/Documents/Personal Projects/AI-Adoption Engine`
 - Branch: `codex/preliminary-evidence-checkpoint`
-- HEAD inspected: `e9dfe07` — checkpoint commits C1–C5 plus documentation commits; see the Formal Assessment commit record below
+- HEAD inspected: `6d49ac3` — D-038 default activation, on top of merge `74c35e0` (brings `origin/main`'s `.devcontainer/devcontainer.json`; six D-034 conflicts resolved by keeping this branch's versions) and the checkpoint commits C1–C5
 - Remote: pushed on 2026-10-06 to `origin` (`https://github.com/tones9/AI-Adoption-Assessment-Tool.git`); upstream `origin/codex/preliminary-evidence-checkpoint`. `main` was not changed and cannot be fast-forwarded: `origin/main` (`b575ad6`) is not an ancestor of this branch because it carries an equivalent copy of `d200a65` on top of an extra `.devcontainer/devcontainer.json` commit (`8e3ebd2`)
 - Package: `ai-adoption-engine` version `1.0.0`
 - Application: local single-user Python/Streamlit product with SQLite persistence
@@ -318,7 +319,7 @@ These were targeted checks, not a full-suite certification.
 ## Immediate product risks and unknowns
 
 1. The successor route remains explicit and non-default; legacy `decision_policy.v0.2` remains the application/CLI default.
-2. Preliminary Assessment v0.1 retains its verified evaluator, five original persistence slices, default-off UI route, and customer meaning. Exact opt-in v0.2 persistence, automatic first-time Explore execution, and version-aware Streamlit presentation are available only through the explicit evaluator selector. Supporting Evidence Slices 1–6 provide isolated persistence, explicit services, and a separately default-off Organisational-route UI through readiness. Formal Assessment Slices 1–6 provide the frozen run boundary, persistence-free input adapter, isolated immutable run persistence, explicit strict-run orchestration, guidance/presentation, and an explicit default-off `AI_ADOPTION_ENGINE_FORMAL_ASSESSMENT_UI` Organisational-route product path; application/CLI defaults are unchanged. The v0.1-only formal start and later formal lifecycle stages remain disconnected.
+2. Under D-038 (2026-10-06) the Preliminary journey, Supporting Evidence UI and Formal Assessment UI are on by default, and Preliminary v0.2 is the default evaluator; each flag is now a kill switch (explicit `0`/`false`/`no`/`off`), ambiguous values fail closed, and v0.1 remains explicitly selectable. Supporting Evidence and Formal Assessment still require the Preliminary UI. New public assessments therefore follow the Preliminary/Organisational journey rather than the legacy strict `decision_policy.v0.2` assessment, which stays reachable only by switching the Preliminary UI off. The v0.1-only formal start remains unchanged. Verification: full suite `1 failed, 1997 passed` (only the known Phase 7 failure); a clean-worktree run with no flag variables showed the route choice, the Organisational Assessment page with the Formal input choice, and the supporting-evidence workflow, with no log errors.
 3. Successor GRW/M2 supports only one idempotently reused active Gate 2 `data_readiness` reassessment per exact eligible baseline/step. Other gaps, repeated reassessment, and cross-contract comparison remain unavailable.
 4. The current legacy `DO_NOT_RECOMMEND` mode still collapses conventional automation, process improvement, human-led work, and other rejection reasons.
 5. Phase 9A still cannot validate that a cited snippet semantically supports the criterion value.
@@ -328,7 +329,7 @@ These were targeted checks, not a full-suite certification.
 
 ## Next state-changing checkpoint
 
-The Formal Assessment Slices 1–6 checkpoint is **complete**: the default-off boundary was verified and the work was committed locally in C1–C5 (`77113fa`, `715efcb`, `d613df3`, `f134bdf`, `6f9e4dc`); nothing was pushed. The next bounded task is a **release/activation decision paper — design only, no activation**. Formal approval, implementation authority, Decision Package generation from formal results, default activation, release, and push remain separately unauthorized.
+The Formal Assessment Slices 1–6 checkpoint is **complete** (C1–C5: `77113fa`, `715efcb`, `d613df3`, `f134bdf`, `6f9e4dc`). The release/activation decision was taken directly by the owner as D-038 on 2026-10-06, superseding the planned decision paper: the latest features are the default and publication to `main` is by fast-forward only. The next bounded task is **hosted deployment verification**: confirm the hosted app's deploy branch and URL, its provider configuration and secrets, and smoke-test the public app. Formal approval, implementation authority, and Decision Package generation from formal results remain separately unauthorized.
 
 The synthetic-only `four-gate-evaluation-cohort.v0.1` harness and five development fixtures are implemented and verified. They pin the exact successor contract, validate lineage and traceability, prove byte-stable repeatability, preserve not-applicable measures, generate deterministic cohort/case freeze artifacts, and refuse Phase 8 targets. Every output explicitly excludes real-world, effectiveness, ROI, deployment-safety, threshold-quality, and generalisation claims. On 2026-09-06, 18 successor cohort tests, 40 successor Phase 5/6/persistence regressions, and 22 legacy Phase 8 freeze/boundary regressions passed (80 targeted tests total).
 

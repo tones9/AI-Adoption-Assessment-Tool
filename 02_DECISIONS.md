@@ -1,7 +1,7 @@
 # Project Decisions
 
 Status: **CANONICAL DECISION LOG**  
-Last updated: **2026-10-05**
+Last updated: **2026-10-06**
 
 ## Adopted decisions
 
@@ -411,6 +411,17 @@ The approved frozen contract family comprises `formal-assessment-input-choice.v0
 The adapter preserves the approved process structure, activity order, identities, and immutable review. Supporting mappings may fill an unknown approved-process target, while identical values may combine provenance without an additional resolution. If a known approved-process value conflicts with a reviewed supporting mapping, or reviewed supporting mappings conflict with each other, run authorization remains blocked until a human explicitly selects the effective value for that assessment run. The immutable run-scoped resolution records every competing typed value and its exact evidence/mapping provenance, the selected typed value, reviewer identity and locally declared authority, rationale, timestamp, request identity, and exact formal lifecycle/authorization/projection/run lineage. It is embedded in both authorization and the effective input projection and never rewrites the approved process, mappings, reviews, documents, or evidence history. Unresolved, context-only, rejected, unknown, conflict, or activity-evidence-without-value records never become positive scalar inputs.
 
 The strict engine and four-gate rules remain unchanged. Unknowns remain null and may deterministically produce Discovery Required. `formal-evidence-guidance.v0.1` derives only from exact strict-engine blocking gaps through a fingerprinted catalogue; it is guidance for a future attempt, never accepted evidence and never LLM-authored. A later successful explicit run supersedes the prior current result by immutable lineage without deleting it; failed or interrupted attempts do not supersede results. Supporting-history changes do not retroactively corrupt a source-only result, while a supporting-evidence result becomes stale when its exact candidate/readiness lineage is no longer current. Safe backout disables explicit formal-run service/UI construction and retains immutable history. Preliminary behavior, application/CLI defaults, formal approval, implementation authority, and Decision Package generation remain unchanged and disconnected. The corrected design is closed with no remaining product decisions.
+
+### D-038 — Make the latest Preliminary, Supporting Evidence and Formal Assessment features the public default
+
+Date: 2026-10-06
+Status: Adopted by the owner and implemented in `6d49ac3`; publication to `main` follows by fast-forward only
+
+Latest Preliminary, Supporting Evidence and Formal Assessment features are the public default; flags are now kill switches. v0.3 policy remains provisional. The owner wants the public to see only the latest version of the product.
+
+`AI_ADOPTION_ENGINE_PRELIMINARY_UI`, `AI_ADOPTION_ENGINE_SUPPORTING_EVIDENCE_UI` and `AI_ADOPTION_ENGINE_FORMAL_ASSESSMENT_UI` are on when unset or empty, or set to `1`/`true`/`yes`/`on`; an explicit `0`/`false`/`no`/`off` switches the feature off, and any other value fails closed (off). Supporting Evidence and Formal Assessment still require the Preliminary UI. `AI_ADOPTION_ENGINE_PRELIMINARY_EVALUATOR` now defaults to `preliminary-evaluator.v0.2`; exact `preliminary-evaluator.v0.1` remains selectable and any other value still fails closed. The formal-start service remains pinned to v0.1. Ready supporting evidence remains editable from the Formal Assessment workflow through an explicit **Add or revise supporting evidence** toggle. Frozen-workspace guards, Phase 8 and Portfolio V1 evaluation protections, policies, schemas, migrations, taxonomy, adapter rules, legacy `decision_policy.v0.2` assessment logic, and application/CLI defaults outside these flags are unchanged.
+
+Risks accepted by the owner: `decision_policy.v0.3` and the Preliminary v0.1/v0.2 rule sets are provisional and not validated against real outcomes; once a journey is materialised, new public assessments no longer reach the legacy strict `decision_policy.v0.2` assessment or new Decision Package generation (existing strict results stay readable, and the strict path remains reachable only by switching the Preliminary UI off); supporting-evidence extraction in a hosted deployment needs the configured provider and credentials and otherwise fails safely at extraction; formal results are review-required and never approval or implementation authority; hosted data remains unencrypted local SQLite; and the hosted app's deploy branch and URL are not recorded in the repository.
 
 ## Resolved decisions
 
