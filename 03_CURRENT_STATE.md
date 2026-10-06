@@ -45,7 +45,8 @@ Formal Assessment Slice 6 explicit default-off product/UI activation verified: *
 
 - Repository: `/Users/antony/Documents/Personal Projects/AI-Adoption Engine`
 - Branch: `codex/preliminary-evidence-checkpoint`
-- HEAD inspected: `6f9e4dc` — local checkpoint commits C1–C5 (not pushed); see the Formal Assessment commit record below
+- HEAD inspected: `e9dfe07` — checkpoint commits C1–C5 plus documentation commits; see the Formal Assessment commit record below
+- Remote: pushed on 2026-10-06 to `origin` (`https://github.com/tones9/AI-Adoption-Assessment-Tool.git`); upstream `origin/codex/preliminary-evidence-checkpoint`. `main` was not changed and cannot be fast-forwarded: `origin/main` (`b575ad6`) is not an ancestor of this branch because it carries an equivalent copy of `d200a65` on top of an extra `.devcontainer/devcontainer.json` commit (`8e3ebd2`)
 - Package: `ai-adoption-engine` version `1.0.0`
 - Application: local single-user Python/Streamlit product with SQLite persistence
 - Working tree: only four untracked paths remain deliberately uncommitted and preserved — `recovered/`, `docs/validate-process-redesign-audit-and-brief-v0.1.md`, `evaluation/four_gate_cohorts/four-gate-development-initial-v0-1/`, and `evaluation/four_gate_cohorts/governed_case_materials/`
