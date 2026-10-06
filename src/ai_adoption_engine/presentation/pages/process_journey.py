@@ -40,6 +40,12 @@ from ai_adoption_engine.presentation.preliminary_result import (
     PreliminaryPresentationError,
     present_preliminary_result,
 )
+from ai_adoption_engine.presentation.formal_assessment_ui import (
+    formal_assessment_ui_enabled,
+)
+from ai_adoption_engine.presentation.formal_assessment_workflow import (
+    render_formal_assessment_workflow,
+)
 from ai_adoption_engine.presentation.supporting_evidence_ui import (
     supporting_evidence_ui_enabled,
 )
@@ -542,10 +548,19 @@ def _render_explore(history: PreliminaryJourneyHistory) -> None:
             _run(history)
 
 
-def _render_organisational(history: PreliminaryJourneyHistory) -> None:
+def _render_organisational(
+    history: PreliminaryJourneyHistory,
+    approved_review: object,
+) -> None:
     state = history.state
     if state.formal_lifecycle_status is FormalLifecycleStatus.AWAITING_FORMAL_INPUTS:
         st.subheader("Awaiting formal inputs")
+        if formal_assessment_ui_enabled() and state.formal_lifecycle is not None:
+            render_formal_assessment_workflow(
+                state.formal_lifecycle.formal_lifecycle_id,
+                approved_review,
+            )
+            return
         if supporting_evidence_ui_enabled() and state.formal_lifecycle is not None:
             render_supporting_evidence_workflow(
                 state.formal_lifecycle.formal_lifecycle_id
@@ -697,5 +712,5 @@ def render() -> None:
         _render_explore(history)
     else:
         render_page_header("Organisational assessment")
-        _render_organisational(history)
+        _render_organisational(history, approved)
     _render_history(history)
