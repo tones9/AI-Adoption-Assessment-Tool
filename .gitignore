@@ -13,3 +13,9 @@ dist/
 var/*.db
 var/*.db-shm
 var/*.db-wal
+
+# External evaluation source data — never committed (see evaluation/experimental/bpi2019/spec/)
+BPI_Challenge_2019.txt
+*.xes
+*.xes.gz
+evaluation/experimental/**/source/
