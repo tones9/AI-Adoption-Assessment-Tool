@@ -58,14 +58,11 @@ def test_guided_review_renders_required_sections_and_preserves_unknowns(tmp_path
         "Final approval",
     ]
     assert app.button_group[0].value == "Required review"
-    assert any(button.label == "Process name" for button in app.button)
-    assert any(button.label.startswith("Step 1:") for button in app.button)
-    assert any(button.label == "Step order" for button in app.button)
-    assert any(
-        button.label.startswith("Keep all ")
-        and button.label.endswith(" document-backed details")
-        for button in app.button
-    )
+    assert any("Process name" in button.label for button in app.button)
+    assert any("Step 1:" in button.label for button in app.button)
+    assert any("Step order" in button.label for button in app.button)
+    assert any(button.label == "Confirm and continue" for button in app.button)
+    assert not any("Keep all" in button.label for button in app.button)
     rendered = "\n".join(
         str(item.value)
         for kind in ("markdown", "caption", "warning", "write", "success")
@@ -76,6 +73,86 @@ def test_guided_review_renders_required_sections_and_preserves_unknowns(tmp_path
     assert "Knowledge: known" not in rendered
     assert "Assertion review" not in rendered
     assert hashlib.sha256(path.read_bytes()).hexdigest() == before
+
+
+def test_review_feedback_keeps_the_interactive_workspace_at_a_stable_delta_path(
+    tmp_path, monkeypatch
+) -> None:
+    path = tmp_path / "stable-feedback-slot.db"
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
+    assessment_id = _review_workspace(path)
+
+    app = _review_app(assessment_id).run()
+    assert app.main.children[1].type == "empty"
+    confirm = next(
+        item
+        for item in app.button
+        if item.key and item.key.startswith("confirm-process.name-")
+    )
+    app = confirm.click().run()
+
+    assert any("Process name confirmed" in item.value for item in app.success)
+    assert [item.value for item in app.caption].count("CURRENT CHECK") == 1
+
+    app = app.run()
+    assert [item.value for item in app.caption].count("CURRENT CHECK") == 1
+
+
+def test_unsaved_correction_draft_survives_required_item_navigation(
+    tmp_path, monkeypatch
+) -> None:
+    path = tmp_path / "draft-navigation.db"
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
+    assessment_id = _review_workspace(path)
+    service = build_workspace_service(path)
+    session = service.repository.load_workspace(assessment_id).active_artifacts[
+        ArtifactType.REVIEW_SESSION
+    ].payload
+    first_step = session.steps[0]
+
+    app = _review_app(assessment_id).run()
+    app = next(
+        item
+        for item in app.button
+        if item.key and item.key.startswith("edit-process.name-")
+    ).click().run()
+    value = next(
+        item
+        for item in app.text_input
+        if item.key and item.key.startswith("value-process.name-")
+    )
+    app = value.input("Corrected purchase-order process").run()
+    rationale = next(
+        item
+        for item in app.text_input
+        if item.key and item.key.startswith("rationale-process.name-")
+    )
+    app = rationale.input("The reviewer clarified the process boundary.").run()
+
+    app = app.button(
+        key=(
+            "open-outstanding-step-activity-unconfirmed:steps."
+            f"{first_step.candidate_step_id}.activity"
+        )
+    ).click().run()
+    app = next(
+        item
+        for item in app.button
+        if item.key
+        and item.key.startswith("open-outstanding-")
+        and "Process name" in item.label
+    ).click().run()
+
+    assert next(
+        item
+        for item in app.text_input
+        if item.key and item.key.startswith("value-process.name-")
+    ).value == "Corrected purchase-order process"
+    assert next(
+        item
+        for item in app.text_input
+        if item.key and item.key.startswith("rationale-process.name-")
+    ).value == "The reviewer clarified the process boundary."
 
 
 def test_guided_review_is_read_only_and_hands_off_after_existing_approval(tmp_path, monkeypatch) -> None:
@@ -211,13 +288,12 @@ def test_rejecting_loop_activity_removes_its_dependency_blocker_across_reopen(
 
     app = _review_app(assessment_id).run()
     activity_path = f"steps.{loop_step.candidate_step_id}.activity"
-    action = next(
+    remove = next(
         item
-        for item in app.selectbox
-        if item.key and item.key.startswith(f"action-{activity_path}-")
+        for item in app.button
+        if item.key and item.key.startswith(f"exclude-{activity_path}-")
     )
-    assert "This is not a process step" in action.options
-    app = action.select("This is not a process step").run()
+    app = remove.click().run()
     rationale = next(
         item
         for item in app.text_input
@@ -252,7 +328,9 @@ def test_rejecting_loop_activity_removes_its_dependency_blocker_across_reopen(
     ]
 
     accept_order = next(
-        button for button in app.button if button.label == "Keep this step order"
+        button
+        for button in app.button
+        if button.label == "Confirm step order and continue"
     )
     app = accept_order.click().run()
     assert not app.exception

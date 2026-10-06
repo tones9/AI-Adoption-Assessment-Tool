@@ -29,6 +29,12 @@ from tests.fakes.review import approved_review
 
 ROOT = Path(__file__).resolve().parents[2]
 
+_VALIDATE_PROCESS_ONLY_TEXT = (
+    "Confirm the step order",
+    "Check that the activities are shown in the order the work happens.",
+)
+_VALIDATE_PROCESS_ONLY_BUTTONS = ("Confirm step order and continue",)
+
 
 def _results_app(tmp_path, monkeypatch, *, integrated=None) -> AppTest:
     path = tmp_path / "results-decision-first.db"
@@ -72,6 +78,19 @@ def _text(element) -> str:
     return str(getattr(element, "value", "") or getattr(element, "label", "") or "")
 
 
+def _assert_no_validate_process_content(app: AppTest) -> None:
+    rendered = "\n".join(
+        _text(item)
+        for kind in ("markdown", "caption", "write", "button")
+        for item in app.get(kind)
+    )
+    for marker in _VALIDATE_PROCESS_ONLY_TEXT:
+        assert marker not in rendered
+    labels = {button.label for button in app.button}
+    for label in _VALIDATE_PROCESS_ONLY_BUTTONS:
+        assert label not in labels
+
+
 def _split_layers(app) -> tuple[list[str], list[str]]:
     """Return (visible-by-default text, text behind a technical expander)."""
 
@@ -104,6 +123,17 @@ def _descendant_text(block) -> str:
 # ---------------------------------------------------------------------------
 # A. Decision-first hierarchy
 # ---------------------------------------------------------------------------
+
+
+def test_results_never_renders_validate_process_content_on_open_or_rerun(
+    tmp_path, monkeypatch
+) -> None:
+    app = _results_app(tmp_path, monkeypatch)
+
+    for _ in range(3):
+        assert not app.exception
+        _assert_no_validate_process_content(app)
+        app = app.run()
 
 
 def test_results_leads_with_the_decision_not_the_pipeline(tmp_path, monkeypatch) -> None:

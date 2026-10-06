@@ -208,19 +208,22 @@ def test_portfolio_v1_canonical_customer_journey(tmp_path, monkeypatch) -> None:
     assert re.search(r"\d+ required checks? still need", _text(app))
 
     app = app.button_group[0].select("Required review").run()
-    grouped = next(
-        item
-        for item in app.button
-        if item.label.startswith("Keep all ")
-        and item.label.endswith(" document-backed details")
-    )
-    app = grouped.click().run()
-    assert not app.exception
-
+    for _ in range(20):
+        confirm = next(
+            (
+                item
+                for item in app.button
+                if item.key and item.key.startswith("confirm-")
+            ),
+            None,
+        )
+        if confirm is None:
+            break
+        app = confirm.click().run()
     assert any(
-        item.label == "Keep this step order" for item in app.button
+        item.label == "Confirm step order and continue" for item in app.button
     ), "step order is a required review item and must be offered"
-    app = _click(app, "Keep this step order")
+    app = _click(app, "Confirm step order and continue")
     assert not app.exception
 
     # The reviewer's actions are persisted, not held in the browser session.

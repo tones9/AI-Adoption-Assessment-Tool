@@ -246,9 +246,7 @@ def test_review_ui_can_produce_an_evidence_backed_criterion(tmp_path, monkeypatc
     def widget(collection, prefix: str):
         return next(item for item in collection if item.key and item.key.startswith(prefix))
 
-    app = widget(app.selectbox, f"action-{field_path}-").select(
-        "Add the missing information"
-    ).run()
+    app = widget(app.button, f"edit-{field_path}-").click().run()
     app = widget(app.number_input, f"value-{field_path}-").set_value(5).run()
 
     origin = widget(app.selectbox, f"origin-{field_path}-")

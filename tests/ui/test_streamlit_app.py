@@ -16,6 +16,12 @@ from ai_adoption_engine.models.document import (
     IngestionStatus,
     IssueSeverity,
 )
+from ai_adoption_engine.models.extraction import (
+    CandidateExtractionResult,
+    ExtractionIssue,
+    ExtractionIssueSeverity,
+    ExtractionStatus,
+)
 from ai_adoption_engine.models.review import ReviewConflict
 from ai_adoption_engine.persistence.sqlite import SQLiteAssessmentRepository
 from ai_adoption_engine.presentation.review_progress import (
@@ -62,6 +68,66 @@ def test_inaccessible_source_page_explains_prerequisite(tmp_path, monkeypatch) -
     assert any("Create or open an assessment first" in item.value for item in app.info)
 
 
+def test_source_shows_successful_ingestion_and_can_retry_a_failed_extraction(
+    tmp_path,
+    monkeypatch,
+) -> None:
+    path = tmp_path / "source-extraction-retry.db"
+    monkeypatch.setenv("AI_ADOPTION_ENGINE_DB_PATH", str(path))
+    repository = SQLiteAssessmentRepository(path)
+    service = build_workspace_service(path)
+    assessment = repository.create_assessment(
+        "Extraction retry",
+        ExecutionMode.OFFLINE_DEMO,
+    )
+    service.ingest_upload(assessment.assessment_id, raw_text=demo_text())
+    ingestion = repository.load_active_artifact(
+        assessment.assessment_id,
+        ArtifactType.INGESTION_RESULT,
+    )
+    assert ingestion is not None
+    repository.save_artifact_and_advance(
+        assessment.assessment_id,
+        ArtifactType.CANDIDATE_EXTRACTION_RESULT,
+        CandidateExtractionResult(
+            status=ExtractionStatus.FAILED,
+            issues=[
+                ExtractionIssue(
+                    severity=ExtractionIssueSeverity.ERROR,
+                    code="no-candidate-steps",
+                    message="No process activities had verifiable source evidence.",
+                )
+            ],
+        ),
+        artifact_schema_version="phase3-v0.1",
+        stage=WorkflowStage.INGESTED,
+        parent_artifact_id=ingestion.artifact_id,
+    )
+
+    app = AppTest.from_string(
+        _selected_page(
+            "from ai_adoption_engine.presentation.pages.source import render\nrender()",
+            assessment.assessment_id,
+        ),
+        default_timeout=30,
+    ).run()
+
+    assert any("Text extracted successfully" in item.value for item in app.success)
+    assert not any("No usable document was produced" in item.value for item in app.error)
+    retry = next(
+        item for item in app.button if item.label == "Retry candidate extraction"
+    )
+    app = retry.click().run()
+
+    assert not app.exception
+    reopened = repository.load_workspace(assessment.assessment_id)
+    result = reopened.active_artifacts[
+        ArtifactType.CANDIDATE_EXTRACTION_RESULT
+    ].payload
+    assert result.status == ExtractionStatus.SUCCESS
+    assert reopened.assessment.current_stage == WorkflowStage.CANDIDATE_READY
+
+
 def _selected_page(script: str, assessment_id: str) -> str:
     return (
         "import streamlit as st\n"
@@ -75,19 +141,52 @@ def _widget_with_key_prefix(widgets, prefix: str):
 
 
 def _apply_review_action(app: AppTest, field_path: str, action: str) -> AppTest:
-    selector = _widget_with_key_prefix(app.selectbox, f"action-{field_path}-")
-    app = selector.select(action).run()
-    button = _widget_with_key_prefix(app.button, f"apply-{field_path}-")
-    assert not button.disabled
-    return button.click().run()
+    prefixes = {
+        "Keep it": f"confirm-{field_path}-",
+        "Leave it as not provided": f"retain-{field_path}-",
+    }
+    return _widget_with_key_prefix(app.button, prefixes[action]).click().run()
 
 
-def _confirm_document_group(app: AppTest, key: str) -> AppTest:
-    if key != "process":
-        return app
-    button = app.button(key="confirm-all-documented")
-    assert not button.disabled
-    return button.click().run()
+def _confirm_all_required(app: AppTest) -> AppTest:
+    for _ in range(100):
+        confirmation = next(
+            (
+                item
+                for item in app.button
+                if item.key and item.key.startswith("confirm-")
+            ),
+            None,
+        )
+        if confirmation is not None:
+            app = confirmation.click().run()
+            continue
+        order = next(
+            (
+                item
+                for item in app.button
+                if item.label == "Confirm step order and continue"
+            ),
+            None,
+        )
+        if order is not None:
+            return order.click().run()
+        break
+    raise AssertionError("Required review did not reach step-order confirmation")
+
+
+def _assert_results_has_no_validate_process_content(app: AppTest) -> None:
+    rendered = "\n".join(
+        str(getattr(item, "value", "") or getattr(item, "label", "") or "")
+        for kind in ("markdown", "caption", "write", "button")
+        for item in app.get(kind)
+    )
+    for marker in (
+        "Confirm the step order",
+        "Check that the activities are shown in the order the work happens.",
+        "Confirm step order and continue",
+    ):
+        assert marker not in rendered
 
 
 def test_results_ui_displays_all_four_modes_and_incomplete_priority(tmp_path, monkeypatch) -> None:
@@ -329,7 +428,7 @@ def test_start_human_review_button_persists_once_and_opens_same_review(
     assert not app.exception
     assert app.title[0].value == "Validate process"
     assert app.button_group[0].value == "Required review"
-    assert any(button.label == "Process name" for button in app.button)
+    assert any("Process name" in button.label for button in app.button)
 
     started = SQLiteAssessmentRepository(path).load_workspace(
         assessment.assessment_id
@@ -417,8 +516,8 @@ def test_review_renders_duplicate_process_conflict_actions(tmp_path, monkeypatch
     ]
     assert len(conflict_actions) == 2
     assert [button.label for button in conflict_actions] == [
-        "Structure issue 1",
-        "Structure issue 2",
+        "○ Structure issue 1 — Needs review",
+        "○ Structure issue 2 — Needs review",
     ]
     assert not conflict_actions[0].click().run().exception
 
@@ -469,10 +568,10 @@ def test_approval_blockers_are_explicit_and_final_resolution_enables_approval(
     assert "### 8 of 9 required checks complete" in stats
     assert "**1 left**" in stats
     assert any(
-        button.label == "Step 6: Approve or return the proposed response"
+        "Step 6: Approve or return the proposed response" in button.label
         for button in app.button
     )
-    assert not any(button.label.startswith("Step 5:") for button in app.button)
+    assert any("Step 5:" in button.label for button in app.button)
     assert app.session_state["selected-review-step"] == unresolved_step.candidate_step_id
 
     app = app.button_group[0].select("Final approval").run()
@@ -496,9 +595,7 @@ def test_approval_blockers_are_explicit_and_final_resolution_enables_approval(
     ]
     assert app.session_state["selected-review-step"] == unresolved_step.candidate_step_id
     app = _apply_review_action(
-        app,
-        f"steps.{unresolved_step.candidate_step_id}.activity",
-        "Keep it",
+        app, f"steps.{unresolved_step.candidate_step_id}.activity", "Keep it"
     )
 
     assert not app.exception
@@ -538,7 +635,7 @@ def test_approval_blockers_are_explicit_and_final_resolution_enables_approval(
     assert ArtifactType.DECISION_PACKAGE_RESULT not in approved.active_artifacts
 
 
-def test_scoped_document_confirmation_reduces_demo_review_work_without_flattening_audit(
+def test_required_confirmation_is_explicit_and_does_not_bulk_accept_optional_details(
     tmp_path, monkeypatch
 ) -> None:
     path = tmp_path / "scoped-confirmation.db"
@@ -569,12 +666,7 @@ def test_scoped_document_confirmation_reduces_demo_review_work_without_flattenin
         item.value for item in app.markdown
     ]
 
-    app = _confirm_document_group(app, "process")
-    for step in session.steps:
-        app = _confirm_document_group(app, f"step-{step.candidate_step_id}")
-    app = next(
-        item for item in app.button if item.label == "Keep this step order"
-    ).click().run()
+    app = _confirm_all_required(app)
 
     assert "### 9 of 9 required checks complete" in {
         item.value for item in app.markdown
@@ -587,16 +679,16 @@ def test_scoped_document_confirmation_reduces_demo_review_work_without_flattenin
         persisted_targets.extend(
             iter_step_assertions(persisted, step.candidate_step_id)
         )
-    assert not document_supported_unreviewed(persisted_targets)
-    assert len(persisted.events) == documented_count + 1
+    assert document_supported_unreviewed(persisted_targets)
+    assert len(persisted.events) == len(session.steps) + 2
     assert inferred_unreviewed(persisted)
     assert sum(
         item.assertion.knowledge_state.value == "unknown"
         and item.assertion.disposition.value == "unreviewed"
         for item in persisted_targets
     ) == 147
-    # One grouped confirmation + order + checkbox + approval replace the
-    # misleading ~194-action UI path while preserving individual audit events.
+    # Required items each receive an explicit action. Optional extracted details
+    # remain unreviewed rather than being accepted by a bulk shortcut.
     assert any(
         item.label == "I approve this current-state process" for item in app.checkbox
     )
@@ -625,7 +717,7 @@ def test_review_action_controls_are_conditional_and_saved_state_is_visible(
     # The page shows the authoritative required queue as buttons and edits one
     # selected requirement directly below it.
     assert not [item for item in app.selectbox if item.key == "selected-review-step"]
-    assert len([item for item in app.button if item.label.startswith("Step ")]) == (
+    assert len([item for item in app.button if "Step " in item.label]) == (
         len(session.steps) + 1
     )
     progress = "\n".join(item.value for item in app.markdown)
@@ -634,24 +726,17 @@ def test_review_action_controls_are_conditional_and_saved_state_is_visible(
         item.value for item in app.caption
     )
     assert not app.metric
-    assert len([item for item in app.button if item.label == "Save and continue"]) == 1
-
-    process_action = _widget_with_key_prefix(app.selectbox, "action-process.name-")
-    process_button = _widget_with_key_prefix(app.button, "apply-process.name-")
-    assert process_action.value == "Choose an option"
-    assert process_button.disabled
+    assert not any(item.label == "Save and continue" for item in app.button)
+    assert not any(item.label == "No change" for item in app.selectbox)
+    process_button = _widget_with_key_prefix(app.button, "confirm-process.name-")
+    assert not process_button.disabled
     assert not any(
         item.key and item.key.startswith("value-process.name-")
         for item in app.text_input
     )
 
-    app = process_action.select("Keep it").run()
-    assert not any(
-        item.key and item.key.startswith("rationale-process.name-")
-        for item in app.text_input
-    )
-    app = _widget_with_key_prefix(app.button, "apply-process.name-").click().run()
-    assert any("Process name saved — kept" in item.value for item in app.success)
+    app = process_button.click().run()
+    assert any("Process name confirmed" in item.value for item in app.success)
     persisted = repository.load_active_artifact(
         assessment.assessment_id, ArtifactType.REVIEW_SESSION
     ).payload
@@ -661,8 +746,7 @@ def test_review_action_controls_are_conditional_and_saved_state_is_visible(
 
     first_step = session.steps[0]
     unknown_path = f"steps.{first_step.candidate_step_id}.criteria[0]"
-    unknown_action = _widget_with_key_prefix(app.selectbox, f"action-{unknown_path}-")
-    app = unknown_action.select("Leave it as not provided").run()
+    unknown_action = _widget_with_key_prefix(app.button, f"retain-{unknown_path}-")
     assert not any(
         item.key and item.key.startswith(f"value-{unknown_path}-")
         for item in [*app.number_input, *app.selectbox]
@@ -671,16 +755,14 @@ def test_review_action_controls_are_conditional_and_saved_state_is_visible(
         item.key and item.key.startswith(f"rationale-{unknown_path}-")
         for item in app.text_input
     )
-    app = _widget_with_key_prefix(app.button, f"apply-{unknown_path}-").click().run()
-    assert any("unknown retained" in item.value for item in app.success)
+    app = unknown_action.click().run()
+    assert any("remains explicitly not provided" in item.value for item in app.success)
     assert any(">Unknown retained<" in item.value for item in app.markdown)
 
     # Correction and rejection expose rationale only when it is required, and
     # saved states remain visibly distinct.
-    description_action = _widget_with_key_prefix(
-        app.selectbox, "action-process.description-"
-    )
-    app = description_action.select("I want to change it").run()
+    description_action = _widget_with_key_prefix(app.button, "edit-process.description-")
+    app = description_action.click().run()
     _widget_with_key_prefix(app.text_input, "value-process.description-").input(
         "Human-corrected process description"
     )
@@ -694,10 +776,8 @@ def test_review_action_controls_are_conditional_and_saved_state_is_visible(
     assert ">Corrected<" in rendered
     assert ">Human supplied<" in rendered
 
-    objective_action = _widget_with_key_prefix(
-        app.selectbox, "action-process.objective-"
-    )
-    app = objective_action.select("This information should not be included").run()
+    objective_action = _widget_with_key_prefix(app.button, "exclude-process.objective-")
+    app = objective_action.click().run()
     _widget_with_key_prefix(
         app.text_input, "rationale-process.objective-"
     ).input("The objective is not supported as extracted.")
@@ -755,23 +835,18 @@ def test_complete_offline_demo_ui_journey_persists_and_reopens_exact_chain(
     session = started.active_artifacts[ArtifactType.REVIEW_SESSION].payload
     app._page_hash = calc_hash("review")
     app.run()
-    app = _confirm_document_group(app, "process")
-    for step in session.steps:
-        app = _confirm_document_group(app, f"step-{step.candidate_step_id}")
+    app = _confirm_all_required(app)
 
     first_step = session.steps[0]
     app = app.button_group[0].select("Optional details").run()
     unknown_path = f"steps.{first_step.candidate_step_id}.criteria[0]"
     app = _apply_review_action(app, unknown_path, "Leave it as not provided")
-    assert any("unknown retained" in item.value for item in app.success)
+    assert any("remains explicitly not provided" in item.value for item in app.success)
     assert not any(
         item.key and unknown_path in item.key for item in app.number_input
     )
 
-    app = app.button_group[0].select("Required review").run()
-    next(
-        item for item in app.button if item.label == "Keep this step order"
-    ).click().run()
+    app = app.button_group[0].select("Final approval").run()
     confirmation = next(
         item
         for item in app.checkbox
@@ -797,6 +872,11 @@ def test_complete_offline_demo_ui_journey_persists_and_reopens_exact_chain(
     assert next(item for item in app.metric if item.label == "Activities assessed").value == "7"
     assert next(item for item in app.metric if item.label == "Investigate").value == "7"
     assert not app.error
+    _assert_results_has_no_validate_process_content(app)
+
+    app = app.run()
+    assert not app.exception
+    _assert_results_has_no_validate_process_content(app)
 
     app._page_hash = calc_hash("decision-package")
     app.run()

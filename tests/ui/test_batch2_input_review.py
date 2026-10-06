@@ -144,12 +144,12 @@ def test_validate_process_keeps_actions_order_and_disabled_approval_gate(
         "Final approval",
     ]
     assert not [item for item in app.selectbox if item.key == "selected-review-step"]
-    assert len([item for item in app.button if item.label.startswith("Step ")]) == (
+    assert len([item for item in app.button if "Step " in item.label]) == (
         len(session.steps) + 1
     )
-    action = next(item for item in app.selectbox if item.label == "What would you like to do?")
-    assert {"Keep it", "I want to change it"}.issubset(action.options)
-    assert any(item.label == "Step order" for item in app.button)
+    assert any(item.label == "Confirm and continue" for item in app.button)
+    assert any(item.label == "Correct this" for item in app.button)
+    assert any("Step order" in item.label for item in app.button)
     app = app.button_group[0].select("Final approval").run()
     approval = next(
         item for item in app.button if item.label == "Approve current-state process"
